@@ -5,6 +5,16 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Задача  3.6-4',
+      home: MyFirstWidgetFull(),
+    );
+  }
+}
+
+class MyApp1 extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -66,14 +76,21 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 
-//---------------Задание 3.6-3
+//---------------Задание 3.6-4
 class MyFirstWidget extends StatelessWidget {
   MyFirstWidget({Key key}) : super(key: key);
 
   int countColl = 0;
 
+  String getContext() {
+    return context.runtimeType.toString();
+  }
+
   @override
   Widget build(BuildContext context) {
+
+    print('Текуший контекст: ${getContext()}');
+
     countColl += 1;
     print(countColl);
     return Container(
@@ -94,8 +111,13 @@ class MyFirstWidgetFull extends StatefulWidget {
 class _MyFirstWidgetFullState extends State<MyFirstWidgetFull> {
   int countColl = 0;
 
+  String getContext() {
+    return context.runtimeType.toString();
+  }
+
   @override
   Widget build(BuildContext context) {
+    print('Текуший контекст: ${getContext()}');
     countColl += 1;
     print(countColl);
     return Container(
