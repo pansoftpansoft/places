@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:places/ui/screen/sight_list_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -8,8 +9,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Задача  3.6-4',
-      home: MyFirstWidgetFull(),
+      title: 'Задача  4.2-1',
+      home: SightListScreen(),
     );
   }
 }
@@ -82,14 +83,14 @@ class MyFirstWidget extends StatelessWidget {
 
   int countColl = 0;
 
-  String getContext() {
-    return context.runtimeType.toString();
-  }
+  //String getContext() {
+  //  return context.runtimeType.toString();
+  //}
 
   @override
   Widget build(BuildContext context) {
 
-    print('Текуший контекст: ${getContext()}');
+    //print('Текуший контекст: ${getContext()}');
 
     countColl += 1;
     print(countColl);
