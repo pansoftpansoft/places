@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:places/ui/screen/sight_list_screen.dart';
+import 'package:flutter/services.dart';
 
 void main() {
+
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+    statusBarColor: Colors.transparent, // transparent status bar
+  ));
+
   runApp(MyApp());
 }
 
