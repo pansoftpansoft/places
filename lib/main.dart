@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:places/ui/screen/sight_details.dart';
 import 'package:places/ui/screen/sight_list_screen.dart';
 import 'package:flutter/services.dart';
 
-void main() {
+import 'mocks.dart';
 
+void main() {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
     statusBarColor: Colors.transparent, // transparent status bar
@@ -17,7 +19,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Задача  4.2-1',
-      home: SightListScreen(),
+      //home: SightListScreen(),
+      home: SightDetails(mocks[1]),
     );
   }
 }
@@ -96,7 +99,6 @@ class MyFirstWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     //print('Текуший контекст: ${getContext()}');
 
     countColl += 1;
