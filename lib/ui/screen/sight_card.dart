@@ -23,17 +23,18 @@ class SightCard extends StatelessWidget {
           Container(
             height: 96,
             width: double.infinity,
-
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
                 color: Colors.amber,
-                borderRadius: BorderRadius.only(topLeft: Radius.circular(16),topRight: Radius.circular(16))),
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(16),
+                    topRight: Radius.circular(16))),
           ),
           Positioned(
               left: 16,
               top: 16,
               child: Text(
                 sight.type,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.w400,
                   color: Color(0xFF7C7E92),
@@ -58,16 +59,16 @@ class SightCard extends StatelessWidget {
               Text(
                 sight.name,
                 maxLines: 3,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w500,
                   color: Color(0xFF3B3E5B),
                   height: 1.25,
                 ),
               ),
-              Text(
+              const Text(
                 'краткое описание',
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.w400,
                   color: Color(0xFF7C7E92),
