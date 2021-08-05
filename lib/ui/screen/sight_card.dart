@@ -25,47 +25,55 @@ class SightCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Stack(
-            children: [
-              Container(
-                height: 96,
-                width: double.infinity,
-                decoration: const BoxDecoration(
-                  color: Colors.amber,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(16),
-                    topRight: Radius.circular(16),
+          Container(
+            child: AspectRatio(
+              aspectRatio: 3 / 2,
+              child: Stack(
+                children: [
+                  Container(
+                    decoration: const BoxDecoration(
+                      color: Colors.amber,
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(16),
+                        topRight: Radius.circular(16),
+                      ),
+                    ),
                   ),
-                ),
+                  Positioned(
+                    left: 16,
+                    top: 16,
+                    child: Text(
+                      sight.type,
+                      style: FontCollection.fontWhiteColor14h18w700,
+                    ),
+                  ),
+                  Positioned(
+                    right: 18,
+                    top: 19,
+                    child: Container(
+                      width: 20,
+                      height: 18,
+                      color: Colors.green,
+                    ),
+                  ),
+                ],
               ),
-              Positioned(
-                left: 16,
-                top: 16,
-                child: Text(
-                  sight.type,
-                  style: FontCollection.fontWhiteColor14h18w700,
-                ),
-              ),
-              Positioned(
-                right: 18,
-                top: 19,
-                child: Container(
-                  width: 20,
-                  height: 18,
-                  color: Colors.green,
-                ),
-              ),
-            ],
+            ),
           ),
+          const SizedBox(height: 16),
           Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  sight.name,
-                  maxLines: 2,
-                  style: FontCollection.fontBasicColor16h20w500,
+                ConstrainedBox(
+                  constraints: BoxConstraints.tightFor(
+                      width: MediaQuery.of(context).size.width / 2 - 16 * 2),
+                  child: Text(
+                    sight.name,
+                    maxLines: 5,
+                    style: FontCollection.fontBasicColor16h20w500,
+                  ),
                 ),
                 Text(
                   Labels.shortDescription,
@@ -73,7 +81,8 @@ class SightCard extends StatelessWidget {
                 ),
               ],
             ),
-          )
+          ),
+          const SizedBox(height: 16)
         ],
       ),
     );
