@@ -2,7 +2,11 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:places/domain/sight.dart';
+import 'package:places/ui/theme/color_palette.dart';
+import 'package:places/ui/theme/font_collection.dart';
+import 'package:places/ui/theme/labels.dart';
 
+//Подробно о достопримечательности
 class SightDetails extends StatelessWidget {
   final Sight sight;
 
@@ -25,55 +29,35 @@ class SightDetails extends StatelessWidget {
               children: [
                 Text(
                   sight.name,
-                  style: const TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.w700,
-                    color: Color(0xFF3B3E5B),
-                    height: 1.20,
-                  ),
+                  style: FontCollection.fontBasicColor24h29w700,
                 ),
                 Row(
                   children: [
                     Text(
                       sight.type,
-                      style: const TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w700,
-                        color: Color(0xFF3B3E5B),
-                        height: 1.40,
-                      ),
+                      style: FontCollection.fontBasicColor14h18w700,
                     ),
-                    SizedBox(width: 16),
-                    const Text(
+                    const SizedBox(width: 16),
+                    Text(
                       'закрыто до 09:00',
-                      style: const TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w400,
-                        color: Color(0xFF7C7E92),
-                        height: 1.40,
-                      ),
+                      style: FontCollection.fontBasicColorLight14h18w400,
                     ),
                   ],
                 ),
-                SizedBox(height: 24),
+                const SizedBox(height: 24),
                 Text(
                   sight.details,
-                  style: const TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w400,
-                    color: Color(0xFF3B3E5B),
-                    height: 1.29,
-                  ),
+                  style: FontCollection.fontBasicColor14h18w400,
                 ),
-                SizedBox(height: 24),
+                const SizedBox(height: 24),
                 ConstrainedBox(
-                  constraints: BoxConstraints.tightFor(height: 48),
+                  constraints: const BoxConstraints.tightFor(height: 48),
                   child: ElevatedButton(
                     style: ButtonStyle(
                         padding: MaterialStateProperty.all(EdgeInsets.zero),
                         elevation: MaterialStateProperty.all(0),
-                        backgroundColor:
-                            MaterialStateProperty.all<Color>(Color(0xFF4CAF50)),
+                        backgroundColor: MaterialStateProperty.all<Color>(
+                            ColorPalette.buttonColor),
                         shape:
                             MaterialStateProperty.all<RoundedRectangleBorder>(
                                 RoundedRectangleBorder(
@@ -82,67 +66,54 @@ class SightDetails extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(Icons.gesture_outlined),
+                        const Icon(Icons.gesture_outlined),
                         Text(
-                          'ПОСТРОИТЬ МАРШРУТ',
-                          style: const TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w700,
-                            color: Color(0xFFFFFFFF),
-                            height: 1.29,
-                          ),
+                          Labels.buildRoute,
+                          style: FontCollection.fontWhiteColor14h18w700,
                         ),
                       ],
                     ),
                     onPressed: () {},
                   ),
                 ),
-                SizedBox(height: 24),
-                Divider(),
+                const SizedBox(height: 24),
+                const Divider(),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     TextButton(
-                        onPressed: null,
-                        child: Row(
-                          children: [
-                            const Icon(
-                              Icons.calendar_today_outlined,
-                              color: Color(0xFF7C7E92),
-                            ),
-                            SizedBox(width: 9),
-                            const Text(
-                              'Запланировать',
-                              style: const TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w400,
-                                color: Color(0xFF7C7E92),
-                                height: 1.29,
-                              ),
-                            ),
-                          ],
-                        )),
+                      onPressed: () {},
+                      child: Row(
+                        children: [
+                          Icon(
+                            Icons.calendar_today_outlined,
+                            color: ColorPalette.fontBasicColorLight,
+                          ),
+                          const SizedBox(width: 9),
+                          Text(
+                            Labels.schedule,
+                            style: FontCollection.fontBasicColorLight14h18w400,
+                          ),
+                        ],
+                      ),
+                    ),
                     TextButton(
-                        onPressed: null,
-                        child: Row(
-                          children: [
-                            const Icon(
-                              Icons.favorite_border,
-                              color: Color(0xFF3B3E5B),
-                              size: 30,
-                            ),
-                            SizedBox(width: 10),
-                            const Text(
-                              'В избранное',
-                              style: const TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w400,
-                                color: Color(0xFF3B3E5B),
-                                height: 1.29,
-                              ),
-                            ),
-                          ],
-                        ))
+                      onPressed: () {},
+                      child: Row(
+                        children: [
+                          Icon(
+                            Icons.favorite_border,
+                            color: ColorPalette.fontBasicColor,
+                            size: 30,
+                          ),
+                          const SizedBox(width: 10),
+                          Text(
+                            Labels.addToFavorites,
+                            style: FontCollection.fontBasicColor14h18w400,
+                          ),
+                        ],
+                      ),
+                    ),
                   ],
                 )
               ],
