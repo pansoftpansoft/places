@@ -1,3 +1,4 @@
+import 'dart:ffi';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
@@ -30,15 +31,24 @@ class SightCard extends StatelessWidget {
               Container(
                 height: 96,
                 width: double.infinity,
-                decoration: BoxDecoration(
-                  color: Colors.amber,
+                child: ClipRRect(
                   borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(16),
-                    topRight: Radius.circular(16),
-                  ),
-                  image: DecorationImage(
-                    image: NetworkImage(sight.url),
+                      topRight: Radius.circular(16),
+                      topLeft: Radius.circular(16)),
+                  child: Image.network(
+                    sight.url,
                     fit: BoxFit.fitWidth,
+                    loadingBuilder: (context, child, progress) {
+                      return progress == null
+                          ? child
+                          : const UnconstrainedBox(
+                              child: const SizedBox(
+                                height: 10,
+                                width: 10,
+                                child: const CircularProgressIndicator(),
+                              ),
+                            );
+                    },
                   ),
                 ),
               ),
