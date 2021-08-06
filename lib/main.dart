@@ -7,7 +7,7 @@ import 'mocks.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
     statusBarColor: Colors.transparent, // transparent status bar
   ));
 
@@ -15,10 +15,6 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  MyApp({
-    Key key,
-  }) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -30,10 +26,6 @@ class MyApp extends StatelessWidget {
 }
 
 class MyApp1 extends StatelessWidget {
-  MyApp1({
-    Key key,
-  }) : super(key: key);
-
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -76,7 +68,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Text(
+            Text(
               'You have pushed the button this many times:',
             ),
             Text(
@@ -89,7 +81,7 @@ class _MyHomePageState extends State<MyHomePage> {
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
         tooltip: 'Increment',
-        child: const Icon(Icons.add),
+        child: Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
@@ -99,17 +91,21 @@ class _MyHomePageState extends State<MyHomePage> {
 class MyFirstWidget extends StatelessWidget {
   MyFirstWidget({Key key}) : super(key: key);
 
-  static int  countColl = 0;
+  int countColl = 0;
+
+  //String getContext() {
+  //  return context.runtimeType.toString();
+  //}
 
   @override
   Widget build(BuildContext context) {
     //print('Текуший контекст: ${getContext()}');
 
-    //countColl += 1;
+    countColl += 1;
     print(countColl);
     return Container(
-      child: const Center(
-        child: const Text('Hello!'),
+      child: Center(
+        child: Text('Hello!'),
       ),
     );
   }
@@ -135,8 +131,8 @@ class _MyFirstWidgetFullState extends State<MyFirstWidgetFull> {
     countColl += 1;
     print(countColl);
     return Container(
-      child: const Center(
-        child: const Text('Hello!'),
+      child: Center(
+        child: Text('Hello!'),
       ),
     );
   }
