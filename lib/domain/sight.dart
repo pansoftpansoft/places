@@ -1,3 +1,4 @@
+// Модель данных
 class Sight {
   final String name; //название достопримечательности
   final String lat; //координаты места

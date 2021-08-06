@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:places/ui/screen/sight_details.dart';
 import 'package:places/ui/screen/sight_list_screen.dart';
 import 'package:flutter/services.dart';
 
-import 'mocks.dart';
-
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     statusBarColor: Colors.transparent, // transparent status bar
   ));
 
@@ -15,17 +12,25 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
+  MyApp({
+    Key key,
+  }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       title: 'Задача  4.2-1',
-      //home: SightListScreen(),
-      home: SightDetails(mocks[1]),
+      home: SightListScreen(),
+      //home: SightDetails(mocks[1]),
     );
   }
 }
 
 class MyApp1 extends StatelessWidget {
+  MyApp1({
+    Key key,
+  }) : super(key: key);
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -68,7 +73,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text(
+            const Text(
               'You have pushed the button this many times:',
             ),
             Text(
@@ -81,7 +86,7 @@ class _MyHomePageState extends State<MyHomePage> {
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
         tooltip: 'Increment',
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
@@ -91,21 +96,17 @@ class _MyHomePageState extends State<MyHomePage> {
 class MyFirstWidget extends StatelessWidget {
   MyFirstWidget({Key key}) : super(key: key);
 
-  int countColl = 0;
-
-  //String getContext() {
-  //  return context.runtimeType.toString();
-  //}
+  static int  countColl = 0;
 
   @override
   Widget build(BuildContext context) {
     //print('Текуший контекст: ${getContext()}');
 
-    countColl += 1;
+    //countColl += 1;
     print(countColl);
     return Container(
-      child: Center(
-        child: Text('Hello!'),
+      child: const Center(
+        child: const Text('Hello!'),
       ),
     );
   }
@@ -131,8 +132,8 @@ class _MyFirstWidgetFullState extends State<MyFirstWidgetFull> {
     countColl += 1;
     print(countColl);
     return Container(
-      child: Center(
-        child: Text('Hello!'),
+      child: const Center(
+        child: const Text('Hello!'),
       ),
     );
   }

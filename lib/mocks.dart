@@ -1,5 +1,5 @@
 import 'domain/sight.dart';
-
+// Тестовые данные
 final List<Sight> mocks = [
   Sight(
       'Ивановская площадь',
