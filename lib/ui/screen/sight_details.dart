@@ -17,6 +17,21 @@ class SightDetails extends StatelessWidget {
             height: 360,
             width: double.infinity,
             color: Colors.green,
+            child: Image.network(
+              sight.url,
+              fit: BoxFit.cover,
+              loadingBuilder: (context, child, progress) {
+                return progress == null
+                    ? child
+                    : const UnconstrainedBox(
+                        child: const SizedBox(
+                          height: 40,
+                          width: 40,
+                          child: const CircularProgressIndicator(),
+                        ),
+                      );
+              },
+            ),
           ),
           Padding(
             padding: const EdgeInsets.fromLTRB(16, 24, 16, 0),

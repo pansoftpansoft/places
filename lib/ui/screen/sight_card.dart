@@ -23,24 +23,26 @@ class SightCard extends StatelessWidget {
           Container(
             height: 96,
             width: double.infinity,
-            decoration: const BoxDecoration(
-                color: Colors.amber,
-                borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(16),
-                    topRight: Radius.circular(16))),
+            child: ClipRRect(
+              borderRadius: const BorderRadius.only(
+                  topRight: Radius.circular(16), topLeft: Radius.circular(16)),
+              child: Image.network(
+                sight.url,
+                fit: BoxFit.fitWidth,
+                loadingBuilder: (context, child, progress) {
+                  return progress == null
+                      ? child
+                      : const UnconstrainedBox(
+                          child: const SizedBox(
+                            height: 10,
+                            width: 10,
+                            child: const CircularProgressIndicator(),
+                          ),
+                        );
+                },
+              ),
+            ),
           ),
-          Positioned(
-              left: 16,
-              top: 16,
-              child: Text(
-                sight.type,
-                style: const TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w400,
-                  color: Color(0xFF7C7E92),
-                  height: 1,
-                ),
-              )),
           Positioned(
             right: 18,
             top: 19,
