@@ -14,11 +14,12 @@ dependencies:
   flutter_svg: ^0.22.0
 
   cupertino_icons: ^1.0.2
+  pedantic: 1.9.2
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  pedantic: ^1.11.1
+
 
 flutter:
 

@@ -1,10 +1,22 @@
-include: package:pedantic/analysis_options.1.11.1.yaml
+include: package:pedantic/analysis_options.1.9.2.yaml
 
 
 analyzer:
   strong-mode:
     implicit-casts: false
     implicit-dynamic: false
+
+
+dart_code_metrics:
+  metrics-exclude:
+    - test/**
+  rules:
+    - always-remove-listener
+    - avoid-returning-widgets
+    - avoid-unnecessary-setstate
+    - binary-expression-operand-order
+    - no-equal-then-else
+    - prefer-trailing-comma
 
 linter:
   rules:

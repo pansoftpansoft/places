@@ -29,8 +29,8 @@ class SightDetails extends StatelessWidget {
                     ? child
                     : const UnconstrainedBox(
                         child: const SizedBox(
-                          height: 40,
-                          width: 40,
+                          height: 30,
+                          width: 30,
                           child: const CircularProgressIndicator(),
                         ),
                       );

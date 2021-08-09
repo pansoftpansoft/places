@@ -37,12 +37,34 @@ class FontCollection {
     color: ColorPalette.fontBasicColorLight,
     height: 1.29,
   );
+  static TextStyle fontBasicColorLightHard14h18w400 = TextStyle(
+    letterSpacing: 0,
+    fontWeight: FontWeight.w400,
+    fontSize: 14,
+    color: ColorPalette.fontBasicColorLightHard,
+    height: (18/14).toDouble(),
+  );
   static TextStyle fontWhiteColor14h18w700 = TextStyle(
     letterSpacing: 0,
     fontWeight: FontWeight.w700,
     fontSize: 14,
     color: ColorPalette.fontWhiteColor,
     height: 1.29,
+  );
+  static TextStyle fontBasicColorLight18h24w500 = TextStyle(
+    letterSpacing: 0,
+    fontWeight: FontWeight.w500,
+    fontSize: 18,
+    color: ColorPalette.fontBasicColorLight,
+    height: (24/18).toDouble(),
+  );
+
+  static TextStyle headerTabColor18h24w500 = TextStyle(
+    letterSpacing: 0,
+    fontWeight: FontWeight.w500,
+    fontSize: 18,
+    color: ColorPalette.headerTabColor,
+    height: (24/18).toDouble(),
   );
   static TextStyle fontNoColor32h36w700 = const TextStyle(
     fontSize: 32,
