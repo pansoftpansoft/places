@@ -64,6 +64,20 @@ class SightCard extends StatelessWidget {
                 ),
               ),
               Positioned(
+                right: 42,
+                top: 19,
+                child: goNeed != ''
+                    ? const Icon(Icons.calendar_today_outlined, color: Colors.white, )
+                    : const SizedBox(width: 0),
+              ),
+              Positioned(
+                right: 42,
+                top: 19,
+                child: goal != ''
+                    ? const Icon(Icons.share, color: Colors.white, )
+                    : const SizedBox(width: 0),
+              ),
+              Positioned(
                 right: 18,
                 top: 19,
                 child: Container(
