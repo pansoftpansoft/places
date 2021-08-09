@@ -137,7 +137,7 @@ class _VisitingScreenState extends State<VisitingScreen> {
                         ),
                         SightCard(
                           mocks[4],
-                          goNeed: 'Запланировано на 12 окт. 2021',
+                          goNeed: 'Запланировано на 12 окт. 2021 ',
                         ),
                       ],
                     ),

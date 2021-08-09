@@ -21,14 +21,16 @@ class SightCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-        margin: const EdgeInsets.fromLTRB(0, 0, 0, 16),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16.0),
-        ),
-        color: ColorPalette.cardColor,
-        shadowColor: Colors.blueGrey,
-        elevation: 0,
-        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+      margin: const EdgeInsets.fromLTRB(0, 0, 0, 16),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(16.0),
+      ),
+      color: ColorPalette.cardColor,
+      shadowColor: Colors.blueGrey,
+      elevation: 0,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
           Stack(
             children: [
               Container(
@@ -67,14 +69,20 @@ class SightCard extends StatelessWidget {
                 right: 42,
                 top: 19,
                 child: goNeed != ''
-                    ? const Icon(Icons.calendar_today_outlined, color: Colors.white, )
+                    ? const Icon(
+                        Icons.calendar_today_outlined,
+                        color: Colors.white,
+                      )
                     : const SizedBox(width: 0),
               ),
               Positioned(
                 right: 42,
                 top: 19,
                 child: goal != ''
-                    ? const Icon(Icons.share, color: Colors.white, )
+                    ? const Icon(
+                        Icons.share,
+                        color: Colors.white,
+                      )
                     : const SizedBox(width: 0),
               ),
               Positioned(
@@ -131,6 +139,8 @@ class SightCard extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 16)
-        ]));
+        ],
+      ),
+    );
   }
 }
