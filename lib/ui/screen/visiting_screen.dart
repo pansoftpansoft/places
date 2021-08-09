@@ -25,6 +25,7 @@ class _VisitingScreenState extends State<VisitingScreen> {
       child: Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
+          elevation: 0,
           centerTitle: true,
           backgroundColor: Colors.white,
           title: Text(
@@ -55,43 +56,48 @@ class _VisitingScreenState extends State<VisitingScreen> {
             ),
           ),
         ),
-        bottomNavigationBar: BottomNavigationBar(
-          backgroundColor: Colors.white,
-          showSelectedLabels: false,
-          items: [
-            const BottomNavigationBarItem(
-              icon: Icon(
-                Icons.list_alt_outlined,
-                color: const Color(0xFF3B3E5B),
-                size: 30,
+        bottomNavigationBar: Theme(
+          data: Theme.of(context).copyWith(
+              canvasColor: Colors.white,
+          ),
+          child: BottomNavigationBar(
+            backgroundColor: ColorPalette.greenColor,
+            showSelectedLabels: false,
+            items: [
+              const BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.list_alt_outlined,
+                  color: const Color(0xFF3B3E5B),
+                  size: 30,
+                ),
+                label: '',
               ),
-              label: '',
-            ),
-            const BottomNavigationBarItem(
-              icon: Icon(
-                Icons.map_outlined,
-                color: const Color(0xFF3B3E5B),
-                size: 30,
+              const BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.map_outlined,
+                  color: const Color(0xFF3B3E5B),
+                  size: 30,
+                ),
+                label: '',
               ),
-              label: '',
-            ),
-            const BottomNavigationBarItem(
-              icon: Icon(
-                Icons.favorite,
-                color: const Color(0xFF3B3E5B),
-                size: 30,
+              const BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.favorite,
+                  color: const Color(0xFF3B3E5B),
+                  size: 30,
+                ),
+                label: '',
               ),
-              label: '',
-            ),
-            const BottomNavigationBarItem(
-              icon: Icon(
-                Icons.settings,
-                color: const Color(0xFF3B3E5B),
-                size: 30,
+              const BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.settings,
+                  color: const Color(0xFF3B3E5B),
+                  size: 30,
+                ),
+                label: '',
               ),
-              label: '',
-            ),
-          ],
+            ],
+          ),
         ),
         body: Padding(
           padding: const EdgeInsets.all(16.0),
