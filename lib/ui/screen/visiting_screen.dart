@@ -125,8 +125,8 @@ class _VisitingScreenState extends State<VisitingScreen> {
                     )
                   : Column(
                       children: [
-                        SightCard(mocks[3]),
-                        SightCard(mocks[4]),
+                        SightCard(mocks[3],goNeed: 'Запланировано на 11 окт. 2021',),
+                        SightCard(mocks[4],goNeed: 'Запланировано на 12 окт. 2021',),
                       ],
                     ),
               mocksLength == 0
@@ -157,8 +157,8 @@ class _VisitingScreenState extends State<VisitingScreen> {
                     )
                   : Column(
                       children: [
-                        SightCard(mocks[0],),
-                        SightCard(mocks[1]),
+                        SightCard(mocks[0], goal: 'Цель достигнута 11 окт. 2021',),
+                        SightCard(mocks[1], goal: 'Цель достигнута 12 окт. 2021',),
                       ],
                     ),
             ],

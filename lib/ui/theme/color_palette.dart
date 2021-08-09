@@ -9,4 +9,5 @@ class ColorPalette {
   static Color cardColor = const Color(0xFFF5F5F5);
   static Color buttonColor = const Color(0xFF4CAF50);
   static Color headerTabColor = const Color(0xFF252849);
+  static Color greenColor = const Color(0xFF4CAF50);
 }

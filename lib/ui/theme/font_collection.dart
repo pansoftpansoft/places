@@ -71,4 +71,11 @@ class FontCollection {
     fontWeight: FontWeight.w700,
     height: 1.11,
   );
+  static TextStyle greenColor14h18w400 = TextStyle(
+    letterSpacing: 0,
+    fontWeight: FontWeight.w400,
+    fontSize: 14,
+    color: ColorPalette.greenColor,
+    height: (18/14).toDouble(),
+  );
 }
