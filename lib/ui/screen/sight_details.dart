@@ -28,12 +28,12 @@ class SightDetails extends StatelessWidget {
                 return progress == null
                     ? child
                     : const UnconstrainedBox(
-                  child: const SizedBox(
-                    height: 30,
-                    width: 30,
-                    child: const CircularProgressIndicator(),
-                  ),
-                );
+                        child: const SizedBox(
+                          height: 30,
+                          width: 30,
+                          child: const CircularProgressIndicator(),
+                        ),
+                      );
               },
             ),
           ),
@@ -74,10 +74,10 @@ class SightDetails extends StatelessWidget {
                         backgroundColor: MaterialStateProperty.all<Color>(
                             ColorPalette.buttonColor),
                         shape:
-                        MaterialStateProperty.all<RoundedRectangleBorder>(
-                            RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12.0),
-                            ))),
+                            MaterialStateProperty.all<RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12.0),
+                        ))),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [

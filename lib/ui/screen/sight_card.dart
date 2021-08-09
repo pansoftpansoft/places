@@ -87,26 +87,26 @@ class SightCard extends StatelessWidget {
                 ),
                 goNeed != '' && goal == ''
                     ? Padding(
-                      padding: const EdgeInsets.only(bottom: 10),
-                      child: Text(
+                        padding: const EdgeInsets.only(bottom: 10),
+                        child: Text(
                           goNeed,
                           maxLines: 5,
                           style: FontCollection.greenColor14h18w400,
                         ),
-                    )
-                    : SizedBox(
+                      )
+                    : const SizedBox(
                         height: 0,
                       ),
                 goNeed == '' && goal != ''
                     ? Padding(
-                  padding: const EdgeInsets.only(bottom: 10),
-                      child: Text(
+                        padding: const EdgeInsets.only(bottom: 10),
+                        child: Text(
                           goal,
                           maxLines: 5,
                           style: FontCollection.fontBasicColor14h18w400,
                         ),
-                    )
-                    : SizedBox(
+                      )
+                    : const SizedBox(
                         height: 0,
                       ),
                 Text(
