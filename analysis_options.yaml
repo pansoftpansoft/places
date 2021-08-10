@@ -1,0 +1,23 @@
+
+analyzer:
+  strong-mode:
+    implicit-casts: false
+    implicit-dynamic: false
+
+
+dart_code_metrics:
+  metrics-exclude:
+    - test/**
+  rules:
+    - always-remove-listener
+    - avoid-returning-widgets
+    - avoid-unnecessary-setstate
+    - binary-expression-operand-order
+    - no-equal-then-else
+    - prefer-trailing-comma
+
+linter:
+  rules:
+    - prefer_const_constructors
+    - prefer_const_declarations
+    #- use_key_in_widget_constructors
