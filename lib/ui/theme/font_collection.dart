@@ -2,80 +2,80 @@ import 'package:flutter/material.dart';
 import 'color_palette.dart';
 
 class FontCollection {
-  static TextStyle fontBasicColor14h18w400 = TextStyle(
+  static const TextStyle fontBasicColor14h18w400 = const TextStyle(
     letterSpacing: 0,
     fontWeight: FontWeight.w400,
     fontSize: 14,
     color: ColorPalette.fontBasicColor,
     height: 1.29,
   );
-  static TextStyle fontBasicColor14h18w700 = TextStyle(
+  static  const  TextStyle fontBasicColor14h18w700 = const TextStyle(
     letterSpacing: 0,
     fontWeight: FontWeight.w700,
     fontSize: 14,
     color: ColorPalette.fontBasicColor,
     height: 1.29,
   );
-  static TextStyle fontBasicColor16h20w500 = TextStyle(
+  static const TextStyle fontBasicColor16h20w500 = const TextStyle(
     color: ColorPalette.fontBasicColor,
     fontWeight: FontWeight.w500,
     fontSize: 16,
     height: 1.25,
     letterSpacing: 0,
   );
-  static TextStyle fontBasicColor24h29w700 = TextStyle(
+  static const TextStyle fontBasicColor24h29w700 = const TextStyle(
     letterSpacing: 0,
     fontWeight: FontWeight.w700,
     fontSize: 24,
     color: ColorPalette.fontBasicColor,
     height: 1.20,
   );
-  static TextStyle fontBasicColorLight14h18w400 = TextStyle(
+  static const TextStyle fontBasicColorLight14h18w400 = const TextStyle(
     letterSpacing: 0,
     fontWeight: FontWeight.w400,
     fontSize: 14,
     color: ColorPalette.fontBasicColorLight,
     height: 1.29,
   );
-  static TextStyle fontBasicColorLightHard14h18w400 = TextStyle(
+  static const TextStyle fontBasicColorLightHard14h18w400 = const TextStyle(
     letterSpacing: 0,
     fontWeight: FontWeight.w400,
     fontSize: 14,
     color: ColorPalette.fontBasicColorLightHard,
-    height: (18 / 14).toDouble(),
+    height: 1.29,
   );
-  static TextStyle fontWhiteColor14h18w700 = TextStyle(
+  static const TextStyle fontWhiteColor14h18w700 = const TextStyle(
     letterSpacing: 0,
     fontWeight: FontWeight.w700,
     fontSize: 14,
     color: ColorPalette.fontWhiteColor,
     height: 1.29,
   );
-  static TextStyle fontBasicColorLight18h24w500 = TextStyle(
+  static const TextStyle fontBasicColorLight18h24w500 = const TextStyle(
     letterSpacing: 0,
     fontWeight: FontWeight.w500,
     fontSize: 18,
     color: ColorPalette.fontBasicColorLight,
-    height: (24 / 18).toDouble(),
+    height: 1.33,
   );
 
-  static TextStyle headerTabColor18h24w500 = TextStyle(
+  static const TextStyle headerTabColor18h24w500 = const TextStyle(
     letterSpacing: 0,
     fontWeight: FontWeight.w500,
     fontSize: 18,
     color: ColorPalette.headerTabColor,
-    height: (24 / 18).toDouble(),
+    height: 1.33,
   );
-  static TextStyle fontNoColor32h36w700 = const TextStyle(
+  static const TextStyle fontNoColor32h36w700 = const TextStyle(
     fontSize: 32,
     fontWeight: FontWeight.w700,
     height: 1.11,
   );
-  static TextStyle greenColor14h18w400 = TextStyle(
+  static const TextStyle greenColor14h18w400 = const  TextStyle(
     letterSpacing: 0,
     fontWeight: FontWeight.w400,
     fontSize: 14,
     color: ColorPalette.greenColor,
-    height: (18 / 14).toDouble(),
+    height: 1.29,
   );
 }

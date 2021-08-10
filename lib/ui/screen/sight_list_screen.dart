@@ -33,7 +33,7 @@ class _SightListScreenState extends State<SightListScreen> {
                 width: double.infinity,
                 child: RichText(
                   maxLines: 2,
-                  text: TextSpan(
+                  text: const TextSpan(
                     text: 'С',
                     style: const TextStyle(
                       color: Color(0xFF4CAF50),

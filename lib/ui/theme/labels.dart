@@ -1,23 +1,23 @@
 class Labels {
-  static String get buildRoute => 'ПОСТРОИТЬ МАРШРУТ';
+  static const String buildRoute = 'ПОСТРОИТЬ МАРШРУТ';
 
-  static String get schedule => 'Запланировать';
+  static const String schedule = 'Запланировать';
 
-  static String get addToFavorites => 'В избранное';
+  static const String addToFavorites = 'В избранное';
 
-  static String get checkFavorites => 'Избранное';
+  static const String checkFavorites = 'Избранное';
 
-  static String get shortDescription => 'краткое описание';
+  static const String shortDescription = 'краткое описание';
 
-  static String get iWantToVisit => 'Хочу посетить';
+  static const String iWantToVisit = 'Хочу посетить';
 
-  static String get visited => 'Посетил';
+  static const String visited = 'Посетил';
 
-  static String get emptyList => 'Пусто';
+  static const String emptyList = 'Пусто';
 
-  static String get checkPlace => 'Отмечайте понравившиеся\n'
+  static const String checkPlace = 'Отмечайте понравившиеся\n'
       'места и они появиятся здесь.';
 
-  static String get completeRoute => 'Завершите маршрут,\n'
+  static const String completeRoute = 'Завершите маршрут,\n'
       'чтобы место попало сюда.';
 }

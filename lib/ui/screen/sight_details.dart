@@ -53,7 +53,7 @@ class SightDetails extends StatelessWidget {
                       style: FontCollection.fontBasicColor14h18w700,
                     ),
                     const SizedBox(width: 16),
-                    Text(
+                    const Text(
                       'закрыто до 09:00',
                       style: FontCollection.fontBasicColorLight14h18w400,
                     ),
@@ -82,7 +82,7 @@ class SightDetails extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         const Icon(Icons.gesture_outlined),
-                        Text(
+                        const Text(
                           Labels.buildRoute,
                           style: FontCollection.fontWhiteColor14h18w700,
                         ),
@@ -100,12 +100,12 @@ class SightDetails extends StatelessWidget {
                       onPressed: () {},
                       child: Row(
                         children: [
-                          Icon(
+                          const Icon(
                             Icons.calendar_today_outlined,
                             color: ColorPalette.fontBasicColorLight,
                           ),
                           const SizedBox(width: 9),
-                          Text(
+                          const Text(
                             Labels.schedule,
                             style: FontCollection.fontBasicColorLight14h18w400,
                           ),
@@ -116,13 +116,13 @@ class SightDetails extends StatelessWidget {
                       onPressed: () {},
                       child: Row(
                         children: [
-                          Icon(
+                          const Icon(
                             Icons.favorite_border,
                             color: ColorPalette.fontBasicColor,
                             size: 30,
                           ),
                           const SizedBox(width: 10),
-                          Text(
+                          const Text(
                             Labels.addToFavorites,
                             style: FontCollection.fontBasicColor14h18w400,
                           ),

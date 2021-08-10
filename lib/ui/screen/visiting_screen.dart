@@ -28,7 +28,7 @@ class _VisitingScreenState extends State<VisitingScreen> {
           elevation: 0,
           centerTitle: true,
           backgroundColor: Colors.white,
-          title: Text(
+          title: const Text(
             Labels.checkFavorites,
             textAlign: TextAlign.center,
             style: FontCollection.headerTabColor18h24w500,
@@ -47,10 +47,10 @@ class _VisitingScreenState extends State<VisitingScreen> {
                     borderRadius: BorderRadius.circular(50),
                     color: ColorPalette.fontBasicColor),
                 tabs: [
-                  Tab(
+                  const Tab(
                     text: Labels.iWantToVisit,
                   ),
-                  Tab(text: Labels.visited),
+                  const Tab(text: Labels.visited),
                 ],
               ),
             ),
@@ -109,19 +109,19 @@ class _VisitingScreenState extends State<VisitingScreen> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          Icon(
+                          const Icon(
                             Icons.add_a_photo_outlined,
                             size: 53,
                             color: ColorPalette.fontBasicColorLight,
                           ),
                           const SizedBox(height: 32),
-                          Text(
+                          const Text(
                             Labels.emptyList,
                             textAlign: TextAlign.center,
                             style: FontCollection.fontBasicColorLight18h24w500,
                           ),
                           const SizedBox(height: 8),
-                          Text(
+                          const Text(
                             Labels.checkPlace,
                             textAlign: TextAlign.center,
                             style: FontCollection.fontBasicColorLight14h18w400,
@@ -147,19 +147,19 @@ class _VisitingScreenState extends State<VisitingScreen> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          Icon(
+                          const Icon(
                             Icons.add_a_photo_outlined,
                             size: 53,
                             color: ColorPalette.fontBasicColorLight,
                           ),
                           const SizedBox(height: 32),
-                          Text(
+                          const Text(
                             Labels.emptyList,
                             textAlign: TextAlign.center,
                             style: FontCollection.fontBasicColorLight18h24w500,
                           ),
                           const SizedBox(height: 8),
-                          Text(
+                          const Text(
                             Labels.completeRoute,
                             textAlign: TextAlign.center,
                             style: FontCollection.fontBasicColorLight14h18w400,
