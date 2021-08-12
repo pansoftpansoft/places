@@ -15,7 +15,7 @@ class VisitingScreen extends StatefulWidget {
 }
 
 class _VisitingScreenState extends State<VisitingScreen> {
-  int mocksLength = 3;
+  int mocksLength = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -23,81 +23,59 @@ class _VisitingScreenState extends State<VisitingScreen> {
       length: 2,
       initialIndex: 0,
       child: Scaffold(
-        backgroundColor: Colors.white,
         appBar: AppBar(
-          elevation: 0,
-          centerTitle: true,
-          backgroundColor: Colors.white,
-          title: const Text(
+          title: Text(
             Labels.checkFavorites,
             textAlign: TextAlign.center,
-            style: FontCollection.headerTabColor18h24w500,
+            style: Theme.of(context).textTheme.headline4,
           ),
           bottom: PreferredSize(
             preferredSize: const Size.fromHeight(60),
-            child: Card(
-              elevation: 0,
-              color: ColorPalette.cardColor,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(117.0),
-              ),
-              child: TabBar(
-                unselectedLabelColor: ColorPalette.fontBasicColorLightHard,
-                indicator: BoxDecoration(
-                    borderRadius: BorderRadius.circular(50),
-                    color: ColorPalette.fontBasicColor),
-                tabs: [
-                  const Tab(
-                    text: Labels.iWantToVisit,
-                  ),
-                  const Tab(text: Labels.visited),
-                ],
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10.0),
+              child: Card(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30),
+                ),
+                child: const TabBar(
+                  tabs: [
+                    const Tab(
+                      text: Labels.iWantToVisit,
+                    ),
+                    const Tab(text: Labels.visited),
+                  ],
+                ),
               ),
             ),
           ),
         ),
-        bottomNavigationBar: Theme(
-          data: Theme.of(context).copyWith(
-              canvasColor: Colors.white,
-          ),
-          child: BottomNavigationBar(
-            backgroundColor: ColorPalette.greenColor,
-            showSelectedLabels: false,
-            items: [
-              const BottomNavigationBarItem(
-                icon: Icon(
-                  Icons.list_alt_outlined,
-                  color: const Color(0xFF3B3E5B),
-                  size: 30,
-                ),
-                label: '',
+        bottomNavigationBar: BottomNavigationBar(
+          items: [
+            const BottomNavigationBarItem(
+              icon: Icon(
+                Icons.list_alt_outlined,
               ),
-              const BottomNavigationBarItem(
-                icon: Icon(
-                  Icons.map_outlined,
-                  color: const Color(0xFF3B3E5B),
-                  size: 30,
-                ),
-                label: '',
+              label: '',
+            ),
+            const BottomNavigationBarItem(
+              icon: Icon(
+                Icons.map_outlined,
               ),
-              const BottomNavigationBarItem(
-                icon: Icon(
-                  Icons.favorite,
-                  color: const Color(0xFF3B3E5B),
-                  size: 30,
-                ),
-                label: '',
+              label: '',
+            ),
+            const BottomNavigationBarItem(
+              icon: Icon(
+                Icons.favorite,
               ),
-              const BottomNavigationBarItem(
-                icon: Icon(
-                  Icons.settings,
-                  color: const Color(0xFF3B3E5B),
-                  size: 30,
-                ),
-                label: '',
+              label: '',
+            ),
+            const BottomNavigationBarItem(
+              icon: Icon(
+                Icons.settings,
               ),
-            ],
-          ),
+              label: '',
+            ),
+          ],
         ),
         body: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -109,22 +87,22 @@ class _VisitingScreenState extends State<VisitingScreen> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          const Icon(
+                          Icon(
                             Icons.add_a_photo_outlined,
                             size: 53,
-                            color: ColorPalette.fontBasicColorLight,
+                            color: Theme.of(context).textTheme.headline2.color,
                           ),
                           const SizedBox(height: 32),
-                          const Text(
+                          Text(
                             Labels.emptyList,
                             textAlign: TextAlign.center,
-                            style: FontCollection.fontBasicColorLight18h24w500,
+                            style: Theme.of(context).textTheme.headline2,
                           ),
                           const SizedBox(height: 8),
-                          const Text(
+                          Text(
                             Labels.checkPlace,
                             textAlign: TextAlign.center,
-                            style: FontCollection.fontBasicColorLight14h18w400,
+                            style: Theme.of(context).textTheme.bodyText2,
                           ),
                         ],
                       ),
@@ -147,22 +125,21 @@ class _VisitingScreenState extends State<VisitingScreen> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          const Icon(
+                          Icon(
                             Icons.add_a_photo_outlined,
                             size: 53,
-                            color: ColorPalette.fontBasicColorLight,
+                            color: Theme.of(context).textTheme.headline2.color,
                           ),
                           const SizedBox(height: 32),
-                          const Text(
+                          Text(
                             Labels.emptyList,
                             textAlign: TextAlign.center,
-                            style: FontCollection.fontBasicColorLight18h24w500,
+                            style: Theme.of(context).textTheme.headline2,
                           ),
                           const SizedBox(height: 8),
                           const Text(
                             Labels.completeRoute,
                             textAlign: TextAlign.center,
-                            style: FontCollection.fontBasicColorLight14h18w400,
                           ),
                         ],
                       ),

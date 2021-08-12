@@ -25,8 +25,6 @@ class SightCard extends StatelessWidget {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16.0),
       ),
-      color: ColorPalette.cardColor,
-      shadowColor: Colors.blueGrey,
       elevation: 0,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -105,7 +103,7 @@ class SightCard extends StatelessWidget {
                 Text(
                   sight.name,
                   maxLines: 5,
-                  style: FontCollection.fontBasicColor16h20w500,
+                  style: Theme.of(context).textTheme.subtitle1,
                 ),
                 if (goNeed != '' && goal == '')
                   Padding(
@@ -113,7 +111,10 @@ class SightCard extends StatelessWidget {
                     child: Text(
                       goNeed,
                       maxLines: 5,
-                      style: FontCollection.greenColor14h18w400,
+                      style: Theme.of(context)
+                          .textTheme
+                          .subtitle2
+                          .copyWith(color: ColorPalette.greenColor),
                     ),
                   ),
                 if (goNeed == '' && goal != '')
@@ -122,12 +123,12 @@ class SightCard extends StatelessWidget {
                     child: Text(
                       goal,
                       maxLines: 5,
-                      style: FontCollection.fontBasicColor14h18w400,
+                      style: Theme.of(context).textTheme.subtitle2,
                     ),
                   ),
-                const Text(
+                Text(
                   Labels.shortDescription,
-                  style: FontCollection.fontBasicColorLight14h18w400,
+                  style: Theme.of(context).textTheme.subtitle2,
                 ),
               ],
             ),

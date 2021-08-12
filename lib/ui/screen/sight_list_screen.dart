@@ -16,14 +16,12 @@ class _SightListScreenState extends State<SightListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: ColorPalette.backgroundAppColor,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(128.0),
         child: AppBar(
           toolbarHeight: 120,
           centerTitle: false,
           elevation: 0,
-          backgroundColor: ColorPalette.backgroundAppColor,
           title: Column(
             children: [
               const SizedBox(
@@ -45,7 +43,7 @@ class _SightListScreenState extends State<SightListScreen> {
                       TextSpan(
                         text: 'писок\n',
                         style: TextStyle(
-                          color: ColorPalette.fontBasicColor,
+                          color: ColorPalette.lmBasicColor,
                         ),
                         children: [
                           TextSpan(
@@ -57,7 +55,7 @@ class _SightListScreenState extends State<SightListScreen> {
                               TextSpan(
                                 text: 'нтересных мест',
                                 style: TextStyle(
-                                  color: ColorPalette.fontBasicColor,
+                                  color: ColorPalette.lmBasicColor,
                                 ),
                               ),
                             ],
