@@ -1,8 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:places/ui/screen/sight_card.dart';
-import 'package:places/ui/res/color_palette.dart';
-import 'package:places/ui/res/font_collection.dart';
 import 'package:places/ui/res/labels.dart';
 
 import 'package:places/mocks.dart';

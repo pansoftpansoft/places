@@ -4,14 +4,21 @@ import 'package:places/ui/res/text_themas.dart';
 
 import 'font_collection.dart';
 
+//---Светлая тема
 final lightTheme = ThemeData(
   primaryColor: ColorPalette.lmPrimaryColor,
   backgroundColor: ColorPalette.lmPrimaryColor,
   scaffoldBackgroundColor: ColorPalette.lmPrimaryColor,
+  /*
+  * appBarTheme
+  */
   appBarTheme: const AppBarTheme(
     elevation: 0,
     centerTitle: true,
   ),
+  /*
+  * cardTheme
+  */
   cardTheme: CardTheme(
     elevation: 0,
     shape: RoundedRectangleBorder(
@@ -19,6 +26,9 @@ final lightTheme = ThemeData(
     ),
     color: ColorPalette.lmCardColor,
   ),
+  /*
+  * tabBarTheme
+  */
   tabBarTheme: TabBarTheme(
     labelColor: ColorPalette.lmTabBarSelect,
     labelStyle: FontCollection.devHeadline6,
@@ -28,6 +38,9 @@ final lightTheme = ThemeData(
         borderRadius: BorderRadius.circular(50),
         color: ColorPalette.lmTabBarCursor),
   ),
+  /*
+  * bottomNavigationBarTheme
+  */
   bottomNavigationBarTheme: const BottomNavigationBarThemeData(
     backgroundColor: ColorPalette.lmNavigationBarBackground,
     showSelectedLabels: false,
@@ -36,36 +49,44 @@ final lightTheme = ThemeData(
     unselectedIconTheme:
         IconThemeData(color: ColorPalette.lmBasicColor, size: 30),
   ),
+  /*
+  * textButtonTheme
+  */
   textButtonTheme: TextButtonThemeData(
     style: ButtonStyle(
       backgroundColor: MaterialStateProperty.all(ColorPalette.lmPrimaryColor),
-      textStyle: MaterialStateProperty.all(
-        FontCollection.devButton
-      ),
+      textStyle: MaterialStateProperty.all(FontCollection.devButton),
     ),
   ),
-  textTheme: lmTextTheme,
+  /*
+  * iconTheme
+  */
   iconTheme: const IconThemeData(
     color: ColorPalette.lmIcon,
     size: 30,
   ),
+  /*
+  * textTheme
+  */
+  textTheme: lmTextTheme,
 );
-
-
-
-
-
-
+//----------------------------------------------------------------------
+// ---Темная тема--------------------------------------------------------
+//----------------------------------------------------------------------
 final darkTheme = ThemeData(
   primaryColor: ColorPalette.dmPrimaryColor,
   backgroundColor: ColorPalette.dmPrimaryColor,
   scaffoldBackgroundColor: ColorPalette.dmPrimaryColor,
-  //Тема для аппбара
+  /*
+  * appBarTheme
+  */
   appBarTheme: const AppBarTheme(
     elevation: 0,
     centerTitle: true,
   ),
-  //Тема для карточек
+  /*
+  * cardTheme
+  */
   cardTheme: CardTheme(
     elevation: 0,
     color: ColorPalette.dmCardColor,
@@ -73,7 +94,9 @@ final darkTheme = ThemeData(
       borderRadius: BorderRadius.circular(16.0),
     ),
   ),
-  //Тема для таббара
+  /*
+  * tabBarTheme
+  */
   tabBarTheme: TabBarTheme(
     labelColor: ColorPalette.dmTabBarSelect,
     labelStyle: FontCollection.devHeadline6,
@@ -84,6 +107,9 @@ final darkTheme = ThemeData(
       color: ColorPalette.dmTabBarCursor,
     ),
   ),
+  /*
+  * bottomNavigationBarTheme
+  */
   bottomNavigationBarTheme: const BottomNavigationBarThemeData(
     backgroundColor: ColorPalette.dmNavigationBarBackground,
     showSelectedLabels: false,
@@ -97,17 +123,25 @@ final darkTheme = ThemeData(
       size: 30,
     ),
   ),
+  /*
+  * textButtonTheme
+  */
   textButtonTheme: TextButtonThemeData(
     style: ButtonStyle(
       backgroundColor: MaterialStateProperty.all(ColorPalette.dmPrimaryColor),
-      textStyle: MaterialStateProperty.all(
-          FontCollection.devButton.copyWith(color: ColorPalette.lmPrimaryColor)
-      ),
+      textStyle: MaterialStateProperty.all(FontCollection.devButton
+          .copyWith(color: ColorPalette.lmPrimaryColor)),
     ),
   ),
-  textTheme: dmTextTheme,
+  /*
+  * iconTheme
+  */
   iconTheme: const IconThemeData(
     color: ColorPalette.dmIcon,
     size: 30,
   ),
+  /*
+  * textTheme
+  */
+  textTheme: dmTextTheme,
 );

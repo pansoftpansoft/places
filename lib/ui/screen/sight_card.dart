@@ -2,7 +2,6 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:places/domain/sight.dart';
 import 'package:places/ui/res/color_palette.dart';
-import 'package:places/ui/res/font_collection.dart';
 import 'package:places/ui/res/labels.dart';
 
 //Карточка из списка достопримечательностей

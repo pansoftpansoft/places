@@ -2,20 +2,17 @@ import 'package:flutter/material.dart';
 
 import 'color_palette.dart';
 import 'font_collection.dart';
-
+//---Светлые темы для текстов
 final TextTheme lmTextTheme = TextTheme(
   headline1: FontCollection.devHeadline1.copyWith(
     color: ColorPalette.lmFontHeadline1,
   ),
-
   headline2: FontCollection.devHeadline2.copyWith(
     color: ColorPalette.lmFontHeadline2,
   ),
-
   headline3: FontCollection.devHeadline3.copyWith(
     color: ColorPalette.lmFontHeadline3,
   ),
-
   headline4: FontCollection.devHeadline4.copyWith(
     color: ColorPalette.lmFontHeadline4,
   ),
@@ -38,7 +35,7 @@ final TextTheme lmTextTheme = TextTheme(
     color: ColorPalette.lmFontButton,
   ),
 );
-
+//---Темные темы для текстов
 final TextTheme dmTextTheme = TextTheme(
   headline1: FontCollection.devHeadline1.copyWith(
     color: ColorPalette.dmFontHeadline1,
