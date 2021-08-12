@@ -2,11 +2,26 @@ import 'package:flutter/material.dart';
 import 'color_palette.dart';
 
 class FontCollection {
+  static const TextStyle devHeadline1 = const TextStyle(
+    letterSpacing: 0,
+    fontWeight: FontWeight.w700,
+    fontSize: 32,
+    height: 1.125,
+  );
+
+
   static const TextStyle devHeadline2 = const TextStyle(
     letterSpacing: 0,
     fontWeight: FontWeight.w500,
     fontSize: 18,
     height: 1.33,
+  );
+
+  static const TextStyle devHeadline3 = const TextStyle(
+    letterSpacing: 0,
+    fontWeight: FontWeight.w700,
+    fontSize: 24,
+    height: 1.17,
   );
 
   static const TextStyle devHeadline4 = const TextStyle(
@@ -91,13 +106,19 @@ class FontCollection {
   //   color: ColorPalette.fontBasicColorLightHard,
   //   height: 1.29,
   // );
-  static const TextStyle fontWhiteColor14h18w700 = const TextStyle(
-    letterSpacing: 0,
-    fontWeight: FontWeight.w700,
-    fontSize: 14,
-    color: ColorPalette.fontWhiteColor,
-    height: 1.29,
-  );
+
+
+
+  // static const TextStyle fontWhiteColor14h18w700 = const TextStyle(
+  //   letterSpacing: 0,
+  //   fontWeight: FontWeight.w700,
+  //   fontSize: 14,
+  //   color: ColorPalette.fontWhiteColor,
+  //   height: 1.29,
+  // );
+
+
+
   // static const TextStyle fontBasicColorLight18h24w500 = const TextStyle(
   //   letterSpacing: 0,
   //   fontWeight: FontWeight.w500,

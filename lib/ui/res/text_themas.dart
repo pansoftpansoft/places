@@ -4,9 +4,18 @@ import 'color_palette.dart';
 import 'font_collection.dart';
 
 final TextTheme lmTextTheme = TextTheme(
+  headline1: FontCollection.devHeadline1.copyWith(
+    color: ColorPalette.lmFontHeadline1,
+  ),
+
   headline2: FontCollection.devHeadline2.copyWith(
     color: ColorPalette.lmFontHeadline2,
   ),
+
+  headline3: FontCollection.devHeadline3.copyWith(
+    color: ColorPalette.lmFontHeadline3,
+  ),
+
   headline4: FontCollection.devHeadline4.copyWith(
     color: ColorPalette.lmFontHeadline4,
   ),
@@ -31,10 +40,16 @@ final TextTheme lmTextTheme = TextTheme(
 );
 
 final TextTheme dmTextTheme = TextTheme(
+  headline1: FontCollection.devHeadline1.copyWith(
+    color: ColorPalette.dmFontHeadline1,
+  ),
   headline2: FontCollection.devHeadline2.copyWith(
     color: ColorPalette.dmFontHeadline2,
   ),
-  headline: FontCollection.devHeadline4.copyWith(
+  headline3: FontCollection.devHeadline3.copyWith(
+    color: ColorPalette.dmFontHeadline3,
+  ),
+  headline4: FontCollection.devHeadline4.copyWith(
     color: ColorPalette.dmFontHeadline4,
   ),
   headline5: FontCollection.devHeadline5.copyWith(

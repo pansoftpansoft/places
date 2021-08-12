@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:places/ui/theme/color_palette.dart';
-import 'package:places/ui/theme/text_themas.dart';
+import 'package:places/ui/res/color_palette.dart';
+import 'package:places/ui/res/text_themas.dart';
 
 import 'font_collection.dart';
 
@@ -51,6 +51,11 @@ final lightTheme = ThemeData(
   ),
 );
 
+
+
+
+
+
 final darkTheme = ThemeData(
   primaryColor: ColorPalette.dmPrimaryColor,
   backgroundColor: ColorPalette.dmPrimaryColor,
@@ -84,7 +89,7 @@ final darkTheme = ThemeData(
     showSelectedLabels: false,
     elevation: 4,
     selectedIconTheme: IconThemeData(
-      color: ColorPalette.greenColor,
+      color: ColorPalette.dmBasicColor,
       size: 30,
     ),
     unselectedIconTheme: IconThemeData(

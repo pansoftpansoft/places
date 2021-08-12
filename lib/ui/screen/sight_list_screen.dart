@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:places/ui/screen/sight_card.dart';
-import 'package:places/ui/theme/color_palette.dart';
+import 'package:places/ui/res/color_palette.dart';
 
 import '../../mocks.dart';
 
@@ -29,41 +29,9 @@ class _SightListScreenState extends State<SightListScreen> {
               ),
               Container(
                 width: double.infinity,
-                child: RichText(
-                  maxLines: 2,
-                  text: const TextSpan(
-                    text: 'С',
-                    style: const TextStyle(
-                      color: Color(0xFF4CAF50),
-                      fontSize: 32,
-                      fontWeight: FontWeight.w700,
-                      height: 1.11,
-                    ),
-                    children: [
-                      TextSpan(
-                        text: 'писок\n',
-                        style: TextStyle(
-                          color: ColorPalette.lmBasicColor,
-                        ),
-                        children: [
-                          TextSpan(
-                            text: 'и',
-                            style: const TextStyle(
-                              color: Color(0xFFFCDD3D),
-                            ),
-                            children: [
-                              TextSpan(
-                                text: 'нтересных мест',
-                                style: TextStyle(
-                                  color: ColorPalette.lmBasicColor,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
+                child:  Text(
+                  'Список\nинтересных мест',
+                  style: Theme.of(context).textTheme.headline1,
                 ),
               ),
             ],

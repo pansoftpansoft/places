@@ -1,9 +1,9 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:places/domain/sight.dart';
-import 'package:places/ui/theme/color_palette.dart';
-import 'package:places/ui/theme/font_collection.dart';
-import 'package:places/ui/theme/labels.dart';
+import 'package:places/ui/res/color_palette.dart';
+import 'package:places/ui/res/font_collection.dart';
+import 'package:places/ui/res/labels.dart';
 
 //Подробно о достопримечательности
 class SightDetails extends StatelessWidget {
@@ -44,14 +44,12 @@ class SightDetails extends StatelessWidget {
                 children: [
                   Text(
                     sight.name,
-                    style: Theme.of(context).textTheme.subtitle2,
+                    style: Theme.of(context).textTheme.headline3,
                   ),
                   Row(
                     children: [
-                      Text(
-                        sight.type,
-                        style: Theme.of(context).textTheme.headline5,
-                      ),
+                      Text(sight.type,
+                          style: Theme.of(context).textTheme.headline5),
                       const SizedBox(width: 16),
                       Text(
                         'закрыто до 09:00',
@@ -82,9 +80,12 @@ class SightDetails extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           const Icon(Icons.gesture_outlined),
-                          const Text(
+                          Text(
                             Labels.buildRoute,
-                            style: FontCollection.fontWhiteColor14h18w700,
+                            style: Theme.of(context)
+                                .textTheme
+                                .headline5
+                                .copyWith(color: const Color(0xFFFFFFFF)),
                           ),
                         ],
                       ),

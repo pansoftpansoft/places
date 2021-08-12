@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:places/ui/screen/sight_card.dart';
-import 'package:places/ui/theme/color_palette.dart';
-import 'package:places/ui/theme/font_collection.dart';
-import 'package:places/ui/theme/labels.dart';
+import 'package:places/ui/res/color_palette.dart';
+import 'package:places/ui/res/font_collection.dart';
+import 'package:places/ui/res/labels.dart';
 
 import 'package:places/mocks.dart';
 
@@ -15,7 +15,7 @@ class VisitingScreen extends StatefulWidget {
 }
 
 class _VisitingScreenState extends State<VisitingScreen> {
-  int mocksLength = 0;
+  int mocksLength = 2;
 
   @override
   Widget build(BuildContext context) {
@@ -49,33 +49,41 @@ class _VisitingScreenState extends State<VisitingScreen> {
             ),
           ),
         ),
-        bottomNavigationBar: BottomNavigationBar(
-          items: [
-            const BottomNavigationBarItem(
-              icon: Icon(
-                Icons.list_alt_outlined,
+        bottomNavigationBar: Theme(
+          data: Theme.of(context).copyWith(
+            canvasColor:
+                Theme.of(context).bottomNavigationBarTheme.backgroundColor,
+          ),
+          child: BottomNavigationBar(
+            backgroundColor:
+                Theme.of(context).bottomNavigationBarTheme.backgroundColor,
+            items: [
+              const BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.list_alt_outlined,
+                ),
+                label: '',
               ),
-              label: '',
-            ),
-            const BottomNavigationBarItem(
-              icon: Icon(
-                Icons.map_outlined,
+              const BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.map_outlined,
+                ),
+                label: '',
               ),
-              label: '',
-            ),
-            const BottomNavigationBarItem(
-              icon: Icon(
-                Icons.favorite,
+              const BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.favorite,
+                ),
+                label: '',
               ),
-              label: '',
-            ),
-            const BottomNavigationBarItem(
-              icon: Icon(
-                Icons.settings,
+              const BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.settings,
+                ),
+                label: '',
               ),
-              label: '',
-            ),
-          ],
+            ],
+          ),
         ),
         body: Padding(
           padding: const EdgeInsets.all(16.0),
