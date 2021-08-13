@@ -4,6 +4,7 @@ import 'package:places/ui/screen/sight_list_screen.dart';
 import 'package:flutter/services.dart';
 import 'package:places/ui/screen/visiting_screen.dart';
 import 'package:places/mocks.dart';
+import 'package:places/ui/res/themes.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,9 +22,11 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
+      theme: lightTheme,
+      //theme: darkTheme,
       title: 'Задача  4.12-1',
-      home: VisitingScreen(),
+      home: const VisitingScreen(),
       //home: SightListScreen(),
       //home: SightDetails(mocks[1]),
     );

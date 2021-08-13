@@ -1,9 +1,8 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:places/domain/sight.dart';
-import 'package:places/ui/theme/color_palette.dart';
-import 'package:places/ui/theme/font_collection.dart';
-import 'package:places/ui/theme/labels.dart';
+import 'package:places/ui/res/color_palette.dart';
+import 'package:places/ui/res/labels.dart';
 
 //Карточка из списка достопримечательностей
 class SightCard extends StatelessWidget {
@@ -25,8 +24,6 @@ class SightCard extends StatelessWidget {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16.0),
       ),
-      color: ColorPalette.cardColor,
-      shadowColor: Colors.blueGrey,
       elevation: 0,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -62,7 +59,10 @@ class SightCard extends StatelessWidget {
                 top: 16,
                 child: Text(
                   sight.type,
-                  style: FontCollection.fontWhiteColor14h18w700,
+                  style: Theme.of(context)
+                      .textTheme
+                      .headline5
+                      .copyWith(color: const Color(0xFFFFFFFF)),
                 ),
               ),
               Positioned(
@@ -105,7 +105,7 @@ class SightCard extends StatelessWidget {
                 Text(
                   sight.name,
                   maxLines: 5,
-                  style: FontCollection.fontBasicColor16h20w500,
+                  style: Theme.of(context).textTheme.subtitle1,
                 ),
                 if (goNeed != '' && goal == '')
                   Padding(
@@ -113,7 +113,10 @@ class SightCard extends StatelessWidget {
                     child: Text(
                       goNeed,
                       maxLines: 5,
-                      style: FontCollection.greenColor14h18w400,
+                      style: Theme.of(context)
+                          .textTheme
+                          .subtitle2
+                          .copyWith(color: ColorPalette.greenColor),
                     ),
                   ),
                 if (goNeed == '' && goal != '')
@@ -122,12 +125,12 @@ class SightCard extends StatelessWidget {
                     child: Text(
                       goal,
                       maxLines: 5,
-                      style: FontCollection.fontBasicColor14h18w400,
+                      style: Theme.of(context).textTheme.subtitle2,
                     ),
                   ),
-                const Text(
+                Text(
                   Labels.shortDescription,
-                  style: FontCollection.fontBasicColorLight14h18w400,
+                  style: Theme.of(context).textTheme.subtitle2,
                 ),
               ],
             ),
