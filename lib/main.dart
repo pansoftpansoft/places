@@ -26,9 +26,9 @@ class MyApp extends StatelessWidget {
       theme: lightTheme,
       //theme: darkTheme,
       title: 'Задача  4.12-1',
-      home: const VisitingScreen(),
-      //home: SightListScreen(),
-      //home: SightDetails(mocks[1]),
+      //home: const VisitingScreen(),
+      home: SightListScreen(),
+      // home: SightDetails(mocks[1]),
     );
   }
 }

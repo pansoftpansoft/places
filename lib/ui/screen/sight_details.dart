@@ -1,8 +1,10 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:places/domain/sight.dart';
 import 'package:places/ui/res/color_palette.dart';
 import 'package:places/ui/res/labels.dart';
+import 'package:places/ui/res/svg_icons.dart';
 
 //Подробно о достопримечательности
 class SightDetails extends StatelessWidget {
@@ -88,7 +90,9 @@ class SightDetails extends StatelessWidget {
                           ),
                         ],
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        print('Это кнопка "Построить маршрут"');
+                      },
                     ),
                   ),
                   const SizedBox(height: 24),
@@ -98,11 +102,15 @@ class SightDetails extends StatelessWidget {
                     children: [
                       TextButton(
                         //style: Theme.of(context).textButtonTheme.style,
-                        onPressed: () {},
+                        onPressed: () {
+                          print('Это кнопка "Заплонировать"');
+                        },
                         child: Row(
                           children: [
-                            Icon(
-                              Icons.calendar_today_outlined,
+                            SvgPicture.asset(
+                              SvgIcons.schedule,
+                              height: 30,
+                              width: 30,
                               color: Theme.of(context).textTheme.button.color,
                             ),
                             const SizedBox(width: 9),
@@ -114,14 +122,17 @@ class SightDetails extends StatelessWidget {
                         ),
                       ),
                       TextButton(
-                        //style: Theme.of(context).textButtonTheme.style,
-                        onPressed: () {},
+                        //Style: Theme.of(context).textButtonTheme.style,
+                        onPressed: () {
+                          print('Это кнопка "В избранное"');
+                        },
                         child: Row(
                           children: [
-                            Icon(
-                              Icons.favorite_border,
+                            SvgPicture.asset(
+                              SvgIcons.heartTransparent,
+                              height: 30,
+                              width: 30,
                               color: Theme.of(context).textTheme.button.color,
-                              size: 30,
                             ),
                             const SizedBox(width: 10),
                             Text(

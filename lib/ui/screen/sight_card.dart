@@ -1,8 +1,10 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:places/domain/sight.dart';
 import 'package:places/ui/res/color_palette.dart';
 import 'package:places/ui/res/labels.dart';
+import 'package:places/ui/res/svg_icons.dart';
 
 //Карточка из списка достопримечательностей
 class SightCard extends StatelessWidget {
@@ -37,20 +39,34 @@ class SightCard extends StatelessWidget {
                   borderRadius: const BorderRadius.only(
                       topRight: Radius.circular(16),
                       topLeft: Radius.circular(16)),
-                  child: Image.network(
-                    sight.url,
-                    fit: BoxFit.fitWidth,
-                    loadingBuilder: (context, child, progress) {
-                      return progress == null
-                          ? child
-                          : const UnconstrainedBox(
-                              child: const SizedBox(
-                                height: 10,
-                                width: 10,
-                                child: const CircularProgressIndicator(),
-                              ),
-                            );
+                  child: TextButton(
+                    onPressed: () {
+                      print('Нажата картинка на карточке');
                     },
+                    style: ButtonStyle(
+                        padding: MaterialStateProperty.all(EdgeInsets.zero)),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: Image.network(
+                            sight.url,
+                            fit: BoxFit.fitWidth,
+                            loadingBuilder: (context, child, progress) {
+                              return progress == null
+                                  ? child
+                                  : const UnconstrainedBox(
+                                      child: const SizedBox(
+                                        height: 10,
+                                        width: 10,
+                                        child:
+                                            const CircularProgressIndicator(),
+                                      ),
+                                    );
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -87,11 +103,18 @@ class SightCard extends StatelessWidget {
               ),
               Positioned(
                 right: 18,
-                top: 19,
-                child: Container(
-                  width: 20,
-                  height: 18,
-                  color: Colors.green,
+                top: 10,
+                child: IconButton(
+                  splashColor: ColorPalette.dmBasicColor,
+                  splashRadius: 100,
+                  iconSize: 20,
+                  icon: SvgPicture.asset(
+                    SvgIcons.heartTransparent,
+                    //height: 20,
+                  ),
+                  onPressed: () {
+                    print('Это кнопка "В избранное на карточке"');
+                  },
                 ),
               ),
             ],
@@ -102,10 +125,18 @@ class SightCard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  sight.name,
-                  maxLines: 5,
-                  style: Theme.of(context).textTheme.subtitle1,
+                TextButton(
+                  onPressed: (){print('Нажата кнопка на карточке "Название места"');},
+                  style: ButtonStyle(
+                    backgroundColor:
+                        MaterialStateProperty.all(Colors.transparent),
+                    padding: MaterialStateProperty.all(EdgeInsets.zero),
+                  ),
+                  child: Text(
+                    sight.name,
+                    maxLines: 5,
+                    style: Theme.of(context).textTheme.subtitle1,
+                  ),
                 ),
                 if (goNeed != '' && goal == '')
                   Padding(

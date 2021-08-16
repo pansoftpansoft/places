@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:places/ui/res/color_palette.dart';
+import 'package:places/ui/res/svg_icons.dart';
 import 'package:places/ui/screen/sight_card.dart';
 import 'package:places/ui/res/labels.dart';
-
 import 'package:places/mocks.dart';
 
 class VisitingScreen extends StatefulWidget {
@@ -52,31 +54,41 @@ class _VisitingScreenState extends State<VisitingScreen> {
             canvasColor:
                 Theme.of(context).bottomNavigationBarTheme.backgroundColor,
           ),
+
           child: BottomNavigationBar(
+            elevation: Theme.of(context).bottomNavigationBarTheme.elevation,
             backgroundColor:
                 Theme.of(context).bottomNavigationBarTheme.backgroundColor,
             items: [
-              const BottomNavigationBarItem(
-                icon: Icon(
-                  Icons.list_alt_outlined,
+              BottomNavigationBarItem(
+                icon: SvgPicture.asset(
+                  SvgIcons.list,
+                  height: 30,
+                  color: Theme.of(context).bottomNavigationBarTheme.unselectedIconTheme.color,
                 ),
                 label: '',
               ),
-              const BottomNavigationBarItem(
-                icon: Icon(
-                  Icons.map_outlined,
+              BottomNavigationBarItem(
+                icon: SvgPicture.asset(
+                  SvgIcons.map,
+                  height: 30,
+                  color: Theme.of(context).bottomNavigationBarTheme.unselectedIconTheme.color,
                 ),
                 label: '',
               ),
-              const BottomNavigationBarItem(
-                icon: Icon(
-                  Icons.favorite,
+              BottomNavigationBarItem(
+                icon: SvgPicture.asset(
+                  SvgIcons.heartFull,
+                  height: 30,
+                  color: Theme.of(context).bottomNavigationBarTheme.unselectedIconTheme.color,
                 ),
                 label: '',
               ),
-              const BottomNavigationBarItem(
-                icon: Icon(
-                  Icons.settings,
+              BottomNavigationBarItem(
+                icon: SvgPicture.asset(
+                  SvgIcons.settings,
+                  height: 30,
+                  color: Theme.of(context).bottomNavigationBarTheme.unselectedIconTheme.color,
                 ),
                 label: '',
               ),

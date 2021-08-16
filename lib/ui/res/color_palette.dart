@@ -36,7 +36,7 @@ class ColorPalette {
   //---------------------------------------------------------
 
   //--Иконки
-  static const Color lmIcon = const Color(0xFFFFFFFF);
+  static const Color lmIcon = const Color(0xFF3B3E5B);
 
   //
   static const Color lmFontButton = const Color(0xFF3B3E5B);
