@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:places/ui/screen/filters_screen.dart';
 import 'package:places/ui/screen/sight_details.dart';
 import 'package:places/ui/screen/sight_list_screen.dart';
 import 'package:flutter/services.dart';
@@ -27,8 +28,10 @@ class MyApp extends StatelessWidget {
       //theme: darkTheme,
       title: 'Задача  4.12-1',
       //home: const VisitingScreen(),
-      home: SightListScreen(),
-      // home: SightDetails(mocks[1]),
+      //home: const VisitingScreen(),
+      //home: SightListScreen(),
+      //home: SightDetails(mocks[1]),
+      home: FiltersScreen(),
     );
   }
 }

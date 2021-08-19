@@ -62,18 +62,18 @@ final lightTheme = ThemeData(
   /*
   * iconTheme
   */
-  iconTheme: const IconThemeData(
-    color: ColorPalette.lmIcon,
-    size: 30,
-  ),
-  primaryIconTheme: const IconThemeData(
-    color: ColorPalette.lmIcon,
-    size: 30,
-  ),
-  accentIconTheme: const IconThemeData(
-    color: ColorPalette.lmIcon,
-    size: 30,
-  ),
+  // iconTheme: const IconThemeData(
+  //   color: ColorPalette.lmIcon,
+  //   size: 30,
+  // ),
+  // primaryIconTheme: const IconThemeData(
+  //   color: ColorPalette.lmIcon,
+  //   size: 30,
+  // ),
+  // accentIconTheme: const IconThemeData(
+  //   color: ColorPalette.lmIcon,
+  //   size: 30,
+  // ),
   /*
   * textTheme
   */

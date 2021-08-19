@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 class ColorPalette {
   //В не темы
   static const Color greenColor = const Color(0xFF4CAF50);
+  static const Color greenColorLight = const Color(0xFFE2F2E3);
 
   //--Свелая тема
   static const Color lmPrimaryColor = const Color(0xFFFFFFFF);

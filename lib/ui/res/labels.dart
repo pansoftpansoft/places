@@ -1,3 +1,5 @@
+import '../../mocks.dart';
+
 class Labels {
   static const String buildRoute = 'ПОСТРОИТЬ МАРШРУТ';
 
@@ -20,4 +22,59 @@ class Labels {
 
   static const String completeRoute = 'Завершите маршрут,\n'
       'чтобы место попало сюда.';
+
+  static const String categories = 'КАТЕГОРИИ';
+
+  static const String distance = 'Расстояние';
+
+  static const String from = 'от';
+
+  static const String to = 'до';
+
+  static const String meters = 'метров';
+
+  static const String show = 'ПОКАЗАТЬ';
+
+  static const String clear = 'Очистить';
+
+  static const String hotel = 'Отель';
+
+  static const String restaurant = 'Ресторан';
+
+  static const String particular_place = 'Особое место';
+
+  static const String park = 'Парк';
+
+  static const String museum = 'Музей';
+
+  static const String cafe = 'Кафе';
+
+  static String TypePlaceString(TypePlace enumString) {
+    switch (enumString) {
+      case TypePlace.hotel:
+        {
+          return (hotel);
+        }
+      case TypePlace.restaurant:
+        {
+          return (restaurant);
+        }
+      case TypePlace.particular_place:
+        {
+          return (particular_place);
+        }
+      case TypePlace.park:
+        {
+          return (park);
+        }
+      case TypePlace.museum:
+        {
+          return (museum);
+        }
+      case TypePlace.cafe:
+        {
+          return (cafe);
+        }
+    }
+  }
 }

@@ -74,7 +74,7 @@ class SightCard extends StatelessWidget {
                 left: 16,
                 top: 16,
                 child: Text(
-                  sight.type,
+                  Labels.TypePlaceString(sight.type),
                   style: Theme.of(context)
                       .textTheme
                       .headline5

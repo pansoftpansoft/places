@@ -49,7 +49,7 @@ class SightDetails extends StatelessWidget {
                   ),
                   Row(
                     children: [
-                      Text(sight.type,
+                      Text(Labels.TypePlaceString(sight.type),
                           style: Theme.of(context).textTheme.headline5),
                       const SizedBox(width: 16),
                       Text(
