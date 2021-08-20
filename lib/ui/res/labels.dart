@@ -49,6 +49,14 @@ class Labels {
 
   static const String cafe = 'Кафе';
 
+  static const String dark_theme = 'Темная тема';
+
+  static const String light_theme = 'Светлая тема';
+
+  static const String settings = 'Настройки';
+
+  static const String watchTutorial = 'Смотреть туториал';
+
   static String TypePlaceString(TypePlace enumString) {
     switch (enumString) {
       case TypePlace.hotel:
@@ -76,5 +84,6 @@ class Labels {
           return (cafe);
         }
     }
+    return '';
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:places/ui/screen/bottom_navigation.dart';
 import 'package:places/ui/screen/sight_card.dart';
 
 import '../../mocks.dart';
@@ -28,7 +29,7 @@ class _SightListScreenState extends State<SightListScreen> {
               ),
               Container(
                 width: double.infinity,
-                child:  Text(
+                child: Text(
                   'Список\nинтересных мест',
                   style: Theme.of(context).textTheme.headline1,
                 ),
@@ -37,6 +38,7 @@ class _SightListScreenState extends State<SightListScreen> {
           ),
         ),
       ),
+      bottomNavigationBar: BottomNavigation(),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 0),

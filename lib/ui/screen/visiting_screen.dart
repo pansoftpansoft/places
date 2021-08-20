@@ -1,11 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:places/ui/res/color_palette.dart';
-import 'package:places/ui/res/svg_icons.dart';
 import 'package:places/ui/screen/sight_card.dart';
 import 'package:places/ui/res/labels.dart';
 import 'package:places/mocks.dart';
+
+import 'bottom_navigation.dart';
 
 class VisitingScreen extends StatefulWidget {
   const VisitingScreen({Key key}) : super(key: key);
@@ -49,52 +48,7 @@ class _VisitingScreenState extends State<VisitingScreen> {
             ),
           ),
         ),
-        bottomNavigationBar: Theme(
-          data: Theme.of(context).copyWith(
-            canvasColor:
-                Theme.of(context).bottomNavigationBarTheme.backgroundColor,
-          ),
-
-          child: BottomNavigationBar(
-            elevation: Theme.of(context).bottomNavigationBarTheme.elevation,
-            backgroundColor:
-                Theme.of(context).bottomNavigationBarTheme.backgroundColor,
-            items: [
-              BottomNavigationBarItem(
-                icon: SvgPicture.asset(
-                  SvgIcons.list,
-                  height: 30,
-                  color: Theme.of(context).bottomNavigationBarTheme.unselectedIconTheme.color,
-                ),
-                label: '',
-              ),
-              BottomNavigationBarItem(
-                icon: SvgPicture.asset(
-                  SvgIcons.map,
-                  height: 30,
-                  color: Theme.of(context).bottomNavigationBarTheme.unselectedIconTheme.color,
-                ),
-                label: '',
-              ),
-              BottomNavigationBarItem(
-                icon: SvgPicture.asset(
-                  SvgIcons.heartFull,
-                  height: 30,
-                  color: Theme.of(context).bottomNavigationBarTheme.unselectedIconTheme.color,
-                ),
-                label: '',
-              ),
-              BottomNavigationBarItem(
-                icon: SvgPicture.asset(
-                  SvgIcons.settings,
-                  height: 30,
-                  color: Theme.of(context).bottomNavigationBarTheme.unselectedIconTheme.color,
-                ),
-                label: '',
-              ),
-            ],
-          ),
-        ),
+        bottomNavigationBar: BottomNavigation(),
         body: Padding(
           padding: const EdgeInsets.all(16.0),
           child: TabBarView(

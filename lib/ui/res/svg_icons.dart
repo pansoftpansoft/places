@@ -28,4 +28,6 @@ class SvgIcons {
   static const String cafe = 'res/icon/cafe.svg';
 
   static const String tick_choice = 'res/icon/tick_choice.svg';
+
+  static const String info = 'res/icon/info.svg';
 }
