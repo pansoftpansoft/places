@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:places/ui/screen/AppModel.dart';
-
+import 'package:places/ui/screen/models/app_model.dart';
+import 'package:places/ui/screen/filters_screen.dart';
 //import 'package:places/ui/screen/filters_screen.dart';
 //import 'package:places/ui/screen/settings_screen.dart';
 //import 'package:places/ui/screen/sight_details.dart';
 import 'package:places/ui/screen/sight_list_screen.dart';
 import 'package:flutter/services.dart';
-
+import 'package:places/ui/screen/test.dart';
+import 'package:places/ui/screen/visiting_screen.dart';
 // import 'package:places/ui/screen/visiting_screen.dart';
 // import 'package:places/mocks.dart';
 // import 'package:places/ui/res/themes.dart';
@@ -43,6 +44,7 @@ class MyApp extends StatelessWidget {
       //home: SightDetails(mocks[1]),
       //home: FiltersScreen(),
       //home: SettingsScreen(),
+      //home: Test(),
     );
   }
 }

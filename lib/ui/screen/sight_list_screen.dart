@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:places/ui/screen/bottom_navigation.dart';
+import 'package:places/ui/screen/Widgets/bottom_navigation.dart';
 import 'package:places/ui/screen/sight_card.dart';
 
-import '../../mocks.dart';
+import 'package:places/mocks.dart';
 
 //Список достопримечательностей
 class SightListScreen extends StatefulWidget {

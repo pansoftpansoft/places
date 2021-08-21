@@ -5,9 +5,10 @@ import 'package:places/ui/res/color_palette.dart';
 import 'package:places/ui/res/labels.dart';
 import 'package:places/ui/res/svg_icons.dart';
 import 'package:provider/provider.dart';
-import 'AppModel.dart';
-import 'bottom_navigation.dart';
+import 'package:places/ui/screen/models/app_model.dart';
+import 'package:places/ui/screen/Widgets/bottom_navigation.dart';
 
+//Экран настроек
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({Key key}) : super(key: key);
 
@@ -62,11 +63,16 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   style: Theme.of(context).textTheme.headline2,
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: SvgPicture.asset(
-                    SvgIcons.info,
-                    height: 20,
-                    color: ColorPalette.greenColor,
+                  padding: const EdgeInsets.symmetric(horizontal: 4),
+                  child: IconButton(
+                    icon: SvgPicture.asset(
+                      SvgIcons.info,
+                      height: 20,
+                      color: ColorPalette.greenColor,
+                    ),
+                    onPressed: () {
+                      print('Нажата кнопка "Смотреть еуториал"');
+                    },
                   ),
                 ),
               ],

@@ -2,6 +2,7 @@ import 'domain/sight.dart';
 
 enum TypePlace { hotel, restaurant, particular_place, park, museum, cafe }
 
+//Тестовые данные
 
 final List<Sight> mocks = [
   Sight(

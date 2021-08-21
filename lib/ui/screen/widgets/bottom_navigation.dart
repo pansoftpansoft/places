@@ -3,7 +3,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:places/ui/res/svg_icons.dart';
 import 'package:places/ui/screen/settings_screen.dart';
 
-//Карточка из списка достопримечательностей
+//Нижняя навигационная панель
+//используется на многих экранах
 class BottomNavigation extends StatelessWidget {
   BottomNavigation({Key key}) : super(key: key);
 
@@ -42,7 +43,7 @@ class BottomNavigation extends StatelessWidget {
           ),
           BottomNavigationBarItem(
             icon: SvgPicture.asset(
-              SvgIcons.heartFull,
+              SvgIcons.heartTransparent,
               height: 30,
               color: Theme.of(context)
                   .bottomNavigationBarTheme

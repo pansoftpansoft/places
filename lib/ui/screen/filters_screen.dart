@@ -132,10 +132,7 @@ class _FiltersScreenState extends State<FiltersScreen> {
               max: 10000,
               values: _selectedRange,
               onChanged: (RangeValues newRange) {
-                // setState(() {
-                //   _selectedRange = newRange;
-                //   SetFilter();
-                // });
+                //Без определения этого свойства, бегунки не активны
               },
               onChangeEnd: (RangeValues newRange) {
                 setState(() {
