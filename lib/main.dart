@@ -40,9 +40,9 @@ class MyApp extends StatelessWidget {
       title: 'Задача  5.2',
       //home: const VisitingScreen(),
       //home: const VisitingScreen(),
-      home: const SightListScreen(),
+      //home: const SightListScreen(),
       //home: SightDetails(mocks[1]),
-      //home: FiltersScreen(),
+      home: FiltersScreen(),
       //home: SettingsScreen(),
       //home: Test(),
     );

@@ -4,9 +4,7 @@ import 'package:places/ui/res/color_palette.dart';
 import 'package:places/ui/res/svg_icons.dart';
 import 'package:places/ui/res/labels.dart';
 import 'dart:math';
-
-import '../../mocks.dart';
-
+import 'package:places/mocks.dart';
 
 //Экран фильтров
 class FiltersScreen extends StatefulWidget {
@@ -59,94 +57,80 @@ class _FiltersScreenState extends State<FiltersScreen> {
           ],
         ),
       ),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 16.0,
-            ),
-            child: Row(
-              children: [
-                Text(
-                  Labels.categories,
-                  style: Theme.of(context)
-                      .textTheme
-                      .subtitle2
-                      .copyWith(fontSize: 12),
-                ),
-              ],
-            ),
-          ),
-          const SizedBox(height: 24),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                categoryIcon(context, 'Отель', TypePlace.hotel, SvgIcons.hotel),
-                categoryIcon(context, 'Ресторан', TypePlace.restaurant,
-                    SvgIcons.restaurant),
-                categoryIcon(context, 'Особое место',
-                    TypePlace.particular_place, SvgIcons.particular_place),
-              ],
-            ),
-          ),
-          const SizedBox(height: 40),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                categoryIcon(context, 'Парк', TypePlace.park, SvgIcons.park),
-                categoryIcon(
-                    context, 'Музей', TypePlace.museum, SvgIcons.museum),
-                categoryIcon(context, 'Кафе', TypePlace.cafe, SvgIcons.cafe),
-              ],
-            ),
-          ),
-          const SizedBox(height: 50),
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Text(Labels.distance),
-                Text(
-                  '${Labels.from}  '
-                  '${_selectedRange.start.round().toString()} ${Labels.to} '
-                  '${_selectedRange.end.round().toString()} '
-                  '${Labels.meters}',
-                )
-              ],
-            ),
-          ),
-          SliderTheme(
-            data: const SliderThemeData(
-              trackHeight: 1.8,
-              activeTrackColor: ColorPalette.greenColor,
-              inactiveTrackColor: ColorPalette.lmTabBarUnSelect,
-              thumbColor: Colors.white,
-            ),
-            child: RangeSlider(
-              min: 100,
-              max: 10000,
-              values: _selectedRange,
-              onChanged: (RangeValues newRange) {
-                //Без определения этого свойства, бегунки не активны
-              },
-              onChangeEnd: (RangeValues newRange) {
-                setState(() {
-                  _selectedRange = newRange;
-                  SetFilter();
-                });
-              },
-              labels: RangeLabels(
-                '${_selectedRange.start.round().toString()}',
-                '${_selectedRange.end.round().toString()}',
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 16.0,
+              ),
+              child: Row(
+                children: [
+                  Text(
+                    Labels.categories,
+                    style: Theme.of(context)
+                        .textTheme
+                        .subtitle2
+                        .copyWith(fontSize: 12),
+                  ),
+                ],
               ),
             ),
-          ),
-        ],
+            const SizedBox(height: 24),
+            GridView.count(crossAxisCount: 3, shrinkWrap: true, children: [
+              categoryIcon(context, 'Отель', TypePlace.hotel, SvgIcons.hotel),
+              categoryIcon(context, 'Ресторан', TypePlace.restaurant,
+                  SvgIcons.restaurant),
+              categoryIcon(context, 'Особое место', TypePlace.particular_place,
+                  SvgIcons.particular_place),
+              categoryIcon(context, 'Парк', TypePlace.park, SvgIcons.park),
+              categoryIcon(context, 'Музей', TypePlace.museum, SvgIcons.museum),
+              categoryIcon(context, 'Кафе', TypePlace.cafe, SvgIcons.cafe),
+            ]),
+            const SizedBox(height: 50),
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Text(Labels.distance),
+                  Text(
+                    '${Labels.from}  '
+                    '${_selectedRange.start.round().toString()} ${Labels.to} '
+                    '${_selectedRange.end.round().toString()} '
+                    '${Labels.meters}',
+                  )
+                ],
+              ),
+            ),
+            SliderTheme(
+              data: const SliderThemeData(
+                trackHeight: 1.8,
+                activeTrackColor: ColorPalette.greenColor,
+                inactiveTrackColor: ColorPalette.lmTabBarUnSelect,
+                thumbColor: Colors.white,
+              ),
+              child: RangeSlider(
+                min: 100,
+                max: 10000,
+                values: _selectedRange,
+                onChanged: (RangeValues newRange) {
+                  //Без определения этого свойства, бегунки не активны
+                },
+                onChangeEnd: (RangeValues newRange) {
+                  setState(() {
+                    _selectedRange = newRange;
+                    SetFilter();
+                  });
+                },
+                labels: RangeLabels(
+                  '${_selectedRange.start.round().toString()}',
+                  '${_selectedRange.end.round().toString()}',
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -273,7 +257,7 @@ class _FiltersScreenState extends State<FiltersScreen> {
   bool ArePointsNear(double checkPointLat, double checkPointLon) {
     double centerPointLat = 55.753605;
     double centerPointLon = 37.619773;
-    var ky = 40000000 / 360;
+    var ky = 40000000 / 360; //40000000 - длина окружности земли в метрах
     var kx = cos(pi * centerPointLat / 180.0) * ky;
     var dx = (centerPointLon - checkPointLon).abs() * kx;
     var dy = (centerPointLat - checkPointLat).abs() * ky;
