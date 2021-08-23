@@ -14,7 +14,7 @@ dependencies:
   flutter_svg: ^0.22.0
 
   cupertino_icons: ^1.0.2
-  pedantic: 1.9.2
+  provider: ^5.0.0
 
 dev_dependencies:
   flutter_lints: ^1.0.4
@@ -28,7 +28,7 @@ flutter:
 
   assets:
     - res/
-
+    - res/icon/
 
   fonts:
     - family: Roboto

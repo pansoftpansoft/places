@@ -6,6 +6,7 @@ import 'font_collection.dart';
 
 //---Светлая тема
 final lightTheme = ThemeData(
+
   primaryColor: ColorPalette.lmPrimaryColor,
   backgroundColor: ColorPalette.lmPrimaryColor,
   scaffoldBackgroundColor: ColorPalette.lmPrimaryColor,
@@ -44,7 +45,7 @@ final lightTheme = ThemeData(
   bottomNavigationBarTheme: const BottomNavigationBarThemeData(
     backgroundColor: ColorPalette.lmNavigationBarBackground,
     showSelectedLabels: false,
-    elevation: 4,
+    elevation: 10,
     selectedIconTheme: IconThemeData(color: ColorPalette.greenColor, size: 30),
     unselectedIconTheme:
         IconThemeData(color: ColorPalette.lmBasicColor, size: 30),
@@ -61,10 +62,18 @@ final lightTheme = ThemeData(
   /*
   * iconTheme
   */
-  iconTheme: const IconThemeData(
-    color: ColorPalette.lmIcon,
-    size: 30,
-  ),
+  // iconTheme: const IconThemeData(
+  //   color: ColorPalette.lmIcon,
+  //   size: 30,
+  // ),
+  // primaryIconTheme: const IconThemeData(
+  //   color: ColorPalette.lmIcon,
+  //   size: 30,
+  // ),
+  // accentIconTheme: const IconThemeData(
+  //   color: ColorPalette.lmIcon,
+  //   size: 30,
+  // ),
   /*
   * textTheme
   */

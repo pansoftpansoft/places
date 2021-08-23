@@ -2,9 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:places/ui/screen/sight_card.dart';
 import 'package:places/ui/res/labels.dart';
-
 import 'package:places/mocks.dart';
+import 'package:places/ui/screen/Widgets/bottom_navigation.dart';
 
+
+//Окно в котором можно выбрать
+//места которые хочешь посетить и которые уже посетил
 class VisitingScreen extends StatefulWidget {
   const VisitingScreen({Key key}) : super(key: key);
 
@@ -47,42 +50,7 @@ class _VisitingScreenState extends State<VisitingScreen> {
             ),
           ),
         ),
-        bottomNavigationBar: Theme(
-          data: Theme.of(context).copyWith(
-            canvasColor:
-                Theme.of(context).bottomNavigationBarTheme.backgroundColor,
-          ),
-          child: BottomNavigationBar(
-            backgroundColor:
-                Theme.of(context).bottomNavigationBarTheme.backgroundColor,
-            items: [
-              const BottomNavigationBarItem(
-                icon: Icon(
-                  Icons.list_alt_outlined,
-                ),
-                label: '',
-              ),
-              const BottomNavigationBarItem(
-                icon: Icon(
-                  Icons.map_outlined,
-                ),
-                label: '',
-              ),
-              const BottomNavigationBarItem(
-                icon: Icon(
-                  Icons.favorite,
-                ),
-                label: '',
-              ),
-              const BottomNavigationBarItem(
-                icon: Icon(
-                  Icons.settings,
-                ),
-                label: '',
-              ),
-            ],
-          ),
-        ),
+        bottomNavigationBar: BottomNavigation(),
         body: Padding(
           padding: const EdgeInsets.all(16.0),
           child: TabBarView(

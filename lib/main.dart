@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:places/ui/screen/sight_details.dart';
+import 'package:places/ui/screen/models/app_model.dart';
+import 'package:places/ui/screen/filters_screen.dart';
+//import 'package:places/ui/screen/filters_screen.dart';
+//import 'package:places/ui/screen/settings_screen.dart';
+//import 'package:places/ui/screen/sight_details.dart';
 import 'package:places/ui/screen/sight_list_screen.dart';
 import 'package:flutter/services.dart';
+import 'package:places/ui/screen/test.dart';
 import 'package:places/ui/screen/visiting_screen.dart';
-import 'package:places/mocks.dart';
-import 'package:places/ui/res/themes.dart';
+// import 'package:places/ui/screen/visiting_screen.dart';
+// import 'package:places/mocks.dart';
+// import 'package:places/ui/res/themes.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -12,7 +19,12 @@ void main() {
     statusBarColor: Colors.transparent, // transparent status bar
   ));
 
-  runApp(MyApp());
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => AppModel(),
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -23,12 +35,16 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: lightTheme,
-      //theme: darkTheme,
-      title: 'Задача  4.12-1',
-      home: const VisitingScreen(),
-      //home: SightListScreen(),
+      //theme: themeActual,
+      theme: context.select<AppModel, ThemeData>((AppModel a) => a.themeColor),
+      title: 'Задача  5.2',
+      //home: const VisitingScreen(),
+      //home: const VisitingScreen(),
+      //home: const SightListScreen(),
       //home: SightDetails(mocks[1]),
+      home: FiltersScreen(),
+      //home: SettingsScreen(),
+      //home: Test(),
     );
   }
 }

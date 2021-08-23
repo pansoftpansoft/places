@@ -72,4 +72,12 @@ class FontCollection {
     color: ColorPalette.dmCardColor,
     height: 1.29,
   );
+
+  static const TextStyle devButton2 = const TextStyle(
+    letterSpacing: 0,
+    fontWeight: FontWeight.w400,
+    fontSize: 12,
+    color: ColorPalette.dmCardColor,
+    height: 1.29,
+  );
 }
