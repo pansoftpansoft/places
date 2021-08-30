@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:places/ui/res/color_palette.dart';
+import 'package:places/ui/res/labels.dart';
 import 'package:places/ui/screen/Widgets/bottom_navigation.dart';
+import 'package:places/ui/screen/add_sight_screen.dart';
 import 'package:places/ui/screen/sight_card.dart';
-
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:places/mocks.dart';
+import 'package:places/ui/res/svg_icons.dart';
 
 //Список достопримечательностей
 class SightListScreen extends StatefulWidget {
-  const SightListScreen({Key key}) : super(key: key);
+  const SightListScreen({Key? key}) : super(key: key);
 
   @override
   _SightListScreenState createState() => _SightListScreenState();
@@ -39,6 +43,8 @@ class _SightListScreenState extends State<SightListScreen> {
         ),
       ),
       bottomNavigationBar: BottomNavigation(),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: floatingActionButton(context),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 0),
@@ -52,6 +58,36 @@ class _SightListScreenState extends State<SightListScreen> {
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  DecoratedBox floatingActionButton(BuildContext context) {
+    return DecoratedBox(
+      decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              ColorPalette.greenColorLightGradient,
+              ColorPalette.greenColorStrongGradient,
+            ],
+          ),
+          borderRadius: BorderRadius.all(Radius.circular(25))),
+      child: FloatingActionButton.extended(
+        elevation: 0,
+        backgroundColor: Colors.transparent,
+        icon: SvgPicture.asset(
+          SvgIcons.plus,
+        ),
+        label: Text(Labels.newPlace.toUpperCase(), style: null),
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute<void>(
+              builder: (context) => AddSightScreen(),
+            ),
+          );
+          setState(() {});
+        },
       ),
     );
   }

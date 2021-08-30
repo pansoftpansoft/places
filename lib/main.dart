@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:places/ui/screen/add_sight_screen.dart';
 import 'package:places/ui/screen/models/app_model.dart';
 import 'package:places/ui/screen/filters_screen.dart';
+import 'package:places/ui/screen/select_category.dart';
 //import 'package:places/ui/screen/filters_screen.dart';
 //import 'package:places/ui/screen/settings_screen.dart';
 //import 'package:places/ui/screen/sight_details.dart';
@@ -29,22 +31,25 @@ void main() {
 
 class MyApp extends StatelessWidget {
   MyApp({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+
       //theme: themeActual,
       theme: context.select<AppModel, ThemeData>((AppModel a) => a.themeColor),
       title: 'Задача  5.2',
-      //home: const VisitingScreen(),
-      //home: const VisitingScreen(),
-      //home: const SightListScreen(),
-      //home: SightDetails(mocks[1]),
-      home: FiltersScreen(),
-      //home: SettingsScreen(),
-      //home: Test(),
+      // home: const VisitingScreen(),
+      // home: const VisitingScreen(),
+      home: const SightListScreen(),
+      // home: SightDetails(mocks[1]),
+      // home: FiltersScreen(),
+      // home: SettingsScreen(),
+      // home: Test(),
+      // home: AddSightScreen(),
+      // home: const SelectCategory(),
     );
   }
 }

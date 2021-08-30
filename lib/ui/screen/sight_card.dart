@@ -19,7 +19,7 @@ class SightCard extends StatelessWidget {
 
   SightCard(
     this.sight, {
-    Key key,
+    Key? key,
     this.goNeed = '',
     this.goal = '',
   }) : super(key: key);
@@ -54,7 +54,7 @@ class SightCard extends StatelessWidget {
               style: Theme.of(context)
                   .textTheme
                   .headline5
-                  .copyWith(color: const Color(0xFFFFFFFF)),
+                  !.copyWith(color: const Color(0xFFFFFFFF)),
             ),
           ),
           //Слой чернил для кликабельности всей карточки
@@ -90,7 +90,7 @@ class SightCard extends StatelessWidget {
                             style: Theme.of(context)
                                 .textTheme
                                 .subtitle2
-                                .copyWith(color: ColorPalette.greenColor),
+                                !.copyWith(color: ColorPalette.greenColor),
                           ),
                         ),
                       if (goNeed == '' && goal != '')

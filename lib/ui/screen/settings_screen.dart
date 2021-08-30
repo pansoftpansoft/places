@@ -10,7 +10,7 @@ import 'package:places/ui/screen/Widgets/bottom_navigation.dart';
 
 //Экран настроек
 class SettingsScreen extends StatefulWidget {
-  const SettingsScreen({Key key}) : super(key: key);
+  const SettingsScreen({Key? key}) : super(key: key);
 
   @override
   _SettingsScreenState createState() => _SettingsScreenState();

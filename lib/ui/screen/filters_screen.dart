@@ -8,7 +8,7 @@ import 'package:places/mocks.dart';
 
 //Экран фильтров
 class FiltersScreen extends StatefulWidget {
-  const FiltersScreen({Key key}) : super(key: key);
+  const FiltersScreen({Key? key}) : super(key: key);
 
   @override
   _FiltersScreenState createState() => _FiltersScreenState();
@@ -70,7 +70,7 @@ class _FiltersScreenState extends State<FiltersScreen> {
                     Labels.categories,
                     style: Theme.of(context)
                         .textTheme
-                        .subtitle2
+                        .subtitle2!
                         .copyWith(fontSize: 12),
                   ),
                 ],
@@ -159,7 +159,7 @@ class _FiltersScreenState extends State<FiltersScreen> {
             children: [
               Text(
                 '${Labels.show} (${countPlace})',
-                style: Theme.of(context).textTheme.headline5.copyWith(
+                style: Theme.of(context).textTheme.headline5!.copyWith(
                       color: ColorPalette.lmPrimaryColor,
                     ),
               ),
@@ -230,7 +230,7 @@ class _FiltersScreenState extends State<FiltersScreen> {
   //Установка выделения нажатой кнопки фильтра
   void SetButtonSelect(TypePlace nameKey) {
     setState(() {
-      filterMap[nameKey] = !filterMap[nameKey];
+      filterMap[nameKey] = filterMap[nameKey] == true ? true : false;
     });
   }
 

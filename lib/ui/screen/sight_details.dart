@@ -10,7 +10,7 @@ import 'package:places/ui/res/svg_icons.dart';
 class SightDetails extends StatelessWidget {
   final Sight sight;
 
-  const SightDetails(this.sight, {Key key}) : super(key: key);
+  const SightDetails(this.sight, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -85,7 +85,7 @@ class SightDetails extends StatelessWidget {
                             Labels.buildRoute,
                             style: Theme.of(context)
                                 .textTheme
-                                .headline5
+                                .headline5!
                                 .copyWith(color: const Color(0xFFFFFFFF)),
                           ),
                         ],
@@ -111,7 +111,8 @@ class SightDetails extends StatelessWidget {
                               SvgIcons.schedule,
                               height: 30,
                               width: 30,
-                              color: Theme.of(context).textTheme.button.color,
+                              color:
+                                  Theme.of(context).textTheme.button!.color ?? ColorPalette.greenColorLight,
                             ),
                             const SizedBox(width: 9),
                             Text(
@@ -132,7 +133,9 @@ class SightDetails extends StatelessWidget {
                               SvgIcons.heartTransparent,
                               height: 30,
                               width: 30,
-                              color: Theme.of(context).textTheme.button.color,
+                              color:
+                                  Theme.of(context).textTheme.button!.color ??
+                                      Colors.red,
                             ),
                             const SizedBox(width: 10),
                             Text(

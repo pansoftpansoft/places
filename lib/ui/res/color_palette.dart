@@ -5,6 +5,10 @@ class ColorPalette {
   static const Color greenColor = const Color(0xFF4CAF50);
   static const Color greenColorLight = const Color(0xFFE2F2E3);
 
+  //D5D341
+  static const Color greenColorLightGradient = const Color(0xFFD5D341);
+  static const Color greenColorStrongGradient = const Color(0xFF6BB74D);
+
   //--Свелая тема
   static const Color lmPrimaryColor = const Color(0xFFFFFFFF);
   static const Color lmCardColor = const Color(0xFFF5F5F5);
