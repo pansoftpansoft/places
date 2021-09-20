@@ -30,16 +30,11 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
     SearchFilterModel.textEditingControllerFind.clear();
     var searchFilterModel = context.read<SearchFilterModel>();
     if (searchFilterModel.GetFilteredList()) {
-      print(100);
-      if (SearchFilterModel.listHistory.length > 0) {
-        print(300);
-        searchFilterModel.ManagerSelectionScreen(
-            numberScreen: ScreenEnum.historyListScreen);
-      }
-    } else {
-      print(200);
       searchFilterModel.ManagerSelectionScreen(
           numberScreen: ScreenEnum.emptyScreen);
+    } else {
+      searchFilterModel.ManagerSelectionScreen(
+          numberScreen: ScreenEnum.historyListScreen);
     }
   }
 
