@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 
+/*
+Основные цвета используемые в проиложении
+*/
 class ColorPalette {
   //В не темы
   static const Color greenColor = const Color(0xFF4CAF50);
   static const Color greenColorLight = const Color(0xFFE2F2E3);
+  static const Color textInTextField = const Color(0xFF7C7E92);
+  static const Color filledTextField = const Color(0xFFF5F5F5);
 
   //D5D341
   static const Color greenColorLightGradient = const Color(0xFFD5D341);

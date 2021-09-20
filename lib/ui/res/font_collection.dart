@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'color_palette.dart';
 
+/*
+Шрифты
+*/
 class FontCollection {
   static const TextStyle devHeadline1 = const TextStyle(
     letterSpacing: 0,

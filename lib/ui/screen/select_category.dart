@@ -4,10 +4,12 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:places/mocks.dart';
 import 'package:places/ui/res/color_palette.dart';
 import 'package:places/ui/res/labels.dart';
+import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/res/svg_icons.dart';
 
 class SelectCategory extends StatefulWidget {
   final TypePlace? typePlaceSelectedActual;
+  TypePlace? typePlaceSelected;
 
   SelectCategory({Key? key, TypePlace? this.typePlaceSelectedActual})
       : super(key: key);
@@ -17,11 +19,12 @@ class SelectCategory extends StatefulWidget {
 }
 
 class _SelectCategoryState extends State<SelectCategory> {
-  TypePlace? typePlaceSelected;
-
   @override
   Widget build(BuildContext context) {
-    typePlaceSelected = widget.typePlaceSelectedActual;
+    if (widget.typePlaceSelectedActual != null &&
+        widget.typePlaceSelected == null) {
+      widget.typePlaceSelected = widget.typePlaceSelectedActual;
+    }
     return Scaffold(
       bottomSheet: bottomSheetWidget(context),
       appBar: AppBar(
@@ -31,15 +34,17 @@ class _SelectCategoryState extends State<SelectCategory> {
           style: Theme.of(context).textTheme.headline4,
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
-        child: Column(
-          children: [
-            for (var i = 0; i < TypePlace.values.toList().length; i++) ...[
-              ElementList(TypePlace.values.toList()[i]),
-              const Divider(),
-            ]
-          ],
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: Sizes.paddingPage, vertical: 24),
+          child: Column(
+            children: [
+              for (var i = 0; i < TypePlace.values.toList().length; i++) ...[
+                ElementList(TypePlace.values.toList()[i]),
+                const Divider(),
+              ]
+            ],
+          ),
         ),
       ),
     );
@@ -48,12 +53,12 @@ class _SelectCategoryState extends State<SelectCategory> {
   Widget ElementList(TypePlace typePlace) {
     return InkWell(
       onTap: () {
-        if (typePlaceSelected == typePlace) {
-          typePlaceSelected = null;
+        if (widget.typePlaceSelected == typePlace) {
+          widget.typePlaceSelected = null;
         } else {
-          typePlaceSelected = typePlace;
+          widget.typePlaceSelected = typePlace;
+          setState(() {});
         }
-        setState(() {});
       },
       child: SizedBox(
         height: 48,
@@ -67,7 +72,7 @@ class _SelectCategoryState extends State<SelectCategory> {
                     fontWeight: FontWeight.w400,
                   ),
             ),
-            if (typePlaceSelected == typePlace)
+            if (widget.typePlaceSelected == typePlace)
               SvgPicture.asset(
                 SvgIcons.tick,
                 color: ColorPalette.greenColor,
@@ -78,12 +83,12 @@ class _SelectCategoryState extends State<SelectCategory> {
     );
   }
 
-  //Кнопка "Создать"
+  //Кнопка "Сохранить"
   Widget bottomSheetWidget(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(
-        horizontal: 16.0,
-        vertical: 8.0,
+        horizontal: Sizes.paddingPage,
+        vertical: Sizes.paddingPage/2,
       ),
       child: ConstrainedBox(
         constraints: const BoxConstraints.tightFor(height: 48),
@@ -91,7 +96,7 @@ class _SelectCategoryState extends State<SelectCategory> {
           style: ButtonStyle(
             padding: MaterialStateProperty.all(EdgeInsets.zero),
             elevation: MaterialStateProperty.all(0),
-            backgroundColor: typePlaceSelected == null
+            backgroundColor: widget.typePlaceSelected == null
                 ? MaterialStateProperty.all<Color>(ColorPalette.dmBasicColor)
                 : MaterialStateProperty.all<Color>(ColorPalette.greenColor),
             shape: MaterialStateProperty.all<RoundedRectangleBorder>(
@@ -106,17 +111,17 @@ class _SelectCategoryState extends State<SelectCategory> {
               Text(
                 Labels.save,
                 style: Theme.of(context).textTheme.headline5!.copyWith(
-                      color: typePlaceSelected == null
+                      color: widget.typePlaceSelected == null
                           ? ColorPalette.lmFontHeadline2.withOpacity(0.56)
                           : ColorPalette.lmPrimaryColor,
                     ),
               ),
             ],
           ),
-          onPressed: typePlaceSelected == null
+          onPressed: widget.typePlaceSelected == null
               ? null
               : () {
-                  Navigator.pop(context, typePlaceSelected);
+                  Navigator.pop(context, widget.typePlaceSelected);
                 },
         ),
       ),

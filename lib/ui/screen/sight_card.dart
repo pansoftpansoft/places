@@ -4,13 +4,16 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:places/domain/sight.dart';
 import 'package:places/ui/res/color_palette.dart';
 import 'package:places/ui/res/labels.dart';
+import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/res/svg_icons.dart';
 
-//Карточка из списка достопримечательностей
-//По условиям
-//     this.goNeed == '',
-//     this.goal == '',
-//     отображаются дополнительные иконки
+/*
+Карточка из списка достопримечательностей
+По условиям
+    this.goNeed == '',
+    this.goal == '',
+    отображаются дополнительные иконки
+*/
 class SightCard extends StatelessWidget {
   final Sight sight;
   final String goNeed;
@@ -27,9 +30,9 @@ class SightCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: const EdgeInsets.fromLTRB(0, 0, 0, 16),
+      margin: const EdgeInsets.fromLTRB(0, 0, 0, Sizes.paddingPage),
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16.0),
+        borderRadius: BorderRadius.circular(Sizes.borderRadiusCard),
       ),
       elevation: 0,
       semanticContainer: false,
@@ -51,10 +54,9 @@ class SightCard extends StatelessWidget {
             top: 16,
             child: Text(
               Labels.TypePlaceString(sight.type),
-              style: Theme.of(context)
-                  .textTheme
-                  .headline5
-                  !.copyWith(color: const Color(0xFFFFFFFF)),
+              style: Theme.of(context).textTheme.headline5!.copyWith(
+                    color: const Color(0xFFFFFFFF),
+                  ),
             ),
           ),
           //Слой чернил для кликабельности всей карточки
@@ -89,8 +91,8 @@ class SightCard extends StatelessWidget {
                             maxLines: 5,
                             style: Theme.of(context)
                                 .textTheme
-                                .subtitle2
-                                !.copyWith(color: ColorPalette.greenColor),
+                                .subtitle2!
+                                .copyWith(color: ColorPalette.greenColor),
                           ),
                         ),
                       if (goNeed == '' && goal != '')
@@ -125,7 +127,7 @@ class SightCard extends StatelessWidget {
           ),
           //Иконка, что место уже посетили
           Positioned(
-            right:62,
+            right: 62,
             top: 21,
             child: goal != ''
                 ? const Icon(
@@ -139,23 +141,21 @@ class SightCard extends StatelessWidget {
             right: 18,
             top: 5,
             child: Material(
-              borderRadius:  BorderRadius.circular(30),
+              borderRadius: BorderRadius.circular(30),
               color: Colors.transparent,
               child: ElevatedButton(
-
                 // splashColor: ColorPalette.lmCardColor,
                 // splashRadius: 100,
                 // iconSize: 20,
                 style: ButtonStyle(
-                  padding: MaterialStateProperty.all(EdgeInsets.zero),
-                  elevation:  MaterialStateProperty.all(0),
-                  backgroundColor: MaterialStateProperty.all(Colors.transparent),
+                    padding: MaterialStateProperty.all(EdgeInsets.zero),
+                    elevation: MaterialStateProperty.all(0),
+                    backgroundColor:
+                        MaterialStateProperty.all(Colors.transparent),
                     shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                         RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(50.0),
-                        )
-                    )
-                ),
+                      borderRadius: BorderRadius.circular(50.0),
+                    ))),
                 child: CircleAvatar(
                   backgroundColor: Colors.transparent,
                   radius: 30,

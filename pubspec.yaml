@@ -12,6 +12,8 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_svg: ^0.22.0
+  sqflite: any
+  path_provider: any
 
   cupertino_icons: ^1.0.2
   provider: ^5.0.0

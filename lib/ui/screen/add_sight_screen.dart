@@ -12,12 +12,10 @@ import 'package:places/ui/res/color_palette.dart';
 // import 'package:places/ui/res/color_palette.dart';
 // import 'package:places/ui/res/svg_icons.dart';
 import 'package:places/ui/res/labels.dart';
+import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/res/svg_icons.dart';
 import 'package:places/ui/screen/select_category.dart';
 import 'package:places/ui/screen/widgets/text_field_icon.dart';
-
-// import 'dart:math';
-// import 'package:places/mocks.dart';
 
 //Экран фильтров
 
@@ -106,7 +104,7 @@ class _FiltersScreenState extends State<AddSightScreen> {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: const EdgeInsets.all(Sizes.paddingPage),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -188,13 +186,16 @@ class _FiltersScreenState extends State<AddSightScreen> {
                         controller: _textEditingControllerNamePlace,
                         focusNode: _focusNodeNamePlace,
                         focusNodeNext: _focusNodeLat,
-                        svgPictureSuffix: SvgIcons.clear,
-                        svgPictureSuffixColor: Colors.black,
+                        svgIconSuffixForText: SvgIcons.clear,
+                        svgIconSuffixForTextColor: Colors.black,
                         heightIcon: 20,
                         borderRadius: 8,
                         maxLines: 1,
-                        actionIconSuffix: () {
+                        actionIconSuffixForText: () {
                           _textEditingControllerNamePlace.clear();
+                        },
+                        actionOnSubmitted: (value) {
+                          _focusNodeLat.requestFocus();
                         },
                       ),
                     ),
@@ -241,18 +242,21 @@ class _FiltersScreenState extends State<AddSightScreen> {
                         focusNode: _focusNodeLat,
                         focusNodeNext: _focusNodeLon,
                         keyboardType: TextInputType.number,
-                        svgPictureSuffix: SvgIcons.clear,
-                        svgPictureSuffixColor: Colors.black,
+                        svgIconSuffixForText: SvgIcons.clear,
+                        svgIconSuffixForTextColor: Colors.black,
                         heightIcon: 20,
                         borderRadius: 8,
                         maxLines: 1,
-                        actionIconSuffix: () {
+                        actionIconSuffixForText: () {
                           _textEditingControllerLat.clear();
                         },
                         inputFormatters: [
                           FilteringTextInputFormatter.allow(
                               RegExp(r"^\d*?\.?\d*?$")),
                         ],
+                        actionOnSubmitted: (value) {
+                          _focusNodeLon.requestFocus();
+                        },
                       ),
                     ),
                     const SizedBox(
@@ -264,18 +268,21 @@ class _FiltersScreenState extends State<AddSightScreen> {
                         focusNode: _focusNodeLon,
                         focusNodeNext: _focusNodeDescription,
                         keyboardType: TextInputType.number,
-                        svgPictureSuffix: SvgIcons.clear,
-                        svgPictureSuffixColor: Colors.black,
+                        svgIconSuffixForText: SvgIcons.clear,
+                        svgIconSuffixForTextColor: Colors.black,
                         heightIcon: 20,
                         borderRadius: 8,
                         maxLines: 1,
-                        actionIconSuffix: () {
+                        actionIconSuffixForText: () {
                           _textEditingControllerLon.clear();
                         },
                         inputFormatters: [
                           FilteringTextInputFormatter.allow(
                               RegExp(r"^\d*?\.?\d*?$")),
                         ],
+                        actionOnSubmitted: (value) {
+                          _focusNodeDescription.requestFocus();
+                        },
                       ),
                     ),
                   ],
@@ -327,13 +334,16 @@ class _FiltersScreenState extends State<AddSightScreen> {
                       child: TextFieldIcon(
                         controller: _textEditingControllerDescription,
                         focusNode: _focusNodeDescription,
-                        svgPictureSuffix: SvgIcons.clear,
-                        svgPictureSuffixColor: Colors.black,
+                        svgIconSuffixForText: SvgIcons.clear,
+                        svgIconSuffixForTextColor: Colors.black,
                         heightIcon: 20,
                         borderRadius: 8,
                         maxLines: 5,
-                        actionIconSuffix: () {
+                        actionIconSuffixForText: () {
                           _textEditingControllerDescription.clear();
+                        },
+                        actionOnSubmitted: (value) {
+                          _focusNodeDescription.unfocus();
                         },
                       ),
                     ),
@@ -350,7 +360,6 @@ class _FiltersScreenState extends State<AddSightScreen> {
   }
 
   //Кнопка "Создать"
-
 
   Widget bottomSheetWidget(BuildContext context) {
     return Container(

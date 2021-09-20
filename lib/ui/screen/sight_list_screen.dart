@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:places/ui/res/color_palette.dart';
 import 'package:places/ui/res/labels.dart';
+import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/screen/Widgets/bottom_navigation.dart';
 import 'package:places/ui/screen/add_sight_screen.dart';
 import 'package:places/ui/screen/sight_card.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:places/mocks.dart';
 import 'package:places/ui/res/svg_icons.dart';
+import 'package:places/ui/screen/sight_search_screen.dart';
+import 'package:places/ui/screen/widgets/search_bar.dart';
+import 'package:places/ui/screen/widgets/title_app.dart';
 
 //Список достопримечательностей
 class SightListScreen extends StatefulWidget {
@@ -21,24 +25,36 @@ class _SightListScreenState extends State<SightListScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(128.0),
+        preferredSize: const Size.fromHeight(170.0),
         child: AppBar(
-          toolbarHeight: 120,
+          toolbarHeight: double.infinity,
           centerTitle: false,
           elevation: 0,
-          title: Column(
-            children: [
-              const SizedBox(
-                height: 40,
+          title: const TitleApp(),
+          bottom: PreferredSize(
+            preferredSize: const Size.fromHeight(60),
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(Sizes.paddingPage, 0, Sizes.paddingPage, Sizes.paddingPage),
+              child: Stack(
+                children: [
+                  SearchBar(),
+                  SizedBox(
+                    height: Sizes.heightTextFieldSearch,
+                    child: InkWell(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute<Route>(
+                            builder: (BuildContext context) =>
+                                const SightSearchScreen(),
+                          ),
+                        ); //.push(  MaterialPageRoute(builder: (context) => SettingsScreen()));
+                      },
+                    ),
+                  )
+                ],
               ),
-              Container(
-                width: double.infinity,
-                child: Text(
-                  'Список\nинтересных мест',
-                  style: Theme.of(context).textTheme.headline1,
-                ),
-              ),
-            ],
+            ),
           ),
         ),
       ),
@@ -47,7 +63,10 @@ class _SightListScreenState extends State<SightListScreen> {
       floatingActionButton: floatingActionButton(context),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 0),
+          padding: const EdgeInsets.symmetric(
+            horizontal: Sizes.paddingPage,
+            vertical: 0,
+          ),
           child: Column(
             children: [
               SightCard(mocks[0]),
@@ -86,7 +105,6 @@ class _SightListScreenState extends State<SightListScreen> {
               builder: (context) => AddSightScreen(),
             ),
           );
-          setState(() {});
         },
       ),
     );

@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:places/domain/sight.dart';
 import 'package:places/ui/res/color_palette.dart';
 import 'package:places/ui/res/labels.dart';
+import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/res/svg_icons.dart';
 
 //Подробно о достопримечательности
@@ -39,7 +40,7 @@ class SightDetails extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.fromLTRB(16, 24, 16, 0),
+              padding: const EdgeInsets.fromLTRB(Sizes.paddingPage, 24, Sizes.paddingPage, 0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [

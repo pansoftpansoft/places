@@ -10,8 +10,8 @@ class AppModel extends ChangeNotifier {
 
   bool get isThemeColor => _themeColor;
 
-  void changeTheme(bool theme) {
-    _themeColor = theme;
+  void changeTheme() {
+    _themeColor = !_themeColor;
     notifyListeners();
   }
 }

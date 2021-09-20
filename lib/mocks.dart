@@ -1,9 +1,17 @@
 import 'domain/sight.dart';
 
 enum TypePlace { hotel, restaurant, particular_place, park, museum, cafe }
+enum ScreenEnum {
+  loadScreen,
+  historyListScreen,
+  emptyScreen,
+  listOfFoundPlacesScreen,
+  errorScreen
+}
+
+List<Sight> mocksSearch = [];
 
 //Тестовые данные
-
 final List<Sight> mocks = [
   Sight(
       'Ивановская площадь',
