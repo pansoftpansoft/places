@@ -218,6 +218,7 @@ class SearchFilterModel extends ChangeNotifier {
   void ManagerSelectionScreen({ScreenEnum? numberScreen}) {
     //Если экран жестко задан
     if (numberScreen != null) {
+      print(SearchFilterModel.listHistory.length);
       selectedScreen = numberScreen;
       return;
     }

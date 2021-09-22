@@ -24,19 +24,30 @@ class SightSearchScreen extends StatefulWidget {
 }
 
 class _SightSearchScreenState extends State<SightSearchScreen> {
+  int countHistory=0;
   @override
   void initState() {
     super.initState();
-    SearchFilterModel.textEditingControllerFind.clear();
-    var searchFilterModel = context.read<SearchFilterModel>();
-    if (searchFilterModel.GetFilteredList()) {
-      searchFilterModel.ManagerSelectionScreen(
-          numberScreen: ScreenEnum.emptyScreen);
-    } else {
-      searchFilterModel.ManagerSelectionScreen(
-          numberScreen: ScreenEnum.historyListScreen);
-    }
   }
+
+  @override
+  void didChangeDependencies(){
+    super.didChangeDependencies();
+    SearchFilterModel.textEditingControllerFind.clear();
+    Future<void> f1 =  SearchFilterModel.getListHistory();
+    f1.then((_) {
+      var searchFilterModel = context.read<SearchFilterModel>();
+      if (SearchFilterModel.listHistory.length>0){
+        searchFilterModel.ManagerSelectionScreen(
+            numberScreen: ScreenEnum.historyListScreen);
+      }else{
+        searchFilterModel.ManagerSelectionScreen();
+      }
+      setState(() {});
+    });
+  }
+
+
 
   @override
   Widget build(BuildContext context) {
