@@ -3,10 +3,12 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:places/ui/res/svg_icons.dart';
 import 'package:places/ui/screen/settings_screen.dart';
 
-//Нижняя навигационная панель
-//используется на многих экранах
+/*
+Нижняя навигационная панель
+используется на многих экранах
+*/
 class BottomNavigation extends StatelessWidget {
-  BottomNavigation({Key key}) : super(key: key);
+  BottomNavigation({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +28,7 @@ class BottomNavigation extends StatelessWidget {
               color: Theme.of(context)
                   .bottomNavigationBarTheme
                   .unselectedIconTheme
-                  .color,
+                  !.color,
             ),
             label: '',
           ),
@@ -37,7 +39,7 @@ class BottomNavigation extends StatelessWidget {
               color: Theme.of(context)
                   .bottomNavigationBarTheme
                   .unselectedIconTheme
-                  .color,
+                  !.color,
             ),
             label: '',
           ),
@@ -48,7 +50,7 @@ class BottomNavigation extends StatelessWidget {
               color: Theme.of(context)
                   .bottomNavigationBarTheme
                   .unselectedIconTheme
-                  .color,
+                  !.color,
             ),
             label: '',
           ),
@@ -67,7 +69,7 @@ class BottomNavigation extends StatelessWidget {
                 color: Theme.of(context)
                     .bottomNavigationBarTheme
                     .unselectedIconTheme
-                    .color,
+                    !.color,
               ),
             ),
             label: '',

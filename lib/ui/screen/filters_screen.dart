@@ -1,146 +1,149 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:places/ui/res/color_palette.dart';
+import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/res/svg_icons.dart';
 import 'package:places/ui/res/labels.dart';
-import 'dart:math';
 import 'package:places/mocks.dart';
+import 'package:provider/provider.dart';
+import 'models/search_filter_model.dart';
 
 //Экран фильтров
-class FiltersScreen extends StatefulWidget {
-  const FiltersScreen({Key key}) : super(key: key);
-
-  @override
-  _FiltersScreenState createState() => _FiltersScreenState();
-}
-
-class _FiltersScreenState extends State<FiltersScreen> {
-  RangeValues _selectedRange = const RangeValues(100, 1000);
-  int countPlace = 0;
-
-  //Состояния ностроек фильтра
-  Map<TypePlace, bool> filterMap = {
-    TypePlace.hotel: true,
-    TypePlace.restaurant: true,
-    TypePlace.particular_place: true,
-    TypePlace.park: false,
-    TypePlace.museum: true,
-    TypePlace.cafe: false,
-  };
-
+class FiltersScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    //Запомним состояния фильтров
+    var filterActual = context.read<SearchFilterModel>();
+    filterActual.GetFilterSettings();
     return Scaffold(
-      bottomSheet: bottomSheetWidget(context),
       appBar: AppBar(
         centerTitle: false,
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            TextButton(
-              onPressed: () {
-                setState(() {
-                  for (var item in filterMap.entries) {
-                    filterMap[item.key] = false;
-                  }
-                  SetFilter();
-                });
-              },
-              child: const Text(
-                Labels.clear,
-                style: TextStyle(
-                  fontSize: 16,
-                  color: ColorPalette.greenColor,
-                ),
-              ),
-            ),
-          ],
-        ),
+        title: _title(context),
       ),
+      bottomSheet: bottomSheetWidget(context),
       body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 16.0,
-              ),
-              child: Row(
-                children: [
-                  Text(
-                    Labels.categories,
-                    style: Theme.of(context)
-                        .textTheme
-                        .subtitle2
-                        .copyWith(fontSize: 12),
+        child: Consumer<SearchFilterModel>(
+          builder: (context, cart, child) {
+            return Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16.0,
                   ),
-                ],
-              ),
-            ),
-            const SizedBox(height: 24),
-            GridView.count(crossAxisCount: 3, shrinkWrap: true, children: [
-              categoryIcon(context, 'Отель', TypePlace.hotel, SvgIcons.hotel),
-              categoryIcon(context, 'Ресторан', TypePlace.restaurant,
-                  SvgIcons.restaurant),
-              categoryIcon(context, 'Особое место', TypePlace.particular_place,
-                  SvgIcons.particular_place),
-              categoryIcon(context, 'Парк', TypePlace.park, SvgIcons.park),
-              categoryIcon(context, 'Музей', TypePlace.museum, SvgIcons.museum),
-              categoryIcon(context, 'Кафе', TypePlace.cafe, SvgIcons.cafe),
-            ]),
-            const SizedBox(height: 50),
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Text(Labels.distance),
-                  Text(
-                    '${Labels.from}  '
-                    '${_selectedRange.start.round().toString()} ${Labels.to} '
-                    '${_selectedRange.end.round().toString()} '
-                    '${Labels.meters}',
-                  )
-                ],
-              ),
-            ),
-            SliderTheme(
-              data: const SliderThemeData(
-                trackHeight: 1.8,
-                activeTrackColor: ColorPalette.greenColor,
-                inactiveTrackColor: ColorPalette.lmTabBarUnSelect,
-                thumbColor: Colors.white,
-              ),
-              child: RangeSlider(
-                min: 100,
-                max: 10000,
-                values: _selectedRange,
-                onChanged: (RangeValues newRange) {
-                  //Без определения этого свойства, бегунки не активны
-                },
-                onChangeEnd: (RangeValues newRange) {
-                  setState(() {
-                    _selectedRange = newRange;
-                    SetFilter();
-                  });
-                },
-                labels: RangeLabels(
-                  '${_selectedRange.start.round().toString()}',
-                  '${_selectedRange.end.round().toString()}',
+                  child: Row(
+                    children: [
+                      Text(
+                        Labels.categories,
+                        style: Theme.of(context)
+                            .textTheme
+                            .subtitle2!
+                            .copyWith(fontSize: 12),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            ),
-          ],
+                const SizedBox(height: 24),
+                GridView.count(
+                  crossAxisCount: 3,
+                  shrinkWrap: true,
+                  children: [
+                    categoryIcon(
+                        context, 'Отель', TypePlace.hotel, SvgIcons.hotel),
+                    categoryIcon(context, 'Ресторан', TypePlace.restaurant,
+                        SvgIcons.restaurant),
+                    categoryIcon(context, 'Особое место',
+                        TypePlace.particular_place, SvgIcons.particular_place),
+                    categoryIcon(
+                        context, 'Парк', TypePlace.park, SvgIcons.park),
+                    categoryIcon(
+                        context, 'Музей', TypePlace.museum, SvgIcons.museum),
+                    categoryIcon(
+                        context, 'Кафе', TypePlace.cafe, SvgIcons.cafe),
+                  ],
+                ),
+                const SizedBox(height: 50),
+                Padding(
+                  padding: const EdgeInsets.all(Sizes.paddingPage),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text(Labels.distance),
+                      Text(
+                        '${Labels.from}  '
+                        '${SearchFilterModel.selectedRange.start.round().toString()} ${Labels.to} '
+                        '${SearchFilterModel.selectedRange.end.round().toString()} '
+                        '${Labels.meters}',
+                      )
+                    ],
+                  ),
+                ),
+                SliderTheme(
+                  data: const SliderThemeData(
+                    trackHeight: 1.8,
+                    activeTrackColor: ColorPalette.greenColor,
+                    inactiveTrackColor: ColorPalette.lmTabBarUnSelect,
+                    thumbColor: Colors.white,
+                  ),
+                  child: RangeSlider(
+                    min: 100,
+                    max: 10000,
+                    values: SearchFilterModel.selectedRange,
+                    onChanged: (RangeValues newRange) {
+                      //Без определения этого свойства, бегунки не активны
+                      SearchFilterModel.selectedRange = newRange;
+                      SetFilter(context);
+                    },
+                    onChangeEnd: (RangeValues newRange) {
+                      SearchFilterModel.selectedRange = newRange;
+                      SetFilter(context);
+                    },
+                    labels: RangeLabels(
+                      '${SearchFilterModel.selectedRange.start.round().toString()}',
+                      '${SearchFilterModel.selectedRange.end.round().toString()}',
+                    ),
+                  ),
+                ),
+              ],
+            );
+          },
         ),
       ),
     );
+  }
+
+  Row _title(BuildContext context) {
+    return Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          TextButton(
+            onPressed: () {
+              clearFilterValue(context);
+            },
+            child: const Text(
+              Labels.clear,
+              style: TextStyle(
+                fontSize: 16,
+                color: ColorPalette.greenColor,
+              ),
+            ),
+          ),
+        ],
+      );
+  }
+
+  void clearFilterValue(BuildContext context) {
+    for (var item in SearchFilterModel.filterMap.entries) {
+      SearchFilterModel.filterMap[item.key] = false;
+    }
+    SetFilter(context);
   }
 
   //Кнопка "показать"
   Widget bottomSheetWidget(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(
-        horizontal: 16.0,
-        vertical: 8.0,
+        horizontal: Sizes.paddingPage,
+        vertical: Sizes.paddingPage/2,
       ),
       child: ConstrainedBox(
         constraints: const BoxConstraints.tightFor(height: 48),
@@ -157,15 +160,30 @@ class _FiltersScreenState extends State<FiltersScreen> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
-                '${Labels.show} (${countPlace})',
-                style: Theme.of(context).textTheme.headline5.copyWith(
-                      color: ColorPalette.lmPrimaryColor,
-                    ),
+
+
+
+              Consumer<SearchFilterModel>(
+                builder: (context, cart, child) {
+                  return Text(
+                    '${Labels.show} (${SearchFilterModel.countPlace})',
+                    style: Theme.of(context).textTheme.headline5!.copyWith(
+                          color: ColorPalette.lmPrimaryColor,
+                        ),
+                  );
+                },
               ),
             ],
           ),
           onPressed: () {
+            //Записываем состояние фильтра
+
+            var filterActual = context.read<SearchFilterModel>();
+            filterActual.SaveFilterSettings();
+            filterActual.ChangeSearch();
+
+            //возвращаемся на страници показа
+            Navigator.pop(context);
             print('Это кнопка "Показать"');
           },
         ),
@@ -189,8 +207,8 @@ class _FiltersScreenState extends State<FiltersScreen> {
                 iconSize: 53,
                 //color: ,
                 onPressed: () {
-                  SetButtonSelect(nameKey);
-                  SetFilter();
+                  SetButtonSelect(context, nameKey);
+                  SetFilter(context);
                 },
                 icon: SvgPicture.asset(
                   svgIcons,
@@ -202,7 +220,7 @@ class _FiltersScreenState extends State<FiltersScreen> {
             Positioned(
               bottom: -4,
               right: -4,
-              child: filterMap[nameKey] == true
+              child: SearchFilterModel.filterMap[nameKey] == true
                   ? SvgPicture.asset(
                       SvgIcons.tick_choice,
                       height: 25,
@@ -228,40 +246,15 @@ class _FiltersScreenState extends State<FiltersScreen> {
   }
 
   //Установка выделения нажатой кнопки фильтра
-  void SetButtonSelect(TypePlace nameKey) {
-    setState(() {
-      filterMap[nameKey] = !filterMap[nameKey];
-    });
+  void SetButtonSelect(BuildContext context, TypePlace nameKey) {
+    var buttonActual = context.read<SearchFilterModel>();
+    buttonActual.SetTypePlaceSelected(nameKey);
+    SetFilter(context);
   }
 
   //Установка фильтра
-  void SetFilter() {
-    int _countPlace = 0;
-    print(_selectedRange.end);
-    for (var item in mocks) {
-      if (double.tryParse(item.lat) != null &&
-          double.tryParse(item.lat) != null) {
-        if (ArePointsNear(double.parse(item.lat.toString()),
-                double.parse(item.lon.toString())) ==
-            true) {
-          if (filterMap[item.type] == true) {
-            _countPlace++;
-          }
-        }
-      }
-    }
-    countPlace = _countPlace;
-  }
-
-  //Проверка вхождения точки в радиус
-  bool ArePointsNear(double checkPointLat, double checkPointLon) {
-    double centerPointLat = 55.753605;
-    double centerPointLon = 37.619773;
-    var ky = 40000000 / 360; //40000000 - длина окружности земли в метрах
-    var kx = cos(pi * centerPointLat / 180.0) * ky;
-    var dx = (centerPointLon - checkPointLon).abs() * kx;
-    var dy = (centerPointLat - checkPointLat).abs() * ky;
-    return sqrt(dx * dx + dy * dy) <= _selectedRange.end &&
-        sqrt(dx * dx + dy * dy) >= _selectedRange.start;
+  void SetFilter(BuildContext context) {
+    var filterActual = context.read<SearchFilterModel>();
+    filterActual.CountFilteredPlaces();
   }
 }

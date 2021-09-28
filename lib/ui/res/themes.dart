@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:places/ui/res/color_palette.dart';
+import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/res/text_themas.dart';
 
 import 'font_collection.dart';
 
 //---Светлая тема
 final lightTheme = ThemeData(
-
   primaryColor: ColorPalette.lmPrimaryColor,
   backgroundColor: ColorPalette.lmPrimaryColor,
   scaffoldBackgroundColor: ColorPalette.lmPrimaryColor,
+  bottomSheetTheme:
+      const BottomSheetThemeData(backgroundColor: Colors.transparent),
   /*
   * appBarTheme
   */
@@ -23,7 +25,7 @@ final lightTheme = ThemeData(
   cardTheme: CardTheme(
     elevation: 0,
     shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(16.0),
+      borderRadius: BorderRadius.circular(Sizes.borderRadiusCard),
     ),
     color: ColorPalette.lmCardColor,
   ),
@@ -86,6 +88,8 @@ final darkTheme = ThemeData(
   primaryColor: ColorPalette.dmPrimaryColor,
   backgroundColor: ColorPalette.dmPrimaryColor,
   scaffoldBackgroundColor: ColorPalette.dmPrimaryColor,
+  bottomSheetTheme:
+      const BottomSheetThemeData(backgroundColor: Colors.transparent),
   /*
   * appBarTheme
   */
@@ -100,7 +104,7 @@ final darkTheme = ThemeData(
     elevation: 0,
     color: ColorPalette.dmCardColor,
     shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(16.0),
+      borderRadius: BorderRadius.circular(Sizes.borderRadiusCard),
     ),
   ),
   /*
