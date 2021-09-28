@@ -1,16 +1,9 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:places/domain/sight.dart';
 import 'package:places/mocks.dart';
-
-//import 'package:flutter_svg/flutter_svg.dart';
 import 'package:places/ui/res/color_palette.dart';
-
-// import 'package:flutter_svg/flutter_svg.dart';
-// import 'package:places/ui/res/color_palette.dart';
-// import 'package:places/ui/res/svg_icons.dart';
 import 'package:places/ui/res/labels.dart';
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/res/svg_icons.dart';
@@ -110,7 +103,7 @@ class _FiltersScreenState extends State<AddSightScreen> {
             children: [
               // Заголовок 'Ктегория'
               Opacity(
-                opacity: 0.56,
+                opacity: Sizes.opacityText,
                 child: Text(
                   Labels.categories,
                   style: Theme.of(context).textTheme.subtitle2!.copyWith(
@@ -159,7 +152,7 @@ class _FiltersScreenState extends State<AddSightScreen> {
               ),
               //Дивайдер
               const Opacity(
-                  opacity: 0.56,
+                  opacity: Sizes.opacityText,
                   child: Divider(
                     color: ColorPalette.lmTabBarUnSelect,
                     thickness: 0.8,

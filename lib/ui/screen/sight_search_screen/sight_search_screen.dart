@@ -4,8 +4,8 @@ import 'package:places/ui/res/color_palette.dart';
 import 'package:places/ui/res/labels.dart';
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/res/svg_icons.dart';
-import 'package:places/ui/screen/models/search_filter_model.dart';
-import 'package:places/ui/screen/sight_card_for_search.dart';
+import 'package:places/ui/screen/sight_search_screen/model/search_filter_model.dart';
+import 'package:places/ui/screen/sight_search_screen/widgets/sight_card_for_search.dart';
 import 'package:places/ui/screen/widgets/search_history_list.dart';
 import 'package:places/ui/screen/widgets/title_app.dart';
 import 'package:places/ui/screen/Widgets/bottom_navigation.dart';
@@ -24,30 +24,29 @@ class SightSearchScreen extends StatefulWidget {
 }
 
 class _SightSearchScreenState extends State<SightSearchScreen> {
-  int countHistory=0;
+  int countHistory = 0;
+
   @override
   void initState() {
     super.initState();
   }
 
   @override
-  void didChangeDependencies(){
+  void didChangeDependencies() {
     super.didChangeDependencies();
     SearchFilterModel.textEditingControllerFind.clear();
-    Future<void> f1 =  SearchFilterModel.getListHistory();
+    Future<void> f1 = SearchFilterModel.getListHistory();
     f1.then((_) {
       var searchFilterModel = context.read<SearchFilterModel>();
-      if (SearchFilterModel.listHistory.length>0){
+      if (SearchFilterModel.listHistory.length > 0) {
         searchFilterModel.ManagerSelectionScreen(
             numberScreen: ScreenEnum.historyListScreen);
-      }else{
+      } else {
         searchFilterModel.ManagerSelectionScreen();
       }
       setState(() {});
     });
   }
-
-
 
   @override
   Widget build(BuildContext context) {

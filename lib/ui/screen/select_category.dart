@@ -112,7 +112,7 @@ class _SelectCategoryState extends State<SelectCategory> {
                 Labels.save,
                 style: Theme.of(context).textTheme.headline5!.copyWith(
                       color: widget.typePlaceSelected == null
-                          ? ColorPalette.lmFontHeadline2.withOpacity(0.56)
+                          ? ColorPalette.lmFontHeadline2.withOpacity(Sizes.opacityText)
                           : ColorPalette.lmPrimaryColor,
                     ),
               ),

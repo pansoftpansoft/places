@@ -4,11 +4,11 @@ import 'package:places/ui/res/labels.dart';
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/screen/Widgets/bottom_navigation.dart';
 import 'package:places/ui/screen/add_sight_screen.dart';
-import 'package:places/ui/screen/sight_card.dart';
+import 'package:places/ui/screen/widgets/sight_card.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:places/mocks.dart';
 import 'package:places/ui/res/svg_icons.dart';
-import 'package:places/ui/screen/sight_search_screen.dart';
+import 'package:places/ui/screen/sight_search_screen/sight_search_screen.dart';
 import 'package:places/ui/screen/widgets/search_bar.dart';
 import 'package:places/ui/screen/widgets/title_app.dart';
 
@@ -34,7 +34,8 @@ class _SightListScreenState extends State<SightListScreen> {
           bottom: PreferredSize(
             preferredSize: const Size.fromHeight(60),
             child: Padding(
-              padding: const EdgeInsets.fromLTRB(Sizes.paddingPage, 0, Sizes.paddingPage, Sizes.paddingPage),
+              padding: const EdgeInsets.fromLTRB(
+                  Sizes.paddingPage, 0, Sizes.paddingPage, Sizes.paddingPage),
               child: Stack(
                 children: [
                   SearchBar(),
