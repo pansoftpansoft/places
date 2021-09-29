@@ -6,7 +6,7 @@ import 'package:places/ui/res/svg_icons.dart';
 import 'package:places/ui/res/labels.dart';
 import 'package:places/mocks.dart';
 import 'package:provider/provider.dart';
-import 'models/search_filter_model.dart';
+import 'sight_search_screen/model/search_filter_model.dart';
 
 //Экран фильтров
 class FiltersScreen extends StatelessWidget {
@@ -113,22 +113,22 @@ class FiltersScreen extends StatelessWidget {
 
   Row _title(BuildContext context) {
     return Row(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          TextButton(
-            onPressed: () {
-              clearFilterValue(context);
-            },
-            child: const Text(
-              Labels.clear,
-              style: TextStyle(
-                fontSize: 16,
-                color: ColorPalette.greenColor,
-              ),
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: [
+        TextButton(
+          onPressed: () {
+            clearFilterValue(context);
+          },
+          child: const Text(
+            Labels.clear,
+            style: TextStyle(
+              fontSize: 16,
+              color: ColorPalette.greenColor,
             ),
           ),
-        ],
-      );
+        ),
+      ],
+    );
   }
 
   void clearFilterValue(BuildContext context) {
@@ -143,7 +143,7 @@ class FiltersScreen extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(
         horizontal: Sizes.paddingPage,
-        vertical: Sizes.paddingPage/2,
+        vertical: Sizes.paddingPage / 2,
       ),
       child: ConstrainedBox(
         constraints: const BoxConstraints.tightFor(height: 48),
@@ -160,9 +160,6 @@ class FiltersScreen extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-
-
-
               Consumer<SearchFilterModel>(
                 builder: (context, cart, child) {
                   return Text(

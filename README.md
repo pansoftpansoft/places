@@ -1,6 +1,6 @@
 # places
 
-A this is a guide to interesting places in the world.
+A new Flutter project.
 
 ## Getting Started
 

@@ -1,12 +1,7 @@
 import 'dart:ui' as ui show BoxHeightStyle, BoxWidthStyle;
-import 'dart:ui';
-
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
-
-
 
 // decoration: InputDecoration(
 // hintText: Labels.search,
@@ -80,8 +75,8 @@ class TextFieldIcon extends TextField {
       double? cursorHeight,
       Radius? cursorRadius,
       Color? cursorColor,
-      BoxHeightStyle? selectionHeightStyle,
-      BoxWidthStyle? selectionWidthStyle,
+      ui.BoxHeightStyle? selectionHeightStyle,
+      ui.BoxWidthStyle? selectionWidthStyle,
       Brightness? keyboardAppearance,
       EdgeInsets? scrollPadding,
       DragStartBehavior? dragStartBehavior,
@@ -111,9 +106,7 @@ class TextFieldIcon extends TextField {
             decoration: decoration,
             keyboardType: keyboardType,
             textInputAction: textInputAction,
-            textCapitalization: textCapitalization == null
-                ? TextCapitalization.none
-                : textCapitalization,
+            textCapitalization: textCapitalization ?? TextCapitalization.none,
             style: style,
             strutStyle: strutStyle,
             textAlign: textAlign == null ? TextAlign.start : textAlign,

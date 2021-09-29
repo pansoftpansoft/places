@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:places/ui/res/color_palette.dart';
 import 'package:places/ui/res/labels.dart';
+import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/res/svg_icons.dart';
-import 'package:places/ui/screen/models/search_filter_model.dart';
+import 'package:places/ui/screen/sight_search_screen/model/search_filter_model.dart';
 import 'package:provider/provider.dart';
-
 
 /*
 Список историй поиска мест
@@ -25,7 +25,7 @@ class HistoryListScreen extends StatelessWidget {
           children: [
             Text(Labels.youLooking,
                 style: Theme.of(context).textTheme.subtitle2!.copyWith(
-                    color: ColorPalette.lmFontSubtitle2.withOpacity(0.56))),
+                    color: ColorPalette.lmFontSubtitle2.withOpacity(Sizes.opacityText))),
             Flexible(child: ListHistory()),
             TextButton(
               style: ButtonStyle(

@@ -1,11 +1,11 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:places/domain/sight.dart';
 import 'package:places/ui/res/color_palette.dart';
 import 'package:places/ui/res/labels.dart';
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/res/svg_icons.dart';
+import 'package:places/ui/screen/widgets/icon_button_special.dart';
 
 /*
 Карточка из списка достопримечательностей
@@ -18,6 +18,9 @@ class SightCard extends StatelessWidget {
   final Sight sight;
   final String goNeed;
   final String goal;
+  final bool iconDelete;
+  final VoidCallback? actionOnDelete;
+
   static const double heightImage = 95;
 
   SightCard(
@@ -25,6 +28,8 @@ class SightCard extends StatelessWidget {
     Key? key,
     this.goNeed = '',
     this.goal = '',
+    this.iconDelete = false, // отображать иконку удалить
+    this.actionOnDelete,
   }) : super(key: key);
 
   @override
@@ -51,7 +56,7 @@ class SightCard extends StatelessWidget {
           //Надпись "категория" места
           Positioned(
             left: 16,
-            top: 16,
+            top: 18,
             child: Text(
               Labels.TypePlaceString(sight.type),
               style: Theme.of(context).textTheme.headline5!.copyWith(
@@ -116,8 +121,8 @@ class SightCard extends StatelessWidget {
           ),
           //Иконка, что надо посетить это место
           Positioned(
-            right: 62,
-            top: 21,
+            right: 70,
+            top: 19,
             child: goNeed != ''
                 ? const Icon(
                     Icons.calendar_today_outlined,
@@ -127,8 +132,8 @@ class SightCard extends StatelessWidget {
           ),
           //Иконка, что место уже посетили
           Positioned(
-            right: 62,
-            top: 21,
+            right: 70,
+            top: 19,
             child: goal != ''
                 ? const Icon(
                     Icons.share,
@@ -136,35 +141,19 @@ class SightCard extends StatelessWidget {
                   )
                 : const SizedBox(width: 0),
           ),
-          //Кнопка добавить в избранное
+          //Кнопка добавить в избранное или удалить
           Positioned(
-            right: 18,
-            top: 5,
-            child: Material(
-              borderRadius: BorderRadius.circular(30),
-              color: Colors.transparent,
-              child: ElevatedButton(
-                style: ButtonStyle(
-                    padding: MaterialStateProperty.all(EdgeInsets.zero),
-                    elevation: MaterialStateProperty.all(0),
-                    backgroundColor:
-                        MaterialStateProperty.all(Colors.transparent),
-                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                        RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(50.0),
-                    ))),
-                child: CircleAvatar(
-                  backgroundColor: Colors.transparent,
-                  radius: 30,
-                  child: SvgPicture.asset(
+            right: 8,
+            top: 2,
+            child: this.iconDelete
+                ? IconButtonSpecial(
+                    SvgIcons.delete,
+                    onPressed: this.actionOnDelete,
+
+                  )
+                : IconButtonSpecial(
                     SvgIcons.heartTransparent,
                   ),
-                ),
-                onPressed: () {
-                  print('Это кнопка "В избранное на карточке"');
-                },
-              ),
-            ),
           ),
         ],
       ),
