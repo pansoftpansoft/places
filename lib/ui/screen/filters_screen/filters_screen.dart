@@ -6,7 +6,7 @@ import 'package:places/ui/res/svg_icons.dart';
 import 'package:places/ui/res/labels.dart';
 import 'package:places/mocks.dart';
 import 'package:provider/provider.dart';
-import 'sight_search_screen/model/search_filter_model.dart';
+import '../sight_search_screen/models/search_filter_model.dart';
 
 //Экран фильтров
 class FiltersScreen extends StatelessWidget {

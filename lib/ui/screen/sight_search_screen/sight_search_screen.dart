@@ -4,7 +4,7 @@ import 'package:places/ui/res/color_palette.dart';
 import 'package:places/ui/res/labels.dart';
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/res/svg_icons.dart';
-import 'package:places/ui/screen/sight_search_screen/model/search_filter_model.dart';
+import 'package:places/ui/screen/sight_search_screen/models/search_filter_model.dart';
 import 'package:places/ui/screen/sight_search_screen/widgets/sight_card_for_search.dart';
 import 'package:places/ui/screen/widgets/search_history_list.dart';
 import 'package:places/ui/screen/widgets/title_app.dart';

@@ -2,9 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/screen/Widgets/bottom_navigation.dart';
-import 'package:places/ui/screen/visiting/widgets/AppBarVisiting.dart';
-import 'package:places/ui/screen/visiting/widgets/tab1.dart';
-import 'package:places/ui/screen/visiting/widgets/tab2.dart';
+import 'package:places/ui/screen/visiting_screen/widgets/AppBarVisiting.dart';
+import 'package:places/ui/screen/visiting_screen/widgets/tab1.dart';
+import 'package:places/ui/screen/visiting_screen/widgets/tab2.dart';
 
 /*
 Окно в котором можно выбрать

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:places/ui/screen/models/app_model.dart';
-import 'package:places/ui/screen/sight_search_screen/model/search_filter_model.dart';
+import 'package:places/ui/screen/sight_search_screen/models/search_filter_model.dart';
 import 'package:places/ui/screen/sight_list_screen/sight_list_screen.dart';
 import 'package:flutter/services.dart';
-import 'package:places/ui/screen/visiting/model/visiting_model.dart';
+import 'package:places/ui/screen/visiting_screen/models/visiting_model.dart';
 import 'package:provider/provider.dart';
 
 //import 'package:places/ui/screen/filters_screen.dart';

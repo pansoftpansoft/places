@@ -6,7 +6,7 @@ import 'package:places/ui/res/labels.dart';
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/res/svg_icons.dart';
 import 'package:places/ui/screen/widgets/sight_card.dart';
-import 'package:places/ui/screen/visiting/model/visiting_model.dart';
+import 'package:places/ui/screen/visiting_screen/models/visiting_model.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
 
@@ -51,7 +51,7 @@ Widget Tab2(BuildContext context) {
                   iconDelete: true,
                   goal:
                       'Цель достигнута ${DateFormat.yMMMd().format(mocksVisited[index].visitedDate!)}',
-                  key: ValueKey(mocksVisited[index].name),
+                  //key: ValueKey(mocksVisited[index].name),
                   actionOnDelete: () {
                     var _visitingModel = context.read<VisitingModel>();
                     _visitingModel.DeletePlaceVisited(
