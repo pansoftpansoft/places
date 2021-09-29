@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:places/ui/res/svg_icons.dart';
-import 'package:places/ui/screen/settings_screen.dart';
-import 'package:places/ui/screen/visiting/visiting_screen.dart';
+import 'package:places/ui/screen/settings_screen/settings_screen.dart';
+import 'package:places/ui/screen/visiting_screen/visiting_screen.dart';
 
 /*
 Нижняя навигационная панель
