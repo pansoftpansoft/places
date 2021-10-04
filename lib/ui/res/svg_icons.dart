@@ -7,6 +7,7 @@ class SvgIcons {
   static const String calendar = '${catalog}calendar.svg';
   static const String card = '${catalog}card.svg';
   static const String clear = '${catalog}clear.svg';
+  static const String clear_white = '${catalog}clear_white.svg';
   static const String delete = '${catalog}delete.svg';
   static const String filter = '${catalog}filter.svg';
   static const String go = '${catalog}go.svg';
@@ -28,4 +29,5 @@ class SvgIcons {
   static const String tick = '${catalog}tick.svg';
   static const String tick_choice = '${catalog}tick_choice.svg';
   static const String view = '${catalog}view.svg';
+  static const String union = '${catalog}union.svg';
 }

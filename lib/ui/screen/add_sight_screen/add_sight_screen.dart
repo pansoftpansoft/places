@@ -7,11 +7,14 @@ import 'package:places/ui/res/color_palette.dart';
 import 'package:places/ui/res/labels.dart';
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/res/svg_icons.dart';
+import 'package:places/ui/screen/add_sight_screen/widgets/divider_opacity.dart';
 import 'package:places/ui/screen/add_sight_screen/widgets/select_category.dart';
+import 'package:places/ui/screen/add_sight_screen/models/add_sight_model.dart';
+import 'package:places/ui/screen/add_sight_screen/widgets/title_field.dart';
 import 'package:places/ui/screen/widgets/text_field_icon.dart';
+import 'package:provider/provider.dart';
 
-//Экран фильтров
-
+//Экран добавления карточек
 class AddSightScreen extends StatefulWidget {
   AddSightScreen({Key? key}) : super(key: key);
 
@@ -101,72 +104,37 @@ class _FiltersScreenState extends State<AddSightScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Заголовок 'Ктегория'
-              Opacity(
-                opacity: Sizes.opacityText,
-                child: Text(
-                  Labels.categories,
-                  style: Theme.of(context).textTheme.subtitle2!.copyWith(
-                        fontSize: 12,
-                      ),
+              Container(
+                height: 72,
+                width: double.infinity,
+                child: Row(
+                  children: [
+                    Consumer<AddSightModel>(builder: (context, sight, child) {
+                      return Expanded(
+                        child: ListView.builder(
+                            itemCount: AddSightModel.tempPhotoPlace.length,
+                            scrollDirection: Axis.horizontal,
+                            itemBuilder: (BuildContext context, int index) {
+                              return ButtonImage(context, index);
+                            }),
+                      );
+                    }),
+                  ],
                 ),
               ),
+              const SizedBox(height: 12),
+              // Заголовок 'Ктегория'
+              const TitleField(Labels.categories),
               // Разделитель
               const SizedBox(height: 12),
               // Кнопка выбора категории
-              SizedBox(
-                height: 32,
-                child: TextButton(
-                  style: ButtonStyle(
-                      padding: MaterialStateProperty.all<EdgeInsets>(
-                          EdgeInsets.zero)),
-                  onPressed: () async {
-                    typePlaceSelected = await Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => SelectCategory(
-                            typePlaceSelectedActual: typePlaceSelected),
-                      ),
-                    );
-                    setState(() {});
-                  },
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        typePlaceSelected == null
-                            ? Labels.notSelected
-                            : Labels.TypePlaceString(
-                                typePlaceSelected as TypePlace),
-                        style: Theme.of(context)
-                            .textTheme
-                            .subtitle2!
-                            .copyWith(fontSize: 16),
-                      ),
-                      SvgPicture.asset(
-                        SvgIcons.view,
-                      ),
-                    ],
-                  ),
-                ),
-              ),
+              SelectTypePlace(context),
               //Дивайдер
-              const Opacity(
-                  opacity: Sizes.opacityText,
-                  child: Divider(
-                    color: ColorPalette.lmTabBarUnSelect,
-                    thickness: 0.8,
-                  )),
+              const DividerOpacity(),
               // Разделитель
               const SizedBox(height: 24),
               // Заголовок "Название"
-              Text(
-                Labels.namePlace,
-                style: Theme.of(context)
-                    .textTheme
-                    .subtitle2!
-                    .copyWith(fontSize: 12),
-              ),
+              const TitleField(Labels.namePlace),
               // Разделитель
               const SizedBox(height: 12),
               // Поле ввода "Название"
@@ -199,25 +167,15 @@ class _FiltersScreenState extends State<AddSightScreen> {
               const SizedBox(height: 24),
               Row(
                 children: [
-                  Expanded(
-                    child: Text(
-                      Labels.lat,
-                      style: Theme.of(context)
-                          .textTheme
-                          .subtitle2!
-                          .copyWith(fontSize: 12),
-                    ),
+                  const Expanded(
+                    child: TitleField(Labels.lat),
                   ),
                   const SizedBox(
                     width: 16,
                   ),
-                  Expanded(
-                    child: Text(
+                  const Expanded(
+                    child: TitleField(
                       Labels.lon,
-                      style: Theme.of(context)
-                          .textTheme
-                          .subtitle2!
-                          .copyWith(fontSize: 12),
                     ),
                   ),
                 ],
@@ -307,12 +265,8 @@ class _FiltersScreenState extends State<AddSightScreen> {
               //Заголовок "Описание"
               Row(
                 children: [
-                  Text(
+                  const TitleField(
                     Labels.description,
-                    style: Theme.of(context)
-                        .textTheme
-                        .subtitle2!
-                        .copyWith(fontSize: 12),
                   ),
                 ],
               ),
@@ -352,8 +306,43 @@ class _FiltersScreenState extends State<AddSightScreen> {
     );
   }
 
-  //Кнопка "Создать"
+  //Выбор категории
+  Widget SelectTypePlace(BuildContext context) {
+    return SizedBox(
+      height: 32,
+      child: TextButton(
+        style: ButtonStyle(
+            padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.zero)),
+        onPressed: () async {
+          typePlaceSelected = await Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) =>
+                  SelectCategory(typePlaceSelectedActual: typePlaceSelected),
+            ),
+          );
+          setState(() {});
+        },
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              typePlaceSelected == null
+                  ? Labels.notSelected
+                  : Labels.TypePlaceString(typePlaceSelected as TypePlace),
+              style:
+                  Theme.of(context).textTheme.subtitle2!.copyWith(fontSize: 16),
+            ),
+            SvgPicture.asset(
+              SvgIcons.view,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 
+  //Кнопка "Создать"
   Widget bottomSheetWidget(BuildContext context) {
     return Container(
       color: Theme.of(context).backgroundColor,
@@ -403,4 +392,79 @@ class _FiltersScreenState extends State<AddSightScreen> {
       ),
     );
   }
+}
+
+Widget ButtonImage(BuildContext context, int index) {
+  print('index $index');
+  print('tempPhotoPlace ${AddSightModel.tempPhotoPlace.length}');
+  return index == 0
+      ? GestureDetector(
+          onTap: () {
+            print('GestureDetector');
+            var _AddSightModel = context.read<AddSightModel>();
+            _AddSightModel.AddPhoto('');
+          },
+          child: Padding(
+            padding: const EdgeInsets.only(right: 16),
+            child: Container(
+              width: 72,
+              height: 72,
+              decoration: BoxDecoration(
+                border: Border.all(
+                  color: ColorPalette.greenColor.withOpacity(0.48),
+                  width: 2,
+                ),
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: UnconstrainedBox(
+                child: SvgPicture.asset(
+                  SvgIcons.union,
+                  height: 24,
+                  color: ColorPalette.greenColor,
+                ),
+              ),
+            ),
+          ),
+        )
+      : Padding(
+          padding: const EdgeInsets.only(right: 16),
+          child: Container(
+            width: 72,
+            height: 72,
+            decoration: BoxDecoration(
+              color: ColorPalette.dmPrimaryColor,
+              border: Border.all(color: ColorPalette.greenColor, width: 3),
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: Stack(
+              children: [
+                Positioned(
+                  left: 0,
+                  right: 0,
+                  top: 20,
+                  child: SvgPicture.asset(
+                    SvgIcons.hotel,
+                    height: 50,
+                    color: ColorPalette.greenColor,
+                  ),
+                ),
+                Positioned(
+                  right: 8,
+                  top: 2,
+                  child: InkWell(
+                    onTap: () {
+                      var _AddSightModel = context.read<AddSightModel>();
+                      _AddSightModel.DeletePhoto(index);
+                    },
+                    child: SvgPicture.asset(
+                      SvgIcons.clear_white,
+                      height: 20,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:places/ui/screen/add_sight_screen/models/add_sight_model.dart';
 import 'package:places/ui/screen/models/app_model.dart';
 import 'package:places/ui/screen/sight_search_screen/models/search_filter_model.dart';
 import 'package:places/ui/screen/sight_list_screen/sight_list_screen.dart';
@@ -32,6 +33,9 @@ void main() {
         ),
         ChangeNotifierProvider<VisitingModel>(
           create: (context) => VisitingModel(),
+        ),
+        ChangeNotifierProvider<AddSightModel>(
+          create: (context) => AddSightModel(),
         ),
       ],
       child: MyApp(),
