@@ -395,8 +395,8 @@ class _FiltersScreenState extends State<AddSightScreen> {
 }
 
 Widget ButtonImage(BuildContext context, int index) {
-  print('index $index');
-  print('tempPhotoPlace ${AddSightModel.tempPhotoPlace.length}');
+  //print('index $index');
+  //print('tempPhotoPlace ${AddSightModel.tempPhotoPlace.length}');
   return index == 0
       ? GestureDetector(
           onTap: () {
@@ -428,42 +428,50 @@ Widget ButtonImage(BuildContext context, int index) {
         )
       : Padding(
           padding: const EdgeInsets.only(right: 16),
-          child: Container(
-            width: 72,
-            height: 72,
-            decoration: BoxDecoration(
-              color: ColorPalette.dmPrimaryColor,
-              border: Border.all(color: ColorPalette.greenColor, width: 3),
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: Stack(
-              children: [
-                Positioned(
-                  left: 0,
-                  right: 0,
-                  top: 20,
-                  child: SvgPicture.asset(
-                    SvgIcons.hotel,
-                    height: 50,
-                    color: ColorPalette.greenColor,
-                  ),
-                ),
-                Positioned(
-                  right: 8,
-                  top: 2,
-                  child: InkWell(
-                    onTap: () {
-                      var _AddSightModel = context.read<AddSightModel>();
-                      _AddSightModel.DeletePhoto(index);
-                    },
+          child: Dismissible(
+            direction: DismissDirection.up,
+            onDismissed: (direction) {
+              var _AddSightModel = context.read<AddSightModel>();
+              _AddSightModel.DeletePhoto(index);
+            },
+            key: UniqueKey(),
+            child: Container(
+              width: 72,
+              height: 72,
+              decoration: BoxDecoration(
+                color: ColorPalette.dmPrimaryColor,
+                border: Border.all(color: ColorPalette.greenColor, width: 3),
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Stack(
+                children: [
+                  Positioned(
+                    left: 0,
+                    right: 0,
+                    top: 20,
                     child: SvgPicture.asset(
-                      SvgIcons.clear_white,
-                      height: 20,
-                      color: Colors.white,
+                      SvgIcons.hotel,
+                      height: 50,
+                      color: ColorPalette.greenColor,
                     ),
                   ),
-                ),
-              ],
+                  Positioned(
+                    right: 8,
+                    top: 2,
+                    child: InkWell(
+                      onTap: () {
+                        var _AddSightModel = context.read<AddSightModel>();
+                        _AddSightModel.DeletePhoto(index);
+                      },
+                      child: SvgPicture.asset(
+                        SvgIcons.clear_white,
+                        height: 20,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         );
