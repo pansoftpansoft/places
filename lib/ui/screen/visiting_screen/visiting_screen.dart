@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/screen/Widgets/bottom_navigation.dart';

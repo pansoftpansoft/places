@@ -1,4 +1,4 @@
-import '../mocks.dart';
+import 'package:places/mocks.dart';
 
 /*
 Класс места
@@ -13,6 +13,7 @@ class Sight {
   DateTime? wantVisitDate; // Дата когда хочу посетить место
   DateTime? visitedDate; // Дата когда посетил
   bool visibleFilter = false; //отображать в списке после поиска и фильтрации.
+  List<String> photoPlace = [];
 
   Sight(this.name, this.lat, this.lon, this.url, this.details, this.type,{this.wantVisitDate, this.visitedDate});
 }

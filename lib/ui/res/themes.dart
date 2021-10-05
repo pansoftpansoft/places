@@ -18,6 +18,7 @@ final lightTheme = ThemeData(
   appBarTheme: const AppBarTheme(
     elevation: 0,
     centerTitle: true,
+    backgroundColor: ColorPalette.lmPrimaryColor,
   ),
   /*
   * cardTheme
@@ -94,6 +95,7 @@ final darkTheme = ThemeData(
   * appBarTheme
   */
   appBarTheme: const AppBarTheme(
+    backgroundColor: ColorPalette.dmPrimaryColor,
     elevation: 0,
     centerTitle: true,
   ),
@@ -157,4 +159,5 @@ final darkTheme = ThemeData(
   * textTheme
   */
   textTheme: dmTextTheme,
+
 );
