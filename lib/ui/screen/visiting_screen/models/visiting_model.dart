@@ -14,4 +14,13 @@ class VisitingModel extends ChangeNotifier {
     mocksVisited.removeWhere((element) => element.name == name);
     notifyListeners();
   }
+
+  //Удаление из мест которые хотел посетить
+  void SortedPlaceWantVisit(int sours, int target) {
+    var placeTarget =mocksWantVisit[target] ;
+    var placeSours =mocksWantVisit[sours] ;
+    mocksWantVisit[target]=placeSours;
+    mocksWantVisit[sours]=placeTarget;
+    notifyListeners();
+  }
 }
