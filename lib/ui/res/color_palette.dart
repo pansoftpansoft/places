@@ -9,6 +9,9 @@ class ColorPalette {
   static const Color greenColorLight = const Color(0xFFE2F2E3);
   static const Color textInTextField = const Color(0xFF7C7E92);
   static const Color filledTextField = const Color(0xFFF5F5F5);
+  static const Color redColor = const Color(0xFFEF4343);
+  static const Color whiteColor = const Color(0xFFFFFFFF);
+
 
   //D5D341
   static const Color greenColorLightGradient = const Color(0xFFD5D341);

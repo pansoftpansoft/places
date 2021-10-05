@@ -9,6 +9,7 @@ import 'package:places/ui/screen/widgets/sight_card.dart';
 import 'package:places/ui/screen/visiting_screen/models/visiting_model.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
+import 'package:places/ui/screen/visiting_screen/widgets/backgroundDismissible.dart';
 
 Widget Tab1(BuildContext context) {
   return Consumer<VisitingModel>(
@@ -51,18 +52,28 @@ Widget Tab1(BuildContext context) {
                   onAccept: (data) {
                     var _visitingModel = context.read<VisitingModel>();
                     _visitingModel.SortedPlaceWantVisit(data, index);
-                    print(index);
-                    print(data);
                   },
                   builder: (context, sours, target) {
                     return Draggable<int>(
                       data: index,
-                      feedback: SizedBox(width: 250,child: sightCardDrag(index, context),),
+                      feedback: SizedBox(
+                        width: 250,
+                        child: sightCardDrag(index, context),
+                      ),
                       childWhenDragging: Opacity(
                         opacity: .2,
                         child: sightCardDrag(index, context),
                       ),
-                      child: sightCardDrag(index, context),
+                      child: Dismissible(
+                          background: const backgroundDismissible(),
+                          onDismissed: (direction) {
+                            var _visitingModel = context.read<VisitingModel>();
+                            _visitingModel.DeletePlaceWantVisit(
+                              mocksWantVisit[index].name,
+                            );
+                          },
+                          key: UniqueKey(),
+                          child: sightCardDrag(index, context)),
                     );
                   },
                 );

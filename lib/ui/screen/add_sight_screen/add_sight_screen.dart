@@ -333,6 +333,7 @@ class _FiltersScreenState extends State<AddSightScreen> {
               style:
                   Theme.of(context).textTheme.subtitle2!.copyWith(fontSize: 16),
             ),
+
             SvgPicture.asset(
               SvgIcons.view,
             ),
