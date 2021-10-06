@@ -62,21 +62,16 @@ class _SightListScreenState extends State<SightListScreen> {
       bottomNavigationBar: BottomNavigation(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: floatingActionButton(context),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: Sizes.paddingPage,
-            vertical: 0,
-          ),
-          child: Column(
-            children: [
-              SightCard(mocks[0]),
-              SightCard(mocks[1]),
-              SightCard(mocks[2]),
-              SightCard(mocks[3]),
-              SightCard(mocks[4]),
-            ],
-          ),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(
+          horizontal: Sizes.paddingPage,
+          vertical: 0,
+        ),
+        child: ListView.builder(
+          itemCount: mocksWantVisit.length,
+          itemBuilder: (BuildContext context, int index) {
+            return SightCard(mocks[index]);
+          },
         ),
       ),
     );

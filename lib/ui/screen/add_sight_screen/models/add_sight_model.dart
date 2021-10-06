@@ -10,6 +10,7 @@ class AddSightModel extends ChangeNotifier {
 
   //Добавляем фотографию
   void AddPhoto(String pathPhoto) {
+    print('tempPhotoPlace.add');
     tempPhotoPlace.add(pathPhoto);
     notifyListeners();
   }

@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:places/domain/sight.dart';
 import 'package:places/mocks.dart';
 import 'package:places/ui/res/color_palette.dart';
 import 'package:places/ui/res/labels.dart';
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/res/svg_icons.dart';
+import 'package:places/ui/screen/add_sight_screen/widgets/app_bar_add_sight.dart';
+import 'package:places/ui/screen/add_sight_screen/widgets/bottom_sheet_widget.dart';
 import 'package:places/ui/screen/add_sight_screen/widgets/divider_opacity.dart';
+import 'package:places/ui/screen/add_sight_screen/widgets/list_view_photo_add.dart';
 import 'package:places/ui/screen/add_sight_screen/widgets/select_category.dart';
-import 'package:places/ui/screen/add_sight_screen/models/add_sight_model.dart';
 import 'package:places/ui/screen/add_sight_screen/widgets/title_field.dart';
 import 'package:places/ui/screen/widgets/text_field_icon.dart';
-import 'package:provider/provider.dart';
 
 //Экран добавления карточек
 class AddSightScreen extends StatefulWidget {
@@ -51,53 +51,10 @@ class _FiltersScreenState extends State<AddSightScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: true,
-      bottomSheet: bottomSheetWidget(context),
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        centerTitle: false,
-        title: Padding(
-          padding: const EdgeInsets.all(0.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            textBaseline: TextBaseline.alphabetic,
-            crossAxisAlignment: CrossAxisAlignment.baseline,
-            children: [
-              Expanded(
-                child: TextButton(
-                  style: ButtonStyle(
-                    alignment: Alignment.centerLeft,
-                    padding: MaterialStateProperty.all<EdgeInsets>(
-                      const EdgeInsets.all(0),
-                    ),
-                  ),
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  child: Text(
-                    Labels.cancel,
-                    textAlign: TextAlign.left,
-                    style: Theme.of(context).textTheme.subtitle2!.copyWith(
-                          fontSize: 16,
-                        ),
-                  ),
-                ),
-              ),
-              Expanded(
-                child: Text(
-                  Labels.newPlace,
-                  textAlign: TextAlign.center,
-                  style: Theme.of(context).textTheme.headline4,
-                ),
-              ),
-              const Expanded(
-                child: SizedBox(
-                  width: 30,
-                ),
-              )
-            ],
-          ),
-        ),
-      ),
+      bottomSheet: BottomSheetWidget(context: context),
+      appBar: const PreferredSize(
+          preferredSize: Size(double.infinity, kToolbarHeight),
+          child: AppBarAddSight()),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(Sizes.paddingPage),
@@ -109,16 +66,7 @@ class _FiltersScreenState extends State<AddSightScreen> {
                 width: double.infinity,
                 child: Row(
                   children: [
-                    Consumer<AddSightModel>(builder: (context, sight, child) {
-                      return Expanded(
-                        child: ListView.builder(
-                            itemCount: AddSightModel.tempPhotoPlace.length,
-                            scrollDirection: Axis.horizontal,
-                            itemBuilder: (BuildContext context, int index) {
-                              return ButtonImage(context, index);
-                            }),
-                      );
-                    }),
+                    const ListViewPhotoAdd(),
                   ],
                 ),
               ),
@@ -333,7 +281,6 @@ class _FiltersScreenState extends State<AddSightScreen> {
               style:
                   Theme.of(context).textTheme.subtitle2!.copyWith(fontSize: 16),
             ),
-
             SvgPicture.asset(
               SvgIcons.view,
             ),
@@ -342,138 +289,4 @@ class _FiltersScreenState extends State<AddSightScreen> {
       ),
     );
   }
-
-  //Кнопка "Создать"
-  Widget bottomSheetWidget(BuildContext context) {
-    return Container(
-      color: Theme.of(context).backgroundColor,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(
-          horizontal: 16.0,
-          vertical: 8.0,
-        ),
-        child: ConstrainedBox(
-          constraints: const BoxConstraints.tightFor(height: 48),
-          child: ElevatedButton(
-            style: ButtonStyle(
-                padding: MaterialStateProperty.all(EdgeInsets.zero),
-                elevation: MaterialStateProperty.all(0),
-                backgroundColor:
-                    MaterialStateProperty.all<Color>(ColorPalette.greenColor),
-                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                    RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12.0),
-                ))),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  Labels.create,
-                  style: Theme.of(context).textTheme.headline5!.copyWith(
-                        color: ColorPalette.lmPrimaryColor,
-                      ),
-                ),
-              ],
-            ),
-            onPressed: () {
-              mocks.add(
-                Sight(
-                  'Ивановская площадь',
-                  '55.751426',
-                  '37.618879',
-                  'https://liveinmsk.ru/up/photos/album/kremlin/1327.jpg',
-                  'Ивановская площадь — площадь в Московском Кремле, одна из древнейших площадей Москвы. Возникла после постройки в 1329 году каменной церкви Иоанна Лествичника, «что под колоколы», которая разделила ранее единую городскую площадь на две части. Её восточная часть по Иоанновской церкви стала позднее именоваться Ивановской, западная — Соборной площадью. В XIV—XV веках южную и восточную стороны площади занимали дворы удельных князей Московского дома.',
-                  TypePlace.park,
-                ),
-              );
-              print('Это кнопка "Создать" размер массива ${mocks.length}');
-            },
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-Widget ButtonImage(BuildContext context, int index) {
-  //print('index $index');
-  //print('tempPhotoPlace ${AddSightModel.tempPhotoPlace.length}');
-  return index == 0
-      ? GestureDetector(
-          onTap: () {
-            print('GestureDetector');
-            var _AddSightModel = context.read<AddSightModel>();
-            _AddSightModel.AddPhoto('');
-          },
-          child: Padding(
-            padding: const EdgeInsets.only(right: 16),
-            child: Container(
-              width: 72,
-              height: 72,
-              decoration: BoxDecoration(
-                border: Border.all(
-                  color: ColorPalette.greenColor.withOpacity(0.48),
-                  width: 2,
-                ),
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: UnconstrainedBox(
-                child: SvgPicture.asset(
-                  SvgIcons.union,
-                  height: 24,
-                  color: ColorPalette.greenColor,
-                ),
-              ),
-            ),
-          ),
-        )
-      : Padding(
-          padding: const EdgeInsets.only(right: 16),
-          child: Dismissible(
-            direction: DismissDirection.up,
-            onDismissed: (direction) {
-              var _AddSightModel = context.read<AddSightModel>();
-              _AddSightModel.DeletePhoto(index);
-            },
-            key: UniqueKey(),
-            child: Container(
-              width: 72,
-              height: 72,
-              decoration: BoxDecoration(
-                color: ColorPalette.dmPrimaryColor,
-                border: Border.all(color: ColorPalette.greenColor, width: 3),
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: Stack(
-                children: [
-                  Positioned(
-                    left: 0,
-                    right: 0,
-                    top: 20,
-                    child: SvgPicture.asset(
-                      SvgIcons.hotel,
-                      height: 50,
-                      color: ColorPalette.greenColor,
-                    ),
-                  ),
-                  Positioned(
-                    right: 8,
-                    top: 2,
-                    child: InkWell(
-                      onTap: () {
-                        var _AddSightModel = context.read<AddSightModel>();
-                        _AddSightModel.DeletePhoto(index);
-                      },
-                      child: SvgPicture.asset(
-                        SvgIcons.clear_white,
-                        height: 20,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        );
 }
