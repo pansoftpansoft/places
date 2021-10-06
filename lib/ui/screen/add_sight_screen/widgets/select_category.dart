@@ -33,18 +33,25 @@ class _SelectCategoryState extends State<SelectCategory> {
           style: Theme.of(context).textTheme.headline4,
         ),
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: Sizes.paddingPage, vertical: 24),
-          child: Column(
-            children: [
-              for (var i = 0; i < TypePlace.values.toList().length; i++) ...[
-                ElementList(TypePlace.values.toList()[i]),
-                const Divider(),
-              ]
-            ],
+      body: Column(
+        children: [
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(
+                  horizontal: Sizes.paddingPage, vertical: 24),
+              child: ListView(
+                children: [
+                  for (var i = 0;
+                      i < TypePlace.values.toList().length;
+                      i++) ...[
+                    ElementList(TypePlace.values.toList()[i]),
+                    const Divider(),
+                  ]
+                ],
+              ),
+            ),
           ),
-        ),
+        ],
       ),
     );
   }
@@ -87,7 +94,7 @@ class _SelectCategoryState extends State<SelectCategory> {
     return Padding(
       padding: const EdgeInsets.symmetric(
         horizontal: Sizes.paddingPage,
-        vertical: Sizes.paddingPage/2,
+        vertical: Sizes.paddingPage / 2,
       ),
       child: ConstrainedBox(
         constraints: const BoxConstraints.tightFor(height: 48),
@@ -111,7 +118,8 @@ class _SelectCategoryState extends State<SelectCategory> {
                 Labels.save,
                 style: Theme.of(context).textTheme.headline5!.copyWith(
                       color: widget.typePlaceSelected == null
-                          ? ColorPalette.lmFontHeadline2.withOpacity(Sizes.opacityText)
+                          ? ColorPalette.lmFontHeadline2
+                              .withOpacity(Sizes.opacityText)
                           : ColorPalette.lmPrimaryColor,
                     ),
               ),
