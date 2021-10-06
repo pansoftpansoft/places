@@ -9,18 +9,18 @@ class VisitingModel extends ChangeNotifier {
     mocksWantVisit.removeWhere((element) => element.name == name);
     notifyListeners();
   }
+
   //Удаление из мест которые уже посетил
   void DeletePlaceVisited(String name) {
     mocksVisited.removeWhere((element) => element.name == name);
     notifyListeners();
   }
 
-  //Удаление из мест которые хотел посетить
+  //Перемещение карточек внутри списка
   void SortedPlaceWantVisit(int sours, int target) {
-    var placeTarget =mocksWantVisit[target] ;
-    var placeSours =mocksWantVisit[sours] ;
-    mocksWantVisit[target]=placeSours;
-    mocksWantVisit[sours]=placeTarget;
+    var placeTarget = mocksWantVisit[target];
+    mocksWantVisit[target] = mocksWantVisit[sours];
+    mocksWantVisit[sours] = placeTarget;
     notifyListeners();
   }
 }
