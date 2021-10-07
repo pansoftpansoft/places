@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:places/domain/sight.dart';
 import 'package:places/ui/res/color_palette.dart';
@@ -6,34 +7,41 @@ import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/res/svg_icons.dart';
 import 'package:places/ui/screen/widgets/icon_button_special.dart';
 
-/*
-Карточка из списка достопримечательностей
-По условиям
-    this.goNeed == '',
-    this.goal == '',
-    отображаются дополнительные иконки
-*/
+
+/// Карточка из списка достопримечательностей
+/// По условиям
+///     this.goNeed == '',
+///     this.goal == '',
+///     отображаются дополнительные иконки
 class SightCard extends StatelessWidget {
-  final Sight sight;
+
+  /// Конструктор
+  const SightCard(
+      this._sight, {
+        final Key? key,
+        this.goNeed = '',
+        this.goal = '',
+        this.iconDelete = false, // отображать иконку удалить
+        this.actionOnDelete,
+      }) : super(key: key);
+
+  ///
+  final Sight _sight;
+  ///
   final String goNeed;
+  ///
   final String goal;
+  ///
   final bool iconDelete;
+  ///
   final VoidCallback? actionOnDelete;
 
+  ///
   static const double heightImage = 95;
 
-  SightCard(
-    this.sight, {
-    Key? key,
-    this.goNeed = '',
-    this.goal = '',
-    this.iconDelete = false, // отображать иконку удалить
-    this.actionOnDelete,
-  }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return Card(
+  Widget build(final BuildContext context) => Card(
       margin: const EdgeInsets.fromLTRB(0, 0, 0, Sizes.paddingPage),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(Sizes.borderRadiusCard),
@@ -42,13 +50,13 @@ class SightCard extends StatelessWidget {
       semanticContainer: false,
       clipBehavior: Clip.antiAliasWithSaveLayer,
       child: Stack(
-        children: [
+        children: <Widget>[
           //Картинка
-          Container(
+          SizedBox(
             width: double.infinity,
             height: heightImage,
             child: Image.network(
-              sight.url,
+              _sight.url,
               fit: BoxFit.fitWidth,
             ),
           ),
@@ -57,7 +65,7 @@ class SightCard extends StatelessWidget {
             left: 16,
             top: 18,
             child: Text(
-              Labels.TypePlaceString(sight.type),
+              Labels.TypePlaceString(_sight.type),
               style: Theme.of(context).textTheme.headline5!.copyWith(
                     color: const Color(0xFFFFFFFF),
                   ),
@@ -70,20 +78,22 @@ class SightCard extends StatelessWidget {
               child: InkWell(
                 splashColor: Colors.lightGreenAccent,
                 onTap: () {
-                  print('Это кнопка "Вся карточка"');
+                  if (kDebugMode) {
+                    print('Это кнопка "Вся карточка"');
+                  }
                 },
                 child: Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(Sizes.paddingPage_2),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
+                    children: <Widget>[
                       const SizedBox(
                         width: double.infinity,
                         height: heightImage,
                       ),
                       const SizedBox(height: 16),
                       Text(
-                        sight.name,
+                        _sight.name,
                         maxLines: 5,
                         style: Theme.of(context).textTheme.subtitle1,
                       ),
@@ -144,10 +154,10 @@ class SightCard extends StatelessWidget {
           Positioned(
             right: 8,
             top: 2,
-            child: this.iconDelete
+            child: iconDelete
                 ? IconButtonSpecial(
                     SvgIcons.delete,
-                    onPressed: this.actionOnDelete,
+                    onPressed: actionOnDelete,
 
                   )
                 : IconButtonSpecial(
@@ -157,5 +167,5 @@ class SightCard extends StatelessWidget {
         ],
       ),
     );
-  }
+
 }

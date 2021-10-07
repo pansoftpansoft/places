@@ -1,25 +1,25 @@
 import 'package:flutter/material.dart';
 
+///Главный заголовое экрана
 class TitleApp extends StatelessWidget {
+  ///Конструктор
   const TitleApp({
-    Key? key,
+    final Key? key,
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        const SizedBox(
-          height: 16,
-        ),
-        Container(
-          width: double.infinity,
-          child: Text(
-            'Список\nинтересных мест',
-            style: Theme.of(context).textTheme.headline1,
+  Widget build(final BuildContext context) => Column(
+        children: <SizedBox>[
+          const SizedBox(
+            height: 16,
           ),
-        ),
-      ],
-    );
-  }
+          SizedBox(
+            width: double.infinity,
+            child: Text(
+              'Список\nинтересных мест',
+              style: Theme.of(context).textTheme.headline1,
+            ),
+          ),
+        ],
+      );
 }

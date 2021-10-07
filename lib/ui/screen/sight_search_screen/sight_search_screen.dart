@@ -39,10 +39,10 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
     f1.then((_) {
       var searchFilterModel = context.read<SearchFilterModel>();
       if (SearchFilterModel.listHistory.length > 0) {
-        searchFilterModel.ManagerSelectionScreen(
+        searchFilterModel.managerSelectionScreen(
             numberScreen: ScreenEnum.historyListScreen);
       } else {
-        searchFilterModel.ManagerSelectionScreen();
+        searchFilterModel.managerSelectionScreen();
       }
       setState(() {});
     });

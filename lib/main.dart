@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:places/ui/screen/add_sight_screen/models/add_sight_model.dart';
 import 'package:places/ui/screen/models/app_model.dart';
-import 'package:places/ui/screen/sight_search_screen/models/search_filter_model.dart';
 import 'package:places/ui/screen/sight_list_screen/sight_list_screen.dart';
-import 'package:flutter/services.dart';
+import 'package:places/ui/screen/sight_search_screen/models/search_filter_model.dart';
 import 'package:places/ui/screen/visiting_screen/models/visiting_model.dart';
 import 'package:provider/provider.dart';
 
@@ -24,45 +24,47 @@ void main() {
 
   runApp(
     MultiProvider(
-      providers: [
+      providers: <ChangeNotifierProvider<ChangeNotifier>>[
         ChangeNotifierProvider<AppModel>(
-          create: (context) => AppModel(),
+          create: (final BuildContext context) => AppModel(),
         ),
         ChangeNotifierProvider<SearchFilterModel>(
-          create: (context) => SearchFilterModel(),
+          create: (final BuildContext context) => SearchFilterModel(),
         ),
         ChangeNotifierProvider<VisitingModel>(
-          create: (context) => VisitingModel(),
+          create: (final BuildContext context) => VisitingModel(),
         ),
         ChangeNotifierProvider<AddSightModel>(
-          create: (context) => AddSightModel(),
+          create: (final BuildContext context) => AddSightModel(),
         ),
       ],
-      child: MyApp(),
+      child: const MyApp(),
     ),
   );
 }
 
+/// Запуск приложения
 class MyApp extends StatelessWidget {
-  MyApp({
-    Key? key,
+  /// Конструктор
+  const MyApp({
+    final Key? key,
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      //theme: themeActual,
-      theme: context.select<AppModel, ThemeData>((AppModel a) => a.themeColor),
-      title: 'Задача  5.2',
-      // home: const VisitingScreen(),
-      // home: const VisitingScreen(),
-      home: const SightListScreen(),
-      // home: SightDetails(mocks[1]),
-      // home: FiltersScreen(),
-      // home: SettingsScreen(),
-      // home: Test(),
-      // home: AddSightScreen(),
-      // home: const SelectCategory(),
-    );
-  }
+  Widget build(final BuildContext context) => MaterialApp(
+        //theme: themeActual,
+        theme: context.select<AppModel, ThemeData>(
+          (final AppModel a) => a.themeColor,
+        ),
+        title: 'Задача  5.2',
+        // home: const VisitingScreen(),
+        // home: const VisitingScreen(),
+        home: const SightListScreen(),
+        // home: SightDetails(mocks[1]),
+        // home: FiltersScreen(),
+        // home: SettingsScreen(),
+        // home: Test(),
+        // home: AddSightScreen(),
+        // home: const SelectCategory(),
+      );
 }
