@@ -7,10 +7,9 @@ import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/res/svg_icons.dart';
 import 'package:places/ui/screen/Widgets/bottom_navigation.dart';
 import 'package:places/ui/screen/add_sight_screen/add_sight_screen.dart';
-import 'package:places/ui/screen/sight_search_screen/sight_search_screen.dart';
-import 'package:places/ui/screen/widgets/search_bar.dart';
+import 'package:places/ui/screen/sight_list_screen/widgets/app_bar_sight_list_screen.dart';
 import 'package:places/ui/screen/widgets/sight_card.dart';
-import 'package:places/ui/screen/widgets/title_app.dart';
+
 
 ///Список достопримечательностей
 class SightListScreen extends StatefulWidget {
@@ -18,50 +17,16 @@ class SightListScreen extends StatefulWidget {
   const SightListScreen({final Key? key}) : super(key: key);
 
   @override
-  sightListScreenState createState() => sightListScreenState();
+  SightListScreenState createState() => SightListScreenState();
 }
 
-class sightListScreenState extends State<SightListScreen> {
+///
+class SightListScreenState extends State<SightListScreen> {
   @override
   Widget build(final BuildContext context) => Scaffold(
-        appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(170.0),
-          child: AppBar(
-            toolbarHeight: double.infinity,
-            centerTitle: false,
-            elevation: 0,
-            title: const TitleApp(),
-            bottom: PreferredSize(
-              preferredSize: const Size.fromHeight(60),
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(
-                  Sizes.paddingPage,
-                  0,
-                  Sizes.paddingPage,
-                  Sizes.paddingPage,
-                ),
-                child: Stack(
-                  children: <Widget>[
-                    SearchBar(),
-                    SizedBox(
-                      height: Sizes.heightTextFieldSearch,
-                      child: InkWell(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute<Route>(
-                              builder: (final BuildContext context) =>
-                                  const SightSearchScreen(),
-                            ),
-                          );
-                        },
-                      ),
-                    )
-                  ],
-                ),
-              ),
-            ),
-          ),
+        appBar: const PreferredSize(
+          preferredSize: Size.fromHeight(170.0),
+          child: AppBarSightListScreen(),
         ),
         bottomNavigationBar: BottomNavigation(),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
@@ -82,6 +47,7 @@ class sightListScreenState extends State<SightListScreen> {
         ),
       );
 
+  ///
   DecoratedBox floatingActionButton(final BuildContext context) => DecoratedBox(
         decoration: const BoxDecoration(
           gradient: LinearGradient(
