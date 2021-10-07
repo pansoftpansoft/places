@@ -1,17 +1,18 @@
 import 'dart:async';
 import 'dart:math';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:places/domain/database.dart';
 import 'package:places/domain/history.dart';
+import 'package:places/domain/sight.dart';
 import 'package:places/mocks.dart';
 
-/*
-Модель для поиска
-*/
+///Модель для поиска
 class SearchFilterModel extends ChangeNotifier {
+  ///
   static RangeValues _selectedRange = const RangeValues(100, 1000);
 
-  //
+  ///
   static Map<TypePlace, bool> _filterMap = {
     TypePlace.hotel: false,
     TypePlace.restaurant: false,
@@ -24,7 +25,7 @@ class SearchFilterModel extends ChangeNotifier {
   //Запоминаем старые значения
   //Если нажата кнопка Показать то переписываем значения
   //Если пользователь вернулся на предыдущий экран то востановим текущие значения
-  static Map<TypePlace, bool> _filterMapOld = {
+  static final Map<TypePlace, bool> _filterMapOld = {
     TypePlace.hotel: false,
     TypePlace.restaurant: false,
     TypePlace.particular_place: false,
@@ -50,9 +51,9 @@ class SearchFilterModel extends ChangeNotifier {
 
   // Тестовая переменная для проверки экрана Ошибка.
   // false - нет ошибок, true - есть ошибка
-  bool _errorTest = false;
+  final bool _errorTest = false;
 
-  static set countPlace(int value) {
+  static set countPlace(final int value) {
     _countPlace = value;
   }
 
@@ -60,52 +61,55 @@ class SearchFilterModel extends ChangeNotifier {
 
   static Map<TypePlace, bool> get filterMap => _filterMap;
 
-  static set selectedRange(RangeValues value) {
+  ///
+  static set selectedRange(final RangeValues value) {
     _selectedRange = value;
   }
 
-  static set filterMap(Map<TypePlace, bool> filterMapNew) {
+  ///
+  static set filterMap(final Map<TypePlace, bool> filterMapNew) {
     _filterMap = filterMapNew;
   }
 
-  static bool GetTypePlaceValue(TypePlace typePlace) {
-    return _filterMap[TypePlace] == null ? false : true;
-  }
+  static bool getTypePlaceValue(
+    final TypePlace typePlace,
+  ) =>
+      _filterMap[TypePlace] == null ? false : true;
 
-  void SetTypePlaceSelected(TypePlace typePlace) {
+  void setTypePlaceSelected(final TypePlace typePlace) {
     _filterMap[typePlace] = _filterMap[typePlace] == false ? true : false;
   }
 
-  //Подсчет отфильтрованных мест
-  //Пометка мест что они попали в фильтр
-  void CountFilteredPlaces() {
+  ///Подсчет отфильтрованных мест
+  ///Пометка мест что они попали в фильтр
+  void countFilteredPlaces() {
     int _countPlace = 0; //Подсчет отфильтрованных мест,
     // для отображения на кнопке
-    for (var item in mocks) {
+    for (final Sight item in mocks) {
       item.visibleFilter = false;
       if (double.tryParse(item.lat) != null &&
-          double.tryParse(item.lon) != null) {
-        if (ArePointsNear(double.parse(item.lat.toString()),
-                double.parse(item.lon.toString())) ==
-            true) {
-          if (SearchFilterModel.filterMap[item.type] == true) {
-            item.visibleFilter = true;
-            _countPlace++;
-          }
-        }
+          double.tryParse(item.lon) != null &&
+          _arePointsNear(
+                double.parse(item.lat),
+                double.parse(item.lon),
+              ) ==
+              true &&
+          SearchFilterModel.filterMap[item.type] == true) {
+        item.visibleFilter = true;
+        _countPlace++;
       }
     }
     countPlace = _countPlace;
-    ManagerSelectionScreen();
+    managerSelectionScreen();
     notifyListeners();
   }
 
-  // Получить отфильтрованный список мест
-  bool GetFilteredList() {
+  /// Получить отфильтрованный список мест
+  bool getFilteredList() {
     countPlace = _countPlace;
     mocksSearch.clear();
     if (_searchString.isNotEmpty) {
-      for (var item in mocks) {
+      for (final Sight item in mocks) {
         //фильтр установлен проверяем его и поиск по имени
         if (item.visibleFilter == true) {
           if (item.name.toLowerCase().contains(_searchString.toLowerCase()) ==
@@ -117,7 +121,7 @@ class SearchFilterModel extends ChangeNotifier {
     } else {
       //Если фильтр установлен показываем записи ограниченные фильтром
       //без учета строки поиска, так как она пустая
-      for (var item in mocks) {
+      for (final Sight item in mocks) {
         if (item.visibleFilter == true) {
           mocksSearch.add(item);
         }
@@ -126,22 +130,22 @@ class SearchFilterModel extends ChangeNotifier {
     return _errorTest;
   }
 
-  //Сообщить всем что список мест изменился
-  void ChangeSearch() {
+  ///Сообщить всем что список мест изменился
+  void changeSearch() {
     bool _error = false;
     isLoading = true;
-    ManagerSelectionScreen(numberScreen: ScreenEnum.loadScreen);
+    managerSelectionScreen(numberScreen: ScreenEnum.loadScreen);
     notifyListeners();
-    _error = GetFilteredList();
+    _error = getFilteredList();
     Timer(
       const Duration(seconds: 1),
       () {
         if (_error) {
           //ошибка выдаем экран сообщения
-          ManagerSelectionScreen(numberScreen: ScreenEnum.errorScreen);
+          managerSelectionScreen(numberScreen: ScreenEnum.errorScreen);
         } else {
           isLoading = false;
-          ManagerSelectionScreen();
+          managerSelectionScreen();
         }
         notifyListeners();
       },
@@ -151,16 +155,16 @@ class SearchFilterModel extends ChangeNotifier {
   /*
   динамический поиск мест по вводимому тексту при нажатии пробела
   */
-  void SearchPlaceForDynamicText(String searchString) {
+  void SearchPlaceForDynamicText(final String searchString) {
     _searchString = searchString;
-    ChangeSearch();
+    changeSearch();
   }
 
   /*
   поиск мест по вводимому тексту при нажатии Enter
   c записью запроса в историю запросов
   */
-  void SearchPlaceForEnter(String searchString) {
+  void SearchPlaceForEnter(final String searchString) {
     //Ищем текст
     SearchPlaceForDynamicText(searchString);
     //сохранить текст поиска
@@ -169,14 +173,14 @@ class SearchFilterModel extends ChangeNotifier {
 
   //Расставить сохраненные настройки фильтра
   void GetFilterSettings() {
-    for (var k in _filterMapOld.entries) {
+    for (final k in _filterMapOld.entries) {
       _filterMap[k.key] = k.value;
     }
   }
 
   //Сохранить настройки фильтра
   void SaveFilterSettings() {
-    for (var k in _filterMap.entries) {
+    for (final k in _filterMap.entries) {
       _filterMapOld[k.key] = k.value;
     }
   }
@@ -197,28 +201,31 @@ class SearchFilterModel extends ChangeNotifier {
   }
 
   //Удаляю одну запись из истории поиска
-  void DeleteHistory(String historyText) async {
+  void DeleteHistory(final String historyText) async {
     DBProvider.DeleteHistory(historyText);
     await getListHistory();
     notifyListeners();
   }
 
-  //Проверка вхождения точки в радиус
-  bool ArePointsNear(double checkPointLat, double checkPointLon) {
+  ///Проверка вхождения точки в радиус
+  bool _arePointsNear(final double checkPointLat, final double checkPointLon) {
     double centerPointLat = 55.753605;
     double centerPointLon = 37.619773;
-    var ky = 40000000 / 360; //40000000 - длина окружности земли в метрах
-    var kx = cos(pi * centerPointLat / 180.0) * ky;
-    var dx = (centerPointLon - checkPointLon).abs() * kx;
-    var dy = (centerPointLat - checkPointLat).abs() * ky;
+    const double ky =
+        40000000 / 360; //40000000 - длина окружности земли в метрах
+    final double kx = cos(pi * centerPointLat / 180.0) * ky;
+    final double dx = (centerPointLon - checkPointLon).abs() * kx;
+    final double dy = (centerPointLat - checkPointLat).abs() * ky;
     return sqrt(dx * dx + dy * dy) <= SearchFilterModel.selectedRange.end &&
         sqrt(dx * dx + dy * dy) >= SearchFilterModel.selectedRange.start;
   }
 
-  void ManagerSelectionScreen({ScreenEnum? numberScreen}) {
+  void managerSelectionScreen({final ScreenEnum? numberScreen}) {
     //Если экран жестко задан
     if (numberScreen != null) {
-      print(SearchFilterModel.listHistory.length);
+      if (kDebugMode) {
+        print(SearchFilterModel.listHistory.length);
+      }
       selectedScreen = numberScreen;
       return;
     }

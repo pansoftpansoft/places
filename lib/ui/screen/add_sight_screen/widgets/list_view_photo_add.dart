@@ -35,7 +35,7 @@ Widget ButtonImage(BuildContext context, int index) {
           onTap: () {
             print('GestureDetector');
             var _AddSightModel = context.read<AddSightModel>();
-            _AddSightModel.AddPhoto('');
+            _AddSightModel.addPhoto('');
           },
           child: Padding(
             padding: const EdgeInsets.only(right: 16),
@@ -65,7 +65,7 @@ Widget ButtonImage(BuildContext context, int index) {
             direction: DismissDirection.up,
             onDismissed: (direction) {
               var _AddSightModel = context.read<AddSightModel>();
-              _AddSightModel.DeletePhoto(index);
+              _AddSightModel.deletePhoto(index);
             },
             key: UniqueKey(),
             child: Container(
@@ -94,7 +94,7 @@ Widget ButtonImage(BuildContext context, int index) {
                     child: InkWell(
                       onTap: () {
                         var _AddSightModel = context.read<AddSightModel>();
-                        _AddSightModel.DeletePhoto(index);
+                        _AddSightModel.deletePhoto(index);
                       },
                       child: SvgPicture.asset(
                         SvgIcons.clear_white,

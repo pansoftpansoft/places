@@ -14,20 +14,22 @@ import 'package:places/ui/screen/add_sight_screen/widgets/select_category.dart';
 import 'package:places/ui/screen/add_sight_screen/widgets/title_field.dart';
 import 'package:places/ui/screen/widgets/text_field_icon.dart';
 
-//Экран добавления карточек
+///Экран добавления карточек
 class AddSightScreen extends StatefulWidget {
-  AddSightScreen({Key? key}) : super(key: key);
+  /// Конструктор
+  const AddSightScreen({final Key? key}) : super(key: key);
 
   @override
-  _FiltersScreenState createState() => _FiltersScreenState();
+  FiltersScreenState createState() => FiltersScreenState();
 }
 
-class _FiltersScreenState extends State<AddSightScreen> {
-  TypePlace? typePlaceSelected;
-  FocusNode _focusNodeNamePlace = FocusNode();
-  FocusNode _focusNodeLat = FocusNode();
-  FocusNode _focusNodeLon = FocusNode();
-  FocusNode _focusNodeDescription = FocusNode();
+/// Стейт
+class FiltersScreenState extends State<AddSightScreen> {
+  TypePlace? _typePlaceSelected;
+  final FocusNode _focusNodeNamePlace = FocusNode();
+  final FocusNode _focusNodeLat = FocusNode();
+  final FocusNode _focusNodeLon = FocusNode();
+  final FocusNode _focusNodeDescription = FocusNode();
 
   final TextEditingController _textEditingControllerNamePlace =
       TextEditingController();
@@ -43,250 +45,249 @@ class _FiltersScreenState extends State<AddSightScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      resizeToAvoidBottomInset: true,
-      bottomSheet: BottomSheetWidget(context: context),
-      appBar: const PreferredSize(
+  Widget build(final BuildContext context) => Scaffold(
+        resizeToAvoidBottomInset: true,
+        bottomSheet: BottomSheetWidget(context: context),
+        appBar: const PreferredSize(
           preferredSize: Size(double.infinity, kToolbarHeight),
-          child: AppBarAddSight()),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(Sizes.paddingPage),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                height: 72,
-                width: double.infinity,
-                child: Row(
-                  children: [
-                    const ListViewPhotoAdd(),
-                  ],
+          child: AppBarAddSight(),
+        ),
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(Sizes.paddingPage),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                SizedBox(
+                  height: 72,
+                  width: double.infinity,
+                  child: Row(
+                    children: const <Widget>[
+                      ListViewPhotoAdd(),
+                    ],
+                  ),
                 ),
-              ),
-              const SizedBox(height: 12),
-              // Заголовок 'Ктегория'
-              const TitleField(Labels.categories),
-              // Разделитель
-              const SizedBox(height: 12),
-              // Кнопка выбора категории
-              SelectTypePlace(context),
-              //Дивайдер
-              const DividerOpacity(),
-              // Разделитель
-              const SizedBox(height: 24),
-              // Заголовок "Название"
-              const TitleField(Labels.namePlace),
-              // Разделитель
-              const SizedBox(height: 12),
-              // Поле ввода "Название"
-              SizedBox(
-                height: 40,
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: TextFieldIcon(
-                        controller: _textEditingControllerNamePlace,
-                        focusNode: _focusNodeNamePlace,
-                        focusNodeNext: _focusNodeLat,
-                        svgIconSuffixForText: SvgIcons.clear,
-                        svgIconSuffixForTextColor: Colors.black,
-                        heightIcon: 20,
-                        borderRadius: 8,
-                        maxLines: 1,
-                        actionIconSuffixForText: () {
-                          _textEditingControllerNamePlace.clear();
-                        },
-                        actionOnSubmitted: (value) {
-                          _focusNodeLat.requestFocus();
-                        },
+                const SizedBox(height: 12),
+                // Заголовок 'Ктегория'
+                const TitleField(Labels.categories),
+                // Разделитель
+                const SizedBox(height: 12),
+                // Кнопка выбора категории
+                selectTypePlace(context),
+                //Дивайдер
+                const DividerOpacity(),
+                // Разделитель
+                const SizedBox(height: 24),
+                // Заголовок "Название"
+                const TitleField(Labels.namePlace),
+                // Разделитель
+                const SizedBox(height: 12),
+                // Поле ввода "Название"
+                SizedBox(
+                  height: 40,
+                  child: Row(
+                    children: <Widget>[
+                      Expanded(
+                        child: TextFieldIcon(
+                          controller: _textEditingControllerNamePlace,
+                          focusNode: _focusNodeNamePlace,
+                          focusNodeNext: _focusNodeLat,
+                          svgIconSuffixForText: SvgIcons.clear,
+                          svgIconSuffixForTextColor: Colors.black,
+                          heightIcon: 20,
+                          borderRadius: 8,
+                          maxLines: 1,
+                          actionIconSuffixForText:
+                              _textEditingControllerNamePlace.clear,
+                          actionOnSubmitted: (final String value) {
+                            _focusNodeLat.requestFocus();
+                          },
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-              //Загаловки "Широта" и "Долгота
-              const SizedBox(height: 24),
-              Row(
-                children: [
-                  const Expanded(
-                    child: TitleField(Labels.lat),
-                  ),
-                  const SizedBox(
-                    width: 16,
-                  ),
-                  const Expanded(
-                    child: TitleField(
-                      Labels.lon,
-                    ),
-                  ),
-                ],
-              ),
-              // Разделитель
-              const SizedBox(height: 12),
-              // Поля ввода широты и долготы
-              SizedBox(
-                height: 40,
-                child: Row(
-                  children: [
+                //Загаловки "Широта" и "Долгота
+                const SizedBox(height: 24),
+                Row(
+                  children: const <Widget>[
                     Expanded(
-                      child: TextFieldIcon(
-                        controller: _textEditingControllerLat,
-                        focusNode: _focusNodeLat,
-                        focusNodeNext: _focusNodeLon,
-                        keyboardType: TextInputType.number,
-                        svgIconSuffixForText: SvgIcons.clear,
-                        svgIconSuffixForTextColor: Colors.black,
-                        heightIcon: 20,
-                        borderRadius: 8,
-                        maxLines: 1,
-                        actionIconSuffixForText: () {
-                          _textEditingControllerLat.clear();
-                        },
-                        inputFormatters: [
-                          FilteringTextInputFormatter.allow(
-                              RegExp(r"^\d*?\.?\d*?$")),
-                        ],
-                        actionOnSubmitted: (value) {
-                          _focusNodeLon.requestFocus();
-                        },
-                      ),
+                      child: TitleField(Labels.lat),
                     ),
-                    const SizedBox(
+                    SizedBox(
                       width: 16,
                     ),
                     Expanded(
-                      child: TextFieldIcon(
-                        controller: _textEditingControllerLon,
-                        focusNode: _focusNodeLon,
-                        focusNodeNext: _focusNodeDescription,
-                        keyboardType: TextInputType.number,
-                        svgIconSuffixForText: SvgIcons.clear,
-                        svgIconSuffixForTextColor: Colors.black,
-                        heightIcon: 20,
-                        borderRadius: 8,
-                        maxLines: 1,
-                        actionIconSuffixForText: () {
-                          _textEditingControllerLon.clear();
-                        },
-                        inputFormatters: [
-                          FilteringTextInputFormatter.allow(
-                              RegExp(r"^\d*?\.?\d*?$")),
-                        ],
-                        actionOnSubmitted: (value) {
-                          _focusNodeDescription.requestFocus();
-                        },
+                      child: TitleField(
+                        Labels.lon,
                       ),
                     ),
                   ],
                 ),
-              ),
-              // Разделитель
-              const SizedBox(height: 15),
-              // Кнопка "Указать на карте"
-              Row(
-                children: [
-                  TextButton(
-                    style: ButtonStyle(
-                      alignment: Alignment.centerLeft,
-                      padding: MaterialStateProperty.all<EdgeInsets>(
-                        const EdgeInsets.all(0),
+                // Разделитель
+                const SizedBox(height: 12),
+                // Поля ввода широты и долготы
+                SizedBox(
+                  height: 40,
+                  child: Row(
+                    children: <Widget>[
+                      Expanded(
+                        child: TextFieldIcon(
+                          controller: _textEditingControllerLat,
+                          focusNode: _focusNodeLat,
+                          focusNodeNext: _focusNodeLon,
+                          keyboardType: TextInputType.number,
+                          svgIconSuffixForText: SvgIcons.clear,
+                          svgIconSuffixForTextColor: Colors.black,
+                          heightIcon: 20,
+                          borderRadius: 8,
+                          maxLines: 1,
+                          actionIconSuffixForText:
+                              _textEditingControllerLat.clear,
+                          inputFormatters: <FilteringTextInputFormatter>[
+                            FilteringTextInputFormatter.allow(
+                              RegExp(r"^\d*?\.?\d*?$"),
+                            ),
+                          ],
+                          actionOnSubmitted: (final String value) {
+                            _focusNodeLon.requestFocus();
+                          },
+                        ),
                       ),
-                    ),
-                    onPressed: () {},
-                    child: Text(
-                      Labels.specifyOnMap,
-                      style: Theme.of(context).textTheme.subtitle1!.copyWith(
-                          fontSize: 16, color: ColorPalette.greenColor),
-                    ),
+                      const SizedBox(
+                        width: 16,
+                      ),
+                      Expanded(
+                        child: TextFieldIcon(
+                          controller: _textEditingControllerLon,
+                          focusNode: _focusNodeLon,
+                          focusNodeNext: _focusNodeDescription,
+                          keyboardType: TextInputType.number,
+                          svgIconSuffixForText: SvgIcons.clear,
+                          svgIconSuffixForTextColor: Colors.black,
+                          heightIcon: 20,
+                          borderRadius: 8,
+                          maxLines: 1,
+                          actionIconSuffixForText:
+                              _textEditingControllerLon.clear,
+                          inputFormatters: <TextInputFormatter>[
+                            FilteringTextInputFormatter.allow(
+                              RegExp(r"^\d*?\.?\d*?$"),
+                            ),
+                          ],
+                          actionOnSubmitted: (final String value) {
+                            _focusNodeDescription.requestFocus();
+                          },
+                        ),
+                      ),
+                    ],
                   ),
-                ],
-              ),
-              // Разделитель
-              const SizedBox(height: 24),
-              //Заголовок "Описание"
-              Row(
-                children: [
-                  const TitleField(
-                    Labels.description,
-                  ),
-                ],
-              ),
-              // Разделитель
-              const SizedBox(height: 12),
-              //Поле ввода описание
-              SizedBox(
-                height: 80,
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: TextFieldIcon(
-                        controller: _textEditingControllerDescription,
-                        focusNode: _focusNodeDescription,
-                        svgIconSuffixForText: SvgIcons.clear,
-                        svgIconSuffixForTextColor: Colors.black,
-                        heightIcon: 20,
-                        borderRadius: 8,
-                        maxLines: 5,
-                        actionIconSuffixForText: () {
-                          _textEditingControllerDescription.clear();
-                        },
-                        actionOnSubmitted: (value) {
-                          _focusNodeDescription.unfocus();
-                        },
+                ),
+                // Разделитель
+                const SizedBox(height: 15),
+                // Кнопка "Указать на карте"
+                Row(
+                  children: <Widget>[
+                    TextButton(
+                      style: ButtonStyle(
+                        alignment: Alignment.centerLeft,
+                        padding: MaterialStateProperty.all<EdgeInsets>(
+                          const EdgeInsets.all(0),
+                        ),
+                      ),
+                      onPressed: () {},
+                      child: Text(
+                        Labels.specifyOnMap,
+                        style: Theme.of(context).textTheme.subtitle1!.copyWith(
+                              fontSize: 16,
+                              color: ColorPalette.greenColor,
+                            ),
                       ),
                     ),
                   ],
                 ),
+                // Разделитель
+                const SizedBox(height: 24),
+                //Заголовок "Описание"
+                Row(
+                  children: const <Widget>[
+                    TitleField(
+                      Labels.description,
+                    ),
+                  ],
+                ),
+                // Разделитель
+                const SizedBox(height: 12),
+                //Поле ввода описание
+                SizedBox(
+                  height: 80,
+                  child: Row(
+                    children: <Widget>[
+                      Expanded(
+                        child: TextFieldIcon(
+                          controller: _textEditingControllerDescription,
+                          focusNode: _focusNodeDescription,
+                          svgIconSuffixForText: SvgIcons.clear,
+                          svgIconSuffixForTextColor: Colors.black,
+                          heightIcon: 20,
+                          borderRadius: 8,
+                          maxLines: 5,
+                          actionIconSuffixForText:
+                              _textEditingControllerDescription.clear,
+                          actionOnSubmitted: (final String value) {
+                            _focusNodeDescription.unfocus();
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                // Добавлен, чтобы не закрывала нижняя кнопка
+                const SizedBox(height: 48),
+              ],
+            ),
+          ),
+        ),
+      );
+
+  ///Выбор категории
+  Widget selectTypePlace(final BuildContext context) => SizedBox(
+        height: 32,
+        child: TextButton(
+          style: ButtonStyle(
+            padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.zero),
+          ),
+          onPressed: () async {
+            _typePlaceSelected = await Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (final BuildContext context) =>
+                    SelectCategory(typePlaceSelectedActual: _typePlaceSelected),
               ),
-              // Добавлен, чтобы не закрывала нижняя кнопка
-              const SizedBox(height: 48),
+            );
+            setState(() {});
+          },
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Text(
+                _typePlaceSelected == null
+                    ? Labels.notSelected
+                    : Labels.TypePlaceString(_typePlaceSelected as TypePlace),
+                style: Theme.of(context)
+                    .textTheme
+                    .subtitle2!
+                    .copyWith(fontSize: 16),
+              ),
+              SvgPicture.asset(
+                SvgIcons.view,
+              ),
             ],
           ),
         ),
-      ),
-    );
-  }
-
-  //Выбор категории
-  Widget SelectTypePlace(BuildContext context) {
-    return SizedBox(
-      height: 32,
-      child: TextButton(
-        style: ButtonStyle(
-            padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.zero)),
-        onPressed: () async {
-          typePlaceSelected = await Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) =>
-                  SelectCategory(typePlaceSelectedActual: typePlaceSelected),
-            ),
-          );
-          setState(() {});
-        },
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              typePlaceSelected == null
-                  ? Labels.notSelected
-                  : Labels.TypePlaceString(typePlaceSelected as TypePlace),
-              style:
-                  Theme.of(context).textTheme.subtitle2!.copyWith(fontSize: 16),
-            ),
-            SvgPicture.asset(
-              SvgIcons.view,
-            ),
-          ],
-        ),
-      ),
-    );
-  }
+      );
 }

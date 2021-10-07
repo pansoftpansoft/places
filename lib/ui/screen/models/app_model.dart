@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:places/ui/res/themes.dart';
 
-//Модель для ChangeNotifierProvider
+///Модель для ChangeNotifierProvider
 class AppModel extends ChangeNotifier {
   static bool _themeColor = false;
 
