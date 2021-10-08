@@ -64,7 +64,7 @@ class Labels {
         {
           return (restaurant);
         }
-      case TypePlace.particular_place:
+      case TypePlace.particularPlace:
         {
           return (particular_place);
         }

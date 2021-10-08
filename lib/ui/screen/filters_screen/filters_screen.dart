@@ -69,7 +69,7 @@ class FiltersScreen extends StatelessWidget {
                   _categoryIcon(
                     context,
                     'Особое место',
-                    TypePlace.particular_place,
+                    TypePlace.particularPlace,
                     SvgIcons.particular_place,
                   ),
                   _categoryIcon(

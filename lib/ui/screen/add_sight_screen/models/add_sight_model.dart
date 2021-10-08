@@ -1,10 +1,11 @@
 import 'package:flutter/foundation.dart';
+import 'package:places/mocks.dart';
 
 ///Модель для добавления фотографий в карточку места
 class AddSightModel extends ChangeNotifier {
   /// Первое значение бронируем,
   /// так как это будет кнопка "Добавить", которую удалять нельзя
-  static List<String> tempPhotoPlace = <String>['Кнопка Добаить'];
+
 
   ///Добавляем фотографию
   void addPhoto(final String pathPhoto) {

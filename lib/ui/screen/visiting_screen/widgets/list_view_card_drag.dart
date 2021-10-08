@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:places/mocks.dart';
 import 'package:places/ui/screen/visiting_screen/models/visiting_model.dart';
-import 'package:places/ui/screen/widgets/sight_card.dart';
+import 'package:places/ui/screen/widgets/sight_card/sight_card.dart';
 import 'package:provider/provider.dart';
 import 'background_dismissible.dart';
 
@@ -10,16 +10,16 @@ class ListViewCardDrag extends StatelessWidget {
   final int index;
 
   ListViewCardDrag(
-      this.index, {
-        Key? key,
-      }) : super(key: key);
+    this.index, {
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return DragTarget<int>(
       onAccept: (data) {
         var _visitingModel = context.read<VisitingModel>();
-        _visitingModel.SortedPlaceWantVisit(data, index);
+        _visitingModel.sortedPlaceWantVisit(data, index);
       },
       builder: (context, sours, target) {
         return Draggable<int>(
@@ -36,7 +36,7 @@ class ListViewCardDrag extends StatelessWidget {
               background: const backgroundDismissible(),
               onDismissed: (direction) {
                 var _visitingModel = context.read<VisitingModel>();
-                _visitingModel.DeletePlaceWantVisit(
+                _visitingModel.deletePlaceWantVisit(
                   mocksWantVisit[index].name,
                 );
               },
@@ -48,18 +48,16 @@ class ListViewCardDrag extends StatelessWidget {
   }
 }
 
-SightCard sightCardDrag(int index, BuildContext context) {
-  return SightCard(
-    mocksWantVisit[index],
-    goNeed: 'Запланировано на '
-        '${DateFormat.yMMMd().format(mocksWantVisit[index].wantVisitDate!)}',
-    iconDelete: true,
-    //key: ValueKey(mocksWantVisit[index].name),
-    actionOnDelete: () {
-      var _visitingModel = context.read<VisitingModel>();
-      _visitingModel.DeletePlaceWantVisit(
-        mocksWantVisit[index].name,
-      );
-    },
-  );
-}
+///
+SightCard sightCardDrag(int index, BuildContext context) => SightCard(
+      mocksWantVisit[index],
+      goNeed: 'Запланировано на '
+          '${DateFormat.yMMMd().format(mocksWantVisit[index].wantVisitDate!)}',
+      iconDelete: true,
+      //key: ValueKey(mocksWantVisit[index].name),
+      actionOnDelete: () {
+        context.read<VisitingModel>().deletePlaceWantVisit(
+              mocksWantVisit[index].name,
+            );
+      },
+    );
