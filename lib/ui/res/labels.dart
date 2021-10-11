@@ -5,7 +5,11 @@ import '../../mocks.dart';
 */
 class Labels {
   static const String addToFavorites = 'В избранное';
+  static const String addPlacesYouFoundYourself =
+      'Добавляй места,\nкоторые нашёл сам';
   static const String buildRoute = 'ПОСТРОИТЬ МАРШРУТ';
+  static const String buildRouteAndRoad =
+      'Построй маршрут\nи отправляйся в путь';
   static const String cafe = 'Кафе';
   static const String cancel = 'Отмена';
   static const String categories = 'КАТЕГОРИИ';
@@ -26,10 +30,15 @@ class Labels {
   static const String from = 'от';
   static const String iWantToVisit = 'Хочу посетить';
   static const String hotel = 'Отель';
+  static const String onStart = 'На старт';
   static const String particular_place = 'Особое место';
   static const String park = 'Парк';
+  static const String reachGoalQuicklyComfortablyPossible =
+      'Достигай цели максимально\nбыстро и комфортно.';
   static const String lat = 'ШИРОТА';
   static const String light_theme = 'Светлая тема';
+  static const String lookNewLocations =
+      'Ищи новые локации\nи сохраняй самые любимые.';
   static const String lon = 'ДОЛГОТА';
   static const String museum = 'Музей';
   static const String meters = 'метров';
@@ -43,8 +52,11 @@ class Labels {
   static const String schedule = 'Запланировать';
   static const String search = 'Поиск';
   static const String settings = 'Настройки';
+  static const String shareMostInterestingOnes =
+      'Делись самыми интересными\nи помоги нам стать лучше!';
   static const String shortDescription = 'краткое описание';
   static const String show = 'ПОКАЗАТЬ';
+  static const String skip = 'Пропустить';
   static const String to = 'до';
   static const String tryAgain = 'Попробуйте еще раз!';
   static const String tryChangingTheSearchParameter =
@@ -53,6 +65,8 @@ class Labels {
   static const String unknownError = 'Неизвестная ошибка';
   static const String youLooking = 'ВЫ ИСКАЛИ';
   static const String watchTutorial = 'Смотреть туториал';
+  static const String welcomeToTheTravelGuide =
+      'Добро пожаловать\nв Путеводитель';
 
   static String TypePlaceString(TypePlace enumString) {
     switch (enumString) {

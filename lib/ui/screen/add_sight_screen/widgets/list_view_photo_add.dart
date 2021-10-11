@@ -99,7 +99,7 @@ Widget ButtonImage(BuildContext context, int index) {
                         _AddSightModel.deletePhoto(index);
                       },
                       child: SvgPicture.asset(
-                        SvgIcons.clear_white,
+                        SvgIcons.clearWhite,
                         height: 20,
                         color: Colors.white,
                       ),
