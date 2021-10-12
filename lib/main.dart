@@ -62,10 +62,10 @@ class MyApp extends StatelessWidget {
           (final AppModel a) => a.themeColor,
         ),
         title: 'Задача  5.2',
-        //home: const SightListScreen(),
+        home: const SightListScreen(),
 
 
-        home: const OnboardingScreen(),
+        //home: const OnboardingScreen(),
         // home: const VisitingScreen(),
         // home: SightDetails(mocks[1]),
         // home: FiltersScreen(),

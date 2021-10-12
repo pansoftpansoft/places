@@ -17,61 +17,73 @@ class SightDetails extends StatelessWidget {
 
   @override
   Widget build(final BuildContext context) => Scaffold(
-        body: SingleChildScrollView(
-          child: Column(
-            children: <Widget>[
-              const PhotoGallery(),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(
-                  Sizes.paddingPage,
-                  24,
-                  Sizes.paddingPage,
-                  0,
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text(
-                      _sight.name,
-                      style: Theme.of(context).textTheme.headline3,
+        body: CustomScrollView(
+          slivers: <Widget>[
+            const SliverAppBar(
+              expandedHeight: 330,
+              flexibleSpace: FlexibleSpaceBar(
+                background: PhotoGallery(),
+              ),
+            ),
+            SliverFillRemaining(
+              child: ListView(
+                physics: const NeverScrollableScrollPhysics(),
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(
+                      Sizes.paddingPage,
+                      24,
+                      Sizes.paddingPage,
+                      0,
                     ),
-                    Row(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Text(
-                          Labels.TypePlaceString(_sight.type),
-                          style: Theme.of(context).textTheme.headline5,
+                          _sight.name,
+                          style: Theme.of(context).textTheme.headline3,
                         ),
-                        const SizedBox(width: 16),
+                        Row(
+                          children: <Widget>[
+                            Text(
+                              Labels.TypePlaceString(_sight.type),
+                              style: Theme.of(context).textTheme.headline5,
+                            ),
+                            const SizedBox(width: 16),
+                            Text(
+                              'закрыто до 09:00',
+                              style: Theme.of(context).textTheme.subtitle2,
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 24),
                         Text(
-                          'закрыто до 09:00',
-                          style: Theme.of(context).textTheme.subtitle2,
+                          _sight.details,
+                          style: Theme.of(context).textTheme.bodyText2,
                         ),
+                        const SizedBox(height: 24),
+                        ConstrainedBox(
+                          constraints: const BoxConstraints.tightFor(
+                            height: 48,
+                          ),
+                          child: const BuildRouteButton(),
+                        ),
+                        const SizedBox(height: 24),
+                        const Divider(),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: const <Widget>[
+                            AddToFavoritesButton(),
+                            ScheduleButton(),
+                          ],
+                        )
                       ],
                     ),
-                    const SizedBox(height: 24),
-                    Text(
-                      _sight.details,
-                      style: Theme.of(context).textTheme.bodyText2,
-                    ),
-                    const SizedBox(height: 24),
-                    ConstrainedBox(
-                      constraints: const BoxConstraints.tightFor(height: 48),
-                      child: const BuildRouteButton(),
-                    ),
-                    const SizedBox(height: 24),
-                    const Divider(),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: const <Widget>[
-                        AddToFavoritesButton(),
-                        ScheduleButton(),
-                      ],
-                    )
-                  ],
-                ),
+                  ),
+                ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       );
 }
