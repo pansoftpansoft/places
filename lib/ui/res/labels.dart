@@ -37,6 +37,7 @@ class Labels {
       'Достигай цели максимально\nбыстро и комфортно.';
   static const String lat = 'ШИРОТА';
   static const String light_theme = 'Светлая тема';
+  static const String list_interesting_places = 'Список интересных мест';
   static const String lookNewLocations =
       'Ищи новые локации\nи сохраняй самые любимые.';
   static const String lon = 'ДОЛГОТА';
