@@ -16,7 +16,7 @@ class SearchFilterModel extends ChangeNotifier {
   static Map<TypePlace, bool> _filterMap = {
     TypePlace.hotel: false,
     TypePlace.restaurant: false,
-    TypePlace.particular_place: false,
+    TypePlace.particularPlace: false,
     TypePlace.park: false,
     TypePlace.museum: false,
     TypePlace.cafe: false,
@@ -28,7 +28,7 @@ class SearchFilterModel extends ChangeNotifier {
   static final Map<TypePlace, bool> _filterMapOld = {
     TypePlace.hotel: false,
     TypePlace.restaurant: false,
-    TypePlace.particular_place: false,
+    TypePlace.particularPlace: false,
     TypePlace.park: false,
     TypePlace.museum: false,
     TypePlace.cafe: false,

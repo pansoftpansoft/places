@@ -8,7 +8,7 @@ class SvgIcons {
   static const String calendar = '${catalog}calendar.svg';
   static const String card = '${catalog}card.svg';
   static const String clear = '${catalog}clear.svg';
-  static const String clear_white = '${catalog}clear_white.svg';
+  static const String clearWhite = '${catalog}clear_white.svg';
   static const String delete = '${catalog}delete.svg';
   static const String filter = '${catalog}filter.svg';
   static const String go = '${catalog}go.svg';
@@ -20,15 +20,21 @@ class SvgIcons {
   static const String list = '${catalog}list.svg';
   static const String map = '${catalog}map.svg';
   static const String museum = '${catalog}museum.svg';
+  static const String onboardProgress1 = '${catalog}onboard_progress_1.svg';
+  static const String onboardProgress2 = '${catalog}onboard_progress_2.svg';
+  static const String onboardProgress3 = '${catalog}onboard_progress_3.svg';
   static const String park = '${catalog}park.svg';
-  static const String particular_place = '${catalog}particular_place.svg';
+  static const String particularPlace = '${catalog}particular_place.svg';
   static const String plus = '${catalog}plus.svg';
   static const String restaurant = '${catalog}restaurant.svg';
   static const String search = '${catalog}search.svg';
   static const String schedule = '${catalog}schedule.svg';
   static const String settings = '${catalog}settings.svg';
   static const String tick = '${catalog}tick.svg';
-  static const String tick_choice = '${catalog}tick_choice.svg';
+  static const String tickChoice = '${catalog}tick_choice.svg';
+  static const String tutorialFrame1 = '${catalog}tutorial_frame_1.svg';
+  static const String tutorialFrame2 = '${catalog}tutorial_frame_2.svg';
+  static const String tutorialFrame3 = '${catalog}tutorial_frame_3.svg';
   static const String view = '${catalog}view.svg';
   static const String union = '${catalog}union.svg';
 }

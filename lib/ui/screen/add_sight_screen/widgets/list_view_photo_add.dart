@@ -5,6 +5,8 @@ import 'package:places/ui/res/svg_icons.dart';
 import 'package:places/ui/screen/add_sight_screen/models/add_sight_model.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../mocks.dart';
+
 class ListViewPhotoAdd extends StatelessWidget {
   const ListViewPhotoAdd({
     Key? key,
@@ -16,7 +18,7 @@ class ListViewPhotoAdd extends StatelessWidget {
       builder: (context, sight, child) {
         return Expanded(
           child: ListView.builder(
-              itemCount: AddSightModel.tempPhotoPlace.length,
+              itemCount: tempPhotoPlace.length,
               scrollDirection: Axis.horizontal,
               itemBuilder: (BuildContext context, int index) {
                 return ButtonImage(context, index);
@@ -97,7 +99,7 @@ Widget ButtonImage(BuildContext context, int index) {
                         _AddSightModel.deletePhoto(index);
                       },
                       child: SvgPicture.asset(
-                        SvgIcons.clear_white,
+                        SvgIcons.clearWhite,
                         height: 20,
                         color: Colors.white,
                       ),

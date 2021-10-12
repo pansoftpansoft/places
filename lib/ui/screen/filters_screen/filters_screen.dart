@@ -69,8 +69,8 @@ class FiltersScreen extends StatelessWidget {
                   _categoryIcon(
                     context,
                     'Особое место',
-                    TypePlace.particular_place,
-                    SvgIcons.particular_place,
+                    TypePlace.particularPlace,
+                    SvgIcons.particularPlace,
                   ),
                   _categoryIcon(
                     context,
@@ -258,7 +258,7 @@ class FiltersScreen extends StatelessWidget {
                 right: -4,
                 child: SearchFilterModel.filterMap[nameKey]! == true
                     ? SvgPicture.asset(
-                        SvgIcons.tick_choice,
+                        SvgIcons.tickChoice,
                         height: 25,
                       )
                     : const SizedBox(

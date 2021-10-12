@@ -8,7 +8,7 @@ import 'package:places/ui/res/svg_icons.dart';
 import 'package:places/ui/screen/Widgets/bottom_navigation.dart';
 import 'package:places/ui/screen/add_sight_screen/add_sight_screen.dart';
 import 'package:places/ui/screen/sight_list_screen/widgets/app_bar_sight_list_screen.dart';
-import 'package:places/ui/screen/widgets/sight_card.dart';
+import 'package:places/ui/screen/widgets/sight_card/sight_card.dart';
 
 
 ///Список достопримечательностей
