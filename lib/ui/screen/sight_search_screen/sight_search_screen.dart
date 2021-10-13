@@ -57,7 +57,7 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
           toolbarHeight: double.infinity,
           centerTitle: false,
           elevation: 0,
-          title: const TitleApp(),
+          title: const TitleAppBigOrSmall(),
           bottom: PreferredSize(
             preferredSize: const Size.fromHeight(60),
             child: Padding(

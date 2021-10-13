@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:places/ui/res/labels.dart';
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/screen/sight_search_screen/sight_search_screen.dart';
 import 'package:places/ui/screen/widgets/search_bar.dart';
@@ -13,6 +12,7 @@ class AppBarSightListScreen extends StatelessWidget {
     this.shrink = false,
   }) : super(key: key);
 
+  ///Уменьшать AppBar false-большой , true- маленький
   final bool shrink;
 
   @override
@@ -20,16 +20,7 @@ class AppBarSightListScreen extends StatelessWidget {
         toolbarHeight: double.infinity,
         centerTitle: false,
         elevation: 0,
-        title: shrink
-            ? Text(
-                Labels.list_interesting_places,
-                textAlign: TextAlign.center,
-                style: Theme.of(context)
-                    .textTheme
-                    .headline1!
-                    .copyWith(fontSize: 18, fontWeight: FontWeight.w500),
-              )
-            : const TitleApp(),
+        title: TitleAppBigOrSmall(small: shrink),
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(60),
           child: Padding(
@@ -50,7 +41,7 @@ class AppBarSightListScreen extends StatelessWidget {
                           onTap: () {
                             Navigator.push(
                               context,
-                              MaterialPageRoute<Route>(
+                              MaterialPageRoute<void>(
                                 builder: (final BuildContext context) =>
                                     const SightSearchScreen(),
                               ),

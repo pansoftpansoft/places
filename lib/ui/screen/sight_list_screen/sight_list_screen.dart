@@ -16,7 +16,8 @@ class SightListScreen extends StatefulWidget {
 ///
 class SightListScreenState extends State<SightListScreen> {
   @override
-  Widget build(final BuildContext context) => Scaffold(
+  Widget build(final BuildContext context) =>
+      Scaffold(
         body: Padding(
           padding: const EdgeInsets.symmetric(
             horizontal: Sizes.paddingPage,
@@ -29,10 +30,8 @@ class SightListScreenState extends State<SightListScreen> {
               ),
               SliverList(
                 delegate: SliverChildBuilderDelegate(
-                  (
-                    final BuildContext context,
-                    final int index,
-                  ) =>
+                      (final BuildContext context,
+                      final int index,) =>
                       SightCard(mocks[index]),
                   childCount: mocks.length,
                 ),
