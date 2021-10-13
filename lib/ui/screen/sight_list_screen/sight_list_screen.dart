@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:places/mocks.dart';
 import 'package:places/ui/res/sizes.dart';
+import 'package:places/ui/screen/sight_list_screen/widgets/floating_button.dart';
 import 'package:places/ui/screen/sight_list_screen/widgets/sticky_header.dart';
 import 'package:places/ui/screen/widgets/sight_card/sight_card.dart';
 
@@ -18,6 +19,8 @@ class SightListScreenState extends State<SightListScreen> {
   @override
   Widget build(final BuildContext context) =>
       Scaffold(
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+        floatingActionButton: const FloatingButton(),
         body: Padding(
           padding: const EdgeInsets.symmetric(
             horizontal: Sizes.paddingPage,
