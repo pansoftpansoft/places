@@ -33,6 +33,7 @@ const String reachGoalQuicklyComfortablyPossible =
 const String lat = 'ШИРОТА';
 const String lightTheme = 'Светлая тема';
 const String listInterestingPlaces = 'Список интересных мест';
+const String listInterestingPlacesTwoLine = 'Список\nинтересных мест';
 const String lookNewLocations = 'Ищи новые локации\nи сохраняй самые любимые.';
 const String lon = 'ДОЛГОТА';
 const String museum = 'Музей';
