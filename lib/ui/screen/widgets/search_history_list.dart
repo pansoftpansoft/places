@@ -26,7 +26,7 @@ class HistoryListScreen extends StatelessWidget {
               youLooking,
               style: Theme.of(context).textTheme.subtitle2!.copyWith(
                     color: ColorPalette.lmFontSubtitle2
-                        .withOpacity(Sizes.opacityText),
+                        .withOpacity(opacityText),
                   ),
             ),
             Flexible(child: listHistory()),

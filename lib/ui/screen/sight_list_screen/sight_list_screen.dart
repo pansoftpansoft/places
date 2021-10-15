@@ -25,7 +25,7 @@ class SightListScreenState extends State<SightListScreen> {
         bottomNavigationBar: BottomNavigation(),
         body: Padding(
           padding: const EdgeInsets.symmetric(
-            horizontal: Sizes.paddingPage,
+            horizontal: paddingPage,
           ),
           child: CustomScrollView(
             slivers: <Widget>[

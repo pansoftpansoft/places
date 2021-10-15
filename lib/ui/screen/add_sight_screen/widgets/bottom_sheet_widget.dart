@@ -11,6 +11,7 @@ class BottomSheetWidget extends StatelessWidget {
   const BottomSheetWidget({
     final Key? key,
   }) : super(key: key);
+
   ///
 
   @override
@@ -18,7 +19,7 @@ class BottomSheetWidget extends StatelessWidget {
         color: Theme.of(context).backgroundColor,
         child: Padding(
           padding: const EdgeInsets.symmetric(
-            horizontal: Sizes.paddingPage,
+            horizontal: paddingPage,
             vertical: 8,
           ),
           child: ConstrainedBox(
@@ -31,13 +32,13 @@ class BottomSheetWidget extends StatelessWidget {
                     MaterialStateProperty.all<Color>(ColorPalette.greenColor),
                 shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                   RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(Sizes.borderRadiusCard),
+                    borderRadius: BorderRadius.circular(borderRadiusCard),
                   ),
                 ),
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: [
+                children: <Widget>[
                   Text(
                     create,
                     style: Theme.of(context).textTheme.headline5!.copyWith(
@@ -53,7 +54,17 @@ class BottomSheetWidget extends StatelessWidget {
                     '55.751426',
                     '37.618879',
                     'https://liveinmsk.ru/up/photos/album/kremlin/1327.jpg',
-                    'Ивановская площадь — площадь в Московском Кремле, одна из древнейших площадей Москвы. Возникла после постройки в 1329 году каменной церкви Иоанна Лествичника, «что под колоколы», которая разделила ранее единую городскую площадь на две части. Её восточная часть по Иоанновской церкви стала позднее именоваться Ивановской, западная — Соборной площадью. В XIV—XV веках южную и восточную стороны площади занимали дворы удельных князей Московского дома.',
+                    'Ивановская площадь — площадь в Московском Кремле, '
+                        'одна из древнейших площадей Москвы. '
+                        'Возникла после постройки в 1329 году '
+                        'каменной церкви Иоанна Лествичника'
+                        ', «что под колоколы», которая разделила ранее '
+                        'единую городскую площадь на две части. '
+                        'Её восточная часть по Иоанновской церкви '
+                        'стала позднее именоваться Ивановской, западная — '
+                        'Соборной площадью. В XIV—XV веках южную и восточную '
+                        'стороны площади занимали дворы удельных князей '
+                        'Московского дома.',
                     TypePlace.park,
                   ),
                 );

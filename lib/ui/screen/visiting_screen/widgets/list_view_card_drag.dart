@@ -33,7 +33,7 @@ class ListViewCardDrag extends StatelessWidget {
             child: sightCardDrag(index, context),
           ),
           child: Dismissible(
-              background: const backgroundDismissible(),
+              background: const BackgroundDismissible(),
               onDismissed: (direction) {
                 var _visitingModel = context.read<VisitingModel>();
                 _visitingModel.deletePlaceWantVisit(

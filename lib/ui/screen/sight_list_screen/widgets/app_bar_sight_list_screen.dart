@@ -4,7 +4,7 @@ import 'package:places/ui/screen/sight_search_screen/sight_search_screen.dart';
 import 'package:places/ui/screen/widgets/search_bar.dart';
 import 'package:places/ui/screen/widgets/title_app.dart';
 
-///
+/// AppBar главного списка
 class AppBarSightListScreen extends StatelessWidget {
   ///
   const AppBarSightListScreen({
@@ -28,15 +28,15 @@ class AppBarSightListScreen extends StatelessWidget {
               0,
               0,
               0,
-              Sizes.paddingPage,
+              paddingPage,
             ),
             child: shrink
                 ? const SizedBox.shrink()
                 : Stack(
                     children: <Widget>[
-                      SearchBar(),
+                      const SearchBar(),
                       SizedBox(
-                        height: Sizes.heightTextFieldSearch,
+                        height: heightTextFieldSearch,
                         child: InkWell(
                           onTap: () {
                             Navigator.push(

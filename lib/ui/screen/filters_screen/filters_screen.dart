@@ -35,7 +35,7 @@ class FiltersScreen extends StatelessWidget {
             children: <Widget>[
               Padding(
                 padding: const EdgeInsets.symmetric(
-                  horizontal: Sizes.paddingPage,
+                  horizontal: paddingPage,
                 ),
                 child: Row(
                   children: <Text>[
@@ -94,16 +94,18 @@ class FiltersScreen extends StatelessWidget {
               ),
               const SizedBox(height: 50),
               Padding(
-                padding: const EdgeInsets.all(Sizes.paddingPage),
+                padding: const EdgeInsets.all(paddingPage),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Text>[
                     const Text(distance),
                     Text(
                       '$from  '
-                      '${SearchFilterModel.selectedRange.start.round().toString()}'
+                      '${SearchFilterModel.selectedRange.
+                      start.round().toString()}'
                       ' $to '
-                      '${SearchFilterModel.selectedRange.end.round().toString()}'
+                      '${SearchFilterModel.selectedRange.
+                      end.round().toString()}'
                       '$meters',
                     )
                   ],
@@ -171,8 +173,8 @@ class FiltersScreen extends StatelessWidget {
   //Кнопка "показать"
   Widget _bottomSheetWidget(final BuildContext context) => Padding(
         padding: const EdgeInsets.symmetric(
-          horizontal: Sizes.paddingPage,
-          vertical: Sizes.paddingPage / 2,
+          horizontal: paddingPage,
+          vertical: paddingPage / 2,
         ),
         child: ConstrainedBox(
           constraints: const BoxConstraints.tightFor(height: 48),
@@ -184,7 +186,7 @@ class FiltersScreen extends StatelessWidget {
                   MaterialStateProperty.all<Color>(ColorPalette.greenColor),
               shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                 RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(Sizes.borderRadiusCard),
+                  borderRadius: BorderRadius.circular(borderRadiusCard),
                 ),
               ),
             ),

@@ -12,7 +12,7 @@ class OnboardingScreen extends StatelessWidget {
   @override
   Widget build(final BuildContext context) => Scaffold(
         body: Padding(
-          padding: const EdgeInsets.all(Sizes.paddingPage),
+          padding: const EdgeInsets.all(paddingPage),
           child: PageView(
             children: const <Widget>[
               OnboardPage(

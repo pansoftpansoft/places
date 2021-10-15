@@ -6,7 +6,7 @@ import 'package:places/ui/res/labels.dart';
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/res/svg_icons.dart';
 
-///
+/// Сисок категорий мест с возможностью выбора
 class SelectCategory extends StatefulWidget {
   ///
   SelectCategory({
@@ -46,7 +46,7 @@ class _SelectCategoryState extends State<SelectCategory> {
           Expanded(
             child: Padding(
               padding: const EdgeInsets.symmetric(
-                horizontal: Sizes.paddingPage,
+                horizontal: paddingPage,
                 vertical: 24,
               ),
               child: ListView(
@@ -100,8 +100,8 @@ class _SelectCategoryState extends State<SelectCategory> {
   //Кнопка "Сохранить"
   Widget bottomSheetWidget(final BuildContext context) => Padding(
         padding: const EdgeInsets.symmetric(
-          horizontal: Sizes.paddingPage,
-          vertical: Sizes.paddingPage / 2,
+          horizontal: paddingPage,
+          vertical: paddingPage / 2,
         ),
         child: ConstrainedBox(
           constraints: const BoxConstraints.tightFor(height: 48),
@@ -114,7 +114,7 @@ class _SelectCategoryState extends State<SelectCategory> {
                   : MaterialStateProperty.all<Color>(ColorPalette.greenColor),
               shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                 RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(Sizes.borderRadiusCard),
+                  borderRadius: BorderRadius.circular(borderRadiusCard),
                 ),
               ),
             ),
@@ -131,7 +131,7 @@ class _SelectCategoryState extends State<SelectCategory> {
                   style: Theme.of(context).textTheme.headline5!.copyWith(
                         color: widget.typePlaceSelected == null
                             ? ColorPalette.lmFontHeadline2
-                                .withOpacity(Sizes.opacityText)
+                                .withOpacity(opacityText)
                             : ColorPalette.lmPrimaryColor,
                       ),
                 ),

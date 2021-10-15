@@ -32,7 +32,7 @@ class VisitingScreenState extends State<VisitingScreen> {
           ),
           bottomNavigationBar: BottomNavigation(),
           body: Padding(
-            padding: const EdgeInsets.all(Sizes.paddingPage),
+            padding: const EdgeInsets.all(paddingPage),
             child: TabBarView(
               children: <Widget>[
                 tab1(context),
