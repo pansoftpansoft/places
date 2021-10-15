@@ -9,7 +9,7 @@ import 'package:places/ui/screen/visiting_screen/models/visiting_model.dart';
 import 'package:places/ui/screen/visiting_screen/widgets/list_view_card_drag.dart';
 import 'package:provider/provider.dart';
 
-///
+/// Вкладка запланированные места
 Widget tab1(final BuildContext context) => Consumer<VisitingModel>(
       builder: (
         final BuildContext context,
@@ -26,7 +26,7 @@ Widget tab1(final BuildContext context) => Consumer<VisitingModel>(
                         height: 48,
                         width: 53,
                         color: ColorPalette.textInTextField
-                            .withOpacity(Sizes.opacityText),
+                            .withOpacity(opacityText),
                       ),
                       const SizedBox(height: 32),
                       Text(

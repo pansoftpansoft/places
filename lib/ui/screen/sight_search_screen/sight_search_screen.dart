@@ -64,10 +64,10 @@ class SightSearchScreenState extends State<SightSearchScreen> {
               preferredSize: const Size.fromHeight(60),
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(
-                  Sizes.paddingPage,
+                  paddingPage,
                   0,
-                  Sizes.paddingPage,
-                  Sizes.paddingPage,
+                  paddingPage,
+                  paddingPage,
                 ),
                 child: Stack(
                   children: <Widget>[
@@ -86,7 +86,7 @@ class SightSearchScreenState extends State<SightSearchScreen> {
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         body: Padding(
           padding: const EdgeInsets.symmetric(
-            horizontal: Sizes.paddingPage,
+            horizontal: paddingPage,
           ),
           child: Consumer<SearchFilterModel>(
             builder: (
@@ -138,7 +138,7 @@ class SightSearchScreenState extends State<SightSearchScreen> {
         ) =>
             const Padding(
           padding: EdgeInsets.fromLTRB(
-            56 + Sizes.paddingPage,
+            56 + paddingPage,
             0,
             0,
             0,

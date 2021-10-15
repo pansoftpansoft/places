@@ -10,7 +10,7 @@ import 'package:places/ui/screen/visiting_screen/models/visiting_model.dart';
 import 'package:places/ui/screen/widgets/sight_card/sight_card.dart';
 import 'package:provider/provider.dart';
 
-///
+/// Вкладка посещенных мест
 Widget tab2(final BuildContext context) => Consumer<VisitingModel>(
       builder: (
         final BuildContext context,
@@ -27,7 +27,7 @@ Widget tab2(final BuildContext context) => Consumer<VisitingModel>(
                         height: 48,
                         width: 53,
                         color: ColorPalette.textInTextField
-                            .withOpacity(Sizes.opacityText),
+                            .withOpacity(opacityText),
                       ),
                       const SizedBox(height: 32),
                       Text(
@@ -54,7 +54,8 @@ Widget tab2(final BuildContext context) => Consumer<VisitingModel>(
                     mocksVisited[index],
                     iconDelete: true,
                     goal: 'Цель достигнута'
-                        ' ${DateFormat.yMMMd().format(mocksVisited[index].visitedDate!)}',
+                        ' ${DateFormat.yMMMd().
+                    format(mocksVisited[index].visitedDate!)}',
                     //key: ValueKey(mocksVisited[index].name),
                     actionOnDelete: () {
                       context.read<VisitingModel>().deletePlaceVisited(

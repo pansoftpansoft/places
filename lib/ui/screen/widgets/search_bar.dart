@@ -26,7 +26,7 @@ class SearchBar extends StatelessWidget {
 
   @override
   Widget build(final BuildContext context) => SizedBox(
-        height: Sizes.heightTextFieldSearch,
+        height: heightTextFieldSearch,
         child: TextFieldIcon(
           labelText: search,
           controller: textEditingController,

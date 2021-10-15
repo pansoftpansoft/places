@@ -31,9 +31,9 @@ class SightDetails extends StatelessWidget {
                 children: <Widget>[
                   Padding(
                     padding: const EdgeInsets.fromLTRB(
-                      Sizes.paddingPage,
+                      paddingPage,
                       24,
-                      Sizes.paddingPage,
+                      paddingPage,
                       0,
                     ),
                     child: Column(

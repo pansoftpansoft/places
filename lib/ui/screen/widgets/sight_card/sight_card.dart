@@ -25,29 +25,29 @@ class SightCard extends StatelessWidget {
     this.actionOnDelete,
   }) : super(key: key);
 
-  ///
+  /// Место отображаемое в карточке
   final Sight _sight;
 
-  ///
+  /// Флаг, что нижно посетить это место
   final String goNeed;
 
-  ///
+  /// Флаг что место уже посетили
   final String goal;
 
-  ///
+  /// Отображать иконку удалить
   final bool iconDelete;
 
-  ///
+  /// Функция удаления
   final VoidCallback? actionOnDelete;
 
-  ///
+  /// Высота картинки
   static const double heightImage = 95;
 
   @override
   Widget build(final BuildContext context) => Card(
-        margin: const EdgeInsets.fromLTRB(0, 0, 0, Sizes.paddingPage),
+        margin: const EdgeInsets.fromLTRB(0, 0, 0, paddingPage),
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(Sizes.borderRadiusCard),
+          borderRadius: BorderRadius.circular(borderRadiusCard),
         ),
         elevation: 0,
         semanticContainer: false,
@@ -93,7 +93,7 @@ class SightCard extends StatelessWidget {
                     }
                   },
                   child: Padding(
-                    padding: const EdgeInsets.all(Sizes.paddingPage_2),
+                    padding: const EdgeInsets.all(paddingPage_2),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[

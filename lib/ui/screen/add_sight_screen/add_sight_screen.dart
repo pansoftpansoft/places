@@ -58,7 +58,7 @@ class FiltersScreenState extends State<AddSightScreen> {
         ),
         body: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.all(Sizes.paddingPage),
+            padding: const EdgeInsets.all(paddingPage),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[

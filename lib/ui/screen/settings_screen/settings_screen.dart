@@ -22,7 +22,7 @@ class SettingsScreen extends StatelessWidget {
         ),
         bottomNavigationBar: BottomNavigation(),
         body: Padding(
-          padding: const EdgeInsets.all(Sizes.paddingPage),
+          padding: const EdgeInsets.all(paddingPage),
           child: Column(
             children: <Widget>[
               Row(

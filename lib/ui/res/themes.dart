@@ -25,7 +25,7 @@ final ThemeData lightTheme = ThemeData(
   cardTheme: CardTheme(
     elevation: 0,
     shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(Sizes.borderRadiusCard),
+      borderRadius: BorderRadius.circular(borderRadiusCard),
     ),
     color: ColorPalette.lmCardColor,
   ),
@@ -34,9 +34,9 @@ final ThemeData lightTheme = ThemeData(
   */
   tabBarTheme: TabBarTheme(
     labelColor: ColorPalette.lmTabBarSelect,
-    labelStyle: FontCollection.devHeadline6,
+    labelStyle: devHeadline6,
     unselectedLabelColor: ColorPalette.lmTabBarUnSelect,
-    unselectedLabelStyle: FontCollection.devHeadline6,
+    unselectedLabelStyle: devHeadline6,
     indicator: BoxDecoration(
       borderRadius: BorderRadius.circular(50),
       color: ColorPalette.lmTabBarCursor,
@@ -59,7 +59,7 @@ final ThemeData lightTheme = ThemeData(
   textButtonTheme: TextButtonThemeData(
     style: ButtonStyle(
       backgroundColor: MaterialStateProperty.all(ColorPalette.lmPrimaryColor),
-      textStyle: MaterialStateProperty.all(FontCollection.devButton),
+      textStyle: MaterialStateProperty.all(devButton),
     ),
   ),
   /*
@@ -90,7 +90,7 @@ final ThemeData darkTheme = ThemeData(
     elevation: 0,
     color: ColorPalette.dmCardColor,
     shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(Sizes.borderRadiusCard),
+      borderRadius: BorderRadius.circular(borderRadiusCard),
     ),
   ),
   /*
@@ -98,9 +98,9 @@ final ThemeData darkTheme = ThemeData(
   */
   tabBarTheme: TabBarTheme(
     labelColor: ColorPalette.dmTabBarSelect,
-    labelStyle: FontCollection.devHeadline6,
+    labelStyle: devHeadline6,
     unselectedLabelColor: ColorPalette.dmTabBarUnSelect,
-    unselectedLabelStyle: FontCollection.devHeadline6,
+    unselectedLabelStyle: devHeadline6,
     indicator: BoxDecoration(
       borderRadius: BorderRadius.circular(50),
       color: ColorPalette.dmTabBarCursor,
@@ -129,7 +129,7 @@ final ThemeData darkTheme = ThemeData(
     style: ButtonStyle(
       backgroundColor: MaterialStateProperty.all(ColorPalette.dmPrimaryColor),
       textStyle: MaterialStateProperty.all(
-        FontCollection.devButton.copyWith(color: ColorPalette.lmPrimaryColor),
+        devButton.copyWith(color: ColorPalette.lmPrimaryColor),
       ),
     ),
   ),
