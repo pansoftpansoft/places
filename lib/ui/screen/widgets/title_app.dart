@@ -30,7 +30,7 @@ class TitleAppBigOrSmall extends StatelessWidget {
             SizedBox(
               width: double.infinity,
               child: Text(
-                'Список\nинтересных мест',
+                listInterestingPlacesTwoLine,
                 style: Theme.of(context).textTheme.headline1,
               ),
             ),
