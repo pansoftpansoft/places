@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:places/ui/res/color_palette.dart';
+import 'package:places/ui/res/font_collection.dart';
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/res/text_themas.dart';
 
-import 'font_collection.dart';
-
-//---Светлая тема
-final lightTheme = ThemeData(
+///Светлая тема
+final ThemeData lightTheme = ThemeData(
   primaryColor: ColorPalette.lmPrimaryColor,
   backgroundColor: ColorPalette.lmPrimaryColor,
   scaffoldBackgroundColor: ColorPalette.lmPrimaryColor,
@@ -39,8 +38,9 @@ final lightTheme = ThemeData(
     unselectedLabelColor: ColorPalette.lmTabBarUnSelect,
     unselectedLabelStyle: FontCollection.devHeadline6,
     indicator: BoxDecoration(
-        borderRadius: BorderRadius.circular(50),
-        color: ColorPalette.lmTabBarCursor),
+      borderRadius: BorderRadius.circular(50),
+      color: ColorPalette.lmTabBarCursor,
+    ),
   ),
   /*
   * bottomNavigationBarTheme
@@ -63,29 +63,13 @@ final lightTheme = ThemeData(
     ),
   ),
   /*
-  * iconTheme
-  */
-  // iconTheme: const IconThemeData(
-  //   color: ColorPalette.lmIcon,
-  //   size: 30,
-  // ),
-  // primaryIconTheme: const IconThemeData(
-  //   color: ColorPalette.lmIcon,
-  //   size: 30,
-  // ),
-  // accentIconTheme: const IconThemeData(
-  //   color: ColorPalette.lmIcon,
-  //   size: 30,
-  // ),
-  /*
   * textTheme
   */
   textTheme: lmTextTheme,
 );
-//----------------------------------------------------------------------
-// ---Темная тема--------------------------------------------------------
-//----------------------------------------------------------------------
-final darkTheme = ThemeData(
+
+/// Темная тема
+final ThemeData darkTheme = ThemeData(
   primaryColor: ColorPalette.dmPrimaryColor,
   backgroundColor: ColorPalette.dmPrimaryColor,
   scaffoldBackgroundColor: ColorPalette.dmPrimaryColor,
@@ -144,8 +128,9 @@ final darkTheme = ThemeData(
   textButtonTheme: TextButtonThemeData(
     style: ButtonStyle(
       backgroundColor: MaterialStateProperty.all(ColorPalette.dmPrimaryColor),
-      textStyle: MaterialStateProperty.all(FontCollection.devButton
-          .copyWith(color: ColorPalette.lmPrimaryColor)),
+      textStyle: MaterialStateProperty.all(
+        FontCollection.devButton.copyWith(color: ColorPalette.lmPrimaryColor),
+      ),
     ),
   ),
   /*
@@ -159,5 +144,4 @@ final darkTheme = ThemeData(
   * textTheme
   */
   textTheme: dmTextTheme,
-
 );

@@ -30,7 +30,7 @@ class BuildRouteButton extends StatelessWidget {
           children: <Widget>[
             const Icon(Icons.gesture_outlined),
             Text(
-              Labels.buildRoute,
+              buildRoute,
               style: Theme.of(context)
                   .textTheme
                   .headline5!

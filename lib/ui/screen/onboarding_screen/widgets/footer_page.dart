@@ -8,11 +8,12 @@ import 'package:places/ui/res/svg_icons.dart';
 class FooterPage extends StatelessWidget {
   ///
   const FooterPage({
-    required this.buttonOnStartVisble,
+    required this.buttonOnStartVisible,
     final Key? key,
   }) : super(key: key);
 
-  final bool buttonOnStartVisble;
+  ///
+  final bool buttonOnStartVisible;
 
   @override
   Widget build(final BuildContext context) => Expanded(
@@ -26,7 +27,7 @@ class FooterPage extends StatelessWidget {
             Container(
               constraints: const BoxConstraints.tightFor(height: 48),
               child: Visibility(
-                visible: buttonOnStartVisble,
+                visible: buttonOnStartVisible,
                 child: ElevatedButton(
                   style: ButtonStyle(
                     padding: MaterialStateProperty.all(
@@ -47,7 +48,7 @@ class FooterPage extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Text(
-                        Labels.onStart,
+                        onStart,
                         style: Theme.of(context).textTheme.headline5!.copyWith(
                               color: ColorPalette.lmPrimaryColor,
                             ),

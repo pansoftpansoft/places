@@ -16,19 +16,19 @@ class OnboardingScreen extends StatelessWidget {
           child: PageView(
             children: const <Widget>[
               OnboardPage(
-                heder1: Labels.welcomeToTheTravelGuide,
-                heder2: Labels.lookNewLocations,
+                header1: welcomeToTheTravelGuide,
+                header2: lookNewLocations,
                 svgIcon: SvgIcons.tutorialFrame1,
               ),
               OnboardPage(
-                heder1: Labels.buildRouteAndRoad,
-                heder2: Labels.reachGoalQuicklyComfortablyPossible,
+                header1: buildRouteAndRoad,
+                header2: reachGoalQuicklyComfortablyPossible,
                 svgIcon: SvgIcons.tutorialFrame2,
               ),
               OnboardPage(
                 buttonSkipVisible: false,
-                heder1: Labels.addPlacesYouFoundYourself,
-                heder2: Labels.shareMostInterestingOnes,
+                header1: addPlacesYouFoundYourself,
+                header2: shareMostInterestingOnes,
                 svgIcon: SvgIcons.tutorialFrame3,
               ),
             ],

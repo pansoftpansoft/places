@@ -6,12 +6,20 @@ import 'package:places/ui/res/labels.dart';
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/res/svg_icons.dart';
 
+///
 class SelectCategory extends StatefulWidget {
-  final TypePlace? typePlaceSelectedActual;
-  TypePlace? typePlaceSelected;
+  ///
+  SelectCategory({
+    final Key? key,
+    this.typePlaceSelected,
+    this.typePlaceSelectedActual,
+  }) : super(key: key);
 
-  SelectCategory({Key? key, TypePlace? this.typePlaceSelectedActual})
-      : super(key: key);
+  ///
+  final TypePlace? typePlaceSelectedActual;
+
+  ///
+  TypePlace? typePlaceSelected;
 
   @override
   _SelectCategoryState createState() => _SelectCategoryState();
@@ -19,7 +27,7 @@ class SelectCategory extends StatefulWidget {
 
 class _SelectCategoryState extends State<SelectCategory> {
   @override
-  Widget build(BuildContext context) {
+  Widget build(final BuildContext context) {
     if (widget.typePlaceSelectedActual != null &&
         widget.typePlaceSelected == null) {
       widget.typePlaceSelected = widget.typePlaceSelectedActual;
@@ -28,23 +36,25 @@ class _SelectCategoryState extends State<SelectCategory> {
       bottomSheet: bottomSheetWidget(context),
       appBar: AppBar(
         title: Text(
-          Labels.category,
+          category,
           textAlign: TextAlign.center,
           style: Theme.of(context).textTheme.headline4,
         ),
       ),
       body: Column(
-        children: [
+        children: <Widget>[
           Expanded(
             child: Padding(
               padding: const EdgeInsets.symmetric(
-                  horizontal: Sizes.paddingPage, vertical: 24),
+                horizontal: Sizes.paddingPage,
+                vertical: 24,
+              ),
               child: ListView(
-                children: [
-                  for (var i = 0;
+                children: <Widget>[
+                  for (int i = 0;
                       i < TypePlace.values.toList().length;
-                      i++) ...[
-                    ElementList(TypePlace.values.toList()[i]),
+                      i++) ...<Widget>[
+                    elementList(TypePlace.values.toList()[i]),
                     const Divider(),
                   ]
                 ],
@@ -56,82 +66,78 @@ class _SelectCategoryState extends State<SelectCategory> {
     );
   }
 
-  Widget ElementList(TypePlace typePlace) {
-    return InkWell(
-      onTap: () {
-        if (widget.typePlaceSelected == typePlace) {
-          widget.typePlaceSelected = null;
-        } else {
-          widget.typePlaceSelected = typePlace;
-          setState(() {});
-        }
-      },
-      child: SizedBox(
-        height: 48,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              Labels.TypePlaceString(typePlace),
-              style: Theme.of(context).textTheme.headline4!.copyWith(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w400,
-                  ),
-            ),
-            if (widget.typePlaceSelected == typePlace)
-              SvgPicture.asset(
-                SvgIcons.tick,
-                color: ColorPalette.greenColor,
-              ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  //Кнопка "Сохранить"
-  Widget bottomSheetWidget(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(
-        horizontal: Sizes.paddingPage,
-        vertical: Sizes.paddingPage / 2,
-      ),
-      child: ConstrainedBox(
-        constraints: const BoxConstraints.tightFor(height: 48),
-        child: ElevatedButton(
-          style: ButtonStyle(
-            padding: MaterialStateProperty.all(EdgeInsets.zero),
-            elevation: MaterialStateProperty.all(0),
-            backgroundColor: widget.typePlaceSelected == null
-                ? MaterialStateProperty.all<Color>(ColorPalette.dmBasicColor)
-                : MaterialStateProperty.all<Color>(ColorPalette.greenColor),
-            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-              RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12.0),
-              ),
-            ),
-          ),
+  Widget elementList(final TypePlace typePlace) => InkWell(
+        onTap: () {
+          if (widget.typePlaceSelected == typePlace) {
+            widget.typePlaceSelected = null;
+          } else {
+            widget.typePlaceSelected = typePlace;
+            setState(() {});
+          }
+        },
+        child: SizedBox(
+          height: 48,
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
               Text(
-                Labels.save,
-                style: Theme.of(context).textTheme.headline5!.copyWith(
-                      color: widget.typePlaceSelected == null
-                          ? ColorPalette.lmFontHeadline2
-                              .withOpacity(Sizes.opacityText)
-                          : ColorPalette.lmPrimaryColor,
+                typePlaceString(typePlace),
+                style: Theme.of(context).textTheme.headline4!.copyWith(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w400,
                     ),
               ),
+              if (widget.typePlaceSelected == typePlace)
+                SvgPicture.asset(
+                  SvgIcons.tick,
+                  color: ColorPalette.greenColor,
+                ),
             ],
           ),
-          onPressed: widget.typePlaceSelected == null
-              ? null
-              : () {
-                  Navigator.pop(context, widget.typePlaceSelected);
-                },
         ),
-      ),
-    );
-  }
+      );
+
+  //Кнопка "Сохранить"
+  Widget bottomSheetWidget(final BuildContext context) => Padding(
+        padding: const EdgeInsets.symmetric(
+          horizontal: Sizes.paddingPage,
+          vertical: Sizes.paddingPage / 2,
+        ),
+        child: ConstrainedBox(
+          constraints: const BoxConstraints.tightFor(height: 48),
+          child: ElevatedButton(
+            style: ButtonStyle(
+              padding: MaterialStateProperty.all(EdgeInsets.zero),
+              elevation: MaterialStateProperty.all(0),
+              backgroundColor: widget.typePlaceSelected == null
+                  ? MaterialStateProperty.all<Color>(ColorPalette.dmBasicColor)
+                  : MaterialStateProperty.all<Color>(ColorPalette.greenColor),
+              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(Sizes.borderRadiusCard),
+                ),
+              ),
+            ),
+            onPressed: widget.typePlaceSelected == null
+                ? null
+                : () {
+                    Navigator.pop(context, widget.typePlaceSelected);
+                  },
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Text(
+                  save,
+                  style: Theme.of(context).textTheme.headline5!.copyWith(
+                        color: widget.typePlaceSelected == null
+                            ? ColorPalette.lmFontHeadline2
+                                .withOpacity(Sizes.opacityText)
+                            : ColorPalette.lmPrimaryColor,
+                      ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      );
 }

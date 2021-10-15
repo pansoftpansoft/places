@@ -6,21 +6,22 @@ import 'package:places/ui/res/labels.dart';
 class HeaderPage extends StatelessWidget {
   ///
   const HeaderPage({
+    required this.buttonSkipVisible,
     final Key? key,
-    required this.buttonSkipVisble,
   }) : super(key: key);
 
-  final bool buttonSkipVisble;
+  ///
+  final bool buttonSkipVisible;
 
   @override
   Widget build(final BuildContext context) => SizedBox(
         height: 50,
         child: Visibility(
-          visible: buttonSkipVisble,
+          visible: buttonSkipVisible,
           child: TextButton(
             onPressed: () {},
             child: Text(
-              Labels.skip,
+              skip,
               style: Theme.of(context).textTheme.subtitle1!.copyWith(
                     fontSize: 16,
                     color: ColorPalette.greenColor,

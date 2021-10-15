@@ -46,7 +46,7 @@ class SightDetails extends StatelessWidget {
                         Row(
                           children: <Widget>[
                             Text(
-                              Labels.TypePlaceString(_sight.type),
+                              typePlaceString(_sight.type),
                               style: Theme.of(context).textTheme.headline5,
                             ),
                             const SizedBox(width: 16),

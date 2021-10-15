@@ -6,14 +6,19 @@ import 'package:places/ui/res/color_palette.dart';
 class BodyPage extends StatelessWidget {
   ///
   const BodyPage({
-    final Key? key,
     required this.header1,
     required this.header2,
     required this.svgIcon,
+    final Key? key,
   }) : super(key: key);
 
+  /// Заголовок
   final String header1;
+
+  /// Коментарий
   final String header2;
+
+  /// Иконка
   final String svgIcon;
 
   @override

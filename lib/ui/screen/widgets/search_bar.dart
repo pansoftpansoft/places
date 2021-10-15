@@ -9,72 +9,69 @@ import 'package:places/ui/screen/sight_search_screen/models/search_filter_model.
 import 'package:places/ui/screen/widgets/text_field_icon.dart';
 import 'package:provider/provider.dart';
 
-/*
-Поле поиска
- */
+///Поле поиска
 class SearchBar extends StatelessWidget {
-  final TextEditingController? textEditingController;
-  final bool autofocus;
-
-  SearchBar({
-    Key? key,
-    TextEditingController? this.textEditingController,
+  ///
+  const SearchBar({
+    final Key? key,
+    this.textEditingController,
     this.autofocus = false,
   }) : super(key: key);
 
+  ///
+  final TextEditingController? textEditingController;
+
+  ///
+  final bool autofocus;
+
   @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: Sizes.heightTextFieldSearch,
-      child: TextFieldIcon(
-        labelText: Labels.search,
-        textAlignVertical: TextAlignVertical.center,
-        controller: textEditingController,
-        autofocus: autofocus,
-        textEditingControllerFunction:
-            (TextEditingController _textEditingController) {
-          if (_textEditingController.text.isNotEmpty) {
-            if (_textEditingController.text
-                    .substring(_textEditingController.text.length - 1) ==
-                ' ') {
-              var _searchFilterModel = context.read<SearchFilterModel>();
-              _searchFilterModel.SearchPlaceForDynamicText(
-                  _textEditingController.text);
+  Widget build(final BuildContext context) => SizedBox(
+        height: Sizes.heightTextFieldSearch,
+        child: TextFieldIcon(
+          labelText: search,
+          controller: textEditingController,
+          autofocus: autofocus,
+          textEditingControllerFunction:
+              (final TextEditingController _textEditingController) {
+            if (_textEditingController.text.isNotEmpty) {
+              if (_textEditingController.text
+                      .substring(_textEditingController.text.length - 1) ==
+                  ' ') {
+                context.read<SearchFilterModel>().searchPlaceForDynamicText(
+                      _textEditingController.text,
+                    );
+              }
+            } else {
+              context.read<SearchFilterModel>().searchPlaceForDynamicText('');
             }
-          } else {
-            var _searchFilterModel = context.read<SearchFilterModel>();
-            _searchFilterModel.SearchPlaceForDynamicText('');
-          }
-        },
-        borderRadius: 12,
-        svgIconSuffix: SvgIcons.filter,
-        svgIconSuffixColor: ColorPalette.greenColor,
-        actionIconSuffix: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute<Route>(
-              builder: (BuildContext context) => FiltersScreen(),
-            ),
-          );
-        },
-        svgIconSuffixForText: SvgIcons.clear,
-        svgIconSuffixForTextColor: Colors.black,
-        actionIconSuffixForText: () {
-          textEditingController!.clear();
-          var _searchFilterModel = context.read<SearchFilterModel>();
-          _searchFilterModel.SearchPlaceForDynamicText('');
-        },
-        svgIconPrefix: SvgIcons.search,
-        svgIconPrefixColor: ColorPalette.textInTextField,
-        borderColor: Colors.transparent,
-        fillColor: ColorPalette.filledTextField,
-        actionOnSubmitted: (String value) {
-          var _searchFilterModel = context.read<SearchFilterModel>();
-          _searchFilterModel.SearchPlaceForDynamicText(value);
-          //добавим введенную строку поиска в историю
-          DBProvider.db!.addHistory(value);
-        },
-      ),
-    );
-  }
+          },
+          borderRadius: 12,
+          svgIconSuffix: SvgIcons.filter,
+          svgIconSuffixColor: ColorPalette.greenColor,
+          actionIconSuffix: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute<void>(
+                builder: (final BuildContext context) => const FiltersScreen(),
+              ),
+            );
+          },
+          svgIconSuffixForText: SvgIcons.clear,
+          svgIconSuffixForTextColor: Colors.black,
+          actionIconSuffixForText: () {
+            textEditingController!.clear();
+
+            context.read<SearchFilterModel>().searchPlaceForDynamicText('');
+          },
+          svgIconPrefix: SvgIcons.search,
+          svgIconPrefixColor: ColorPalette.textInTextField,
+          borderColor: Colors.transparent,
+          fillColor: ColorPalette.filledTextField,
+          actionOnSubmitted: (final String value) {
+            context.read<SearchFilterModel>().searchPlaceForDynamicText(value);
+            //добавим введенную строку поиска в историю
+            DBProvider.db.addHistory(value);
+          },
+        ),
+      );
 }
