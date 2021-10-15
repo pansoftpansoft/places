@@ -7,13 +7,13 @@ class BodyPage extends StatelessWidget {
   ///
   const BodyPage({
     final Key? key,
-    required this.heder1,
-    required this.heder2,
+    required this.header1,
+    required this.header2,
     required this.svgIcon,
   }) : super(key: key);
 
-  final String heder1;
-  final String heder2;
+  final String header1;
+  final String header2;
   final String svgIcon;
 
   @override
@@ -26,7 +26,7 @@ class BodyPage extends StatelessWidget {
           //lmFontHeadline1
           const SizedBox(height: 42),
           Text(
-            heder1,
+            header1,
             textAlign: TextAlign.center,
             style: Theme.of(context).textTheme.headline1!.copyWith(
                   fontSize: 24,
@@ -34,7 +34,7 @@ class BodyPage extends StatelessWidget {
           ),
           const SizedBox(height: 8),
           Text(
-            heder2,
+            header2,
             textAlign: TextAlign.center,
             style: Theme.of(context).textTheme.subtitle2,
           ),

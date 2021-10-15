@@ -33,8 +33,8 @@ class OnboardPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               BodyPage(
-                heder1: heder1,
-                heder2: heder2,
+                header1: heder1,
+                header2: heder2,
                 svgIcon: svgIcon,
               ),
             ],
