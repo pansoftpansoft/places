@@ -29,7 +29,7 @@ class AddToFavoritesButton extends StatelessWidget {
             ),
             const SizedBox(width: 10),
             Text(
-              Labels.addToFavorites,
+              addToFavorites,
               style: Theme.of(context).textTheme.button,
             ),
           ],

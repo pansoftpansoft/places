@@ -51,7 +51,7 @@ class FiltersScreenState extends State<AddSightScreen> {
   @override
   Widget build(final BuildContext context) => Scaffold(
         resizeToAvoidBottomInset: true,
-        bottomSheet: BottomSheetWidget(context: context),
+        bottomSheet: const BottomSheetWidget(),
         appBar: const PreferredSize(
           preferredSize: Size(double.infinity, kToolbarHeight),
           child: AppBarAddSight(),
@@ -73,7 +73,7 @@ class FiltersScreenState extends State<AddSightScreen> {
                 ),
                 const SizedBox(height: 12),
                 // Заголовок 'Ктегория'
-                const TitleField(Labels.categories),
+                const TitleField(categories),
                 // Разделитель
                 const SizedBox(height: 12),
                 // Кнопка выбора категории
@@ -83,7 +83,7 @@ class FiltersScreenState extends State<AddSightScreen> {
                 // Разделитель
                 const SizedBox(height: 24),
                 // Заголовок "Название"
-                const TitleField(Labels.namePlace),
+                const TitleField(namePlace),
                 // Разделитель
                 const SizedBox(height: 12),
                 // Поле ввода "Название"
@@ -98,9 +98,7 @@ class FiltersScreenState extends State<AddSightScreen> {
                           focusNodeNext: _focusNodeLat,
                           svgIconSuffixForText: SvgIcons.clear,
                           svgIconSuffixForTextColor: Colors.black,
-                          heightIcon: 20,
                           borderRadius: 8,
-                          maxLines: 1,
                           actionIconSuffixForText:
                               _textEditingControllerNamePlace.clear,
                           actionOnSubmitted: (final String value) {
@@ -116,14 +114,14 @@ class FiltersScreenState extends State<AddSightScreen> {
                 Row(
                   children: const <Widget>[
                     Expanded(
-                      child: TitleField(Labels.lat),
+                      child: TitleField(lat),
                     ),
                     SizedBox(
                       width: 16,
                     ),
                     Expanded(
                       child: TitleField(
-                        Labels.lon,
+                        lon,
                       ),
                     ),
                   ],
@@ -143,9 +141,7 @@ class FiltersScreenState extends State<AddSightScreen> {
                           keyboardType: TextInputType.number,
                           svgIconSuffixForText: SvgIcons.clear,
                           svgIconSuffixForTextColor: Colors.black,
-                          heightIcon: 20,
                           borderRadius: 8,
-                          maxLines: 1,
                           actionIconSuffixForText:
                               _textEditingControllerLat.clear,
                           inputFormatters: <FilteringTextInputFormatter>[
@@ -169,9 +165,7 @@ class FiltersScreenState extends State<AddSightScreen> {
                           keyboardType: TextInputType.number,
                           svgIconSuffixForText: SvgIcons.clear,
                           svgIconSuffixForTextColor: Colors.black,
-                          heightIcon: 20,
                           borderRadius: 8,
-                          maxLines: 1,
                           actionIconSuffixForText:
                               _textEditingControllerLon.clear,
                           inputFormatters: <TextInputFormatter>[
@@ -196,12 +190,12 @@ class FiltersScreenState extends State<AddSightScreen> {
                       style: ButtonStyle(
                         alignment: Alignment.centerLeft,
                         padding: MaterialStateProperty.all<EdgeInsets>(
-                          const EdgeInsets.all(0),
+                          EdgeInsets.zero,
                         ),
                       ),
                       onPressed: () {},
                       child: Text(
-                        Labels.specifyOnMap,
+                        specifyOnMap,
                         style: Theme.of(context).textTheme.subtitle1!.copyWith(
                               fontSize: 16,
                               color: ColorPalette.greenColor,
@@ -216,7 +210,7 @@ class FiltersScreenState extends State<AddSightScreen> {
                 Row(
                   children: const <Widget>[
                     TitleField(
-                      Labels.description,
+                      description,
                     ),
                   ],
                 ),
@@ -233,7 +227,6 @@ class FiltersScreenState extends State<AddSightScreen> {
                           focusNode: _focusNodeDescription,
                           svgIconSuffixForText: SvgIcons.clear,
                           svgIconSuffixForTextColor: Colors.black,
-                          heightIcon: 20,
                           borderRadius: 8,
                           maxLines: 5,
                           actionIconSuffixForText:
@@ -264,7 +257,7 @@ class FiltersScreenState extends State<AddSightScreen> {
           onPressed: () async {
             _typePlaceSelected = await Navigator.push(
               context,
-              MaterialPageRoute(
+              MaterialPageRoute<TypePlace>(
                 builder: (final BuildContext context) =>
                     SelectCategory(typePlaceSelectedActual: _typePlaceSelected),
               ),
@@ -276,8 +269,8 @@ class FiltersScreenState extends State<AddSightScreen> {
             children: <Widget>[
               Text(
                 _typePlaceSelected == null
-                    ? Labels.notSelected
-                    : Labels.TypePlaceString(_typePlaceSelected as TypePlace),
+                    ? notSelected
+                    : typePlaceString(_typePlaceSelected as TypePlace),
                 style: Theme.of(context)
                     .textTheme
                     .subtitle2!

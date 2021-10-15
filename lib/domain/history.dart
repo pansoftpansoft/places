@@ -1,15 +1,18 @@
-/*
-Класс История поиска
-*/
-class History {
-  final String historyText; //История поиска
+///Класс История поиска
 
+class History {
+  ///
   History({required this.historyText});
 
-  factory History.fromMap(Map<String, dynamic> _map) => new History(
+  ///
+  factory History.fromMap(final Map<String, dynamic> _map) => History(
         historyText: _map['history_text'].toString(),
       );
 
+  ///История поиска
+  final String historyText;
+
+  ///
   Map<String, String> toMap() => {
         'history_text': historyText,
       };

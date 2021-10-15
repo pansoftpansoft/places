@@ -31,7 +31,7 @@ class FloatingButton extends StatelessWidget {
           icon: SvgPicture.asset(
             SvgIcons.plus,
           ),
-          label: Text(Labels.newPlace.toUpperCase()),
+          label: Text(newPlace.toUpperCase()),
           onPressed: () {
             Navigator.push(
               context,

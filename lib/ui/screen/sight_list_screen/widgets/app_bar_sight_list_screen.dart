@@ -25,9 +25,9 @@ class AppBarSightListScreen extends StatelessWidget {
           preferredSize: const Size.fromHeight(60),
           child: Padding(
             padding: const EdgeInsets.fromLTRB(
-              Sizes.paddingPage,
               0,
-              Sizes.paddingPage,
+              0,
+              0,
               Sizes.paddingPage,
             ),
             child: shrink

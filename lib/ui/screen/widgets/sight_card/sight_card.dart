@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:places/domain/sight.dart';
 import 'package:places/ui/res/color_palette.dart';
 import 'package:places/ui/res/labels.dart';
+
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/res/svg_icons.dart';
 import 'package:places/ui/screen/sight_details_screen/sight_details_screen.dart';
@@ -67,7 +68,7 @@ class SightCard extends StatelessWidget {
               left: 16,
               top: 18,
               child: Text(
-                Labels.TypePlaceString(_sight.type),
+                typePlaceString(_sight.type),
                 style: Theme.of(context).textTheme.headline5!.copyWith(
                       color: const Color(0xFFFFFFFF),
                     ),
@@ -82,7 +83,7 @@ class SightCard extends StatelessWidget {
                   onTap: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute<Route>(
+                      MaterialPageRoute<void>(
                         builder: (final BuildContext context) =>
                             SightDetails(_sight),
                       ),
@@ -128,7 +129,7 @@ class SightCard extends StatelessWidget {
                             ),
                           ),
                         Text(
-                          Labels.shortDescription,
+                          shortDescription,
                           style: Theme.of(context).textTheme.subtitle2,
                         ),
                       ],

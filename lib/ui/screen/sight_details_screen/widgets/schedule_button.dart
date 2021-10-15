@@ -13,8 +13,7 @@ class ScheduleButton extends StatelessWidget {
   }) : super(key: key);
 
   @override
-  Widget build(final BuildContext context) =>
-      TextButton(
+  Widget build(final BuildContext context) => TextButton(
         //style: Theme.of(context).textButtonTheme.style,
         onPressed: () {
           if (kDebugMode) {
@@ -27,20 +26,13 @@ class ScheduleButton extends StatelessWidget {
               SvgIcons.schedule,
               height: 30,
               width: 30,
-              color: Theme
-                  .of(context)
-                  .textTheme
-                  .button!
-                  .color ??
+              color: Theme.of(context).textTheme.button!.color ??
                   ColorPalette.greenColorLight,
             ),
             const SizedBox(width: 9),
             Text(
-              Labels.schedule,
-              style: Theme
-                  .of(context)
-                  .textTheme
-                  .button,
+              schedule,
+              style: Theme.of(context).textTheme.button,
             ),
           ],
         ),

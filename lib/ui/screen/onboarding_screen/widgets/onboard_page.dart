@@ -1,22 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:places/ui/screen/onboarding_screen/widgets/body_page.dart';
-import 'package:places/ui/screen/onboarding_screen/widgets/header_page.dart';
 import 'package:places/ui/screen/onboarding_screen/widgets/footer_page.dart';
+import 'package:places/ui/screen/onboarding_screen/widgets/header_page.dart';
 
 ///Шаблон страници Onboard
 class OnboardPage extends StatelessWidget {
   ///Конструкор шаблон страници Onboard
   const OnboardPage({
-    this.buttonSkipVisible = true,
-    required this.heder1,
-    required this.heder2,
+    required this.header1,
+    required this.header2,
     required this.svgIcon,
+    this.buttonSkipVisible = true,
     final Key? key,
   }) : super(key: key);
 
+  ///
   final bool buttonSkipVisible;
-  final String heder1;
-  final String heder2;
+  ///
+  final String header1;
+  ///
+  final String header2;
+  ///
   final String svgIcon;
 
   @override
@@ -26,15 +30,15 @@ class OnboardPage extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: <Widget>[
-              HeaderPage(buttonSkipVisble: buttonSkipVisible),
+              HeaderPage(buttonSkipVisible: buttonSkipVisible),
             ],
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               BodyPage(
-                header1: heder1,
-                header2: heder2,
+                header1: header1,
+                header2: header2,
                 svgIcon: svgIcon,
               ),
             ],
@@ -42,7 +46,7 @@ class OnboardPage extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              FooterPage(buttonOnStartVisble: !buttonSkipVisible),
+              FooterPage(buttonOnStartVisible: !buttonSkipVisible),
             ],
           ),
         ],

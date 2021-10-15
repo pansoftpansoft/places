@@ -18,7 +18,7 @@ class SettingsScreen extends StatelessWidget {
   @override
   Widget build(final BuildContext context) => Scaffold(
         appBar: AppBar(
-          title: const Text(Labels.settings),
+          title: const Text(settings),
         ),
         bottomNavigationBar: BottomNavigation(),
         body: Padding(
@@ -29,7 +29,7 @@ class SettingsScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Text(
-                    Labels.dark_theme,
+                    darkTheme,
                     style: Theme.of(context).textTheme.headline2,
                   ),
                   CupertinoSwitch(
@@ -50,7 +50,7 @@ class SettingsScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Text(
-                    Labels.watchTutorial,
+                    watchTutorial,
                     style: Theme.of(context).textTheme.headline2,
                   ),
                   Padding(

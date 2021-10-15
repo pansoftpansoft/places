@@ -24,7 +24,8 @@ class SearchFilterModel extends ChangeNotifier {
 
   //Запоминаем старые значения
   //Если нажата кнопка Показать то переписываем значения
-  //Если пользователь вернулся на предыдущий экран то востановим текущие значения
+  //Если пользователь вернулся на предыдущий
+  // экран то востановим текущие значения
   static final Map<TypePlace, bool> _filterMapOld = {
     TypePlace.hotel: false,
     TypePlace.restaurant: false,
@@ -38,14 +39,19 @@ class SearchFilterModel extends ChangeNotifier {
 
   static String _searchString = '';
 
+  ///
   static int get countPlace => _countPlace;
 
-  static List<History> listHistory = [];
+  ///
+  static List<History> listHistory = <History>[];
 
+  ///
   static bool isLoading = false;
 
+  ///
   static ScreenEnum? selectedScreen;
 
+  ///
   static TextEditingController textEditingControllerFind =
       TextEditingController();
 
@@ -53,12 +59,15 @@ class SearchFilterModel extends ChangeNotifier {
   // false - нет ошибок, true - есть ошибка
   final bool _errorTest = false;
 
+  ///Количество интересных мест
   static set countPlace(final int value) {
     _countPlace = value;
   }
 
+  ///
   static RangeValues get selectedRange => _selectedRange;
 
+  ///
   static Map<TypePlace, bool> get filterMap => _filterMap;
 
   ///
@@ -71,13 +80,19 @@ class SearchFilterModel extends ChangeNotifier {
     _filterMap = filterMapNew;
   }
 
+  ///
   static bool getTypePlaceValue(
     final TypePlace typePlace,
   ) =>
       _filterMap[TypePlace] == null ? false : true;
 
+  ///
   void setTypePlaceSelected(final TypePlace typePlace) {
-    _filterMap[typePlace] = _filterMap[typePlace] == false ? true : false;
+    if (_filterMap[typePlace] == false) {
+      _filterMap[typePlace] = true;
+    } else {
+      _filterMap[typePlace] = false;
+    }
   }
 
   ///Подсчет отфильтрованных мест
@@ -152,65 +167,60 @@ class SearchFilterModel extends ChangeNotifier {
     );
   }
 
-  /*
-  динамический поиск мест по вводимому тексту при нажатии пробела
-  */
-  void SearchPlaceForDynamicText(final String searchString) {
+  ///  динамический поиск мест по вводимому тексту при нажатии пробела
+  void searchPlaceForDynamicText(final String searchString) {
     _searchString = searchString;
     changeSearch();
   }
 
-  /*
-  поиск мест по вводимому тексту при нажатии Enter
-  c записью запроса в историю запросов
-  */
-  void SearchPlaceForEnter(final String searchString) {
+  /// поиск мест по вводимому тексту при нажатии Enter
+  ///c записью запроса в историю запросов
+  void searchPlaceForEnter(final String searchString) {
     //Ищем текст
-    SearchPlaceForDynamicText(searchString);
+    searchPlaceForDynamicText(searchString);
     //сохранить текст поиска
-    DBProvider.db!.addHistory(searchString);
+    DBProvider.db.addHistory(searchString);
   }
 
-  //Расставить сохраненные настройки фильтра
-  void GetFilterSettings() {
-    for (final k in _filterMapOld.entries) {
+  ///Расставить сохраненные настройки фильтра
+  void getFilterSettings() {
+    for (final MapEntry<TypePlace, bool> k in _filterMapOld.entries) {
       _filterMap[k.key] = k.value;
     }
   }
 
-  //Сохранить настройки фильтра
-  void SaveFilterSettings() {
-    for (final k in _filterMap.entries) {
+  ///Сохранить настройки фильтра
+  void saveFilterSettings() {
+    for (final MapEntry<TypePlace, bool> k in _filterMap.entries) {
       _filterMapOld[k.key] = k.value;
     }
   }
 
-  //Получаем список историй поиска
+  ///Получаем список историй поиска
   static Future<int> getListHistory() async {
-    listHistory = await DBProvider.db!.getListHistory();
-    int _lengthList = 0;
-    _lengthList = listHistory.length;
+    listHistory = (await DBProvider.db.getListHistory())!;
+    final int _lengthList = listHistory.length;
     return _lengthList;
   }
 
-  //Очищаем список историй поиска
-  void ClearHistory() async {
-    await DBProvider.db!.ClearHistory();
+  ///Очищаем список историй поиска
+  void clearHistory() async {
+    await DBProvider.db.clearHistory();
     await getListHistory();
     notifyListeners();
   }
 
-  //Удаляю одну запись из истории поиска
-  void DeleteHistory(final String historyText) async {
-    DBProvider.DeleteHistory(historyText);
+  ///Удаляю одну запись из истории поиска
+  void deleteHistory(final String historyText) async {
+    await DBProvider.deleteHistory(historyText);
     await getListHistory();
     notifyListeners();
   }
 
   ///Проверка вхождения точки в радиус
   bool _arePointsNear(final double checkPointLat, final double checkPointLon) {
-    double centerPointLat = 55.753605;
-    double centerPointLon = 37.619773;
+    const double centerPointLat = 55.753605;
+    const double centerPointLon = 37.619773;
     const double ky =
         40000000 / 360; //40000000 - длина окружности земли в метрах
     final double kx = cos(pi * centerPointLat / 180.0) * ky;
@@ -220,8 +230,9 @@ class SearchFilterModel extends ChangeNotifier {
         sqrt(dx * dx + dy * dy) >= SearchFilterModel.selectedRange.start;
   }
 
+  ///
   void managerSelectionScreen({final ScreenEnum? numberScreen}) {
-    //Если экран жестко задан
+    ///Если экран жестко задан
     if (numberScreen != null) {
       if (kDebugMode) {
         print(SearchFilterModel.listHistory.length);
@@ -241,7 +252,7 @@ class SearchFilterModel extends ChangeNotifier {
       return;
     }
     //Есть найденные места
-    if (SearchFilterModel.countPlace != 0 && mocksSearch.length > 0) {
+    if (SearchFilterModel.countPlace != 0 && mocksSearch.isNotEmpty) {
       selectedScreen = ScreenEnum.listOfFoundPlacesScreen;
       return;
     } else {

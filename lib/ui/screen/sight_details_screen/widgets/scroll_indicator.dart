@@ -19,9 +19,10 @@ class ScrollIndicator extends StatelessWidget {
         ) =>
             Padding(
           padding: EdgeInsets.only(
-              left: (MediaQuery.of(context).size.width /
-                      SightDetailsModel.countElements) *
-                  SightDetailsModel.index),
+            left: (MediaQuery.of(context).size.width /
+                    SightDetailsModel.countElements) *
+                SightDetailsModel.index,
+          ),
           child: Container(
             height: 8,
             width: MediaQuery.of(context).size.width /

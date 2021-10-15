@@ -17,7 +17,7 @@ class FiltersScreen extends StatelessWidget {
   @override
   Widget build(final BuildContext context) {
     //Запомним состояния фильтров
-    context.read<SearchFilterModel>().GetFilterSettings();
+    context.read<SearchFilterModel>().getFilterSettings();
     return Scaffold(
       appBar: AppBar(
         centerTitle: false,
@@ -40,7 +40,7 @@ class FiltersScreen extends StatelessWidget {
                 child: Row(
                   children: <Text>[
                     Text(
-                      Labels.categories,
+                      categories,
                       style: Theme.of(context)
                           .textTheme
                           .subtitle2!
@@ -98,13 +98,13 @@ class FiltersScreen extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Text>[
-                    const Text(Labels.distance),
+                    const Text(distance),
                     Text(
-                      '${Labels.from}  '
+                      '$from  '
                       '${SearchFilterModel.selectedRange.start.round().toString()}'
-                      ' ${Labels.to} '
+                      ' $to '
                       '${SearchFilterModel.selectedRange.end.round().toString()}'
-                      '${Labels.meters}',
+                      '$meters',
                     )
                   ],
                 ),
@@ -150,7 +150,7 @@ class FiltersScreen extends StatelessWidget {
               _clearFilterValue(context);
             },
             child: const Text(
-              Labels.clear,
+              clear,
               style: TextStyle(
                 fontSize: 16,
                 color: ColorPalette.greenColor,
@@ -198,7 +198,7 @@ class FiltersScreen extends StatelessWidget {
                     final Widget? child,
                   ) =>
                       Text(
-                    '${Labels.show} (${SearchFilterModel.countPlace})',
+                    '$show (${SearchFilterModel.countPlace})',
                     style: Theme.of(context).textTheme.headline5!.copyWith(
                           color: ColorPalette.lmPrimaryColor,
                         ),
@@ -210,7 +210,7 @@ class FiltersScreen extends StatelessWidget {
               //Записываем состояние фильтра
 
               context.read<SearchFilterModel>()
-                ..SaveFilterSettings()
+                ..saveFilterSettings()
                 ..changeSearch();
 
               //возвращаемся на страници показа

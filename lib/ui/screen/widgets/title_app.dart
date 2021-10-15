@@ -15,7 +15,7 @@ class TitleAppBigOrSmall extends StatelessWidget {
   @override
   Widget build(final BuildContext context) => small
       ? Text(
-          Labels.list_interesting_places,
+          listInterestingPlaces,
           textAlign: TextAlign.center,
           style: Theme.of(context)
               .textTheme

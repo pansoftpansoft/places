@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:places/mocks.dart';
 import 'package:places/ui/screen/sight_details_screen/models/sight_details_model.dart';
-import 'package:provider/provider.dart';
 import 'package:places/ui/screen/sight_details_screen/widgets/scroll_indicator.dart';
+import 'package:provider/provider.dart';
 
 ///Галерея фотографий в экране детализация
 class PhotoGallery extends StatelessWidget {
