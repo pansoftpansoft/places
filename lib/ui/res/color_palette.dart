@@ -5,95 +5,99 @@ import 'package:flutter/material.dart';
 */
 class ColorPalette {
   //В не темы
-  static const Color greenColor = const Color(0xFF4CAF50);
-  static const Color greenColorLight = const Color(0xFFE2F2E3);
-  static const Color textInTextField = const Color(0xFF7C7E92);
-  static const Color filledTextField = const Color(0xFFF5F5F5);
-  static const Color redColor = const Color(0xFFEF4343);
-  static const Color whiteColor = const Color(0xFFFFFFFF);
+  static const Color greenColor = Color(0xFF4CAF50);
+  static const Color greenColorLight = Color(0xFFE2F2E3);
+  static const Color textInTextField = Color(0xFF7C7E92);
+  static const Color filledTextField = Color(0xFFF5F5F5);
+  static const Color redColor = Color(0xFFEF4343);
+  static const Color whiteColor = Color(0xFFFFFFFF);
+  static const Color whiteMain = Color(0xFF252849);
 
-  static const Color whiteMain = const Color(0xFF252849);
+  /// Цвет для градиентной заливки Сплеш экрана
+  static const Color gradientGreenLight = Color(0xFF4CAF50);
 
+  /// Цвет для градиентной заливки Сплеш экрана
+  static const Color gradientGreenDark = Color(0xFFFCDD3D);
 
 
   //D5D341
-  static const Color greenColorLightGradient = const Color(0xFFD5D341);
-  static const Color greenColorStrongGradient = const Color(0xFF6BB74D);
+  static const Color greenColorLightGradient = Color(0xFFD5D341);
+  static const Color greenColorStrongGradient = Color(0xFF6BB74D);
 
   //--Свелая тема
-  static const Color lmPrimaryColor = const Color(0xFFFFFFFF);
-  static const Color lmCardColor = const Color(0xFFF5F5F5);
-  static const Color lmBasicColor = const Color(0xFF3B3E5B);
+  static const Color lmPrimaryColor = Color(0xFFFFFFFF);
+  static const Color lmCardColor = Color(0xFFF5F5F5);
+  static const Color lmBasicColor = Color(0xFF3B3E5B);
 
   //----ТабБар-------------------------------------------------
-  static const Color lmTabBarCursor = const Color(0xFF3B3E5B);
-  static const Color lmTabBarSelect = const Color(0xFFFFFFFF);
-  static const Color lmTabBarUnSelect = const Color(0xFF7C7E92);
-  static const Color lmTabBarBackground = const Color(0xFFF5F5F5);
+  static const Color lmTabBarCursor = Color(0xFF3B3E5B);
+  static const Color lmTabBarSelect = Color(0xFFFFFFFF);
+  static const Color lmTabBarUnSelect = Color(0xFF7C7E92);
+  static const Color lmTabBarBackground = Color(0xFFF5F5F5);
 
   //-----------------------------------------------------------
 
   //
-  static const Color lmNavigationBarBackground = const Color(0xFFFFFFFF);
+  static const Color lmNavigationBarBackground = Color(0xFFFFFFFF);
 
   //
 
   //Цвета для шрифтоф светлой темы
-  static const Color lmFontHeadline1 = const Color(0xFF252849);
-  static const Color lmFontHeadline2 = const Color(0xFF7C7E92);
-  static const Color lmFontHeadline3 = const Color(0xFF3B3E5B);
-  static const Color lmFontHeadline4 = const Color(0xFF252849);
-  static const Color lmFontHeadline5 = const Color(0xFF3B3E5B);
-  static const Color lmFontHeadline6 = const Color(0xFFFFFFFF);
-  static const Color lmFontSubtitle1 = const Color(0xFF3B3E5B);
-  static const Color lmFontSubtitle2 = const Color(0xFF7C7E92);
-  static const Color lmFontBodyText2 = const Color(0xFF3B3E5B);
+  static const Color lmFontHeadline1 = Color(0xFF252849);
+  static const Color lmFontHeadline2 = Color(0xFF7C7E92);
+  static const Color lmFontHeadline3 = Color(0xFF3B3E5B);
+  static const Color lmFontHeadline4 = Color(0xFF252849);
+  static const Color lmFontHeadline5 = Color(0xFF3B3E5B);
+  static const Color lmFontHeadline6 = Color(0xFFFFFFFF);
+  static const Color lmFontSubtitle1 = Color(0xFF3B3E5B);
+  static const Color lmFontSubtitle2 = Color(0xFF7C7E92);
+  static const Color lmFontBodyText2 = Color(0xFF3B3E5B);
 
   //---------------------------------------------------------
 
   //--Иконки
-  static const Color lmIcon = const Color(0xFF3B3E5B);
+  static const Color lmIcon = Color(0xFF3B3E5B);
 
   //
-  static const Color lmFontButton = const Color(0xFF3B3E5B);
+  static const Color lmFontButton = Color(0xFF3B3E5B);
 
   //
 
   //---------------------------------------------------------
   //----Темная тема
   //---------------------------------------------------------
-  static const Color dmCardColor = const Color(0xFF1A1A20);
-  static const Color dmPrimaryColor = const Color(0xFF21222C);
-  static const Color dmBasicColor = const Color(0xFFF5F5F5);
+  static const Color dmCardColor = Color(0xFF1A1A20);
+  static const Color dmPrimaryColor = Color(0xFF21222C);
+  static const Color dmBasicColor = Color(0xFFF5F5F5);
 
   //----ТабБар
-  static const Color dmTabBarCursor = const Color(0xFFFFFFFF);
-  static const Color dmTabBarSelect = const Color(0xFF3B3E5B);
-  static const Color dmTabBarUnSelect = const Color(0xFF7C7E92);
-  static const Color dmTabBarBackground = const Color(0xFF1A1A20);
+  static const Color dmTabBarCursor = Color(0xFFFFFFFF);
+  static const Color dmTabBarSelect = Color(0xFF3B3E5B);
+  static const Color dmTabBarUnSelect = Color(0xFF7C7E92);
+  static const Color dmTabBarBackground = Color(0xFF1A1A20);
 
   //-----------------------------------------------------------
 
   //
-  static const Color dmNavigationBarBackground = const Color(0xFF21222C);
+  static const Color dmNavigationBarBackground = Color(0xFF21222C);
 
   //
 
   //Цвета для шрифтоф темной темы
-  static const Color dmFontHeadline1 = const Color(0xFFFFFFFF);
-  static const Color dmFontHeadline2 = const Color(0xFFFFFFFF);
-  static const Color dmFontHeadline3 = const Color(0xFFFFFFFF);
-  static const Color dmFontHeadline4 = const Color(0xFFFFFFFF);
-  static const Color dmFontHeadline5 = const Color(0xFF7C7E92);
-  static const Color dmFontHeadline6 = const Color(0xFF3B3E5B);
-  static const Color dmFontSubtitle1 = const Color(0xFFFFFFFF);
-  static const Color dmFontSubtitle2 = const Color(0xFF7C7E92);
-  static const Color dmFontBodyText2 = const Color(0xFFFFFFFF);
+  static const Color dmFontHeadline1 = Color(0xFFFFFFFF);
+  static const Color dmFontHeadline2 = Color(0xFFFFFFFF);
+  static const Color dmFontHeadline3 = Color(0xFFFFFFFF);
+  static const Color dmFontHeadline4 = Color(0xFFFFFFFF);
+  static const Color dmFontHeadline5 = Color(0xFF7C7E92);
+  static const Color dmFontHeadline6 = Color(0xFF3B3E5B);
+  static const Color dmFontSubtitle1 = Color(0xFFFFFFFF);
+  static const Color dmFontSubtitle2 = Color(0xFF7C7E92);
+  static const Color dmFontBodyText2 = Color(0xFFFFFFFF);
 
   //-----------------------------------------------------------
   //--Иконки
-  static const Color dmIcon = const Color(0xFFFFFFFF);
+  static const Color dmIcon = Color(0xFFFFFFFF);
 
   //
-  static const Color dmFontButton = const Color(0xFFFFFFFF);
+  static const Color dmFontButton = Color(0xFFFFFFFF);
 }

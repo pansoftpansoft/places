@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:places/ui/screen/add_sight_screen/models/add_sight_model.dart';
 import 'package:places/ui/screen/models/app_model.dart';
-import 'package:places/ui/screen/onboarding_screen/onboarding_screen.dart';
 import 'package:places/ui/screen/sight_details_screen/models/sight_details_model.dart';
 import 'package:places/ui/screen/sight_list_screen/sight_list_screen.dart';
 import 'package:places/ui/screen/sight_search_screen/models/search_filter_model.dart';
+import 'package:places/ui/screen/splash_screen/splash_screen.dart';
 import 'package:places/ui/screen/visiting_screen/models/visiting_model.dart';
 import 'package:provider/provider.dart';
 
@@ -62,7 +62,8 @@ class MyApp extends StatelessWidget {
           (final AppModel a) => a.themeColor,
         ),
         title: 'Задача  5.2',
-        home: const SightListScreen(),
+        home: const SplashScreen(),
+        //home: const SightListScreen(),
 
 
         //home: const OnboardingScreen(),
