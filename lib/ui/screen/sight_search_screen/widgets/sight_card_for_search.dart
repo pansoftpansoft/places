@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:places/domain/sight.dart';
 import 'package:places/ui/res/labels.dart';
-import 'package:places/ui/screen/sight_details_screen/sight_details_screen.dart';
 
 ///Карточка достопримечательностей из списка поиска
 class SightCardSearch extends StatelessWidget {
@@ -28,11 +27,10 @@ class SightCardSearch extends StatelessWidget {
   @override
   Widget build(final BuildContext context) => InkWell(
         onTap: () {
-          Navigator.push(
+          Navigator.pushNamed(
             context,
-            MaterialPageRoute<void>(
-              builder: (final BuildContext context) => SightDetails(sight),
-            ),
+            '/SightDetails',
+            arguments: sight,
           );
         },
         child: SizedBox(

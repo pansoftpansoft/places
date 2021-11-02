@@ -22,7 +22,7 @@ class SightListScreenState extends State<SightListScreen> {
       Scaffold(
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         floatingActionButton: const FloatingButton(),
-        bottomNavigationBar: BottomNavigation(),
+        bottomNavigationBar: const BottomNavigation(),
         body: Padding(
           padding: const EdgeInsets.symmetric(
             horizontal: paddingPage,

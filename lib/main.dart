@@ -1,20 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:places/ui/screen/add_sight_screen/models/add_sight_model.dart';
+import 'package:places/ui/res/multi_providers.dart';
+import 'package:places/ui/res/route_map.dart';
 import 'package:places/ui/screen/models/app_model.dart';
-import 'package:places/ui/screen/sight_details_screen/models/sight_details_model.dart';
-import 'package:places/ui/screen/sight_list_screen/sight_list_screen.dart';
-import 'package:places/ui/screen/sight_search_screen/models/search_filter_model.dart';
-import 'package:places/ui/screen/splash_screen/splash_screen.dart';
-import 'package:places/ui/screen/visiting_screen/models/visiting_model.dart';
 import 'package:provider/provider.dart';
-
-//import 'package:places/ui/screen/filters_screen.dart';
-//import 'package:places/ui/screen/settings_screen.dart';
-//import 'package:places/ui/screen/sight_details_screen.dart';
-// import 'package:places/ui/screen/visiting_screen.dart';
-// import 'package:places/mocks.dart';
-// import 'package:places/ui/res/themes.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -26,23 +15,7 @@ void main() {
 
   runApp(
     MultiProvider(
-      providers: <ChangeNotifierProvider<ChangeNotifier>>[
-        ChangeNotifierProvider<AppModel>(
-          create: (final BuildContext context) => AppModel(),
-        ),
-        ChangeNotifierProvider<SearchFilterModel>(
-          create: (final BuildContext context) => SearchFilterModel(),
-        ),
-        ChangeNotifierProvider<VisitingModel>(
-          create: (final BuildContext context) => VisitingModel(),
-        ),
-        ChangeNotifierProvider<AddSightModel>(
-          create: (final BuildContext context) => AddSightModel(),
-        ),
-        ChangeNotifierProvider<SightDetailsModel>(
-          create: (final BuildContext context) => SightDetailsModel(),
-        ),
-      ],
+      providers: listMultiProviders,
       child: const MyApp(),
     ),
   );
@@ -61,18 +34,8 @@ class MyApp extends StatelessWidget {
         theme: context.select<AppModel, ThemeData>(
           (final AppModel a) => a.themeColor,
         ),
-        title: 'Задача  5.2',
-        home: const SplashScreen(),
-        //home: const SightListScreen(),
-
-
-        //home: const OnboardingScreen(),
-        // home: const VisitingScreen(),
-        // home: SightDetails(mocks[1]),
-        // home: FiltersScreen(),
-        // home: SettingsScreen(),
-        // home: Test(),
-        // home: AddSightScreen(),
-        // home: const SelectCategory(),
+        title: 'Задача  8.2',
+        routes: mapRoutes,
+        initialRoute: '/SplashScreen',
       );
 }

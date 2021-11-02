@@ -41,6 +41,10 @@ class SplashScreenState extends State<SplashScreen> {
     for (int i = 0; i < 5; i++) {
       if (_isInitialized.isCompleted) {
         if (kDebugMode) {
+          await Navigator.pushReplacementNamed(
+            context,
+            '/OnboardingScreen',
+          );
           print('Переход на следующий экран');
           return true;
         }

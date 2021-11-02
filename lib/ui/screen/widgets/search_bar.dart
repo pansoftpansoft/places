@@ -4,7 +4,6 @@ import 'package:places/ui/res/color_palette.dart';
 import 'package:places/ui/res/labels.dart';
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/res/svg_icons.dart';
-import 'package:places/ui/screen/filters_screen/filters_screen.dart';
 import 'package:places/ui/screen/sight_search_screen/models/search_filter_model.dart';
 import 'package:places/ui/screen/widgets/text_field_icon.dart';
 import 'package:provider/provider.dart';
@@ -49,12 +48,7 @@ class SearchBar extends StatelessWidget {
           svgIconSuffix: SvgIcons.filter,
           svgIconSuffixColor: ColorPalette.greenColor,
           actionIconSuffix: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute<void>(
-                builder: (final BuildContext context) => const FiltersScreen(),
-              ),
-            );
+            Navigator.pushNamed(context, '/FiltersScreen');
           },
           svgIconSuffixForText: SvgIcons.clear,
           svgIconSuffixForTextColor: Colors.black,

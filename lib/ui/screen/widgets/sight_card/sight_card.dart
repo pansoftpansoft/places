@@ -3,10 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:places/domain/sight.dart';
 import 'package:places/ui/res/color_palette.dart';
 import 'package:places/ui/res/labels.dart';
-
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/res/svg_icons.dart';
-import 'package:places/ui/screen/sight_details_screen/sight_details_screen.dart';
 import 'package:places/ui/screen/widgets/icon_button_special.dart';
 
 /// Карточка из списка достопримечательностей
@@ -81,12 +79,10 @@ class SightCard extends StatelessWidget {
                 child: InkWell(
                   splashColor: Colors.lightGreenAccent,
                   onTap: () {
-                    Navigator.push(
+                    Navigator.pushNamed(
                       context,
-                      MaterialPageRoute<void>(
-                        builder: (final BuildContext context) =>
-                            SightDetails(_sight),
-                      ),
+                      '/SightDetails',
+                      arguments: _sight,
                     );
                     if (kDebugMode) {
                       print('Это кнопка "Вся карточка"');

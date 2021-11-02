@@ -9,14 +9,17 @@ import 'package:places/ui/screen/sight_details_screen/widgets/schedule_button.da
 
 ///Подробно о достопримечательности
 class SightDetails extends StatelessWidget {
+
   ///Конструктор экрана подробности о достопримечательности
-  const SightDetails(this._sight, {final Key? key}) : super(key: key);
+  SightDetails({Key? key}) : super(key: key);
 
   ///Экземпляр достопримечательности
-  final Sight _sight;
+  Sight? _sight;
 
   @override
-  Widget build(final BuildContext context) => Scaffold(
+  Widget build(final BuildContext context) {
+    _sight = ModalRoute.of(context)?.settings.arguments as Sight;
+    return  Scaffold(
         body: CustomScrollView(
           slivers: <Widget>[
             const SliverAppBar(
@@ -40,13 +43,13 @@ class SightDetails extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Text(
-                          _sight.name,
+                          _sight!.name,
                           style: Theme.of(context).textTheme.headline3,
                         ),
                         Row(
                           children: <Widget>[
                             Text(
-                              typePlaceString(_sight.type),
+                              typePlaceString(_sight!.type),
                               style: Theme.of(context).textTheme.headline5,
                             ),
                             const SizedBox(width: 16),
@@ -58,7 +61,7 @@ class SightDetails extends StatelessWidget {
                         ),
                         const SizedBox(height: 24),
                         Text(
-                          _sight.details,
+                          _sight!.details,
                           style: Theme.of(context).textTheme.bodyText2,
                         ),
                         const SizedBox(height: 24),
@@ -85,5 +88,5 @@ class SightDetails extends StatelessWidget {
             ),
           ],
         ),
-      );
+      );}
 }

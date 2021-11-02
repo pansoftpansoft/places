@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:places/ui/res/sizes.dart';
-import 'package:places/ui/screen/sight_search_screen/sight_search_screen.dart';
 import 'package:places/ui/screen/widgets/search_bar.dart';
 import 'package:places/ui/screen/widgets/title_app.dart';
 
@@ -39,13 +38,7 @@ class AppBarSightListScreen extends StatelessWidget {
                         height: heightTextFieldSearch,
                         child: InkWell(
                           onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute<void>(
-                                builder: (final BuildContext context) =>
-                                    const SightSearchScreen(),
-                              ),
-                            );
+                            Navigator.pushNamed(context, '/SightSearchScreen');
                           },
                         ),
                       )
