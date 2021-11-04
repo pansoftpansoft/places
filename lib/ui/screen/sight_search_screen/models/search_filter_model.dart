@@ -13,7 +13,7 @@ class SearchFilterModel extends ChangeNotifier {
   static RangeValues _selectedRange = const RangeValues(100, 1000);
 
   ///
-  static Map<TypePlace, bool> _filterMap = {
+  static Map<TypePlace, bool> _filterMap = <TypePlace, bool>{
     TypePlace.hotel: false,
     TypePlace.restaurant: false,
     TypePlace.particularPlace: false,
@@ -26,7 +26,7 @@ class SearchFilterModel extends ChangeNotifier {
   //Если нажата кнопка Показать то переписываем значения
   //Если пользователь вернулся на предыдущий
   // экран то востановим текущие значения
-  static final Map<TypePlace, bool> _filterMapOld = {
+  static final Map<TypePlace, bool> _filterMapOld = <TypePlace, bool>{
     TypePlace.hotel: false,
     TypePlace.restaurant: false,
     TypePlace.particularPlace: false,
@@ -88,10 +88,10 @@ class SearchFilterModel extends ChangeNotifier {
 
   ///
   void setTypePlaceSelected(final TypePlace typePlace) {
-    if (_filterMap[typePlace] == false) {
-      _filterMap[typePlace] = true;
-    } else {
+    if (_filterMap[typePlace]!) {
       _filterMap[typePlace] = false;
+    } else {
+      _filterMap[typePlace] = true;
     }
   }
 
@@ -107,9 +107,8 @@ class SearchFilterModel extends ChangeNotifier {
           _arePointsNear(
                 double.parse(item.lat),
                 double.parse(item.lon),
-              ) ==
-              true &&
-          SearchFilterModel.filterMap[item.type] == true) {
+              ) &&
+          SearchFilterModel.filterMap[item.type]!) {
         item.visibleFilter = true;
         _countPlace++;
       }
@@ -126,9 +125,8 @@ class SearchFilterModel extends ChangeNotifier {
     if (_searchString.isNotEmpty) {
       for (final Sight item in mocks) {
         //фильтр установлен проверяем его и поиск по имени
-        if (item.visibleFilter == true) {
-          if (item.name.toLowerCase().contains(_searchString.toLowerCase()) ==
-              true) {
+        if (item.visibleFilter) {
+          if (item.name.toLowerCase().contains(_searchString.toLowerCase())) {
             mocksSearch.add(item);
           }
         }
@@ -137,11 +135,12 @@ class SearchFilterModel extends ChangeNotifier {
       //Если фильтр установлен показываем записи ограниченные фильтром
       //без учета строки поиска, так как она пустая
       for (final Sight item in mocks) {
-        if (item.visibleFilter == true) {
+        if (item.visibleFilter) {
           mocksSearch.add(item);
         }
       }
     }
+
     return _errorTest;
   }
 
@@ -200,6 +199,7 @@ class SearchFilterModel extends ChangeNotifier {
   static Future<int> getListHistory() async {
     listHistory = (await DBProvider.db.getListHistory())!;
     final int _lengthList = listHistory.length;
+
     return _lengthList;
   }
 
@@ -226,6 +226,7 @@ class SearchFilterModel extends ChangeNotifier {
     final double kx = cos(pi * centerPointLat / 180.0) * ky;
     final double dx = (centerPointLon - checkPointLon).abs() * kx;
     final double dy = (centerPointLat - checkPointLat).abs() * ky;
+
     return sqrt(dx * dx + dy * dy) <= SearchFilterModel.selectedRange.end &&
         sqrt(dx * dx + dy * dy) >= SearchFilterModel.selectedRange.start;
   }
@@ -238,25 +239,30 @@ class SearchFilterModel extends ChangeNotifier {
         print(SearchFilterModel.listHistory.length);
       }
       selectedScreen = numberScreen;
+
       return;
     }
     //Отображение экрана в зависимости от данных
     //Идет загрузка
-    if (SearchFilterModel.isLoading == 1) {
+    if (SearchFilterModel.isLoading) {
       selectedScreen = ScreenEnum.loadScreen;
+
       return;
     }
     // Количество отфильтрованных мест 0
     if (SearchFilterModel.countPlace == 0) {
       selectedScreen = ScreenEnum.emptyScreen;
+
       return;
     }
     //Есть найденные места
     if (SearchFilterModel.countPlace != 0 && mocksSearch.isNotEmpty) {
       selectedScreen = ScreenEnum.listOfFoundPlacesScreen;
+
       return;
     } else {
       selectedScreen = ScreenEnum.emptyScreen;
+
       return;
     }
   }

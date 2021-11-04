@@ -29,7 +29,7 @@ class HistoryListScreen extends StatelessWidget {
                         .withOpacity(opacityText),
                   ),
             ),
-            Flexible(child: listHistory()),
+            const Flexible(child: ListHistory()),
             TextButton(
               style: ButtonStyle(
                 padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.zero),
@@ -49,8 +49,17 @@ class HistoryListScreen extends StatelessWidget {
         ),
       );
 
+}
+
+///
+class ListHistory extends StatelessWidget {
   ///
-  Widget listHistory() => Consumer<SearchFilterModel>(
+  const ListHistory({
+    final Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(final BuildContext context) => Consumer<SearchFilterModel>(
         builder: (
           final BuildContext context,
           final SearchFilterModel cart,

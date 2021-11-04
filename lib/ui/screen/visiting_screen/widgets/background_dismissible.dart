@@ -28,7 +28,9 @@ class BackgroundDismissible extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.end,
           children: <Widget>[
             Padding(
-              padding: const EdgeInsets.all(16),
+              padding: const EdgeInsets.all(
+                16,
+              ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
@@ -39,14 +41,13 @@ class BackgroundDismissible extends StatelessWidget {
                   ),
                   Text(
                     'Удалить',
-                    style: Theme.of(context)
-                        .textTheme
-                        .subtitle2
-                        ?.copyWith(color: ColorPalette.whiteColor),
-                  )
+                    style: Theme.of(context).textTheme.subtitle2?.copyWith(
+                          color: ColorPalette.whiteColor,
+                        ),
+                  ),
                 ],
               ),
-            )
+            ),
           ],
         ),
       );

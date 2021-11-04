@@ -56,6 +56,7 @@ class ScrollIndicator extends StatelessWidget {
         bottomLeft: Radius.circular(15),
       );
     }
+
     return borderRadius;
   }
 }

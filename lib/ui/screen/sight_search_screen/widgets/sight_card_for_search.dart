@@ -78,7 +78,7 @@ class SightCardSearch extends StatelessWidget {
                     ),
                   ],
                 ),
-              )
+              ),
             ],
           ),
         ),

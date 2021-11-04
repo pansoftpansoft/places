@@ -1,39 +1,15 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:places/ui/res/color_palette.dart';
 
-/*
-Универсальное полу ввода с иконками в префиксе и суфиксу
-с заданием действий при нажатии на эти иконки
-*/
-class TextFieldIcon extends StatefulWidget {
-  final TextAlignVertical textAlignVertical;
-  final TextEditingController? controller;
-  final Function? textEditingControllerFunction;
-  final FocusNode? focusNode;
-  final FocusNode? focusNodeNext;
-  final TextInputType? keyboardType;
-  final bool autofocus;
-  final String? svgIconSuffix;
-  final Color? svgIconSuffixColor;
-  final String? svgIconSuffixForText;
-  final Color? svgIconSuffixForTextColor;
-  final String? svgIconPrefix;
-  final Color? svgIconPrefixColor;
-  final VoidCallback? actionIconSuffix;
-  final VoidCallback? actionIconSuffixForText;
-  final VoidCallback? actionIconPrefix;
-  final Function? actionOnSubmitted;
-  final int maxLines;
-  final double borderRadius;
-  final double heightIcon;
-  final String? labelText;
-  final Color borderColor;
-  final Color? fillColor;
+///Универсальное полу ввода с иконками в префиксе и суфиксу
+///с заданием действий при нажатии на эти иконки
 
+class TextFieldIcon extends StatefulWidget {
+  ///
   const TextFieldIcon({
-    Key? key,
     this.controller,
     this.textEditingControllerFunction,
     this.focusNode,
@@ -58,8 +34,79 @@ class TextFieldIcon extends StatefulWidget {
     this.labelText,
     this.borderColor = ColorPalette.greenColor,
     this.fillColor,
+    final Key? key,
   }) : super(key: key);
 
+  ///
+  final TextAlignVertical textAlignVertical;
+
+  ///
+  final TextEditingController? controller;
+
+  ///
+  final Function? textEditingControllerFunction;
+
+  ///
+  final FocusNode? focusNode;
+
+  ///
+  final FocusNode? focusNodeNext;
+
+  ///
+  final TextInputType? keyboardType;
+
+  ///
+  final bool autofocus;
+
+  ///
+  final String? svgIconSuffix;
+
+  ///
+  final Color? svgIconSuffixColor;
+
+  ///
+  final String? svgIconSuffixForText;
+
+  ///
+  final Color? svgIconSuffixForTextColor;
+
+  ///
+  final String? svgIconPrefix;
+
+  ///
+  final Color? svgIconPrefixColor;
+
+  ///
+  final VoidCallback? actionIconSuffix;
+
+  ///
+  final VoidCallback? actionIconSuffixForText;
+
+  ///
+  final VoidCallback? actionIconPrefix;
+
+  ///
+  final Function? actionOnSubmitted;
+
+  ///
+  final int maxLines;
+
+  ///
+  final double borderRadius;
+
+  ///
+  final double heightIcon;
+
+  ///
+  final String? labelText;
+
+  ///
+  final Color borderColor;
+
+  ///
+  final Color? fillColor;
+
+  ///
   final List<TextInputFormatter>? inputFormatters;
 
   @override
@@ -75,8 +122,14 @@ class _TextFieldIconState extends State<TextFieldIcon> {
   bool _filled = true;
 
   @override
+  void dispose() {
+    _textEditingController.dispose();
+    _focusNode.dispose();
+    super.dispose();
+  }
+
+  @override
   void initState() {
-    // TODO: implement initState
     super.initState();
 
     _filled = widget.fillColor == null ? false : true;
@@ -125,62 +178,64 @@ class _TextFieldIconState extends State<TextFieldIcon> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return TextField(
-      maxLines: widget.maxLines,
-      controller: _textEditingController,
-      focusNode: _focusNode,
-      keyboardType: _keyboardType,
-      autofocus: widget.autofocus,
-      textInputAction: TextInputAction.go,
-      decoration: InputDecoration(
-        labelText: widget.labelText,
-        floatingLabelBehavior: FloatingLabelBehavior.never,
-        suffixIcon: Padding(
-          padding: const EdgeInsets.fromLTRB(0, 6, 12, 6),
-          child: suffixIconVisibleForText ? IconSuffixForText() : IconSuffix(),
+  Widget build(final BuildContext context) => TextField(
+        maxLines: widget.maxLines,
+        controller: _textEditingController,
+        focusNode: _focusNode,
+        keyboardType: _keyboardType,
+        autofocus: widget.autofocus,
+        textInputAction: TextInputAction.go,
+        decoration: InputDecoration(
+          labelText: widget.labelText,
+          floatingLabelBehavior: FloatingLabelBehavior.never,
+          suffixIcon: Padding(
+            padding: const EdgeInsets.fromLTRB(0, 6, 12, 6),
+            child:
+                suffixIconVisibleForText ? iconSuffixForText() : iconSuffix(),
+          ),
+          prefixIcon: Padding(
+            padding: const EdgeInsets.fromLTRB(0, 6, 12, 6),
+            child: iconPrefix(),
+          ),
+          contentPadding: const EdgeInsets.fromLTRB(16, 0, 8, 0),
+          filled: _filled,
+          fillColor: widget.fillColor,
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(
+              color: widget.borderColor,
+              width: 1,
+            ),
+            borderRadius: BorderRadius.all(
+              Radius.circular(widget.borderRadius),
+            ),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(
+              width: 2,
+              color: widget.borderColor,
+            ),
+            borderRadius: BorderRadius.all(
+              Radius.circular(widget.borderRadius),
+            ),
+          ),
         ),
-        prefixIcon: Padding(
-          padding: const EdgeInsets.fromLTRB(0, 6, 12, 6),
-          child: IconPrefix(),
-        ),
-        contentPadding: const EdgeInsets.fromLTRB(16, 0, 8, 0),
-        filled: _filled,
-        fillColor: widget.fillColor,
-        enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(
-            color: widget.borderColor,
-            width: 1,
-          ),
-          borderRadius: BorderRadius.all(
-            Radius.circular(widget.borderRadius),
-          ),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(
-            width: 2,
-            color: widget.borderColor,
-          ),
-          borderRadius: BorderRadius.all(
-            Radius.circular(widget.borderRadius),
-          ),
-        ),
-      ),
-      style: Theme.of(context).textTheme.subtitle1!.copyWith(
-            fontWeight: FontWeight.w400,
-          ),
-      textAlignVertical: TextAlignVertical.center,
-      onSubmitted: (String value) {
-        if (widget.actionOnSubmitted != null) {
-          widget.actionOnSubmitted!(value);
-        }
-      },
-      inputFormatters: widget.inputFormatters,
-    );
-  }
+        style: Theme.of(context).textTheme.subtitle1!.copyWith(
+              fontWeight: FontWeight.w400,
+            ),
+        textAlignVertical: TextAlignVertical.center,
+        onSubmitted: (final String value) {
+          if (widget.actionOnSubmitted != null) {
+            widget.actionOnSubmitted!(value);
+          }
+        },
+        inputFormatters: widget.inputFormatters,
+      );
 
-  Widget IconSuffix() {
-    print('widget.svgIconSuffix ${widget.svgIconSuffix}');
+  Widget iconSuffix() {
+    if (kDebugMode) {
+      print('widget.svgIconSuffix ${widget.svgIconSuffix}');
+    }
+
     return widget.svgIconSuffix != null
         ? InkWell(
             onTap: widget.actionIconSuffix,
@@ -193,9 +248,12 @@ class _TextFieldIconState extends State<TextFieldIcon> {
         : const SizedBox.shrink();
   }
 
-  Widget? IconSuffixForText() {
-    print('widget.svgIconSuffixForText ${widget.svgIconSuffixForText}');
-    print(widget.svgIconSuffixForText);
+  Widget? iconSuffixForText() {
+    if (kDebugMode) {
+      print('widget.svgIconSuffixForText ${widget.svgIconSuffixForText}');
+      print(widget.svgIconSuffixForText);
+    }
+
     return widget.svgIconSuffixForText != null
         ? InkWell(
             onTap: widget.actionIconSuffixForText,
@@ -208,9 +266,12 @@ class _TextFieldIconState extends State<TextFieldIcon> {
         : const SizedBox.shrink();
   }
 
-  Widget? IconPrefix() {
-    print('widget.svgIconPrefix ${widget.svgIconPrefix}');
-    print(widget.svgIconPrefix);
+  Widget? iconPrefix() {
+    if (kDebugMode) {
+      print('widget.svgIconPrefix ${widget.svgIconPrefix}');
+      print(widget.svgIconPrefix);
+    }
+
     return widget.svgIconPrefix != null
         ? InkWell(
             onTap: null,

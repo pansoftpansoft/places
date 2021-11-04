@@ -20,7 +20,7 @@ class SettingsScreen extends StatelessWidget {
         appBar: AppBar(
           title: const Text(settings),
         ),
-        bottomNavigationBar: BottomNavigation(),
+        bottomNavigationBar: const BottomNavigation(),
         body: Padding(
           padding: const EdgeInsets.all(paddingPage),
           child: Column(
@@ -39,7 +39,7 @@ class SettingsScreen extends StatelessWidget {
                     onChanged: (final bool value) {
                       context.read<AppModel>().changeTheme();
                     },
-                  )
+                  ),
                 ],
               ),
               const Divider(

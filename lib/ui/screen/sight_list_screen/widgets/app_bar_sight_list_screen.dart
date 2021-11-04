@@ -41,7 +41,7 @@ class AppBarSightListScreen extends StatelessWidget {
                             Navigator.pushNamed(context, '/SightSearchScreen');
                           },
                         ),
-                      )
+                      ),
                     ],
                   ),
           ),

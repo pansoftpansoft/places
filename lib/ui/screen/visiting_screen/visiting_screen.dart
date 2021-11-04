@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/screen/Widgets/bottom_navigation.dart';
 import 'package:places/ui/screen/visiting_screen/widgets/app_bar_visiting.dart';
-import 'package:places/ui/screen/visiting_screen/widgets/tab1.dart';
-import 'package:places/ui/screen/visiting_screen/widgets/tab2.dart';
+import 'package:places/ui/screen/visiting_screen/widgets/tab1_widget.dart';
+import 'package:places/ui/screen/visiting_screen/widgets/tab2_widget.dart';
 
 ///Окно в котором можно выбрать
 ///места которые хочешь посетить и которые уже посетил
@@ -23,20 +23,20 @@ class VisitingScreenState extends State<VisitingScreen> {
   }
 
   @override
-  Widget build(final BuildContext context) => DefaultTabController(
+  Widget build(final BuildContext context) => const DefaultTabController(
         length: 2,
         child: Scaffold(
-          appBar: const PreferredSize(
+          appBar: PreferredSize(
             preferredSize: Size.fromHeight(120),
             child: AppBarVisiting(),
           ),
           bottomNavigationBar: BottomNavigation(),
           body: Padding(
-            padding: const EdgeInsets.all(paddingPage),
+            padding: EdgeInsets.all(paddingPage),
             child: TabBarView(
               children: <Widget>[
-                tab1(context),
-                tab2(context),
+                Tab1Widget(),
+                Tab2Widget(),
               ],
             ),
           ),

@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -7,9 +8,10 @@ import 'package:places/ui/res/labels.dart';
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/res/svg_icons.dart';
 import 'package:places/ui/screen/add_sight_screen/widgets/app_bar_add_sight.dart';
-import 'package:places/ui/screen/add_sight_screen/widgets/bottom_sheet_widget.dart';
+import 'package:places/ui/screen/add_sight_screen/widgets/bottom_sheet_create_button.dart';
 import 'package:places/ui/screen/add_sight_screen/widgets/divider_opacity.dart';
 import 'package:places/ui/screen/add_sight_screen/widgets/list_view_photo_add.dart';
+import 'package:places/ui/screen/add_sight_screen/widgets/select_type_place.dart';
 import 'package:places/ui/screen/add_sight_screen/widgets/title_field.dart';
 import 'package:places/ui/screen/widgets/text_field_icon.dart';
 
@@ -24,7 +26,7 @@ class AddSightScreen extends StatefulWidget {
 
 /// Стейт
 class FiltersScreenState extends State<AddSightScreen> {
-  TypePlace? _typePlaceSelected;
+
   final FocusNode _focusNodeNamePlace = FocusNode();
   final FocusNode _focusNodeLat = FocusNode();
   final FocusNode _focusNodeLon = FocusNode();
@@ -50,7 +52,7 @@ class FiltersScreenState extends State<AddSightScreen> {
   @override
   Widget build(final BuildContext context) => Scaffold(
         resizeToAvoidBottomInset: true,
-        bottomSheet: const BottomSheetWidget(),
+        bottomSheet: const BottomSheetCreateButton(),
         appBar: const PreferredSize(
           preferredSize: Size(double.infinity, kToolbarHeight),
           child: AppBarAddSight(),
@@ -76,7 +78,7 @@ class FiltersScreenState extends State<AddSightScreen> {
                 // Разделитель
                 const SizedBox(height: 12),
                 // Кнопка выбора категории
-                selectTypePlace(context),
+                const SelectTypePlace(),
                 //Дивайдер
                 const DividerOpacity(),
                 // Разделитель
@@ -192,7 +194,11 @@ class FiltersScreenState extends State<AddSightScreen> {
                           EdgeInsets.zero,
                         ),
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        if (kDebugMode) {
+                          print('Нажата кнопка "Указать на карте"');
+                        }
+                      },
                       child: Text(
                         specifyOnMap,
                         style: Theme.of(context).textTheme.subtitle1!.copyWith(
@@ -247,36 +253,5 @@ class FiltersScreenState extends State<AddSightScreen> {
       );
 
   ///Выбор категории
-  Widget selectTypePlace(final BuildContext context) => SizedBox(
-        height: 32,
-        child: TextButton(
-          style: ButtonStyle(
-            padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.zero),
-          ),
-          onPressed: () {
-            _typePlaceSelected = Navigator.pushNamed(
-              context, '/SelectCategory',
-              arguments: _typePlaceSelected ,
-            ) as TypePlace?;
-            setState(() {});
-          },
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              Text(
-                _typePlaceSelected == null
-                    ? notSelected
-                    : typePlaceString(_typePlaceSelected as TypePlace),
-                style: Theme.of(context)
-                    .textTheme
-                    .subtitle2!
-                    .copyWith(fontSize: 16),
-              ),
-              SvgPicture.asset(
-                SvgIcons.view,
-              ),
-            ],
-          ),
-        ),
-      );
+  //Widget selectTypePlace(final BuildContext context) =>
 }
