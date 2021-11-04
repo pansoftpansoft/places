@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:places/ui/res/color_palette.dart';
 import 'package:places/ui/res/img.dart';
+import 'package:places/ui/res/route_name.dart';
 
 /// Экран затавка при загрузке приложения
 class SplashScreen extends StatefulWidget {
@@ -40,15 +41,15 @@ class SplashScreenState extends State<SplashScreen> {
     /// если за 5 секунд данные не пришли то выдаем ошибку
     for (int i = 0; i < 5; i++) {
       if (_isInitialized.isCompleted) {
+        await Navigator.pushReplacementNamed(
+          context,
+          RouteName.onboardingScreen,
+        );
         if (kDebugMode) {
-          await Navigator.pushReplacementNamed(
-            context,
-            '/OnboardingScreen',
-          );
-          print('Переход на следующий экран');
-
-          return true;
+          print('Переход на следующий экран ${RouteName.onboardingScreen}');
         }
+
+        return true;
       } else {
         await startAnimation(i + 1);
       }

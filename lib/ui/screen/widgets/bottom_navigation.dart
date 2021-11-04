@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:places/ui/res/route_name.dart';
 import 'package:places/ui/res/svg_icons.dart';
 
 /// Нижнее главное меню
 class BottomNavigation extends StatelessWidget {
   ///
   const BottomNavigation({final Key? key}) : super(key: key);
+
   @override
   Widget build(final BuildContext context) => Theme(
         data: Theme.of(context).copyWith(
@@ -20,7 +22,10 @@ class BottomNavigation extends StatelessWidget {
             BottomNavigationBarItem(
               icon: InkWell(
                 onTap: () {
-                  Navigator.pushReplacementNamed(context, '/SightListScreen');
+                  Navigator.pushReplacementNamed(
+                    context,
+                    RouteName.sightListScreen,
+                  );
                 },
                 child: SvgPicture.asset(
                   SvgIcons.list,
@@ -36,7 +41,7 @@ class BottomNavigation extends StatelessWidget {
             BottomNavigationBarItem(
               icon: InkWell(
                 onTap: () {
-                  Navigator.pushReplacementNamed(context, '/MapScreen');
+                  Navigator.pushReplacementNamed(context, RouteName.mapScreen);
                 },
                 child: SvgPicture.asset(
                   SvgIcons.map,
@@ -52,7 +57,10 @@ class BottomNavigation extends StatelessWidget {
             BottomNavigationBarItem(
               icon: InkWell(
                 onTap: () {
-                  Navigator.pushReplacementNamed(context, '/VisitingScreen');
+                  Navigator.pushReplacementNamed(
+                    context,
+                    RouteName.visitingScreen,
+                  );
                 },
                 child: SvgPicture.asset(
                   SvgIcons.heartTransparent,
@@ -68,7 +76,10 @@ class BottomNavigation extends StatelessWidget {
             BottomNavigationBarItem(
               icon: InkWell(
                 onTap: () {
-                  Navigator.pushReplacementNamed(context, '/SettingsScreen');
+                  Navigator.pushReplacementNamed(
+                    context,
+                    RouteName.settingsScreen,
+                  );
                 },
                 child: SvgPicture.asset(
                   SvgIcons.settings,

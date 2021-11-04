@@ -20,13 +20,24 @@ class ListViewPhotoAdd extends StatelessWidget {
           final AddSightModel sight,
           final Widget? child,
         ) =>
-            Expanded(
-          child: ListView.builder(
-            itemCount: tempPhotoPlace.length,
-            scrollDirection: Axis.horizontal,
-            itemBuilder: buttonImage,
-          ),
+            const Expanded(
+          child: ListViewBuilder(),
         ),
+      );
+}
+
+///
+class ListViewBuilder extends StatelessWidget {
+  ///
+  const ListViewBuilder({
+    final Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(final BuildContext context) => ListView.builder(
+        itemCount: tempPhotoPlace.length,
+        scrollDirection: Axis.horizontal,
+        itemBuilder: buttonImage,
       );
 }
 

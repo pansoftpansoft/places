@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:places/ui/res/color_palette.dart';
 import 'package:places/ui/res/labels.dart';
+import 'package:places/ui/res/route_name.dart';
 
 ///Заголовок шаблон страници Onboard
 class HeaderPage extends StatelessWidget {
@@ -20,7 +21,10 @@ class HeaderPage extends StatelessWidget {
           visible: buttonSkipVisible,
           child: TextButton(
             onPressed: () {
-              Navigator.pushReplacementNamed(context, '/SightListScreen');
+              Navigator.pushReplacementNamed(
+                context,
+                RouteName.sightListScreen,
+              );
             },
             child: Text(
               skip,

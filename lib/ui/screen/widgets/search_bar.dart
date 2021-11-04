@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:places/domain/database.dart';
 import 'package:places/ui/res/color_palette.dart';
 import 'package:places/ui/res/labels.dart';
+import 'package:places/ui/res/route_name.dart';
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/res/svg_icons.dart';
 import 'package:places/ui/screen/sight_search_screen/models/search_filter_model.dart';
@@ -48,7 +49,7 @@ class SearchBar extends StatelessWidget {
           svgIconSuffix: SvgIcons.filter,
           svgIconSuffixColor: ColorPalette.greenColor,
           actionIconSuffix: () {
-            Navigator.pushNamed(context, '/FiltersScreen');
+            Navigator.pushNamed(context, RouteName.filtersScreen);
           },
           svgIconSuffixForText: SvgIcons.clear,
           svgIconSuffixForTextColor: Colors.black,
