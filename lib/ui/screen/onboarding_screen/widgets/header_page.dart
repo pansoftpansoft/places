@@ -19,7 +19,9 @@ class HeaderPage extends StatelessWidget {
         child: Visibility(
           visible: buttonSkipVisible,
           child: TextButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pushReplacementNamed(context, '/SightListScreen');
+            },
             child: Text(
               skip,
               style: Theme.of(context).textTheme.subtitle1!.copyWith(

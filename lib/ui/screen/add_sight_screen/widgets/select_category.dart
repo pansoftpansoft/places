@@ -11,12 +11,10 @@ class SelectCategory extends StatefulWidget {
   ///
   SelectCategory({
     final Key? key,
-    this.typePlaceSelected,
-    this.typePlaceSelectedActual,
   }) : super(key: key);
 
   ///
-  final TypePlace? typePlaceSelectedActual;
+  TypePlace? typePlaceSelectedActual;
 
   ///
   TypePlace? typePlaceSelected;
@@ -28,7 +26,12 @@ class SelectCategory extends StatefulWidget {
 class _SelectCategoryState extends State<SelectCategory> {
   @override
   Widget build(final BuildContext context) {
-    if (widget.typePlaceSelectedActual != null &&
+    widget.typePlaceSelected =
+        ModalRoute.of(context)?.settings.arguments as TypePlace?;
+
+    widget.typePlaceSelectedActual = widget.typePlaceSelected;
+
+    if (widget.typePlaceSelectedActual != widget.typePlaceSelected &&
         widget.typePlaceSelected == null) {
       widget.typePlaceSelected = widget.typePlaceSelectedActual;
     }

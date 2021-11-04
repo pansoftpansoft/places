@@ -10,7 +10,6 @@ import 'package:places/ui/screen/add_sight_screen/widgets/app_bar_add_sight.dart
 import 'package:places/ui/screen/add_sight_screen/widgets/bottom_sheet_widget.dart';
 import 'package:places/ui/screen/add_sight_screen/widgets/divider_opacity.dart';
 import 'package:places/ui/screen/add_sight_screen/widgets/list_view_photo_add.dart';
-import 'package:places/ui/screen/add_sight_screen/widgets/select_category.dart';
 import 'package:places/ui/screen/add_sight_screen/widgets/title_field.dart';
 import 'package:places/ui/screen/widgets/text_field_icon.dart';
 
@@ -254,14 +253,11 @@ class FiltersScreenState extends State<AddSightScreen> {
           style: ButtonStyle(
             padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.zero),
           ),
-          onPressed: () async {
-            _typePlaceSelected = await Navigator.push(
-              context,
-              MaterialPageRoute<TypePlace>(
-                builder: (final BuildContext context) =>
-                    SelectCategory(typePlaceSelectedActual: _typePlaceSelected),
-              ),
-            );
+          onPressed: () {
+            _typePlaceSelected = Navigator.pushNamed(
+              context, '/SelectCategory',
+              arguments: _typePlaceSelected ,
+            ) as TypePlace?;
             setState(() {});
           },
           child: Row(

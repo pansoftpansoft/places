@@ -42,6 +42,7 @@ class BuildRouteButton extends StatelessWidget {
           if (kDebugMode) {
             print('Это кнопка "Построить маршрут"');
           }
+          Navigator.pushNamed(context, '/MapScreen');
         },
       );
 }
