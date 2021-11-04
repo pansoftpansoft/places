@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:places/domain/sight.dart';
 import 'package:places/ui/res/labels.dart';
+import 'package:places/ui/res/route_name.dart';
 
 ///Карточка достопримечательностей из списка поиска
 class SightCardSearch extends StatelessWidget {
@@ -29,7 +30,7 @@ class SightCardSearch extends StatelessWidget {
         onTap: () {
           Navigator.pushNamed(
             context,
-            '/SightDetails',
+            RouteName.sightDetails,
             arguments: sight,
           );
         },

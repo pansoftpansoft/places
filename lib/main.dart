@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:places/ui/res/multi_providers.dart';
 import 'package:places/ui/res/route_map.dart';
+import 'package:places/ui/res/route_name.dart';
 import 'package:places/ui/screen/models/app_model.dart';
 import 'package:provider/provider.dart';
 
@@ -36,6 +37,6 @@ class MyApp extends StatelessWidget {
         ),
         title: 'Задача  8.2',
         routes: mapRoutes,
-        initialRoute: '/SplashScreen',
+        initialRoute: RouteName.splashScreen,
       );
 }

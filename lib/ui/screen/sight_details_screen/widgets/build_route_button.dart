@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:places/ui/res/color_palette.dart';
 import 'package:places/ui/res/labels.dart';
+import 'package:places/ui/res/route_name.dart';
 import 'package:places/ui/res/sizes.dart';
 
 ///Кнопка 'Построить маршрут'
@@ -42,7 +43,7 @@ class BuildRouteButton extends StatelessWidget {
           if (kDebugMode) {
             print('Это кнопка "Построить маршрут"');
           }
-          Navigator.pushNamed(context, '/MapScreen');
+          Navigator.pushNamed(context, RouteName.mapScreen);
         },
       );
 }

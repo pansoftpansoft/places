@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:places/domain/sight.dart';
 import 'package:places/ui/res/color_palette.dart';
 import 'package:places/ui/res/labels.dart';
+import 'package:places/ui/res/route_name.dart';
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/res/svg_icons.dart';
 import 'package:places/ui/screen/widgets/icon_button_special.dart';
@@ -81,7 +82,7 @@ class SightCard extends StatelessWidget {
                   onTap: () {
                     Navigator.pushNamed(
                       context,
-                      '/SightDetails',
+                      RouteName.sightDetails,
                       arguments: _sight,
                     );
                     if (kDebugMode) {
