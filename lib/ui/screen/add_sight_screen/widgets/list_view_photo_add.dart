@@ -31,34 +31,22 @@ class ListViewPhotoAdd extends StatelessWidget {
 }
 
 ///
-Widget buttonImage(final BuildContext context, final int index) => index == 0
-    ? GestureDetector(
-        onTap: () {
-          context.read<AddSightModel>().addPhoto('');
-        },
-        child: Padding(
-          padding: const EdgeInsets.only(right: 16),
-          child: Container(
-            width: 72,
-            height: 72,
-            decoration: BoxDecoration(
-              border: Border.all(
-                color: ColorPalette.greenColor.withOpacity(0.48),
-                width: 2,
-              ),
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: UnconstrainedBox(
-              child: SvgPicture.asset(
-                SvgIcons.union,
-                height: 24,
-                color: ColorPalette.greenColor,
-              ),
-            ),
-          ),
-        ),
-      )
-    : Padding(
+Widget buttonImage(final BuildContext context, final int index) =>
+    index == 0 ? const GestureDetectorWidget() : FullPhoto(index);
+
+/// Если есть фото
+class FullPhoto extends StatelessWidget {
+  ///
+  const FullPhoto(
+    this.index, {
+    final Key? key,
+  }) : super(key: key);
+
+  ///
+  final int index;
+
+  @override
+  Widget build(final BuildContext context) => Padding(
         padding: const EdgeInsets.only(right: 16),
         child: Dismissible(
           direction: DismissDirection.up,
@@ -105,3 +93,40 @@ Widget buttonImage(final BuildContext context, final int index) => index == 0
           ),
         ),
       );
+}
+
+///
+class GestureDetectorWidget extends StatelessWidget {
+  ///
+  const GestureDetectorWidget({
+    final Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(final BuildContext context) => GestureDetector(
+        onTap: () {
+          context.read<AddSightModel>().addPhoto('');
+        },
+        child: Padding(
+          padding: const EdgeInsets.only(right: 16),
+          child: Container(
+            width: 72,
+            height: 72,
+            decoration: BoxDecoration(
+              border: Border.all(
+                color: ColorPalette.greenColor.withOpacity(0.48),
+                width: 2,
+              ),
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: UnconstrainedBox(
+              child: SvgPicture.asset(
+                SvgIcons.union,
+                height: 24,
+                color: ColorPalette.greenColor,
+              ),
+            ),
+          ),
+        ),
+      );
+}

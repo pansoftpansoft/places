@@ -6,7 +6,7 @@ class AppModel extends ChangeNotifier {
   static bool _themeColor = false;
 
   ///
-  ThemeData get themeColor => _themeColor == false ? lightTheme : darkTheme;
+  ThemeData get themeColor => _themeColor ? darkTheme : lightTheme;
 
   ///
   bool get isThemeColor => _themeColor;

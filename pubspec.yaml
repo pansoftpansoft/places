@@ -9,20 +9,22 @@ environment:
   sdk: ">=2.13.0 <3.0.0"
 
 dependencies:
+  cupertino_icons: ^1.0.2
   flutter:
     sdk: flutter
   flutter_svg: ^0.22.0
-  sqflite: any
-  path_provider: any
   intl: ^0.17.0
-  cupertino_icons: ^1.0.2
+  path_provider: any
   provider: ^5.0.0
+  sqflite: any
+
+
 
 dev_dependencies:
+  dart_code_metrics: ^4.6.0
   flutter_lints: ^1.0.4
   flutter_test:
     sdk: flutter
-
 
 flutter:
 

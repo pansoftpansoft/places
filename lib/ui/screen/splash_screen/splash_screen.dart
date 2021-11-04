@@ -46,6 +46,7 @@ class SplashScreenState extends State<SplashScreen> {
             '/OnboardingScreen',
           );
           print('Переход на следующий экран');
+
           return true;
         }
       } else {
@@ -56,6 +57,7 @@ class SplashScreenState extends State<SplashScreen> {
     if (kDebugMode) {
       print('Истекло время получения данных ');
     }
+
     return false;
   }
 
@@ -66,7 +68,14 @@ class SplashScreenState extends State<SplashScreen> {
     }
 
     /// Имитируем инициализацию, продолжительностью 2 секунды.
-    await Future.delayed(const Duration(seconds: 2), () {});
+    await Future.delayed(
+      const Duration(seconds: 2),
+      () {
+        if (kDebugMode) {
+          print('Ждем две секунды!');
+        }
+      },
+    );
     if (kDebugMode) {
       print('Завершилась GetNetData().');
     }
@@ -80,7 +89,11 @@ class SplashScreenState extends State<SplashScreen> {
     if (kDebugMode) {
       print('Анимация запустилась $numberCycle раз.');
     }
-    await Future.delayed(const Duration(seconds: 1), () {});
+    await Future.delayed(const Duration(seconds: 1), () {
+      if (kDebugMode) {
+        print('Ждем две секунды!');
+      }
+    });
   }
 
   /// Произошло завершение плучения дынных

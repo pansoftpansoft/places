@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:places/domain/sight.dart';
 import 'package:places/mocks.dart';
@@ -6,9 +7,9 @@ import 'package:places/ui/res/labels.dart';
 import 'package:places/ui/res/sizes.dart';
 
 ///Кнопка "Создать"
-class BottomSheetWidget extends StatelessWidget {
+class BottomSheetCreateButton extends StatelessWidget {
   ///
-  const BottomSheetWidget({
+  const BottomSheetCreateButton({
     final Key? key,
   }) : super(key: key);
 
@@ -68,7 +69,9 @@ class BottomSheetWidget extends StatelessWidget {
                     TypePlace.park,
                   ),
                 );
-                print('Это кнопка "Создать" размер массива ${mocks.length}');
+                if (kDebugMode) {
+                  print('Это кнопка "Создать" размер массива ${mocks.length}');
+                }
               },
             ),
           ),

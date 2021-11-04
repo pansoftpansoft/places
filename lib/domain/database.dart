@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:places/domain/history.dart';
 import 'package:sqflite/sqflite.dart';
@@ -21,6 +22,7 @@ class DBProvider {
     if (_database != null) {
       return _database;
     }
+
     return initDB();
   }
 
@@ -29,21 +31,25 @@ class DBProvider {
     final Directory documentsDirectory =
         await getApplicationDocumentsDirectory();
     final String path = '${documentsDirectory.path}$_databaseName';
+
     return openDatabase(
       path,
       version: 1,
       onOpen: (final Database db) {
-        // db.execute(
-        //   'drop table history'
-        // );
+        if (kDebugMode) {
+          print('Открать базу данных');
+        }
       },
-      onCreate: (final Database db, final int version) async {
+      onCreate: (
+        final Database db,
+        final int version,
+      ) async {
         await db.execute(
           <String>[
             "CREATE TABLE history (",
             "history_text TEXT PRIMARY KEY NOT NULL UNIQUE,",
             "date_add TEXT DEFAULT (datetime('now', 'localtime'))",
-            ")"
+            ")",
           ].join(),
         );
       },
@@ -59,6 +65,7 @@ class DBProvider {
     final List<History> list = res.isNotEmpty
         ? res.map((final Map<String, Object?> c) => History.fromMap(c)).toList()
         : <History>[];
+
     return list;
   }
 
@@ -70,6 +77,7 @@ class DBProvider {
     final Database? db = await database;
     final History newHistory = History(historyText: historyText);
     final int res = await db!.insert("history", newHistory.toMap());
+
     return res;
   }
 
@@ -77,6 +85,7 @@ class DBProvider {
   Future<int> clearHistory() async {
     final Database? db = await database;
     final int res = await db!.delete("history");
+
     return res;
   }
 
@@ -88,6 +97,7 @@ class DBProvider {
       where: 'history_text = ?',
       whereArgs: <String>[historyText],
     );
+
     return res;
   }
 }

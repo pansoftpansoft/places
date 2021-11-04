@@ -1,5 +1,4 @@
 import 'package:places/domain/sight.dart';
-
 ///
 enum TypePlace {
   ///
@@ -18,7 +17,7 @@ enum TypePlace {
   museum,
 
   ///
-  cafe
+  cafe,
 }
 
 ///
@@ -36,7 +35,7 @@ enum ScreenEnum {
   listOfFoundPlacesScreen,
 
   ///
-  errorScreen
+  errorScreen,
 }
 
 ///

@@ -50,7 +50,7 @@ class AppBarAddSight extends StatelessWidget {
                 child: SizedBox(
                   width: 30,
                 ),
-              )
+              ),
             ],
           ),
         ),
