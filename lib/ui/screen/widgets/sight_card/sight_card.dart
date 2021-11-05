@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:places/domain/sight.dart';
 import 'package:places/ui/res/color_palette.dart';
 import 'package:places/ui/res/labels.dart';
-import 'package:places/ui/res/route_name.dart';
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/res/svg_icons.dart';
+import 'package:places/ui/screen/sight_details_screen/sight_details_screen.dart';
 import 'package:places/ui/screen/widgets/icon_button_special.dart';
 
 /// Карточка из списка достопримечательностей
@@ -80,11 +80,15 @@ class SightCard extends StatelessWidget {
                 child: InkWell(
                   splashColor: Colors.lightGreenAccent,
                   onTap: () {
+                    showDetailsScreen(context, _sight);
+
+/*
                     Navigator.pushNamed(
                       context,
                       RouteName.sightDetails,
                       arguments: _sight,
                     );
+*/
                     if (kDebugMode) {
                       print('Это кнопка "Вся карточка"');
                     }
@@ -166,11 +170,25 @@ class SightCard extends StatelessWidget {
                       SvgIcons.delete,
                       onPressed: actionOnDelete,
                     )
-                  : IconButtonSpecial(
+                  : const IconButtonSpecial(
                       SvgIcons.heartTransparent,
                     ),
             ),
           ],
         ),
       );
+
+  ///
+  Future<void> showDetailsScreen(
+    final BuildContext context,
+    final Sight _sight,
+  ) async {
+    await showModalBottomSheet<Widget>(
+      context: context,
+      builder: (final _) => SightDetails(_sight),
+      isScrollControlled: true,
+      isDismissible: true,
+      useRootNavigator: true,
+    );
+  }
 }

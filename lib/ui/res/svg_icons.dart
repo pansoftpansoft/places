@@ -1,6 +1,4 @@
-/*
-Пути к иконокам
-*/
+/// Пути к иконокам
 class SvgIcons {
   static const String catalog = 'res/icon/';
   static const String bucket = '${catalog}bucket.svg';
@@ -10,6 +8,7 @@ class SvgIcons {
   static const String clear = '${catalog}clear.svg';
   static const String clearWhite = '${catalog}clear_white.svg';
   static const String delete = '${catalog}delete.svg';
+  static const String ellipse109 = '${catalog}ellipse109.svg';
   static const String filter = '${catalog}filter.svg';
   static const String go = '${catalog}go.svg';
   static const String heart = '${catalog}heart_cross.svg';
@@ -27,9 +26,11 @@ class SvgIcons {
   static const String particularPlace = '${catalog}particular_place.svg';
   static const String plus = '${catalog}plus.svg';
   static const String restaurant = '${catalog}restaurant.svg';
+  static const String rectangle1303 = '${catalog}rectangle1303.svg';
   static const String search = '${catalog}search.svg';
   static const String schedule = '${catalog}schedule.svg';
   static const String settings = '${catalog}settings.svg';
+  static const String subtract = '${catalog}subtract.svg';
   static const String tick = '${catalog}tick.svg';
   static const String tickChoice = '${catalog}tick_choice.svg';
   static const String tutorialFrame1 = '${catalog}tutorial_frame_1.svg';

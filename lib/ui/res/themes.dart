@@ -73,8 +73,10 @@ final ThemeData darkTheme = ThemeData(
   primaryColor: ColorPalette.dmPrimaryColor,
   backgroundColor: ColorPalette.dmPrimaryColor,
   scaffoldBackgroundColor: ColorPalette.dmPrimaryColor,
-  bottomSheetTheme:
-      const BottomSheetThemeData(backgroundColor: Colors.transparent),
+  bottomSheetTheme: const BottomSheetThemeData(
+    backgroundColor: Colors.transparent,
+    modalBackgroundColor: Colors.transparent,
+  ),
   /*
   * appBarTheme
   */
