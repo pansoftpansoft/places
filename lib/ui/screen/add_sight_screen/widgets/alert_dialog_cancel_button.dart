@@ -40,7 +40,7 @@ class AlertDialogCancelButton extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Text(
-                  cancel,
+                  cancel.toUpperCase(),
                   style: Theme.of(context).textTheme.headline5!.copyWith(
                         color: ColorPalette.greenColor,
                       ),
