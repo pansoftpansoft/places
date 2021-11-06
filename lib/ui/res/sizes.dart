@@ -13,3 +13,6 @@ const double borderRadiusCard = 16;
 
 /// радиус скруглаения углов для Card
 const double opacityText = 0.56;
+
+/// радиус скруглаения углов для Card
+const double iconSize24 = 24;

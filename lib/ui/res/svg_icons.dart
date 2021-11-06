@@ -4,12 +4,14 @@ class SvgIcons {
   static const String bucket = '${catalog}bucket.svg';
   static const String cafe = '${catalog}cafe.svg';
   static const String calendar = '${catalog}calendar.svg';
+  static const String camera = '${catalog}camera.svg';
   static const String card = '${catalog}card.svg';
   static const String clear = '${catalog}clear.svg';
   static const String clearWhite = '${catalog}clear_white.svg';
   static const String delete = '${catalog}delete.svg';
   static const String ellipse109 = '${catalog}ellipse109.svg';
   static const String filter = '${catalog}filter.svg';
+  static const String fail = '${catalog}fail.svg';
   static const String go = '${catalog}go.svg';
   static const String heart = '${catalog}heart_cross.svg';
   static const String heartFull = '${catalog}heart_full.svg';
@@ -24,6 +26,7 @@ class SvgIcons {
   static const String onboardProgress3 = '${catalog}onboard_progress_3.svg';
   static const String park = '${catalog}park.svg';
   static const String particularPlace = '${catalog}particular_place.svg';
+  static const String photo = '${catalog}photo.svg';
   static const String plus = '${catalog}plus.svg';
   static const String restaurant = '${catalog}restaurant.svg';
   static const String rectangle1303 = '${catalog}rectangle1303.svg';
