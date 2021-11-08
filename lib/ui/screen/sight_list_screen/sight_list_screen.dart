@@ -18,31 +18,32 @@ class SightListScreen extends StatefulWidget {
 ///
 class SightListScreenState extends State<SightListScreen> {
   @override
-  Widget build(final BuildContext context) =>
-      Scaffold(
+  Widget build(final BuildContext context) => Scaffold(
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         floatingActionButton: const FloatingButton(),
-        bottomNavigationBar: const BottomNavigation(),
-        body: Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: paddingPage,
-          ),
-          child: CustomScrollView(
-            slivers: <Widget>[
-              SliverPersistentHeader(
-                delegate: StickyHeader(),
-                pinned: true,
-              ),
-              SliverList(
-                delegate: SliverChildBuilderDelegate(
-                      (final BuildContext context,
-                      final int index,) =>
-                      SightCard(mocks[index]),
-                  childCount: mocks.length,
+        bottomNavigationBar: BottomNavigationList(0),
+        body: CustomScrollView(
+          slivers: <Widget>[
+            SliverPersistentHeader(
+              delegate: StickyHeader(),
+              pinned: true,
+            ),
+            SliverList(
+              delegate: SliverChildBuilderDelegate(
+                (
+                  final BuildContext context,
+                  final int index,
+                ) =>
+                    Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: paddingPage,
+                  ),
+                  child: SightCard(mocks[index]),
                 ),
+                childCount: mocks.length,
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       );
 }

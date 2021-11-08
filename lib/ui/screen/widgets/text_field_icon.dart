@@ -123,8 +123,8 @@ class _TextFieldIconState extends State<TextFieldIcon> {
 
   @override
   void dispose() {
-    _textEditingController.dispose();
-    _focusNode.dispose();
+    //_textEditingController.dispose();
+    //_focusNode.dispose();
     super.dispose();
   }
 

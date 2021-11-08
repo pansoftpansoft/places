@@ -94,7 +94,7 @@ class SightCard extends StatelessWidget {
                     }
                   },
                   child: Padding(
-                    padding: const EdgeInsets.all(paddingPage_2),
+                    padding: const EdgeInsets.all(paddingPage),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
@@ -102,7 +102,6 @@ class SightCard extends StatelessWidget {
                           width: double.infinity,
                           height: heightImage,
                         ),
-                        const SizedBox(height: 16),
                         Text(
                           _sight.name,
                           maxLines: 5,
@@ -131,7 +130,10 @@ class SightCard extends StatelessWidget {
                           ),
                         Text(
                           shortDescription,
-                          style: Theme.of(context).textTheme.subtitle2,
+                          style: Theme.of(context)
+                              .textTheme
+                              .subtitle2
+                              ?.copyWith(height: 1.5),
                         ),
                       ],
                     ),

@@ -52,13 +52,10 @@ class FiltersScreenState extends State<AddSightScreen> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    //print('didChangeDependencies');
     Future(() {
       showDialog<void>(
         context: context,
-        builder: (final BuildContext context) {
-          return PhotoShowDialog();
-        },
+        builder: (final BuildContext context) => const PhotoShowDialog(),
       );
     });
   }

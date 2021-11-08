@@ -47,7 +47,7 @@ final ThemeData lightTheme = ThemeData(
   */
   bottomNavigationBarTheme: const BottomNavigationBarThemeData(
     backgroundColor: ColorPalette.lmNavigationBarBackground,
-    showSelectedLabels: false,
+    showSelectedLabels: true,
     elevation: 10,
     selectedIconTheme: IconThemeData(color: ColorPalette.greenColor, size: 30),
     unselectedIconTheme:
