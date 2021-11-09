@@ -39,10 +39,16 @@ class ListViewBuilder extends StatelessWidget {
   }) : super(key: key);
 
   @override
-  Widget build(final BuildContext context) => ListView.builder(
+  Widget build(final BuildContext context) => Consumer<AddSightModel>(
+      builder: (
+          final BuildContext context,
+          final AddSightModel sight,
+          final Widget? child,
+          ) =>ListView.builder(
         itemCount: tempPhotoPlace.length,
         scrollDirection: Axis.horizontal,
         itemBuilder: buttonImage,
+      ),
       );
 }
 
@@ -67,12 +73,7 @@ class FullPhoto extends StatefulWidget {
 
 class _FullPhotoState extends State<FullPhoto> {
   @override
-  Widget build(final BuildContext context) => Consumer<AddSightModel>(
-        builder: (
-          final BuildContext context,
-          final AddSightModel sight,
-          final Widget? child,
-        ) =>
+  Widget build(final BuildContext context) =>
             Padding(
           padding: const EdgeInsets.only(right: 16),
           child: Dismissible(
@@ -106,6 +107,7 @@ class _FullPhotoState extends State<FullPhoto> {
                     top: 2,
                     child: InkWell(
                       onTap: () {
+                        debugPrint('Удалить фотографию ${widget.index}');
                         context.read<AddSightModel>().deletePhoto(widget.index);
                       },
                       child: SvgPicture.asset(
@@ -119,7 +121,6 @@ class _FullPhotoState extends State<FullPhoto> {
               ),
             ),
           ),
-        ),
       );
 }
 

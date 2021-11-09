@@ -26,20 +26,27 @@ class _SelectTypePlaceState extends State<SelectTypePlace> {
             padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.zero),
           ),
           onPressed: () async {
-            _typePlaceSelected = await Navigator.push(
+
+            TypePlace? _typePlaceRespons;
+            _typePlaceRespons = await Navigator.push(
               context,
               MaterialPageRoute<TypePlace>(
                 builder: (final BuildContext context) =>
                     SelectCategory(typePlaceSelectedActual: _typePlaceSelected),
               ),
+
             );
+
+            if(_typePlaceRespons!=null){
+              _typePlaceSelected = _typePlaceRespons;
+            }
+
+            debugPrint('вернули ${_typePlaceSelected.toString()}');
             setState(() {
               if (kDebugMode) {
                 print('Выбор категории');
               }
             });
-
-
           },
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,

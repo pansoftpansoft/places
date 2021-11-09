@@ -71,16 +71,17 @@ class _SelectCategoryState extends State<SelectCategory> {
 
   Widget elementList(final TypePlace typePlace) => InkWell(
         onTap: () {
+          print('${widget.typePlaceSelected} == ${typePlace}');
           if (widget.typePlaceSelected == typePlace) {
             widget.typePlaceSelected = null;
           } else {
             widget.typePlaceSelected = typePlace;
-            setState(() {
-              if (kDebugMode) {
-                print('Обновить даные');
-              }
-            });
           }
+          setState(() {
+            if (kDebugMode) {
+              print('Обновить даные');
+            }
+          });
         },
         child: SizedBox(
           height: 48,
