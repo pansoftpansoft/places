@@ -121,12 +121,12 @@ class _TextFieldIconState extends State<TextFieldIcon> {
   bool suffixIconVisibleForText = false;
   bool _filled = true;
 
-  @override
-  void dispose() {
-    //_textEditingController.dispose();
-    //_focusNode.dispose();
-    super.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   //_textEditingController.dispose();
+  //   //_focusNode.dispose();
+  //   super.dispose();
+  // }
 
   @override
   void initState() {
@@ -143,6 +143,9 @@ class _TextFieldIconState extends State<TextFieldIcon> {
 
     _textEditingController.addListener(
       () {
+        if (!mounted){
+          return;
+        }
         if (widget.textEditingControllerFunction != null) {
           widget.textEditingControllerFunction!(_textEditingController);
         }

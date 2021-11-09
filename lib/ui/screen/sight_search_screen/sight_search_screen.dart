@@ -38,6 +38,7 @@ class SightSearchScreenState extends State<SightSearchScreen> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     SearchFilterModel.textEditingControllerFind.clear();
+
     SearchFilterModel.getListHistory().then(
       (final _) {
         final SearchFilterModel searchFilterModel =
@@ -47,13 +48,14 @@ class SightSearchScreenState extends State<SightSearchScreen> {
             numberScreen: ScreenEnum.historyListScreen,
           );
         } else {
-          searchFilterModel.managerSelectionScreen();
+          context.read<SearchFilterModel>()
+            ..countFilteredPlaces()
+            ..saveFilterSettings()
+            ..changeSearch();
         }
         setState(
           () {
-            if (kDebugMode) {
-              print('Установка значений');
-            }
+              debugPrint('Установка значений');
           },
         );
       },

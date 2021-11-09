@@ -51,11 +51,9 @@ class BottomSheetWidgetButtonShow extends StatelessWidget {
           ),
           onPressed: () {
             //Записываем состояние фильтра
-
             context.read<SearchFilterModel>()
               ..saveFilterSettings()
               ..changeSearch();
-
             //возвращаемся на страници показа
             Navigator.pop(context);
             if (kDebugMode) {

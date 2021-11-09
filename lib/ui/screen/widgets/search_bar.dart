@@ -42,7 +42,10 @@ class SearchBar extends StatelessWidget {
                     );
               }
             } else {
-              context.read<SearchFilterModel>().searchPlaceForDynamicText('');
+              //context.read<SearchFilterModel>().searchPlaceForDynamicText('');
+              context.read<SearchFilterModel>()
+                ..countFilteredPlaces()
+                ..saveFilterSettings();
             }
           },
           borderRadius: 12,
