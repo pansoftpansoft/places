@@ -73,70 +73,72 @@ class SightCard extends StatelessWidget {
                     ),
               ),
             ),
+            Text(
+              _sight.name,
+              maxLines: 5,
+              style: Theme.of(context).textTheme.subtitle1,
+            ),
+            Padding(
+              padding: const EdgeInsets.all(paddingPage),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  const SizedBox(
+                    width: double.infinity,
+                    height: heightImage,
+                  ),
+                  if (goNeed != '' && goal == '')
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 10),
+                      child: Text(
+                        goNeed,
+                        maxLines: 5,
+                        style: Theme.of(context)
+                            .textTheme
+                            .subtitle2!
+                            .copyWith(color: ColorPalette.greenColor),
+                      ),
+                    ),
+                  if (goNeed == '' && goal != '')
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 10),
+                      child: Text(
+                        goal,
+                        maxLines: 5,
+                        style: Theme.of(context).textTheme.subtitle2,
+                      ),
+                    ),
+                  Text(
+                    shortDescription,
+                    style: Theme.of(context)
+                        .textTheme
+                        .subtitle2
+                        ?.copyWith(height: 1.5),
+                  ),
+                ],
+              ),
+            ),
             //Слой чернил для кликабельности всей карточки
-            Material(
-              color: Colors.transparent,
-              child: Ink(
-                child: InkWell(
-                  splashColor: Colors.lightGreenAccent,
-                  onTap: () {
-                    showDetailsScreen(context, _sight);
+            Positioned.fill(
+              child: Material(
+                color: Colors.transparent,
+                child: Ink(
+                  child: InkWell(
+                    splashColor: Colors.lightGreenAccent,
+                    onTap: () {
+                      showDetailsScreen(context, _sight);
 
 /*
-                    Navigator.pushNamed(
-                      context,
-                      RouteName.sightDetails,
-                      arguments: _sight,
-                    );
+                      Navigator.pushNamed(
+                        context,
+                        RouteName.sightDetails,
+                        arguments: _sight,
+                      );
 */
-                    if (kDebugMode) {
-                      print('Это кнопка "Вся карточка"');
-                    }
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.all(paddingPage),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        const SizedBox(
-                          width: double.infinity,
-                          height: heightImage,
-                        ),
-                        Text(
-                          _sight.name,
-                          maxLines: 5,
-                          style: Theme.of(context).textTheme.subtitle1,
-                        ),
-                        if (goNeed != '' && goal == '')
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: 10),
-                            child: Text(
-                              goNeed,
-                              maxLines: 5,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .subtitle2!
-                                  .copyWith(color: ColorPalette.greenColor),
-                            ),
-                          ),
-                        if (goNeed == '' && goal != '')
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: 10),
-                            child: Text(
-                              goal,
-                              maxLines: 5,
-                              style: Theme.of(context).textTheme.subtitle2,
-                            ),
-                          ),
-                        Text(
-                          shortDescription,
-                          style: Theme.of(context)
-                              .textTheme
-                              .subtitle2
-                              ?.copyWith(height: 1.5),
-                        ),
-                      ],
-                    ),
+                      if (kDebugMode) {
+                        print('Это кнопка "Вся карточка"');
+                      }
+                    },
                   ),
                 ),
               ),
