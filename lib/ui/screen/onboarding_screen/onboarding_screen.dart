@@ -10,28 +10,30 @@ class OnboardingScreen extends StatelessWidget {
   const OnboardingScreen({final Key? key}) : super(key: key);
 
   @override
-  Widget build(final BuildContext context) => Scaffold(
-        body: Padding(
-          padding: const EdgeInsets.all(paddingPage),
-          child: PageView(
-            children: const <Widget>[
-              OnboardPage(
-                header1: welcomeToTheTravelGuide,
-                header2: lookNewLocations,
-                svgIcon: SvgIcons.tutorialFrame1,
-              ),
-              OnboardPage(
-                header1: buildRouteAndRoad,
-                header2: reachGoalQuicklyComfortablyPossible,
-                svgIcon: SvgIcons.tutorialFrame2,
-              ),
-              OnboardPage(
-                buttonSkipVisible: false,
-                header1: addPlacesYouFoundYourself,
-                header2: shareMostInterestingOnes,
-                svgIcon: SvgIcons.tutorialFrame3,
-              ),
-            ],
+  Widget build(final BuildContext context) => SafeArea(
+        child: Scaffold(
+          body: Padding(
+            padding: const EdgeInsets.all(paddingPage),
+            child: PageView(
+              children: const <Widget>[
+                OnboardPage(
+                  header1: welcomeToTheTravelGuide,
+                  header2: lookNewLocations,
+                  svgIcon: SvgIcons.tutorialFrame1,
+                ),
+                OnboardPage(
+                  header1: buildRouteAndRoad,
+                  header2: reachGoalQuicklyComfortablyPossible,
+                  svgIcon: SvgIcons.tutorialFrame2,
+                ),
+                OnboardPage(
+                  buttonSkipVisible: false,
+                  header1: addPlacesYouFoundYourself,
+                  header2: shareMostInterestingOnes,
+                  svgIcon: SvgIcons.tutorialFrame3,
+                ),
+              ],
+            ),
           ),
         ),
       );

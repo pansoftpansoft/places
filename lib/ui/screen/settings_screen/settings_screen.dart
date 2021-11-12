@@ -4,10 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:places/ui/res/color_palette.dart';
 import 'package:places/ui/res/labels.dart';
+import 'package:places/ui/res/route_name.dart';
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/res/svg_icons.dart';
-import 'package:places/ui/screen/Widgets/bottom_navigation.dart';
 import 'package:places/ui/screen/models/app_model.dart';
+import 'package:places/ui/screen/widgets/bottom_navigation.dart';
 import 'package:provider/provider.dart';
 
 ///Экран настроек
@@ -20,7 +21,7 @@ class SettingsScreen extends StatelessWidget {
         appBar: AppBar(
           title: const Text(settings),
         ),
-        bottomNavigationBar: const BottomNavigation(),
+        bottomNavigationBar: BottomNavigationList(3),
         body: Padding(
           padding: const EdgeInsets.all(paddingPage),
           child: Column(
@@ -65,6 +66,8 @@ class SettingsScreen extends StatelessWidget {
                         if (kDebugMode) {
                           print('Нажата кнопка "Смотреть туториал"');
                         }
+                        Navigator.pushNamed(
+                            context, RouteName.onboardingScreen);
                       },
                     ),
                   ),

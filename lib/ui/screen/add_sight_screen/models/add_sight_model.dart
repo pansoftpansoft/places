@@ -6,7 +6,6 @@ class AddSightModel extends ChangeNotifier {
   /// Первое значение бронируем,
   /// так как это будет кнопка "Добавить", которую удалять нельзя
 
-
   ///Добавляем фотографию
   void addPhoto(final String pathPhoto) {
     if (kDebugMode) {
@@ -21,7 +20,16 @@ class AddSightModel extends ChangeNotifier {
     if (index == 0) {
       return;
     } //Не удаляем кнопку добавить
-    tempPhotoPlace.removeAt(index);
+
+    if (tempPhotoPlace.length == 1) {
+      return;
+    } //Не удаляем кнопку добавить
+
+    if (index > tempPhotoPlace.length - 1) {
+      tempPhotoPlace.removeLast();
+    } else {
+      tempPhotoPlace.removeAt(index);
+    }
     notifyListeners();
   }
 }

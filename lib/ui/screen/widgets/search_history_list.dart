@@ -25,8 +25,8 @@ class HistoryListScreen extends StatelessWidget {
             Text(
               youLooking,
               style: Theme.of(context).textTheme.subtitle2!.copyWith(
-                    color: ColorPalette.lmFontSubtitle2
-                        .withOpacity(opacityText),
+                    color:
+                        ColorPalette.lmFontSubtitle2.withOpacity(opacityText),
                   ),
             ),
             const Flexible(child: ListHistory()),
@@ -35,7 +35,15 @@ class HistoryListScreen extends StatelessWidget {
                 padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.zero),
               ),
               onPressed: () {
-                context.read<SearchFilterModel>().clearHistory();
+                //context.read<SearchFilterModel>().searchPlaceForDynamicText(
+                //  SearchFilterModel.listHistory[index].historyText,
+                //);
+
+                context.read<SearchFilterModel>()
+                  ..searchPlaceForDynamicText('')
+                  ..clearHistory()
+                  ..countFilteredPlaces()
+                  ..saveFilterSettings();
               },
               child: Text(
                 clearHistory,
@@ -48,7 +56,6 @@ class HistoryListScreen extends StatelessWidget {
           ],
         ),
       );
-
 }
 
 ///

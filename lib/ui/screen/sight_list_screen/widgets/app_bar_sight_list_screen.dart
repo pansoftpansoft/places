@@ -34,7 +34,12 @@ class AppBarSightListScreen extends StatelessWidget {
                 ? const SizedBox.shrink()
                 : Stack(
                     children: <Widget>[
-                      const SearchBar(),
+                      const Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: paddingPage,
+                        ),
+                        child: SearchBar(),
+                      ),
                       SizedBox(
                         height: heightTextFieldSearch,
                         child: InkWell(

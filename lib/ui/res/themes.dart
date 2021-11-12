@@ -47,7 +47,7 @@ final ThemeData lightTheme = ThemeData(
   */
   bottomNavigationBarTheme: const BottomNavigationBarThemeData(
     backgroundColor: ColorPalette.lmNavigationBarBackground,
-    showSelectedLabels: false,
+    showSelectedLabels: true,
     elevation: 10,
     selectedIconTheme: IconThemeData(color: ColorPalette.greenColor, size: 30),
     unselectedIconTheme:
@@ -73,8 +73,10 @@ final ThemeData darkTheme = ThemeData(
   primaryColor: ColorPalette.dmPrimaryColor,
   backgroundColor: ColorPalette.dmPrimaryColor,
   scaffoldBackgroundColor: ColorPalette.dmPrimaryColor,
-  bottomSheetTheme:
-      const BottomSheetThemeData(backgroundColor: Colors.transparent),
+  bottomSheetTheme: const BottomSheetThemeData(
+    backgroundColor: Colors.transparent,
+    modalBackgroundColor: Colors.transparent,
+  ),
   /*
   * appBarTheme
   */

@@ -8,7 +8,7 @@ class MapScreen extends StatelessWidget {
 
   @override
   Widget build(final BuildContext context) => Scaffold(
-        bottomNavigationBar: const BottomNavigation(),
+        bottomNavigationBar: BottomNavigationList(1),
         body: Container(
           alignment: Alignment.center,
           child: const Text('Здесь будет карта'),

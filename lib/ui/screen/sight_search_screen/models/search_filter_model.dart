@@ -14,12 +14,12 @@ class SearchFilterModel extends ChangeNotifier {
 
   ///
   static Map<TypePlace, bool> _filterMap = <TypePlace, bool>{
-    TypePlace.hotel: false,
-    TypePlace.restaurant: false,
-    TypePlace.particularPlace: false,
-    TypePlace.park: false,
-    TypePlace.museum: false,
-    TypePlace.cafe: false,
+    TypePlace.hotel: true,
+    TypePlace.restaurant: true,
+    TypePlace.particularPlace: true,
+    TypePlace.park: true,
+    TypePlace.museum: true,
+    TypePlace.cafe: true,
   };
 
   //Запоминаем старые значения
@@ -27,12 +27,12 @@ class SearchFilterModel extends ChangeNotifier {
   //Если пользователь вернулся на предыдущий
   // экран то востановим текущие значения
   static final Map<TypePlace, bool> _filterMapOld = <TypePlace, bool>{
-    TypePlace.hotel: false,
-    TypePlace.restaurant: false,
-    TypePlace.particularPlace: false,
-    TypePlace.park: false,
-    TypePlace.museum: false,
-    TypePlace.cafe: false,
+    TypePlace.hotel: true,
+    TypePlace.restaurant: true,
+    TypePlace.particularPlace: true,
+    TypePlace.park: true,
+    TypePlace.museum: true,
+    TypePlace.cafe: true,
   };
 
   static int _countPlace = 0;
@@ -105,9 +105,9 @@ class SearchFilterModel extends ChangeNotifier {
       if (double.tryParse(item.lat) != null &&
           double.tryParse(item.lon) != null &&
           _arePointsNear(
-                double.parse(item.lat),
-                double.parse(item.lon),
-              ) &&
+            double.parse(item.lat),
+            double.parse(item.lon),
+          ) &&
           SearchFilterModel.filterMap[item.type]!) {
         item.visibleFilter = true;
         _countPlace++;
@@ -207,7 +207,7 @@ class SearchFilterModel extends ChangeNotifier {
   void clearHistory() async {
     await DBProvider.db.clearHistory();
     await getListHistory();
-    notifyListeners();
+    //notifyListeners();
   }
 
   ///Удаляю одну запись из истории поиска
@@ -235,9 +235,6 @@ class SearchFilterModel extends ChangeNotifier {
   void managerSelectionScreen({final ScreenEnum? numberScreen}) {
     ///Если экран жестко задан
     if (numberScreen != null) {
-      if (kDebugMode) {
-        print(SearchFilterModel.listHistory.length);
-      }
       selectedScreen = numberScreen;
 
       return;

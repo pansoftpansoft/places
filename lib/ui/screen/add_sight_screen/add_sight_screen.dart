@@ -10,6 +10,7 @@ import 'package:places/ui/res/svg_icons.dart';
 import 'package:places/ui/screen/add_sight_screen/widgets/app_bar_add_sight.dart';
 import 'package:places/ui/screen/add_sight_screen/widgets/bottom_sheet_create_button.dart';
 import 'package:places/ui/screen/add_sight_screen/widgets/divider_opacity.dart';
+import 'package:places/ui/screen/add_sight_screen/widgets/photo_show_dialog.dart';
 import 'package:places/ui/screen/add_sight_screen/widgets/list_view_photo_add.dart';
 import 'package:places/ui/screen/add_sight_screen/widgets/select_type_place.dart';
 import 'package:places/ui/screen/add_sight_screen/widgets/title_field.dart';
@@ -26,7 +27,6 @@ class AddSightScreen extends StatefulWidget {
 
 /// Стейт
 class FiltersScreenState extends State<AddSightScreen> {
-
   final FocusNode _focusNodeNamePlace = FocusNode();
   final FocusNode _focusNodeLat = FocusNode();
   final FocusNode _focusNodeLon = FocusNode();
@@ -47,6 +47,17 @@ class FiltersScreenState extends State<AddSightScreen> {
   @override
   void initState() {
     super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    Future(() {
+      showDialog<void>(
+        context: context,
+        builder: (final BuildContext context) => const PhotoShowDialog(),
+      );
+    });
   }
 
   @override
@@ -253,5 +264,5 @@ class FiltersScreenState extends State<AddSightScreen> {
       );
 
   ///Выбор категории
-  //Widget selectTypePlace(final BuildContext context) =>
+//Widget selectTypePlace(final BuildContext context) =>
 }

@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:places/domain/sight.dart';
 import 'package:places/ui/res/color_palette.dart';
 import 'package:places/ui/res/labels.dart';
-import 'package:places/ui/res/route_name.dart';
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/res/svg_icons.dart';
+import 'package:places/ui/screen/sight_details_screen/sight_details_screen.dart';
 import 'package:places/ui/screen/widgets/icon_button_special.dart';
 
 /// Карточка из списка достопримечательностей
@@ -73,68 +73,52 @@ class SightCard extends StatelessWidget {
                     ),
               ),
             ),
-            //Слой чернил для кликабельности всей карточки
-            Material(
-              color: Colors.transparent,
-              child: Ink(
-                child: InkWell(
-                  splashColor: Colors.lightGreenAccent,
-                  onTap: () {
-                    Navigator.pushNamed(
-                      context,
-                      RouteName.sightDetails,
-                      arguments: _sight,
-                    );
-                    if (kDebugMode) {
-                      print('Это кнопка "Вся карточка"');
-                    }
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.all(paddingPage_2),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        const SizedBox(
-                          width: double.infinity,
-                          height: heightImage,
-                        ),
-                        const SizedBox(height: 16),
-                        Text(
-                          _sight.name,
-                          maxLines: 5,
-                          style: Theme.of(context).textTheme.subtitle1,
-                        ),
-                        if (goNeed != '' && goal == '')
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: 10),
-                            child: Text(
-                              goNeed,
-                              maxLines: 5,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .subtitle2!
-                                  .copyWith(color: ColorPalette.greenColor),
-                            ),
-                          ),
-                        if (goNeed == '' && goal != '')
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: 10),
-                            child: Text(
-                              goal,
-                              maxLines: 5,
-                              style: Theme.of(context).textTheme.subtitle2,
-                            ),
-                          ),
-                        Text(
-                          shortDescription,
-                          style: Theme.of(context).textTheme.subtitle2,
-                        ),
-                      ],
-                    ),
+            Padding(
+              padding: const EdgeInsets.all(paddingPage),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  const SizedBox(
+                    width: double.infinity,
+                    height: heightImage,
                   ),
-                ),
+                  Text(
+                    _sight.name,
+                    maxLines: 5,
+                    style: Theme.of(context).textTheme.subtitle1,
+                  ),
+                  if (goNeed != '' && goal == '')
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 10),
+                      child: Text(
+                        goNeed,
+                        maxLines: 5,
+                        style: Theme.of(context)
+                            .textTheme
+                            .subtitle2!
+                            .copyWith(color: ColorPalette.greenColor),
+                      ),
+                    ),
+                  if (goNeed == '' && goal != '')
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 10),
+                      child: Text(
+                        goal,
+                        maxLines: 5,
+                        style: Theme.of(context).textTheme.subtitle2,
+                      ),
+                    ),
+                  Text(
+                    shortDescription,
+                    style: Theme.of(context)
+                        .textTheme
+                        .subtitle2
+                        ?.copyWith(height: 1.5),
+                  ),
+                ],
               ),
             ),
+            //Слой чернил для кликабельности всей карточки
             //Иконка, что надо посетить это место
             Positioned(
               right: 70,
@@ -166,11 +150,50 @@ class SightCard extends StatelessWidget {
                       SvgIcons.delete,
                       onPressed: actionOnDelete,
                     )
-                  : IconButtonSpecial(
+                  : const IconButtonSpecial(
                       SvgIcons.heartTransparent,
                     ),
             ),
+            Positioned.fill(
+              child: Material(
+                color: Colors.transparent,
+                child: Ink(
+                  child: InkWell(
+                    splashColor: ColorPalette.whiteMain.withOpacity(0.4),
+                    onTap: () {
+                      showDetailsScreen(context, _sight);
+
+/*
+                      Navigator.pushNamed(
+                        context,
+                        RouteName.sightDetails,
+                        arguments: _sight,
+                      );
+*/
+                      if (kDebugMode) {
+                        print('Это кнопка "Вся карточка"');
+                      }
+                    },
+                  ),
+                ),
+              ),
+            ),
+
           ],
         ),
       );
+
+  ///
+  Future<void> showDetailsScreen(
+    final BuildContext context,
+    final Sight _sight,
+  ) async {
+    await showModalBottomSheet<Widget>(
+      context: context,
+      builder: (final _) => SightDetails(_sight),
+      isScrollControlled: true,
+      isDismissible: true,
+      useRootNavigator: true,
+    );
+  }
 }

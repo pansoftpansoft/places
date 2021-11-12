@@ -122,13 +122,6 @@ class _TextFieldIconState extends State<TextFieldIcon> {
   bool _filled = true;
 
   @override
-  void dispose() {
-    _textEditingController.dispose();
-    _focusNode.dispose();
-    super.dispose();
-  }
-
-  @override
   void initState() {
     super.initState();
 
@@ -143,6 +136,9 @@ class _TextFieldIconState extends State<TextFieldIcon> {
 
     _textEditingController.addListener(
       () {
+        if (!mounted) {
+          return;
+        }
         if (widget.textEditingControllerFunction != null) {
           widget.textEditingControllerFunction!(_textEditingController);
         }
@@ -188,16 +184,10 @@ class _TextFieldIconState extends State<TextFieldIcon> {
         decoration: InputDecoration(
           labelText: widget.labelText,
           floatingLabelBehavior: FloatingLabelBehavior.never,
-          suffixIcon: Padding(
-            padding: const EdgeInsets.fromLTRB(0, 6, 12, 6),
-            child:
-                suffixIconVisibleForText ? iconSuffixForText() : iconSuffix(),
-          ),
-          prefixIcon: Padding(
-            padding: const EdgeInsets.fromLTRB(0, 6, 12, 6),
-            child: iconPrefix(),
-          ),
-          contentPadding: const EdgeInsets.fromLTRB(16, 0, 8, 0),
+          suffixIcon:
+              suffixIconVisibleForText ? iconSuffixForText() : iconSuffix(),
+          prefixIcon: iconPrefix(),
+          contentPadding: const EdgeInsets.fromLTRB(16, 8, 8, 8),
           filled: _filled,
           fillColor: widget.fillColor,
           enabledBorder: OutlineInputBorder(
@@ -231,21 +221,24 @@ class _TextFieldIconState extends State<TextFieldIcon> {
         inputFormatters: widget.inputFormatters,
       );
 
-  Widget iconSuffix() {
+  Widget? iconSuffix() {
     if (kDebugMode) {
       print('widget.svgIconSuffix ${widget.svgIconSuffix}');
     }
 
     return widget.svgIconSuffix != null
-        ? InkWell(
-            onTap: widget.actionIconSuffix,
-            child: SvgPicture.asset(
-              widget.svgIconSuffix.toString(),
-              height: widget.heightIcon,
-              color: widget.svgIconSuffixColor,
+        ? Padding(
+            padding: const EdgeInsets.fromLTRB(0, 6, 12, 6),
+            child: InkWell(
+              onTap: widget.actionIconSuffix,
+              child: SvgPicture.asset(
+                widget.svgIconSuffix.toString(),
+                height: widget.heightIcon,
+                color: widget.svgIconSuffixColor,
+              ),
             ),
           )
-        : const SizedBox.shrink();
+        : null;
   }
 
   Widget? iconSuffixForText() {
@@ -255,15 +248,18 @@ class _TextFieldIconState extends State<TextFieldIcon> {
     }
 
     return widget.svgIconSuffixForText != null
-        ? InkWell(
-            onTap: widget.actionIconSuffixForText,
-            child: SvgPicture.asset(
-              widget.svgIconSuffixForText.toString(),
-              height: widget.heightIcon,
-              color: widget.svgIconSuffixForTextColor,
+        ? Padding(
+            padding: const EdgeInsets.fromLTRB(0, 6, 12, 6),
+            child: InkWell(
+              onTap: widget.actionIconSuffixForText,
+              child: SvgPicture.asset(
+                widget.svgIconSuffixForText.toString(),
+                height: widget.heightIcon,
+                color: widget.svgIconSuffixForTextColor,
+              ),
             ),
           )
-        : const SizedBox.shrink();
+        : null;
   }
 
   Widget? iconPrefix() {
@@ -273,14 +269,17 @@ class _TextFieldIconState extends State<TextFieldIcon> {
     }
 
     return widget.svgIconPrefix != null
-        ? InkWell(
-            onTap: null,
-            child: SvgPicture.asset(
-              widget.svgIconPrefix.toString(),
-              height: widget.heightIcon,
-              color: widget.svgIconPrefixColor,
+        ? Padding(
+            padding: const EdgeInsets.fromLTRB(0, 6, 12, 6),
+            child: InkWell(
+              onTap: null,
+              child: SvgPicture.asset(
+                widget.svgIconPrefix.toString(),
+                height: widget.heightIcon,
+                color: widget.svgIconPrefixColor,
+              ),
             ),
           )
-        : const SizedBox.shrink();
+        : null;
   }
 }

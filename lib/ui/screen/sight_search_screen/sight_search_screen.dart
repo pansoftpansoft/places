@@ -5,11 +5,11 @@ import 'package:places/ui/res/color_palette.dart';
 import 'package:places/ui/res/labels.dart';
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/res/svg_icons.dart';
-import 'package:places/ui/screen/Widgets/bottom_navigation.dart';
 import 'package:places/ui/screen/sight_search_screen/models/search_filter_model.dart';
 import 'package:places/ui/screen/sight_search_screen/widgets/empty_screen.dart';
 import 'package:places/ui/screen/sight_search_screen/widgets/list_of_found_places_screen.dart';
 import 'package:places/ui/screen/sight_search_screen/widgets/load_screen.dart';
+import 'package:places/ui/screen/widgets/bottom_navigation.dart';
 import 'package:places/ui/screen/widgets/search_bar.dart';
 import 'package:places/ui/screen/widgets/search_history_list.dart';
 import 'package:places/ui/screen/widgets/title_app.dart';
@@ -38,6 +38,7 @@ class SightSearchScreenState extends State<SightSearchScreen> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     SearchFilterModel.textEditingControllerFind.clear();
+
     SearchFilterModel.getListHistory().then(
       (final _) {
         final SearchFilterModel searchFilterModel =
@@ -47,13 +48,14 @@ class SightSearchScreenState extends State<SightSearchScreen> {
             numberScreen: ScreenEnum.historyListScreen,
           );
         } else {
-          searchFilterModel.managerSelectionScreen();
+          context.read<SearchFilterModel>()
+            ..countFilteredPlaces()
+            ..saveFilterSettings()
+            ..changeSearch();
         }
         setState(
           () {
-            if (kDebugMode) {
-              print('Установка значений');
-            }
+              debugPrint('Установка значений');
           },
         );
       },
@@ -61,14 +63,19 @@ class SightSearchScreenState extends State<SightSearchScreen> {
   }
 
   @override
+  void dispose() {
+    super.dispose();
+  }
+
+  @override
   Widget build(final BuildContext context) => Scaffold(
         appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(170),
+          preferredSize: const Size.fromHeight(110),
           child: AppBar(
             toolbarHeight: double.infinity,
             centerTitle: false,
             elevation: 0,
-            title: const TitleAppBigOrSmall(),
+            title: const TitleAppBigOrSmall(small: true),
             bottom: PreferredSize(
               preferredSize: const Size.fromHeight(60),
               child: Padding(
@@ -91,7 +98,7 @@ class SightSearchScreenState extends State<SightSearchScreen> {
             ),
           ),
         ),
-        bottomNavigationBar: const BottomNavigation(),
+        bottomNavigationBar: BottomNavigationList(0),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         body: Padding(
           padding: const EdgeInsets.symmetric(
