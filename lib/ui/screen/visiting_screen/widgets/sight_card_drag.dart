@@ -30,6 +30,7 @@ class SightCardDrag extends StatelessWidget {
                 mocksWantVisit[index].name,
               );
         },
+    /// Установка даты, когда хочу посетить
         wantToVisit: () async {
           final DateTime? dateTime = await showDatePicker(
             context: context,
