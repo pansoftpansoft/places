@@ -22,6 +22,7 @@ class SightCard extends StatelessWidget {
     this.goal = '',
     this.iconDelete = false, // отображать иконку удалить
     this.actionOnDelete,
+    this.wantToVisit,
   }) : super(key: key);
 
   /// Место отображаемое в карточке
@@ -38,6 +39,8 @@ class SightCard extends StatelessWidget {
 
   /// Функция удаления
   final VoidCallback? actionOnDelete;
+
+  final VoidCallback? wantToVisit;
 
   /// Высота картинки
   static const double heightImage = 95;
@@ -119,17 +122,35 @@ class SightCard extends StatelessWidget {
               ),
             ),
             //Слой чернил для кликабельности всей карточки
+
+            Positioned.fill(
+              child: Material(
+                color: Colors.transparent,
+                child: Ink(
+                  child: InkWell(
+                    splashColor: ColorPalette.whiteMain.withOpacity(0.4),
+                    onTap: () {
+                      showDetailsScreen(context, _sight);
+                      if (kDebugMode) {
+                        print('Это кнопка "Вся карточка"');
+                      }
+                    },
+                  ),
+                ),
+              ),
+            ),
             //Иконка, что надо посетить это место
             Positioned(
-              right: 70,
-              top: 19,
+              right: 59,
+              top: 2,
               child: goNeed != ''
-                  ? const Icon(
-                      Icons.calendar_today_outlined,
-                      color: Colors.white,
+                  ? IconButtonSpecial(
+                      SvgIcons.calendar,
+                      onPressed: wantToVisit,
                     )
                   : const SizedBox(width: 0),
             ),
+
             //Иконка, что место уже посетили
             Positioned(
               right: 70,
@@ -154,31 +175,6 @@ class SightCard extends StatelessWidget {
                       SvgIcons.heartTransparent,
                     ),
             ),
-            Positioned.fill(
-              child: Material(
-                color: Colors.transparent,
-                child: Ink(
-                  child: InkWell(
-                    splashColor: ColorPalette.whiteMain.withOpacity(0.4),
-                    onTap: () {
-                      showDetailsScreen(context, _sight);
-
-/*
-                      Navigator.pushNamed(
-                        context,
-                        RouteName.sightDetails,
-                        arguments: _sight,
-                      );
-*/
-                      if (kDebugMode) {
-                        print('Это кнопка "Вся карточка"');
-                      }
-                    },
-                  ),
-                ),
-              ),
-            ),
-
           ],
         ),
       );

@@ -24,4 +24,10 @@ class VisitingModel extends ChangeNotifier {
     mocksWantVisit[sours] = placeTarget;
     notifyListeners();
   }
+
+  ///Установка или изменение даты заплонированного посещения интересног места
+  void dateWantVisit(final int sours, final DateTime dateWantVisitNew) {
+    mocksWantVisit[sours].wantVisitDate = dateWantVisitNew;
+    notifyListeners();
+  }
 }
