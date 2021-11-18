@@ -5,15 +5,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 ///Пустой экран
 class EmptyScreen extends StatefulWidget {
   ///
-  EmptyScreen({
-    required this.textHeader,
-    required this.svgIcon,
-    required this.textComment,
-    this.colorTextAll,
-    final Key? key,
-  }) : super(key: key);
-
-  ///
   final String textHeader;
 
   ///
@@ -24,6 +15,17 @@ class EmptyScreen extends StatefulWidget {
 
   ///
   final Color? colorTextAll;
+
+
+  ///
+  EmptyScreen({
+    required this.textHeader,
+    required this.svgIcon,
+    required this.textComment,
+    this.colorTextAll,
+    final Key? key,
+  }) : super(key: key);
+
 
   @override
   State<EmptyScreen> createState() => _EmptyScreenState();

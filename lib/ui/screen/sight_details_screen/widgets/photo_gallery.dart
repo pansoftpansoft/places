@@ -19,22 +19,21 @@ class PhotoGallery extends StatelessWidget {
             width: double.infinity,
             color: Colors.green,
             child: PageView.builder(
-              onPageChanged: (final int index) {
+              onPageChanged: (final index) {
                 context.read<SightDetailsModel>().changeScrollIndicator(
                       index,
                       MediaQuery.of(context).size.width.ceil(),
-                      tempPhotoPlace.length,
                     );
               },
               itemCount: tempPhotoPlace.length,
-              itemBuilder: (final BuildContext context, final int index) =>
+              itemBuilder: (final context, final index) =>
                   Image.network(
                 tempPhotoPlace[index],
                 fit: BoxFit.cover,
                 loadingBuilder: (
-                  final BuildContext context,
-                  final Widget child,
-                  final ImageChunkEvent? progress,
+                  final context,
+                  final child,
+                  final progress,
                 ) =>
                     progress == null
                         ? child

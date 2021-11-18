@@ -2,16 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:places/ui/res/color_palette.dart';
 import 'package:places/ui/res/labels.dart';
 import 'package:places/ui/res/sizes.dart';
-import 'package:places/ui/screen/add_sight_screen/widgets/select_category.dart';
 
-///
+///Диалог придупреждения при нажатии кнопки отмена
 class AlertDialogCancelButton extends StatelessWidget {
-  ///
+  ///Диалог придупреждения при нажатии кнопки отмена
   const AlertDialogCancelButton({
     final Key? key,
   }) : super(key: key);
-
-  ///
 
   @override
   Widget build(final BuildContext context) => Padding(
@@ -28,8 +25,12 @@ class AlertDialogCancelButton extends StatelessWidget {
               backgroundColor:
                   MaterialStateProperty.all<Color>(ColorPalette.dmBasicColor),
               shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(borderRadiusCard),
+                const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(
+                      borderRadiusCard,
+                    ),
+                  ),
                 ),
               ),
             ),

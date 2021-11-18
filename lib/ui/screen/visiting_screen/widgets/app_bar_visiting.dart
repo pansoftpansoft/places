@@ -15,15 +15,15 @@ class AppBarVisiting extends StatelessWidget {
           textAlign: TextAlign.center,
           style: Theme.of(context).textTheme.headline4,
         ),
-        bottom: PreferredSize(
-          preferredSize: const Size.fromHeight(60),
+        bottom: const PreferredSize(
+          preferredSize: Size.fromHeight(60),
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
+            padding: EdgeInsets.symmetric(horizontal: 10),
             child: Card(
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(30),
+                borderRadius: BorderRadius.all(Radius.circular(30)),
               ),
-              child: const TabBar(
+              child: TabBar(
                 tabs: <Widget>[
                   Tab(
                     text: iWantToVisit,

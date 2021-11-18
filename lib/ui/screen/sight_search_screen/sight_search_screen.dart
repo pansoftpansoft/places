@@ -9,10 +9,10 @@ import 'package:places/ui/screen/sight_search_screen/models/search_filter_model.
 import 'package:places/ui/screen/sight_search_screen/widgets/empty_screen.dart';
 import 'package:places/ui/screen/sight_search_screen/widgets/list_of_found_places_screen.dart';
 import 'package:places/ui/screen/sight_search_screen/widgets/load_screen.dart';
-import 'package:places/ui/screen/widgets/bottom_navigation.dart';
+import 'package:places/ui/screen/widgets/bottom_navigation_list.dart';
 import 'package:places/ui/screen/widgets/search_bar.dart';
-import 'package:places/ui/screen/widgets/search_history_list.dart';
-import 'package:places/ui/screen/widgets/title_app.dart';
+import 'package:places/ui/screen/widgets/history_list_screen/history_list_screen.dart';
+import 'package:places/ui/screen/widgets/title_app_big_or_small.dart';
 import 'package:provider/provider.dart';
 
 ///Окно поиска мест

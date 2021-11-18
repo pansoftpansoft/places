@@ -1,6 +1,4 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:places/ui/res/color_palette.dart';
 import 'package:places/ui/res/labels.dart';
 import 'package:places/ui/res/sizes.dart';
@@ -24,25 +22,23 @@ class PhotoShowDialog extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.end,
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            Padding(
+            Container(
               padding: const EdgeInsets.symmetric(horizontal: paddingPage),
-              child: Container(
-                decoration: BoxDecoration(
-                  color: ColorPalette.whiteColor,
-                  borderRadius: BorderRadius.circular(borderRadiusCard),
-                ),
-                width: MediaQuery.of(context).size.width,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: paddingPage),
-                  child: Column(
-                    children: const <Widget>[
-                      PhotoShowDialogMenuItem(SvgIcons.camera, camera),
-                      Divider(height: 0),
-                      PhotoShowDialogMenuItem(SvgIcons.photo, photo),
-                      Divider(height: 0),
-                      PhotoShowDialogMenuItem(SvgIcons.fail, fail),
-                    ],
-                  ),
+              decoration: const BoxDecoration(
+                color: ColorPalette.whiteColor,
+                borderRadius: BorderRadius.all(Radius.circular(borderRadiusCard)),
+              ),
+              width: MediaQuery.of(context).size.width,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: paddingPage),
+                child: Column(
+                  children: const <Widget>[
+                    PhotoShowDialogMenuItem(SvgIcons.camera, camera),
+                    Divider(height: 0),
+                    PhotoShowDialogMenuItem(SvgIcons.photo, photo),
+                    Divider(height: 0),
+                    PhotoShowDialogMenuItem(SvgIcons.fail, fail),
+                  ],
                 ),
               ),
             ),

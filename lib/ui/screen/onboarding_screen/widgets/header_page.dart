@@ -6,13 +6,14 @@ import 'package:places/ui/res/route_name.dart';
 ///Заголовок шаблон страници Onboard
 class HeaderPage extends StatelessWidget {
   ///
+  final bool buttonSkipVisible;
+
+  ///
   const HeaderPage({
     required this.buttonSkipVisible,
     final Key? key,
   }) : super(key: key);
 
-  ///
-  final bool buttonSkipVisible;
 
   @override
   Widget build(final BuildContext context) => SizedBox(

@@ -11,12 +11,13 @@ import 'package:places/ui/screen/sight_details_screen/widgets/photo_gallery.dart
 import 'package:places/ui/screen/sight_details_screen/widgets/schedule_button.dart';
 
 ///Подробно о достопримечательности
-class SightDetails extends StatelessWidget {
-  ///Конструктор экрана подробности о достопримечательности
-  const SightDetails(this._sight, {final Key? key}) : super(key: key);
-
+class SightDetailsScreen extends StatelessWidget {
   ///Экземпляр достопримечательности
   final Sight _sight;
+
+  ///Конструктор экрана подробности о достопримечательности
+  const SightDetailsScreen(this._sight, {final Key? key}) : super(key: key);
+
 
   @override
   Widget build(final BuildContext context) => ClipRRect(

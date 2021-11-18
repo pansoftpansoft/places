@@ -14,19 +14,8 @@ import 'package:places/ui/screen/widgets/icon_button_special.dart';
 ///     this.goal == '',
 ///     отображаются дополнительные иконки
 class SightCard extends StatelessWidget {
-  /// Конструктор
-  const SightCard(
-    this._sight, {
-    final Key? key,
-    this.goNeed = '',
-    this.goal = '',
-    this.iconDelete = false, // отображать иконку удалить
-    this.actionOnDelete,
-    this.wantToVisit,
-  }) : super(key: key);
-
-  /// Место отображаемое в карточке
-  final Sight _sight;
+  /// Высота картинки
+  static const double heightImage = 95;
 
   /// Флаг, что нижно посетить это место
   final String goNeed;
@@ -42,14 +31,27 @@ class SightCard extends StatelessWidget {
 
   final VoidCallback? wantToVisit;
 
-  /// Высота картинки
-  static const double heightImage = 95;
+  /// Место отображаемое в карточке
+  final Sight _sight;
+
+  /// Конструктор
+  const SightCard(
+    this._sight, {
+    final Key? key,
+    this.goNeed = '',
+    this.goal = '',
+    this.iconDelete = false, // отображать иконку удалить
+    this.actionOnDelete,
+    this.wantToVisit,
+  }) : super(key: key);
 
   @override
   Widget build(final BuildContext context) => Card(
         margin: const EdgeInsets.fromLTRB(0, 0, 0, paddingPage),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(borderRadiusCard),
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(
+            Radius.circular(borderRadiusCard),
+          ),
         ),
         elevation: 0,
         semanticContainer: false,
@@ -186,7 +188,7 @@ class SightCard extends StatelessWidget {
   ) async {
     await showModalBottomSheet<Widget>(
       context: context,
-      builder: (final _) => SightDetails(_sight),
+      builder: (final _) => SightDetailsScreen(_sight),
       isScrollControlled: true,
       isDismissible: true,
       useRootNavigator: true,

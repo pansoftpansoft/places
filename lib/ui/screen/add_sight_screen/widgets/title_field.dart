@@ -4,13 +4,14 @@ import 'package:places/ui/res/sizes.dart';
 /// Заголовки полей ввода
 class TitleField extends StatelessWidget {
   ///
+  final String label;
+
+  ///
   const TitleField(
     this.label, {
     final Key? key,
   }) : super(key: key);
 
-  ///
-  final String label;
 
   @override
   Widget build(final BuildContext context) => Opacity(

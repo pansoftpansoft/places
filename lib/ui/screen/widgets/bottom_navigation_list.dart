@@ -7,13 +7,11 @@ import 'package:places/ui/res/svg_icons.dart';
 ///
 ///
 class BottomNavigationList extends StatefulWidget {
-  ///
-  BottomNavigationList(this._selectedIndex, {final Key? key}) : super(key: key);
-
-  ///
-  ///final int newIndex;
 
   int _selectedIndex;
+
+  ///
+  BottomNavigationList(this._selectedIndex, {final Key? key}) : super(key: key);
 
   @override
   State<BottomNavigationList> createState() => _BottomNavigationListState();

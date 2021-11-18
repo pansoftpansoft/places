@@ -1,14 +1,29 @@
 import 'dart:async';
 import 'dart:math';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:places/domain/database.dart';
+import 'package:places/domain/db_provider.dart';
 import 'package:places/domain/history.dart';
-import 'package:places/domain/sight.dart';
 import 'package:places/mocks.dart';
 
 ///Модель для поиска
 class SearchFilterModel extends ChangeNotifier {
+  ///
+  static List<History> listHistory = <History>[];
+  ///
+  static bool isLoading = false;
+
+  ///
+  static ScreenEnum? selectedScreen;
+
+  ///
+  static TextEditingController textEditingControllerFind =
+  TextEditingController();
+
+  ///
+  static var _countPlace = 0;
+
+  static String _searchString = '';
+
   ///
   static RangeValues _selectedRange = const RangeValues(100, 1000);
 
@@ -22,42 +37,13 @@ class SearchFilterModel extends ChangeNotifier {
     TypePlace.cafe: true,
   };
 
-  //Запоминаем старые значения
-  //Если нажата кнопка Показать то переписываем значения
-  //Если пользователь вернулся на предыдущий
-  // экран то востановим текущие значения
-  static final Map<TypePlace, bool> _filterMapOld = <TypePlace, bool>{
-    TypePlace.hotel: true,
-    TypePlace.restaurant: true,
-    TypePlace.particularPlace: true,
-    TypePlace.park: true,
-    TypePlace.museum: true,
-    TypePlace.cafe: true,
-  };
-
-  static int _countPlace = 0;
-
-  static String _searchString = '';
+  // Тестовая переменная для проверки экрана Ошибка.
+  // false - нет ошибок, true - есть ошибка
+  final bool _errorTest = false;
 
   ///
   static int get countPlace => _countPlace;
 
-  ///
-  static List<History> listHistory = <History>[];
-
-  ///
-  static bool isLoading = false;
-
-  ///
-  static ScreenEnum? selectedScreen;
-
-  ///
-  static TextEditingController textEditingControllerFind =
-      TextEditingController();
-
-  // Тестовая переменная для проверки экрана Ошибка.
-  // false - нет ошибок, true - есть ошибка
-  final bool _errorTest = false;
 
   ///Количество интересных мест
   static set countPlace(final int value) {
@@ -80,11 +66,36 @@ class SearchFilterModel extends ChangeNotifier {
     _filterMap = filterMapNew;
   }
 
+
+  //Запоминаем старые значения
+  //Если нажата кнопка Показать то переписываем значения
+  //Если пользователь вернулся на предыдущий
+  // экран то востановим текущие значения
+  static Map<TypePlace, bool> get _filterMapOld => <TypePlace, bool>{
+        TypePlace.hotel: true,
+        TypePlace.restaurant: true,
+        TypePlace.particularPlace: true,
+        TypePlace.park: true,
+        TypePlace.museum: true,
+        TypePlace.cafe: true,
+      };
+
   ///
-  static bool getTypePlaceValue(
-    final TypePlace typePlace,
-  ) =>
+  static bool getTypePlaceValue() =>
       _filterMap[TypePlace] == null ? false : true;
+
+
+
+
+  ///Получаем список историй поиска
+  static Future<int> getListHistory() async {
+    listHistory = (await DBProvider.dbProvider.getListHistory())!;
+    final _lengthList = listHistory.length;
+
+    return _lengthList;
+  }
+
+
 
   ///
   void setTypePlaceSelected(final TypePlace typePlace) {
@@ -98,9 +109,9 @@ class SearchFilterModel extends ChangeNotifier {
   ///Подсчет отфильтрованных мест
   ///Пометка мест что они попали в фильтр
   void countFilteredPlaces() {
-    int _countPlace = 0; //Подсчет отфильтрованных мест,
+    var _countPlace = 0; //Подсчет отфильтрованных мест,
     // для отображения на кнопке
-    for (final Sight item in mocks) {
+    for (final item in mocks) {
       item.visibleFilter = false;
       if (double.tryParse(item.lat) != null &&
           double.tryParse(item.lon) != null &&
@@ -123,7 +134,7 @@ class SearchFilterModel extends ChangeNotifier {
     countPlace = _countPlace;
     mocksSearch.clear();
     if (_searchString.isNotEmpty) {
-      for (final Sight item in mocks) {
+      for (final item in mocks) {
         //фильтр установлен проверяем его и поиск по имени
         if (item.visibleFilter) {
           if (item.name.toLowerCase().contains(_searchString.toLowerCase())) {
@@ -134,7 +145,7 @@ class SearchFilterModel extends ChangeNotifier {
     } else {
       //Если фильтр установлен показываем записи ограниченные фильтром
       //без учета строки поиска, так как она пустая
-      for (final Sight item in mocks) {
+      for (final item in mocks) {
         if (item.visibleFilter) {
           mocksSearch.add(item);
         }
@@ -146,7 +157,7 @@ class SearchFilterModel extends ChangeNotifier {
 
   ///Сообщить всем что список мест изменился
   void changeSearch() {
-    bool _error = false;
+    var _error = false;
     isLoading = true;
     managerSelectionScreen(numberScreen: ScreenEnum.loadScreen);
     notifyListeners();
@@ -178,58 +189,38 @@ class SearchFilterModel extends ChangeNotifier {
     //Ищем текст
     searchPlaceForDynamicText(searchString);
     //сохранить текст поиска
-    DBProvider.db.addHistory(searchString);
+    DBProvider.dbProvider.addHistory(searchString);
   }
 
   ///Расставить сохраненные настройки фильтра
   void getFilterSettings() {
-    for (final MapEntry<TypePlace, bool> k in _filterMapOld.entries) {
+    for (final k in _filterMapOld.entries) {
       _filterMap[k.key] = k.value;
     }
   }
 
   ///Сохранить настройки фильтра
   void saveFilterSettings() {
-    for (final MapEntry<TypePlace, bool> k in _filterMap.entries) {
+    for (final k in _filterMap.entries) {
       _filterMapOld[k.key] = k.value;
     }
   }
 
-  ///Получаем список историй поиска
-  static Future<int> getListHistory() async {
-    listHistory = (await DBProvider.db.getListHistory())!;
-    final int _lengthList = listHistory.length;
-
-    return _lengthList;
-  }
 
   ///Очищаем список историй поиска
-  void clearHistory() async {
-    await DBProvider.db.clearHistory();
+  Future<void> clearHistory() async {
+    await DBProvider.dbProvider.clearHistory();
     await getListHistory();
     //notifyListeners();
   }
 
   ///Удаляю одну запись из истории поиска
-  void deleteHistory(final String historyText) async {
+  Future<void> deleteHistory(final String historyText) async {
     await DBProvider.deleteHistory(historyText);
     await getListHistory();
     notifyListeners();
   }
 
-  ///Проверка вхождения точки в радиус
-  bool _arePointsNear(final double checkPointLat, final double checkPointLon) {
-    const double centerPointLat = 55.753605;
-    const double centerPointLon = 37.619773;
-    const double ky =
-        40000000 / 360; //40000000 - длина окружности земли в метрах
-    final double kx = cos(pi * centerPointLat / 180.0) * ky;
-    final double dx = (centerPointLon - checkPointLon).abs() * kx;
-    final double dy = (centerPointLat - checkPointLat).abs() * ky;
-
-    return sqrt(dx * dx + dy * dy) <= SearchFilterModel.selectedRange.end &&
-        sqrt(dx * dx + dy * dy) >= SearchFilterModel.selectedRange.start;
-  }
 
   ///
   void managerSelectionScreen({final ScreenEnum? numberScreen}) {
@@ -263,4 +254,17 @@ class SearchFilterModel extends ChangeNotifier {
       return;
     }
   }
+  ///Проверка вхождения точки в радиус
+  bool _arePointsNear(final double checkPointLat, final double checkPointLon) {
+    const centerPointLat = 55.753605;
+    const centerPointLon = 37.619773;
+    const kyPoint = 40000000 / 360; //40000000 - длина окружности земли в метрах
+    final kxPoint = cos(pi * centerPointLat / 180.0) * kyPoint;
+    final dxPoint = (centerPointLon - checkPointLon).abs() * kxPoint;
+    final dyPoint = (centerPointLat - checkPointLat).abs() * kyPoint;
+
+    return sqrt(dxPoint * dxPoint + dyPoint * dyPoint) <= SearchFilterModel.selectedRange.end &&
+        sqrt(dxPoint * dxPoint + dyPoint * dyPoint) >= SearchFilterModel.selectedRange.start;
+  }
+
 }

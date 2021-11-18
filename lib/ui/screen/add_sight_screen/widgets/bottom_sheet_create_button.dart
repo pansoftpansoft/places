@@ -32,8 +32,8 @@ class BottomSheetCreateButton extends StatelessWidget {
                 backgroundColor:
                     MaterialStateProperty.all<Color>(ColorPalette.greenColor),
                 shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                  RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(borderRadiusCard),
+                  const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(borderRadiusCard)),
                   ),
                 ),
               ),

@@ -22,23 +22,23 @@ final ThemeData lightTheme = ThemeData(
   /*
   * cardTheme
   */
-  cardTheme: CardTheme(
+  cardTheme: const CardTheme(
     elevation: 0,
     shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(borderRadiusCard),
+      borderRadius: BorderRadius.all(Radius.circular(borderRadiusCard)),
     ),
     color: ColorPalette.lmCardColor,
   ),
   /*
   * tabBarTheme
   */
-  tabBarTheme: TabBarTheme(
+  tabBarTheme: const TabBarTheme(
     labelColor: ColorPalette.lmTabBarSelect,
     labelStyle: devHeadline6,
     unselectedLabelColor: ColorPalette.lmTabBarUnSelect,
     unselectedLabelStyle: devHeadline6,
     indicator: BoxDecoration(
-      borderRadius: BorderRadius.circular(50),
+      borderRadius: BorderRadius.all(Radius.circular(50)),
       color: ColorPalette.lmTabBarCursor,
     ),
   ),
@@ -88,23 +88,23 @@ final ThemeData darkTheme = ThemeData(
   /*
   * cardTheme
   */
-  cardTheme: CardTheme(
+  cardTheme: const CardTheme(
     elevation: 0,
     color: ColorPalette.dmCardColor,
     shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(borderRadiusCard),
+      borderRadius: BorderRadius.all(Radius.circular(borderRadiusCard)),
     ),
   ),
   /*
   * tabBarTheme
   */
-  tabBarTheme: TabBarTheme(
+  tabBarTheme: const TabBarTheme(
     labelColor: ColorPalette.dmTabBarSelect,
     labelStyle: devHeadline6,
     unselectedLabelColor: ColorPalette.dmTabBarUnSelect,
     unselectedLabelStyle: devHeadline6,
     indicator: BoxDecoration(
-      borderRadius: BorderRadius.circular(50),
+      borderRadius: BorderRadius.all(Radius.circular(50)),
       color: ColorPalette.dmTabBarCursor,
     ),
   ),

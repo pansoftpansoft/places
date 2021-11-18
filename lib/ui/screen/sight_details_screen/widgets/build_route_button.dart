@@ -21,8 +21,10 @@ class BuildRouteButton extends StatelessWidget {
             ColorPalette.greenColor,
           ),
           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-            RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(borderRadiusCard),
+            const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(
+                Radius.circular(borderRadiusCard),
+              ),
             ),
           ),
         ),

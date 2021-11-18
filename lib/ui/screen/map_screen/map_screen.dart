@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:places/ui/screen/widgets/bottom_navigation.dart';
+import 'package:places/ui/screen/widgets/bottom_navigation_list.dart';
 
 ///Экран с картой объектов
 class MapScreen extends StatelessWidget {

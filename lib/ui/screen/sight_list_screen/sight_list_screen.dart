@@ -3,7 +3,7 @@ import 'package:places/mocks.dart';
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/screen/sight_list_screen/widgets/floating_button.dart';
 import 'package:places/ui/screen/sight_list_screen/widgets/sticky_header.dart';
-import 'package:places/ui/screen/widgets/bottom_navigation.dart';
+import 'package:places/ui/screen/widgets/bottom_navigation_list.dart';
 import 'package:places/ui/screen/widgets/sight_card/sight_card.dart';
 
 ///Список достопримечательностей

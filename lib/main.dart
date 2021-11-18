@@ -17,15 +17,15 @@ void main() {
   runApp(
     MultiProvider(
       providers: listMultiProviders,
-      child: const MyApp(),
+      child: const Main(),
     ),
   );
 }
 
 /// Запуск приложения
-class MyApp extends StatelessWidget {
+class Main extends StatelessWidget {
   /// Конструктор
-  const MyApp({
+  const Main({
     final Key? key,
   }) : super(key: key);
 
@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
   Widget build(final BuildContext context) => MaterialApp(
         //theme: themeActual,
         theme: context.select<AppModel, ThemeData>(
-          (final AppModel a) => a.themeColor,
+          (final a) => a.themeColor,
         ),
         title: 'Задача  8.2',
         routes: mapRoutes,

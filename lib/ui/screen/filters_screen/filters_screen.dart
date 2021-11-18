@@ -3,7 +3,7 @@ import 'package:places/mocks.dart';
 import 'package:places/ui/res/color_palette.dart';
 import 'package:places/ui/res/labels.dart';
 import 'package:places/ui/res/sizes.dart';
-import 'package:places/ui/screen/filters_screen/widgets/bottom_sheet_widget.dart';
+import 'package:places/ui/screen/filters_screen/widgets/bottom_sheet_widget_button_show.dart';
 import 'package:places/ui/screen/filters_screen/widgets/grid_icon.dart';
 import 'package:places/ui/screen/filters_screen/widgets/title_filter.dart';
 import 'package:places/ui/screen/sight_search_screen/models/search_filter_model.dart';
@@ -62,7 +62,7 @@ class FiltersScreen extends StatelessWidget {
                     Text(
                       '$from  '
                       '${SearchFilterModel.selectedRange.start.round().toString()}'
-                      ' $to '
+                      ' $toto '
                       '${SearchFilterModel.selectedRange.end.round().toString()}'
                       '$meters',
                     ),

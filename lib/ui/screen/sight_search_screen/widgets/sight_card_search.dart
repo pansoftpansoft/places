@@ -6,12 +6,7 @@ import 'package:places/ui/res/route_name.dart';
 ///Карточка достопримечательностей из списка поиска
 class SightCardSearch extends StatelessWidget {
   ///
-  const SightCardSearch(
-    this.sight, {
-    final Key? key,
-    this.goNeed = '',
-    this.goal = '',
-  }) : super(key: key);
+  static const double heightImage = 95;
 
   ///
   final Sight sight;
@@ -22,8 +17,15 @@ class SightCardSearch extends StatelessWidget {
   ///
   final String goal;
 
+
   ///
-  static const double heightImage = 95;
+  const SightCardSearch(
+    this.sight, {
+    final Key? key,
+    this.goNeed = '',
+    this.goal = '',
+  }) : super(key: key);
+
 
   @override
   Widget build(final BuildContext context) => InkWell(

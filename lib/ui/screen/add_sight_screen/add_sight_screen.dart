@@ -1,8 +1,5 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:places/mocks.dart';
 import 'package:places/ui/res/color_palette.dart';
 import 'package:places/ui/res/labels.dart';
 import 'package:places/ui/res/sizes.dart';
@@ -10,11 +7,12 @@ import 'package:places/ui/res/svg_icons.dart';
 import 'package:places/ui/screen/add_sight_screen/widgets/app_bar_add_sight.dart';
 import 'package:places/ui/screen/add_sight_screen/widgets/bottom_sheet_create_button.dart';
 import 'package:places/ui/screen/add_sight_screen/widgets/divider_opacity.dart';
-import 'package:places/ui/screen/add_sight_screen/widgets/photo_show_dialog.dart';
 import 'package:places/ui/screen/add_sight_screen/widgets/list_view_photo_add.dart';
+import 'package:places/ui/screen/add_sight_screen/widgets/photo_show_dialog.dart';
+import 'package:places/ui/screen/add_sight_screen/widgets/row_text_field_lat_and_lon.dart';
 import 'package:places/ui/screen/add_sight_screen/widgets/select_type_place.dart';
 import 'package:places/ui/screen/add_sight_screen/widgets/title_field.dart';
-import 'package:places/ui/screen/widgets/text_field_icon.dart';
+import 'package:places/ui/screen/widgets/text_field_icon/text_field_icon.dart';
 
 ///Экран добавления карточек
 class AddSightScreen extends StatefulWidget {
@@ -55,7 +53,7 @@ class FiltersScreenState extends State<AddSightScreen> {
     Future(() {
       showDialog<void>(
         context: context,
-        builder: (final BuildContext context) => const PhotoShowDialog(),
+        builder: (final context) => const PhotoShowDialog(),
       );
     });
   }
@@ -113,7 +111,7 @@ class FiltersScreenState extends State<AddSightScreen> {
                           borderRadius: 8,
                           actionIconSuffixForText:
                               _textEditingControllerNamePlace.clear,
-                          actionOnSubmitted: (final String value) {
+                          actionOnSubmitted: (final value) {
                             _focusNodeLat.requestFocus();
                           },
                         ),
@@ -143,55 +141,12 @@ class FiltersScreenState extends State<AddSightScreen> {
                 // Поля ввода широты и долготы
                 SizedBox(
                   height: 40,
-                  child: Row(
-                    children: <Widget>[
-                      Expanded(
-                        child: TextFieldIcon(
-                          controller: _textEditingControllerLat,
-                          focusNode: _focusNodeLat,
-                          focusNodeNext: _focusNodeLon,
-                          keyboardType: TextInputType.number,
-                          svgIconSuffixForText: SvgIcons.clear,
-                          svgIconSuffixForTextColor: Colors.black,
-                          borderRadius: 8,
-                          actionIconSuffixForText:
-                              _textEditingControllerLat.clear,
-                          inputFormatters: <FilteringTextInputFormatter>[
-                            FilteringTextInputFormatter.allow(
-                              RegExp(r"^\d*?\.?\d*?$"),
-                            ),
-                          ],
-                          actionOnSubmitted: (final String value) {
-                            _focusNodeLon.requestFocus();
-                          },
-                        ),
-                      ),
-                      const SizedBox(
-                        width: 16,
-                      ),
-                      Expanded(
-                        child: TextFieldIcon(
-                          controller: _textEditingControllerLon,
-                          focusNode: _focusNodeLon,
-                          focusNodeNext: _focusNodeDescription,
-                          keyboardType: TextInputType.number,
-                          svgIconSuffixForText: SvgIcons.clear,
-                          svgIconSuffixForTextColor: Colors.black,
-                          borderRadius: 8,
-                          actionIconSuffixForText:
-                              _textEditingControllerLon.clear,
-                          inputFormatters: <TextInputFormatter>[
-                            FilteringTextInputFormatter.allow(
-                              RegExp(r"^\d*?\.?\d*?$"),
-                            ),
-                          ],
-                          actionOnSubmitted: (final String value) {
-                            _focusNodeDescription.requestFocus();
-                          },
-                        ),
-                      ),
-                    ],
-                  ),
+                  child: RowTextFieldLatAndLon(
+                      textEditingControllerLat: _textEditingControllerLat,
+                      focusNodeLat: _focusNodeLat,
+                      focusNodeLon: _focusNodeLon,
+                      textEditingControllerLon: _textEditingControllerLon,
+                      focusNodeDescription: _focusNodeDescription,),
                 ),
                 // Разделитель
                 const SizedBox(height: 15),
@@ -247,7 +202,7 @@ class FiltersScreenState extends State<AddSightScreen> {
                           maxLines: 5,
                           actionIconSuffixForText:
                               _textEditingControllerDescription.clear,
-                          actionOnSubmitted: (final String value) {
+                          actionOnSubmitted: (final value) {
                             _focusNodeDescription.unfocus();
                           },
                         ),

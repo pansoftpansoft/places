@@ -1,16 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:places/domain/database.dart';
+import 'package:places/domain/db_provider.dart';
 import 'package:places/ui/res/color_palette.dart';
 import 'package:places/ui/res/labels.dart';
 import 'package:places/ui/res/route_name.dart';
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/res/svg_icons.dart';
 import 'package:places/ui/screen/sight_search_screen/models/search_filter_model.dart';
-import 'package:places/ui/screen/widgets/text_field_icon.dart';
+import 'package:places/ui/screen/widgets/text_field_icon/text_field_icon.dart';
 import 'package:provider/provider.dart';
 
 ///Поле поиска
 class SearchBar extends StatelessWidget {
+  ///
+  final TextEditingController? textEditingController;
+
+  ///
+  final bool autofocus;
+
   ///
   const SearchBar({
     final Key? key,
@@ -18,11 +24,6 @@ class SearchBar extends StatelessWidget {
     this.autofocus = false,
   }) : super(key: key);
 
-  ///
-  final TextEditingController? textEditingController;
-
-  ///
-  final bool autofocus;
 
   @override
   Widget build(final BuildContext context) => SizedBox(
@@ -68,7 +69,7 @@ class SearchBar extends StatelessWidget {
           actionOnSubmitted: (final String value) {
             context.read<SearchFilterModel>().searchPlaceForDynamicText(value);
             //добавим введенную строку поиска в историю
-            DBProvider.db.addHistory(value);
+            DBProvider.dbProvider.addHistory(value);
           },
         ),
       );

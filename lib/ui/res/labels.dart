@@ -56,7 +56,7 @@ const String shareMostInterestingOnes =
 const String shortDescription = 'краткое описание';
 const String show = 'ПОКАЗАТЬ';
 const String skip = 'Пропустить';
-const String to = 'до';
+const String toto = 'до';
 const String tryAgain = 'Попробуйте еще раз!';
 const String tryChangingTheSearchParameter =
     'Попробуйте изменить\n параметры поиска!';

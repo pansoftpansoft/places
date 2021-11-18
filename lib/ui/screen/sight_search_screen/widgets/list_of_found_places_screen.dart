@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:places/mocks.dart';
 import 'package:places/ui/res/sizes.dart';
-import 'package:places/ui/screen/sight_search_screen/widgets/sight_card_for_search.dart';
+import 'package:places/ui/screen/sight_search_screen/widgets/sight_card_search.dart';
 
 ///Список найденых мест
 class ListOfFoundPlacesScreen extends StatelessWidget {

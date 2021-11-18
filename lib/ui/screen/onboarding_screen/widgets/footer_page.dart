@@ -2,18 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:places/ui/res/color_palette.dart';
 import 'package:places/ui/res/labels.dart';
+import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/res/svg_icons.dart';
 
 ///Подвал шаблон страници Onboard
 class FooterPage extends StatelessWidget {
   ///
+  static const double heightFooterPage = 48;
+
+  ///
+  final bool buttonOnStartVisible;
+
+  ///
   const FooterPage({
     required this.buttonOnStartVisible,
     final Key? key,
   }) : super(key: key);
-
-  ///
-  final bool buttonOnStartVisible;
 
   @override
   Widget build(final BuildContext context) => Expanded(
@@ -23,9 +27,11 @@ class FooterPage extends StatelessWidget {
               SvgIcons.onboardProgress1,
               color: Colors.green,
             ),
-            const SizedBox(height: 32),
+            const SizedBox(height: heightSizeBox32),
             Container(
-              constraints: const BoxConstraints.tightFor(height: 48),
+              constraints: const BoxConstraints.tightFor(
+                height: heightFooterPage,
+              ),
               child: Visibility(
                 visible: buttonOnStartVisible,
                 child: ElevatedButton(
@@ -38,8 +44,10 @@ class FooterPage extends StatelessWidget {
                       ColorPalette.greenColor,
                     ),
                     shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                      RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
+                      const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(borderRadiusCard12),
+                        ),
                       ),
                     ),
                   ),

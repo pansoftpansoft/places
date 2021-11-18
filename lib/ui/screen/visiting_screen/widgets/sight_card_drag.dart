@@ -5,34 +5,41 @@ import 'package:places/ui/screen/visiting_screen/models/visiting_model.dart';
 import 'package:places/ui/screen/widgets/sight_card/sight_card.dart';
 import 'package:provider/src/provider.dart';
 
+
 ///
-class SightCardDrag extends StatelessWidget {
+class SightCardDrag extends StatefulWidget {
+  ///
+  final int index;
+
   ///
   const SightCardDrag(
     this.index, {
     final Key? key,
   }) : super(key: key);
 
-  ///
-  final int index;
+  @override
+  State<SightCardDrag> createState() => _SightCardDragState();
+}
 
+class _SightCardDragState extends State<SightCardDrag> {
   @override
   Widget build(final BuildContext context) => SightCard(
-        mocksWantVisit[index],
+        mocksWantVisit[widget.index],
         goNeed: 'Запланировано на '
             '${DateFormat('dd-MM-yyyy').format(
-          mocksWantVisit[index].wantVisitDate!,
+          mocksWantVisit[widget.index].wantVisitDate!,
         )}',
         iconDelete: true,
         //key: ValueKey(mocksWantVisit[index].name),
         actionOnDelete: () {
           context.read<VisitingModel>().deletePlaceWantVisit(
-                mocksWantVisit[index].name,
+                mocksWantVisit[widget.index].name,
               );
         },
-    /// Установка даты, когда хочу посетить
+
+        /// Установка даты, когда хочу посетить
         wantToVisit: () async {
-          final DateTime? dateTime = await showDatePicker(
+          final dateTime = await showDatePicker(
             context: context,
             initialDate: DateTime.now(),
             firstDate: DateTime.now(),
@@ -41,8 +48,11 @@ class SightCardDrag extends StatelessWidget {
             ),
           );
           if (dateTime != null) {
+            if (!mounted) {
+              return;
+            }
             context.read<VisitingModel>().dateWantVisit(
-                  index,
+                  widget.index,
                   dateTime,
                 );
           }

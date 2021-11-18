@@ -7,13 +7,15 @@ import 'package:places/ui/screen/add_sight_screen/widgets/select_category.dart';
 ///
 class BottomSheetSaveButton extends StatelessWidget {
   ///
+  final SelectCategory widget;
+
+
+  ///
   const BottomSheetSaveButton(
     this.widget, {
     final Key? key,
   }) : super(key: key);
 
-  ///
-  final SelectCategory widget;
 
   @override
   Widget build(final BuildContext context) => Padding(
@@ -31,8 +33,8 @@ class BottomSheetSaveButton extends StatelessWidget {
                   ? MaterialStateProperty.all<Color>(ColorPalette.dmBasicColor)
                   : MaterialStateProperty.all<Color>(ColorPalette.greenColor),
               shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(borderRadiusCard),
+                const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(borderRadiusCard)),
                 ),
               ),
             ),

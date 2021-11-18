@@ -8,7 +8,7 @@ import 'package:places/ui/res/route_name.dart';
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/res/svg_icons.dart';
 import 'package:places/ui/screen/models/app_model.dart';
-import 'package:places/ui/screen/widgets/bottom_navigation.dart';
+import 'package:places/ui/screen/widgets/bottom_navigation_list.dart';
 import 'package:provider/provider.dart';
 
 ///Экран настроек
@@ -35,9 +35,9 @@ class SettingsScreen extends StatelessWidget {
                   ),
                   CupertinoSwitch(
                     value: context.select<AppModel, bool>(
-                      (final AppModel a) => a.isThemeColor,
+                      (final a) => a.isThemeColor,
                     ),
-                    onChanged: (final bool value) {
+                    onChanged: (final value) {
                       context.read<AppModel>().changeTheme();
                     },
                   ),
@@ -54,22 +54,22 @@ class SettingsScreen extends StatelessWidget {
                     watchTutorial,
                     style: Theme.of(context).textTheme.headline2,
                   ),
-                  Padding(
+                  IconButton(
                     padding: const EdgeInsets.symmetric(horizontal: 4),
-                    child: IconButton(
-                      icon: SvgPicture.asset(
-                        SvgIcons.info,
-                        height: 20,
-                        color: ColorPalette.greenColor,
-                      ),
-                      onPressed: () {
-                        if (kDebugMode) {
-                          print('Нажата кнопка "Смотреть туториал"');
-                        }
-                        Navigator.pushNamed(
-                            context, RouteName.onboardingScreen);
-                      },
+                    icon: SvgPicture.asset(
+                      SvgIcons.info,
+                      height: 20,
+                      color: ColorPalette.greenColor,
                     ),
+                    onPressed: () {
+                      if (kDebugMode) {
+                        print('Нажата кнопка "Смотреть туториал"');
+                      }
+                      Navigator.pushNamed(
+                        context,
+                        RouteName.onboardingScreen,
+                      );
+                    },
                   ),
                 ],
               ),

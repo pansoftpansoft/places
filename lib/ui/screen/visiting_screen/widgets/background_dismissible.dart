@@ -20,8 +20,8 @@ class BackgroundDismissible extends StatelessWidget {
           0,
           paddingPage,
         ),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(borderRadiusCard),
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(borderRadiusCard)),
         ),
         elevation: 0,
         child: Row(

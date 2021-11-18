@@ -13,7 +13,6 @@ class SightDetailsModel extends ChangeNotifier {
   ///Изменнение положения индикатора
   void changeScrollIndicator(
     final int _index,
-    final int _screenWidth,
     final int _countElements,
   ) {
     countElements = _countElements;

@@ -11,14 +11,6 @@ import 'package:provider/provider.dart';
 ///Макет кнопки фильтра
 class CategoryIcon extends StatefulWidget {
   ///
-  const CategoryIcon(
-    final this.nameIcon,
-    final this.nameKey,
-    final this.svgIcons, {
-    final Key? key,
-  }) : super(key: key);
-
-  ///
   final String nameIcon;
 
   ///
@@ -26,6 +18,15 @@ class CategoryIcon extends StatefulWidget {
 
   ///
   final String svgIcons;
+
+  ///
+  const CategoryIcon(
+    final this.nameIcon,
+    final this.nameKey,
+    final this.svgIcons, {
+    final Key? key,
+  }) : super(key: key);
+
 
   @override
   State<CategoryIcon> createState() => _CategoryIconState();
@@ -35,9 +36,9 @@ class _CategoryIconState extends State<CategoryIcon> {
   @override
   Widget build(final BuildContext context) => Consumer<SearchFilterModel>(
         builder: (
-          final BuildContext context,
-          final SearchFilterModel cart,
-          final Widget? child,
+          final context,
+          final cart,
+          final child,
         ) =>
             Column(
           children: <Widget>[
