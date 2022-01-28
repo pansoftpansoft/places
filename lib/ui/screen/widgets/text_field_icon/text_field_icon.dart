@@ -127,17 +127,17 @@ class _TextFieldIconState extends State<TextFieldIcon> {
   bool _filled = true;
 
 @override
-  void dispose() {
-   _textEditingController.dispose();
-   _focusNode.dispose();
-    super.dispose();
-  }
+  //void dispose() {
+   //_textEditingController.dispose();
+   //_focusNode.dispose();
+   // super.dispose();
+  //}
 
   @override
   void initState() {
     super.initState();
 
-    _filled = widget.fillColor == null ? false : true;
+    _filled = widget.fillColor != null;
 
     _textEditingController = widget.controller ?? TextEditingController();
 
@@ -146,6 +146,53 @@ class _TextFieldIconState extends State<TextFieldIcon> {
     _keyboardType = widget.keyboardType ??
         (widget.maxLines == 1 ? TextInputType.text : TextInputType.multiline);
 
+    textEditingControllerAddListener();
+
+    focusNodeAddListener();
+  }
+
+  @override
+  Widget build(final BuildContext context) => TextField(
+    maxLines: widget.maxLines,
+    controller: _textEditingController,
+    focusNode: _focusNode,
+    keyboardType: _keyboardType,
+    autofocus: widget.autofocus,
+    textInputAction: TextInputAction.go,
+    decoration: buildInputDecoration(),
+    style: Theme.of(context).textTheme.subtitle1!.copyWith(
+      fontWeight: FontWeight.w400,
+    ),
+    textAlignVertical: TextAlignVertical.center,
+    onSubmitted: (final value) {
+      if (widget.actionOnSubmitted != null) {
+        widget.actionOnSubmitted!(value);
+      }
+    },
+    inputFormatters: widget.inputFormatters,
+  );
+
+  void focusNodeAddListener() {
+    _focusNode.addListener(
+      () {
+        if (_textEditingController.text.isNotEmpty && _focusNode.hasFocus) {
+          setState(
+            () {
+              suffixIconVisibleForText = true;
+            },
+          );
+        } else {
+          setState(
+            () {
+              suffixIconVisibleForText = false;
+            },
+          );
+        }
+      },
+    );
+  }
+
+  void textEditingControllerAddListener() {
     _textEditingController.addListener(
       () {
         if (!mounted) {
@@ -166,70 +213,38 @@ class _TextFieldIconState extends State<TextFieldIcon> {
         }
       },
     );
-    _focusNode.addListener(
-      () {
-        if (_textEditingController.text.isNotEmpty && _focusNode.hasFocus) {
-          setState(
-            () {
-              suffixIconVisibleForText = true;
-            },
-          );
-        } else {
-          setState(
-            () {
-              suffixIconVisibleForText = false;
-            },
-          );
-        }
-      },
-    );
   }
 
-  @override
-  Widget build(final BuildContext context) => TextField(
-        maxLines: widget.maxLines,
-        controller: _textEditingController,
-        focusNode: _focusNode,
-        keyboardType: _keyboardType,
-        autofocus: widget.autofocus,
-        textInputAction: TextInputAction.go,
-        decoration: InputDecoration(
-          labelText: widget.labelText,
-          floatingLabelBehavior: FloatingLabelBehavior.never,
-          suffixIcon: suffixIconVisibleForText
-              ? IconSuffixForText(widget)
-              : IconSuffix(widget),
-          prefixIcon: IconPrefix(widget),
-          contentPadding: const EdgeInsets.fromLTRB(16, 8, 8, 8),
-          filled: _filled,
-          fillColor: widget.fillColor,
-          enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(
-              color: widget.borderColor,
-            ),
-            borderRadius: BorderRadius.all(
-              Radius.circular(widget.borderRadius),
-            ),
+
+  InputDecoration buildInputDecoration() {
+    return InputDecoration(
+        labelText: widget.labelText,
+        floatingLabelBehavior: FloatingLabelBehavior.never,
+        suffixIcon: suffixIconVisibleForText
+            ? IconSuffixForText(widget)
+            : IconSuffix(widget),
+        prefixIcon: widget.svgIconPrefix == null? null: IconPrefix(widget),
+        contentPadding: const EdgeInsets.fromLTRB(8, 8,8, 8),
+        filled: _filled,
+        fillColor: widget.fillColor,
+        enabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+            color: widget.borderColor,
           ),
-          focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(
-              width: 2,
-              color: widget.borderColor,
-            ),
-            borderRadius: BorderRadius.all(
-              Radius.circular(widget.borderRadius),
-            ),
+          borderRadius: BorderRadius.all(
+            Radius.circular(widget.borderRadius),
           ),
         ),
-        style: Theme.of(context).textTheme.subtitle1!.copyWith(
-              fontWeight: FontWeight.w400,
-            ),
-        textAlignVertical: TextAlignVertical.center,
-        onSubmitted: (final value) {
-          if (widget.actionOnSubmitted != null) {
-            widget.actionOnSubmitted!(value);
-          }
-        },
-        inputFormatters: widget.inputFormatters,
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+            width: 2,
+            color: widget.borderColor,
+          ),
+          borderRadius: BorderRadius.all(
+            Radius.circular(widget.borderRadius),
+          ),
+        ),
       );
+  }
+
 }

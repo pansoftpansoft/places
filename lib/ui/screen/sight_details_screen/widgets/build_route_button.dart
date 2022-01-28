@@ -23,7 +23,7 @@ class BuildRouteButton extends StatelessWidget {
           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
             const RoundedRectangleBorder(
               borderRadius: BorderRadius.all(
-                Radius.circular(borderRadiusCard),
+                Radius.circular(borderRadiusCard16),
               ),
             ),
           ),
@@ -42,10 +42,14 @@ class BuildRouteButton extends StatelessWidget {
           ],
         ),
         onPressed: () {
-          if (kDebugMode) {
-            print('Это кнопка "Построить маршрут"');
-          }
-          Navigator.pushNamed(context, RouteName.mapScreen);
+          _onPress(context);
         },
       );
+
+  void _onPress(BuildContext context) {
+    if (kDebugMode) {
+      print('Это кнопка "Построить маршрут"');
+    }
+    Navigator.pushNamed(context, RouteName.mapScreen);
+  }
 }

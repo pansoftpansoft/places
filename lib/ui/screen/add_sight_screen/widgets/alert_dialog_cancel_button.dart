@@ -5,6 +5,8 @@ import 'package:places/ui/res/sizes.dart';
 
 ///Диалог придупреждения при нажатии кнопки отмена
 class AlertDialogCancelButton extends StatelessWidget {
+  static double heightAlertDialog = 48;
+
   ///Диалог придупреждения при нажатии кнопки отмена
   const AlertDialogCancelButton({
     final Key? key,
@@ -17,23 +19,11 @@ class AlertDialogCancelButton extends StatelessWidget {
           vertical: paddingPage / 2,
         ),
         child: ConstrainedBox(
-          constraints: const BoxConstraints.tightFor(height: 48),
+          constraints: BoxConstraints.tightFor(
+            height: heightAlertDialog,
+          ),
           child: ElevatedButton(
-            style: ButtonStyle(
-              padding: MaterialStateProperty.all(EdgeInsets.zero),
-              elevation: MaterialStateProperty.all(0),
-              backgroundColor:
-                  MaterialStateProperty.all<Color>(ColorPalette.dmBasicColor),
-              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(
-                      borderRadiusCard,
-                    ),
-                  ),
-                ),
-              ),
-            ),
+            style: _buildButtonStyle(),
             onPressed: () {
               Navigator.pop(context);
             },
@@ -51,4 +41,22 @@ class AlertDialogCancelButton extends StatelessWidget {
           ),
         ),
       );
+
+  ButtonStyle _buildButtonStyle() {
+    return ButtonStyle(
+      padding: MaterialStateProperty.all(EdgeInsets.zero),
+      elevation: MaterialStateProperty.all(0),
+      backgroundColor:
+          MaterialStateProperty.all<Color>(ColorPalette.dmBasicColor),
+      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+        const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(
+            Radius.circular(
+              borderRadiusCard16,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
 }

@@ -40,21 +40,21 @@ class ScrollIndicator extends StatelessWidget {
   ///Изменяем отображение индикатора прокрутки для крайних положений
   BorderRadius buildBorderRadius(final int _index, final int _countElements) {
     var borderRadius = const BorderRadius.all(
-      Radius.circular(borderRadiusCard),
+      Radius.circular(borderRadiusCard16),
     );
 
     //Для первой позиции
     if (_index == 0) {
       borderRadius = const BorderRadius.only(
-        topRight: Radius.circular(borderRadiusCard),
-        bottomRight: Radius.circular(borderRadiusCard),
+        topRight: Radius.circular(borderRadiusCard16),
+        bottomRight: Radius.circular(borderRadiusCard16),
       );
     }
     //Для последней позиции
     if (_index + 1 == _countElements) {
       borderRadius = const BorderRadius.only(
-        topLeft: Radius.circular(borderRadiusCard),
-        bottomLeft: Radius.circular(borderRadiusCard),
+        topLeft: Radius.circular(borderRadiusCard16),
+        bottomLeft: Radius.circular(borderRadiusCard16),
       );
     }
 

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:places/mocks.dart';
-import 'package:places/ui/res/labels.dart';
-import 'package:places/ui/res/sizes.dart';
+import 'package:places/ui/screen/add_sight_screen/models/add_sight_model.dart';
 import 'package:places/ui/screen/add_sight_screen/widgets/bottom_sheet_save_button.dart';
-import 'package:places/ui/screen/add_sight_screen/widgets/element_list.dart';
-
+import 'package:places/ui/screen/add_sight_screen/widgets/select_category_app_bar.dart';
+import 'package:places/ui/screen/add_sight_screen/widgets/select_category_list.dart';
+import 'package:provider/src/provider.dart';
 
 /// Сисок категорий мест с возможностью выбора
 class SelectCategory extends StatefulWidget {
@@ -12,10 +12,10 @@ class SelectCategory extends StatefulWidget {
   final TypePlace? typePlaceSelectedActual;
 
   ///
-  TypePlace? typePlaceSelected;
+  final TypePlace? typePlaceSelected;
 
   ///
-  SelectCategory({
+  const SelectCategory({
     final Key? key,
     this.typePlaceSelected,
     this.typePlaceSelectedActual,
@@ -30,41 +30,18 @@ class _SelectCategoryState extends State<SelectCategory> {
   Widget build(final BuildContext context) {
     if (widget.typePlaceSelectedActual != null &&
         widget.typePlaceSelected == null) {
-      widget.typePlaceSelected = widget.typePlaceSelectedActual;
+      context.read<AddSightModel>().selectTypePlace = widget.typePlaceSelectedActual;
     }
 
     return Scaffold(
-      bottomSheet: BottomSheetSaveButton(widget),
-      appBar: AppBar(
-        title: Text(
-          category,
-          textAlign: TextAlign.center,
-          style: Theme.of(context).textTheme.headline4,
-        ),
+      bottomSheet: const BottomSheetSaveButton(),
+      appBar: const PreferredSize(
+        preferredSize: Size(double.infinity, kToolbarHeight),
+        child: SelectCategoryAppBar(),
       ),
       body: Column(
-        children: <Widget>[
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: paddingPage,
-                vertical: 24,
-              ),
-              child: ListView(
-                children: <Widget>[
-                  for (var iTypePlace = 0;
-                      iTypePlace < TypePlace.values.toList().length;
-                      iTypePlace++) ...<Widget>[
-                    ElementList(
-                      TypePlace.values.toList()[iTypePlace],
-                      typePlaceSelected: widget.typePlaceSelected,
-                    ),
-                    const Divider(),
-                  ],
-                ],
-              ),
-            ),
-          ),
+        children:  const <Widget>[
+          SelectCategoryList(),
         ],
       ),
     );

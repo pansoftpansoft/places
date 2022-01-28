@@ -20,6 +20,7 @@ const String completeRoute = 'Завершите маршрут,\n'
 const String create = 'СОЗДАТЬ';
 const String darkTheme = 'Темная тема';
 const String dataLoadingError = 'Ошибка загрузки данных';
+const String delete = 'Удалить';
 const String description = 'ОПИСАНИЕ';
 const String distance = 'Расстояние';
 const String emptyList = 'Пусто';
@@ -65,6 +66,22 @@ const String unknownError = 'Неизвестная ошибка';
 const String youLooking = 'ВЫ ИСКАЛИ';
 const String watchTutorial = 'Смотреть туториал';
 const String welcomeToTheTravelGuide = 'Добро пожаловать\nв Путеводитель';
+
+
+const details = '''
+                        Ивановская площадь — площадь в Московском Кремле,
+                        одна из древнейших площадей Москвы. 
+                        Возникла после постройки в 1329 году 
+                        каменной церкви Иоанна Лествичника
+                        , «что под колоколы», которая разделила ранее 
+                        единую городскую площадь на две части. 
+                        Её восточная часть по Иоанновской церкви 
+                        стала позднее именоваться Ивановской, западная — 
+                        Соборной площадью. В XIV—XV веках южную и восточную 
+                        стороны площади занимали дворы удельных князей 
+                        Московского дома. 
+                    ''';
+
 
 String typePlaceString(final TypePlace enumString) {
   switch (enumString) {

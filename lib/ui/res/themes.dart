@@ -25,7 +25,7 @@ final ThemeData lightTheme = ThemeData(
   cardTheme: const CardTheme(
     elevation: 0,
     shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.all(Radius.circular(borderRadiusCard)),
+      borderRadius: BorderRadius.all(Radius.circular(borderRadiusCard16)),
     ),
     color: ColorPalette.lmCardColor,
   ),
@@ -92,7 +92,7 @@ final ThemeData darkTheme = ThemeData(
     elevation: 0,
     color: ColorPalette.dmCardColor,
     shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.all(Radius.circular(borderRadiusCard)),
+      borderRadius: BorderRadius.all(Radius.circular(borderRadiusCard16)),
     ),
   ),
   /*

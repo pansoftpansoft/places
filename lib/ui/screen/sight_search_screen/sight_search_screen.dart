@@ -1,17 +1,10 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:places/mocks.dart';
-import 'package:places/ui/res/color_palette.dart';
-import 'package:places/ui/res/labels.dart';
 import 'package:places/ui/res/sizes.dart';
-import 'package:places/ui/res/svg_icons.dart';
 import 'package:places/ui/screen/sight_search_screen/models/search_filter_model.dart';
-import 'package:places/ui/screen/sight_search_screen/widgets/empty_screen.dart';
-import 'package:places/ui/screen/sight_search_screen/widgets/list_of_found_places_screen.dart';
-import 'package:places/ui/screen/sight_search_screen/widgets/load_screen.dart';
-import 'package:places/ui/screen/widgets/bottom_navigation_list.dart';
+import 'package:places/ui/screen/sight_search_screen/widgets/sight_search_screen_body.dart';
+import 'package:places/ui/screen/widgets/bottom_navigation/bottom_navigation.dart';
 import 'package:places/ui/screen/widgets/search_bar.dart';
-import 'package:places/ui/screen/widgets/history_list_screen/history_list_screen.dart';
 import 'package:places/ui/screen/widgets/title_app_big_or_small.dart';
 import 'package:provider/provider.dart';
 
@@ -41,8 +34,7 @@ class SightSearchScreenState extends State<SightSearchScreen> {
 
     SearchFilterModel.getListHistory().then(
       (final _) {
-        final SearchFilterModel searchFilterModel =
-            context.read<SearchFilterModel>();
+        final searchFilterModel = context.read<SearchFilterModel>();
         if (SearchFilterModel.listHistory.isNotEmpty) {
           searchFilterModel.managerSelectionScreen(
             numberScreen: ScreenEnum.historyListScreen,
@@ -55,7 +47,7 @@ class SightSearchScreenState extends State<SightSearchScreen> {
         }
         setState(
           () {
-              debugPrint('Установка значений');
+            debugPrint('Установка значений');
           },
         );
       },
@@ -98,47 +90,8 @@ class SightSearchScreenState extends State<SightSearchScreen> {
             ),
           ),
         ),
-        bottomNavigationBar: BottomNavigationList(0),
+        bottomNavigationBar: BottomNavigation(0),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-        body: Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: paddingPage,
-          ),
-          child: Consumer<SearchFilterModel>(
-            builder: (
-              final BuildContext context,
-              final SearchFilterModel cart,
-              final Widget? child,
-            ) {
-              switch (SearchFilterModel.selectedScreen) {
-                case ScreenEnum.loadScreen:
-                  return const LoadScreen();
-                case ScreenEnum.emptyScreen:
-                  return EmptyScreen(
-                    textHeader: nothingWasFound,
-                    textComment: tryChangingTheSearchParameter,
-                    svgIcon: SvgIcons.search,
-                    colorTextAll: ColorPalette.dmFontSubtitle2,
-                  );
-                case ScreenEnum.listOfFoundPlacesScreen:
-                  return const ListOfFoundPlacesScreen();
-                case ScreenEnum.historyListScreen:
-                  return const HistoryListScreen();
-                case ScreenEnum.errorScreen:
-                  return EmptyScreen(
-                    textHeader: 'Ошибка загрузки данных',
-                    textComment: tryAgain,
-                    svgIcon: SvgIcons.delete,
-                  );
-                default:
-                  return EmptyScreen(
-                    textHeader: unknownError,
-                    textComment: tryAgain,
-                    svgIcon: SvgIcons.delete,
-                  );
-              }
-            },
-          ),
-        ),
+        body: const SightSearchScreenBody(),
       );
 }

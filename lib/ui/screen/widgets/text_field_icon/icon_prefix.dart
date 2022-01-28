@@ -9,17 +9,18 @@ class IconPrefix extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return textFieldIcon.svgIconPrefix != null
-        ? Padding(
-            padding: const EdgeInsets.fromLTRB(0, 6, 12, 6),
-            child: InkWell(
-              child: SvgPicture.asset(
-                textFieldIcon.svgIconPrefix.toString(),
-                height: textFieldIcon.heightIcon,
-                color: textFieldIcon.svgIconPrefixColor,
-              ),
-            ),
-          )
-        : const SizedBox.shrink();
+    debugPrint(textFieldIcon.svgIconPrefix);
+
+    return textFieldIcon.svgIconPrefix != null ?
+    Padding(
+      padding: const EdgeInsets.fromLTRB(0, 6, 12, 6),
+      child: InkWell(
+        child: SvgPicture.asset(
+          textFieldIcon.svgIconPrefix.toString(),
+          height: textFieldIcon.heightIcon,
+          color: textFieldIcon.svgIconPrefixColor,
+        ),
+      ),
+    ) : const SizedBox.shrink();
   }
 }

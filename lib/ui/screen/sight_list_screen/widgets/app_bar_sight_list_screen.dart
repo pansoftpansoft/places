@@ -15,7 +15,6 @@ class AppBarSightListScreen extends StatelessWidget {
     this.shrink = false,
   }) : super(key: key);
 
-
   @override
   Widget build(final BuildContext context) => AppBar(
         toolbarHeight: double.infinity,
@@ -44,12 +43,7 @@ class AppBarSightListScreen extends StatelessWidget {
                       SizedBox(
                         height: heightTextFieldSearch,
                         child: InkWell(
-                          onTap: () {
-                            Navigator.pushNamed(
-                              context,
-                              RouteName.sightSearchScreen,
-                            );
-                          },
+                          onTap: () {_onPress(context);},
                         ),
                       ),
                     ],
@@ -57,4 +51,8 @@ class AppBarSightListScreen extends StatelessWidget {
           ),
         ),
       );
+
+  void _onPress(BuildContext context) {
+    Navigator.pushNamed(context, RouteName.sightSearchScreen);
+  }
 }

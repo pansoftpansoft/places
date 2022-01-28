@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:places/ui/res/color_palette.dart';
+import 'package:places/ui/res/labels.dart';
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/res/svg_icons.dart';
 
@@ -14,14 +15,9 @@ class BackgroundDismissible extends StatelessWidget {
   @override
   Widget build(final BuildContext context) => Card(
         color: ColorPalette.redColor,
-        margin: const EdgeInsets.fromLTRB(
-          0,
-          0,
-          0,
-          paddingPage,
-        ),
+        margin: _buildEdgeInsets(),
         shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(borderRadiusCard)),
+          borderRadius: BorderRadius.all(Radius.circular(borderRadiusCard16)),
         ),
         elevation: 0,
         child: Row(
@@ -29,21 +25,19 @@ class BackgroundDismissible extends StatelessWidget {
           children: <Widget>[
             Padding(
               padding: const EdgeInsets.all(
-                16,
+                paddingPage,
               ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   SvgPicture.asset(
                     SvgIcons.bucket,
-                    height: 26,
+                    height: heightSizeBox26,
                     color: ColorPalette.whiteColor,
                   ),
                   Text(
-                    'Удалить',
-                    style: Theme.of(context).textTheme.subtitle2?.copyWith(
-                          color: ColorPalette.whiteColor,
-                        ),
+                    delete,
+                    style: textStyle(context),
                   ),
                 ],
               ),
@@ -51,4 +45,19 @@ class BackgroundDismissible extends StatelessWidget {
           ],
         ),
       );
+
+  TextStyle? textStyle(BuildContext context) {
+    return Theme.of(context).textTheme.subtitle2?.copyWith(
+          color: ColorPalette.whiteColor,
+        );
+  }
+
+  EdgeInsets _buildEdgeInsets() {
+    return const EdgeInsets.fromLTRB(
+      0,
+      0,
+      0,
+      paddingPage,
+    );
+  }
 }

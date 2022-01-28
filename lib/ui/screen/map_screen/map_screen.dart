@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:places/ui/screen/widgets/bottom_navigation_list.dart';
+import 'package:places/ui/screen/widgets/bottom_navigation/bottom_navigation.dart';
+
 
 ///Экран с картой объектов
 class MapScreen extends StatelessWidget {
@@ -8,7 +9,7 @@ class MapScreen extends StatelessWidget {
 
   @override
   Widget build(final BuildContext context) => Scaffold(
-        bottomNavigationBar: BottomNavigationList(1),
+        bottomNavigationBar: BottomNavigation(1),
         body: Container(
           alignment: Alignment.center,
           child: const Text('Здесь будет карта'),

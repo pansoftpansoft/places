@@ -24,7 +24,6 @@ class SearchBar extends StatelessWidget {
     this.autofocus = false,
   }) : super(key: key);
 
-
   @override
   Widget build(final BuildContext context) => SizedBox(
         height: heightTextFieldSearch,
@@ -32,45 +31,63 @@ class SearchBar extends StatelessWidget {
           labelText: search,
           controller: textEditingController,
           autofocus: autofocus,
-          textEditingControllerFunction:
-              (final TextEditingController _textEditingController) {
-            if (_textEditingController.text.isNotEmpty) {
-              if (_textEditingController.text
-                      .substring(_textEditingController.text.length - 1) ==
-                  ' ') {
-                context.read<SearchFilterModel>().searchPlaceForDynamicText(
-                      _textEditingController.text,
-                    );
-              }
-            } else {
-              //context.read<SearchFilterModel>().searchPlaceForDynamicText('');
-              context.read<SearchFilterModel>()
-                ..countFilteredPlaces()
-                ..saveFilterSettings();
-            }
+          textEditingControllerFunction: (final _textEditingController) {
+            _textEditingControllerFunction(_textEditingController, context);
           },
-          borderRadius: 12,
+          borderRadius: borderRadiusCard12,
           svgIconSuffix: SvgIcons.filter,
           svgIconSuffixColor: ColorPalette.greenColor,
           actionIconSuffix: () {
-            Navigator.pushNamed(context, RouteName.filtersScreen);
+            _actionIconSuffix(context);
           },
           svgIconSuffixForText: SvgIcons.clear,
           svgIconSuffixForTextColor: Colors.black,
           actionIconSuffixForText: () {
             textEditingController!.clear();
-
             context.read<SearchFilterModel>().searchPlaceForDynamicText('');
           },
           svgIconPrefix: SvgIcons.search,
           svgIconPrefixColor: ColorPalette.textInTextField,
           borderColor: Colors.transparent,
           fillColor: ColorPalette.filledTextField,
-          actionOnSubmitted: (final String value) {
-            context.read<SearchFilterModel>().searchPlaceForDynamicText(value);
-            //добавим введенную строку поиска в историю
-            DBProvider.dbProvider.addHistory(value);
+          actionOnSubmitted: (final value) {
+            _actionOnSubmitted(value, context);
           },
         ),
       );
+
+  void _textEditingControllerFunction(
+    TextEditingController _textEditingController,
+    BuildContext context,
+  ) {
+    if (_textEditingController.text.isNotEmpty) {
+      if (_textEditingController.text
+              .substring(_textEditingController.text.length - 1) ==
+          ' ') {
+        context.read<SearchFilterModel>().searchPlaceForDynamicText(
+              _textEditingController.text,
+            );
+      }
+    } else {
+      //context.read<SearchFilterModel>().searchPlaceForDynamicText('');
+      context.read<SearchFilterModel>()
+        ..countFilteredPlaces()
+        ..saveFilterSettings();
+    }
+  }
+
+  void _actionIconSuffix(
+    BuildContext context,
+  ) {
+    Navigator.pushNamed(context, RouteName.filtersScreen);
+  }
+
+  void _actionOnSubmitted(
+    String value,
+    BuildContext context,
+  ) {
+    context.read<SearchFilterModel>().searchPlaceForDynamicText(value);
+    //добавим введенную строку поиска в историю
+    DBProvider.dbProvider.addHistory(value);
+  }
 }

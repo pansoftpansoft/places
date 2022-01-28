@@ -19,7 +19,7 @@ class RouteName {
   static const String settingsScreen = '/SettingsScreen';
 
   /// Константа с именем экрана
-  static const String sightDetails = '/SightDetails';
+  static const String sightDetailsScreen = '/SightDetailsScreen';
 
   /// Константа с именем экрана
   static const String sightListScreen = '/SightListScreen';

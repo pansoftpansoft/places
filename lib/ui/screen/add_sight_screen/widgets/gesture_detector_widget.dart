@@ -19,30 +19,31 @@ class GestureDetectorWidget extends StatefulWidget {
 class _GestureDetectorWidgetState extends State<GestureDetectorWidget> {
   @override
   Widget build(final BuildContext context) => GestureDetector(
-    child: Container(
-      padding: const EdgeInsets.only(right: 16),
-      width: 72,
-      height: 72,
-      decoration: BoxDecoration(
-        border: Border.all(
-          color: ColorPalette.greenColor.withOpacity(0.48),
-          width: 2,
-        ),
-        borderRadius: const BorderRadius.all(Radius.circular(10)),
-      ),
-      child: UnconstrainedBox(
-        child: InkWell(
-          onTap: () {
-            debugPrint('100');
-            context.read<AddSightModel>().addPhoto('100');
-          },
-          child: SvgPicture.asset(
-            SvgIcons.union,
-            height: 24,
-            color: ColorPalette.greenColor,
+        child: Container(
+          margin: const EdgeInsets.only(right: 16),
+          padding: const EdgeInsets.only(left: 16, right: 16),
+          width: 72,
+          height: 72,
+          decoration: BoxDecoration(
+            border: Border.all(
+              color: ColorPalette.greenColor.withOpacity(0.48),
+              width: 2,
+            ),
+            borderRadius: const BorderRadius.all(Radius.circular(10)),
+          ),
+          child: UnconstrainedBox(
+            child: InkWell(
+              onTap: () {
+                debugPrint('100');
+                context.read<AddSightModel>().addPhoto('100');
+              },
+              child: SvgPicture.asset(
+                SvgIcons.union,
+                height: 24,
+                color: ColorPalette.greenColor,
+              ),
+            ),
           ),
         ),
-      ),
-    ),
-  );
+      );
 }

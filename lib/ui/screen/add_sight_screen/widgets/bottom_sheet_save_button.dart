@@ -1,21 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:places/ui/res/color_palette.dart';
-import 'package:places/ui/res/labels.dart';
 import 'package:places/ui/res/sizes.dart';
-import 'package:places/ui/screen/add_sight_screen/widgets/select_category.dart';
+import 'package:places/ui/screen/add_sight_screen/models/add_sight_model.dart';
+import 'package:places/ui/screen/add_sight_screen/widgets/bottom_sheet_save_button_body.dart';
+import 'package:provider/provider.dart';
 
 ///
 class BottomSheetSaveButton extends StatelessWidget {
   ///
-  final SelectCategory widget;
-
-
-  ///
-  const BottomSheetSaveButton(
-    this.widget, {
+  const BottomSheetSaveButton({
     final Key? key,
   }) : super(key: key);
-
 
   @override
   Widget build(final BuildContext context) => Padding(
@@ -23,41 +17,13 @@ class BottomSheetSaveButton extends StatelessWidget {
           horizontal: paddingPage,
           vertical: paddingPage / 2,
         ),
-        child: ConstrainedBox(
-          constraints: const BoxConstraints.tightFor(height: 48),
-          child: ElevatedButton(
-            style: ButtonStyle(
-              padding: MaterialStateProperty.all(EdgeInsets.zero),
-              elevation: MaterialStateProperty.all(0),
-              backgroundColor: widget.typePlaceSelected == null
-                  ? MaterialStateProperty.all<Color>(ColorPalette.dmBasicColor)
-                  : MaterialStateProperty.all<Color>(ColorPalette.greenColor),
-              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(borderRadiusCard)),
-                ),
-              ),
-            ),
-            onPressed: widget.typePlaceSelected == null
-                ? null
-                : () {
-                    Navigator.pop(context, widget.typePlaceSelected);
-                  },
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Text(
-                  save,
-                  style: Theme.of(context).textTheme.headline5!.copyWith(
-                        color: widget.typePlaceSelected == null
-                            ? ColorPalette.lmFontHeadline2
-                                .withOpacity(opacityText)
-                            : ColorPalette.lmPrimaryColor,
-                      ),
-                ),
-              ],
-            ),
-          ),
+        child: Consumer<AddSightModel>(
+          builder: (
+            final context,
+            final sight,
+            final child,
+          ) =>
+              const BottomSheetSaveButtonBody(),
         ),
       );
 }

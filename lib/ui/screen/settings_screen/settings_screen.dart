@@ -1,15 +1,10 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:places/ui/res/color_palette.dart';
 import 'package:places/ui/res/labels.dart';
-import 'package:places/ui/res/route_name.dart';
 import 'package:places/ui/res/sizes.dart';
-import 'package:places/ui/res/svg_icons.dart';
-import 'package:places/ui/screen/models/app_model.dart';
-import 'package:places/ui/screen/widgets/bottom_navigation_list.dart';
-import 'package:provider/provider.dart';
+import 'package:places/ui/screen/settings_screen/widgets/settings_screen_theme_switch.dart';
+import 'package:places/ui/screen/settings_screen/widgets/settings_screen_watch_tutorial.dart';
+import 'package:places/ui/screen/widgets/bottom_navigation/bottom_navigation.dart';
 
 ///Экран настроек
 class SettingsScreen extends StatelessWidget {
@@ -19,61 +14,23 @@ class SettingsScreen extends StatelessWidget {
   @override
   Widget build(final BuildContext context) => Scaffold(
         appBar: AppBar(
-          title: const Text(settings),
+          title: Text(
+            settings,
+            style: Theme.of(context).textTheme.headline3,
+          ),
         ),
-        bottomNavigationBar: BottomNavigationList(3),
+        bottomNavigationBar: BottomNavigation(3),
         body: Padding(
           padding: const EdgeInsets.all(paddingPage),
           child: Column(
-            children: <Widget>[
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Text(
-                    darkTheme,
-                    style: Theme.of(context).textTheme.headline2,
-                  ),
-                  CupertinoSwitch(
-                    value: context.select<AppModel, bool>(
-                      (final a) => a.isThemeColor,
-                    ),
-                    onChanged: (final value) {
-                      context.read<AppModel>().changeTheme();
-                    },
-                  ),
-                ],
-              ),
-              const Divider(
+            children: const <Widget>[
+              SettingsScreenThemeSwitch(),
+              Divider(
                 thickness: 1,
                 color: ColorPalette.lmTabBarBackground,
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Text(
-                    watchTutorial,
-                    style: Theme.of(context).textTheme.headline2,
-                  ),
-                  IconButton(
-                    padding: const EdgeInsets.symmetric(horizontal: 4),
-                    icon: SvgPicture.asset(
-                      SvgIcons.info,
-                      height: 20,
-                      color: ColorPalette.greenColor,
-                    ),
-                    onPressed: () {
-                      if (kDebugMode) {
-                        print('Нажата кнопка "Смотреть туториал"');
-                      }
-                      Navigator.pushNamed(
-                        context,
-                        RouteName.onboardingScreen,
-                      );
-                    },
-                  ),
-                ],
-              ),
-              const Divider(
+              SettingsScreenWatchTutorial(),
+              Divider(
                 thickness: 1,
                 color: ColorPalette.lmTabBarBackground,
               ),

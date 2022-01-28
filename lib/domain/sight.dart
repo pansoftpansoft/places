@@ -43,4 +43,5 @@ class Sight {
     this.wantVisitDate,
     this.visitedDate,
   });
+
 }

@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:places/ui/res/color_palette.dart';
-import 'package:places/ui/res/labels.dart';
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/res/svg_icons.dart';
+import 'package:places/ui/screen/onboarding_screen/widgets/footer_page_button_start.dart';
 
 ///Подвал шаблон страници Onboard
 class FooterPage extends StatelessWidget {
-  ///
-  static const double heightFooterPage = 48;
-
   ///
   final bool buttonOnStartVisible;
 
@@ -28,48 +24,8 @@ class FooterPage extends StatelessWidget {
               color: Colors.green,
             ),
             const SizedBox(height: heightSizeBox32),
-            Container(
-              constraints: const BoxConstraints.tightFor(
-                height: heightFooterPage,
-              ),
-              child: Visibility(
-                visible: buttonOnStartVisible,
-                child: ElevatedButton(
-                  style: ButtonStyle(
-                    padding: MaterialStateProperty.all(
-                      EdgeInsets.zero,
-                    ),
-                    elevation: MaterialStateProperty.all(0),
-                    backgroundColor: MaterialStateProperty.all<Color>(
-                      ColorPalette.greenColor,
-                    ),
-                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                      const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(borderRadiusCard12),
-                        ),
-                      ),
-                    ),
-                  ),
-                  onPressed: () {
-                    Navigator.pushReplacementNamed(
-                      context,
-                      '/SightListScreen',
-                    );
-                  },
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Text(
-                        onStart,
-                        style: Theme.of(context).textTheme.headline5!.copyWith(
-                              color: ColorPalette.lmPrimaryColor,
-                            ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
+            FooterPageButtonStart(
+              buttonOnStartVisible: buttonOnStartVisible,
             ),
           ],
         ),

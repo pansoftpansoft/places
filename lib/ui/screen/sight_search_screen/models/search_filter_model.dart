@@ -5,6 +5,7 @@ import 'package:places/domain/db_provider.dart';
 import 'package:places/domain/history.dart';
 import 'package:places/mocks.dart';
 
+
 ///Модель для поиска
 class SearchFilterModel extends ChangeNotifier {
   ///
@@ -20,12 +21,12 @@ class SearchFilterModel extends ChangeNotifier {
   TextEditingController();
 
   ///
+  static RangeValues _selectedRange = const RangeValues(100, 1000);
+
+  ///
   static var _countPlace = 0;
 
   static String _searchString = '';
-
-  ///
-  static RangeValues _selectedRange = const RangeValues(100, 1000);
 
   ///
   static Map<TypePlace, bool> _filterMap = <TypePlace, bool>{
@@ -85,8 +86,6 @@ class SearchFilterModel extends ChangeNotifier {
       _filterMap[TypePlace] == null ? false : true;
 
 
-
-
   ///Получаем список историй поиска
   static Future<int> getListHistory() async {
     listHistory = (await DBProvider.dbProvider.getListHistory())!;
@@ -126,6 +125,7 @@ class SearchFilterModel extends ChangeNotifier {
     }
     countPlace = _countPlace;
     managerSelectionScreen();
+    //debugPrint(selectedRange.toString());
     notifyListeners();
   }
 
@@ -266,5 +266,4 @@ class SearchFilterModel extends ChangeNotifier {
     return sqrt(dxPoint * dxPoint + dyPoint * dyPoint) <= SearchFilterModel.selectedRange.end &&
         sqrt(dxPoint * dxPoint + dyPoint * dyPoint) >= SearchFilterModel.selectedRange.start;
   }
-
 }

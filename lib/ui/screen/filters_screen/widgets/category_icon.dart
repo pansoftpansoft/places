@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:places/mocks.dart';
 import 'package:places/ui/res/color_palette.dart';
-import 'package:places/ui/res/svg_icons.dart';
 import 'package:places/ui/screen/filters_screen/filters_screen.dart';
+import 'package:places/ui/screen/filters_screen/widgets/category_icon_svg_icon.dart';
+import 'package:places/ui/screen/filters_screen/widgets/category_icon_tick_choice.dart';
 import 'package:places/ui/screen/sight_search_screen/models/search_filter_model.dart';
 import 'package:provider/provider.dart';
 
@@ -27,7 +28,6 @@ class CategoryIcon extends StatefulWidget {
     final Key? key,
   }) : super(key: key);
 
-
   @override
   State<CategoryIcon> createState() => _CategoryIconState();
 }
@@ -42,46 +42,10 @@ class _CategoryIconState extends State<CategoryIcon> {
         ) =>
             Column(
           children: <Widget>[
-            Stack(
-              children: <Widget>[
-                Ink(
-                  decoration: const ShapeDecoration(
-                    color: ColorPalette.greenColorLight,
-                    shape: CircleBorder(),
-                  ),
-                  child: IconButton(
-                    iconSize: 53,
-                    //color: ,
-                    onPressed: () {
-                      FiltersScreen.setButtonSelect(context, widget.nameKey);
-                      FiltersScreen.setFilter(context);
-                      setState(() {
-                        if (kDebugMode) {
-                          print('Обновить даные');
-                        }
-                      });
-                    },
-                    icon: SvgPicture.asset(
-                      widget.svgIcons,
-                      height: 40,
-                      color: ColorPalette.greenColor,
-                    ),
-                  ),
-                ),
-                Positioned(
-                  bottom: -4,
-                  right: -4,
-                  child: SearchFilterModel.filterMap[widget.nameKey]!
-                      ? SvgPicture.asset(
-                          SvgIcons.tickChoice,
-                          height: 25,
-                        )
-                      : const SizedBox(
-                          height: 0,
-                          width: 0,
-                        ),
-                ),
-              ],
+            CategoryIconSvgIcon(
+              widget.nameIcon,
+              widget.nameKey,
+              widget.svgIcons,
             ),
             const SizedBox(
               height: 12,

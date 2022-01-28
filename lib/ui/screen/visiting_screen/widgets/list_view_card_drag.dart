@@ -16,7 +16,6 @@ class ListViewCardDrag extends StatelessWidget {
     final Key? key,
   }) : super(key: key);
 
-
   @override
   Widget build(final BuildContext context) => DragTarget<int>(
         onAccept: (final data) {
@@ -40,13 +39,17 @@ class ListViewCardDrag extends StatelessWidget {
           child: Dismissible(
             background: const BackgroundDismissible(),
             onDismissed: (final direction) {
-              context.read<VisitingModel>().deletePlaceWantVisit(
-                    mocksWantVisit[index].name,
-                  );
+              _onDismissed(context);
             },
             key: UniqueKey(),
             child: SightCardDrag(index),
           ),
         ),
       );
+
+  void _onDismissed(BuildContext context) {
+    context.read<VisitingModel>().deletePlaceWantVisit(
+          mocksWantVisit[index].name,
+        );
+  }
 }

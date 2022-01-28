@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:places/ui/res/svg_icons.dart';
-import 'package:places/ui/screen/widgets/text_field_icon/text_field_icon.dart';
+import 'package:places/ui/res/sizes.dart';
+import 'package:places/ui/screen/add_sight_screen/widgets/row_text_field_text_field_icon_lat.dart';
+import 'package:places/ui/screen/add_sight_screen/widgets/row_text_field_text_field_icon_lon.dart';
 
 ///
 class RowTextFieldLatAndLon extends StatelessWidget {
-
   final TextEditingController _textEditingControllerLat;
   final FocusNode _focusNodeLat;
   final FocusNode _focusNodeLon;
@@ -28,52 +27,25 @@ class RowTextFieldLatAndLon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: <Widget>[
-        Expanded(
-          child: TextFieldIcon(
-            controller: _textEditingControllerLat,
-            focusNode: _focusNodeLat,
-            focusNodeNext: _focusNodeLon,
-            keyboardType: TextInputType.number,
-            svgIconSuffixForText: SvgIcons.clear,
-            svgIconSuffixForTextColor: Colors.black,
-            borderRadius: 8,
-            actionIconSuffixForText: _textEditingControllerLat.clear,
-            inputFormatters: <FilteringTextInputFormatter>[
-              FilteringTextInputFormatter.allow(
-                RegExp(r'^\d*?\.?\d*?$'),
-              ),
-            ],
-            actionOnSubmitted: (final value) {
-              _focusNodeLon.requestFocus();
-            },
+    return SizedBox(
+      height: heightSizeBox48,
+      child: Row(
+        children: <Widget>[
+          RowTextFieldTextFieldIconLat(
+            _textEditingControllerLat,
+            _focusNodeLat,
+            _focusNodeLon,
           ),
-        ),
-        const SizedBox(
-          width: 16,
-        ),
-        Expanded(
-          child: TextFieldIcon(
-            controller: _textEditingControllerLon,
-            focusNode: _focusNodeLon,
-            focusNodeNext: _focusNodeDescription,
-            keyboardType: TextInputType.number,
-            svgIconSuffixForText: SvgIcons.clear,
-            svgIconSuffixForTextColor: Colors.black,
-            borderRadius: 8,
-            actionIconSuffixForText: _textEditingControllerLon.clear,
-            inputFormatters: <TextInputFormatter>[
-              FilteringTextInputFormatter.allow(
-                RegExp(r'^\d*?\.?\d*?$'),
-              ),
-            ],
-            actionOnSubmitted: (final value) {
-              _focusNodeDescription.requestFocus();
-            },
+          const SizedBox(
+            width: paddingPage,
           ),
-        ),
-      ],
+          RowTextFieldTextFieldIconLon(
+            _textEditingControllerLon,
+            _focusNodeLon,
+            _focusNodeDescription,
+          ),
+        ],
+      ),
     );
   }
 }

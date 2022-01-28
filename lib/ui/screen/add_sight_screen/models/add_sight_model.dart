@@ -5,6 +5,9 @@ import 'package:places/mocks.dart';
 class AddSightModel extends ChangeNotifier {
   /// Первое значение бронируем,
   /// так как это будет кнопка "Добавить", которую удалять нельзя
+  TypePlace? selectTypePlace;
+
+  String? disableButton;
 
   ///Добавляем фотографию
   void addPhoto(final String pathPhoto) {
@@ -30,6 +33,18 @@ class AddSightModel extends ChangeNotifier {
     } else {
       tempPhotoPlace.removeAt(index);
     }
+    notifyListeners();
+  }
+
+  ///Удаляем фотографию
+  void selectCategory(final TypePlace? changeSelect) {
+    selectTypePlace = changeSelect;
+    notifyListeners();
+  }
+
+  ///Управление кнопкой создать
+  void disableButtonCreate(final String value) {
+    disableButton = value.isEmpty ? null : value;
     notifyListeners();
   }
 }

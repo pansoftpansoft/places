@@ -23,6 +23,7 @@ dependencies:
 
 dev_dependencies:
   dart_code_metrics: ^4.6.0
+#flutter pub run dart_code_metrics:metrics analyze lib
   flutter_lints: ^1.0.4
   flutter_test:
     sdk: flutter

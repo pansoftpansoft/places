@@ -5,7 +5,6 @@ import 'package:places/ui/screen/visiting_screen/models/visiting_model.dart';
 import 'package:places/ui/screen/widgets/sight_card/sight_card.dart';
 import 'package:provider/src/provider.dart';
 
-
 ///
 class SightCardDrag extends StatefulWidget {
   ///
@@ -32,9 +31,7 @@ class _SightCardDragState extends State<SightCardDrag> {
         iconDelete: true,
         //key: ValueKey(mocksWantVisit[index].name),
         actionOnDelete: () {
-          context.read<VisitingModel>().deletePlaceWantVisit(
-                mocksWantVisit[widget.index].name,
-              );
+          _actionOnDelete(context);
         },
 
         /// Установка даты, когда хочу посетить
@@ -58,4 +55,10 @@ class _SightCardDragState extends State<SightCardDrag> {
           }
         },
       );
+
+  void _actionOnDelete(BuildContext context) {
+    context.read<VisitingModel>().deletePlaceWantVisit(
+          mocksWantVisit[widget.index].name,
+        );
+  }
 }
