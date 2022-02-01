@@ -23,8 +23,9 @@ class SightCardBodyIconDelete extends StatelessWidget {
               SvgIcons.delete,
               onPressed: actionOnDelete,
             )
-          : const IconButtonSpecial(
+          : IconButtonSpecial(
               SvgIcons.heartTransparent,
+              onPressed: actionOnDelete,
             ),
     );
   }

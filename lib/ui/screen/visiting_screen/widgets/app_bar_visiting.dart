@@ -20,6 +20,7 @@ class AppBarVisiting extends StatelessWidget {
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 10),
             child: Card(
+              borderOnForeground: false,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(30)),
               ),

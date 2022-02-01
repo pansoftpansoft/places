@@ -10,6 +10,7 @@ class SightCardBodyRippleEffect extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return Positioned.fill(
       child: Material(
         color: Colors.transparent,
@@ -18,6 +19,7 @@ class SightCardBodyRippleEffect extends StatelessWidget {
             splashColor: ColorPalette.whiteMain.withOpacity(0.4),
             onTap: () {
               showDetailsScreen(context, sight);
+              debugPrint(sight.name);
               debugPrint('Это кнопка "Вся карточка"');
             },
           ),

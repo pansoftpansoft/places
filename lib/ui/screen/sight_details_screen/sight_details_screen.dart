@@ -10,16 +10,13 @@ import 'package:places/ui/screen/sight_details_screen/widgets/sight_details_scre
 ///Подробно о достопримечательности
 class SightDetailsScreen extends StatelessWidget {
   ///Экземпляр достопримечательности
-  //final Sight _sight;
+  final Sight? sight;
 
   ///Конструктор экрана подробности о достопримечательности
-  const SightDetailsScreen({Sight? sight, final Key? key}) : super(key: key);
+  const SightDetailsScreen({this.sight, final Key? key}) : super(key: key);
 
   @override
   Widget build(final BuildContext context) {
-    final args = ModalRoute.of(context)!.settings.arguments as Sight;
-    debugPrint('Я здесь');
-
     return ClipRRect(
       borderRadius: const BorderRadius.vertical(
         top: Radius.circular(borderRadiusCard16),
@@ -29,7 +26,10 @@ class SightDetailsScreen extends StatelessWidget {
         color: ColorPalette.whiteColor,
         child: Stack(
           children: <Widget>[
-            SightDetailsScreenPicture(sight: args),
+            SightDetailsScreenPicture(sight: sight ?? ModalRoute
+                .of(context)!
+                .settings
+                .arguments as Sight),
             const SightDetailsScreenDecorationContainer(),
             Positioned(
               right: 16,
