@@ -14,6 +14,10 @@ const double borderRadiusCard16 = 16;
 /// радиус скруглаения углов для Card
 const double borderRadiusCard12 = 12;
 
+/// радиус скруглаения углов для TapBar
+const double borderRadiusTapBar = 50;
+
+
 /// радиус скруглаения углов для Card
 const double borderRadiusCard8 = 8;
 

@@ -38,7 +38,7 @@ final ThemeData lightTheme = ThemeData(
     unselectedLabelColor: ColorPalette.lmTabBarUnSelect,
     unselectedLabelStyle: devHeadline6,
     indicator: BoxDecoration(
-      borderRadius: BorderRadius.all(Radius.circular(50)),
+      borderRadius: BorderRadius.all(Radius.circular(borderRadiusTapBar)),
       color: ColorPalette.lmTabBarCursor,
     ),
   ),
@@ -104,7 +104,7 @@ final ThemeData darkTheme = ThemeData(
     unselectedLabelColor: ColorPalette.dmTabBarUnSelect,
     unselectedLabelStyle: devHeadline6,
     indicator: BoxDecoration(
-      borderRadius: BorderRadius.all(Radius.circular(50)),
+      borderRadius: BorderRadius.all(Radius.circular(borderRadiusTapBar)),
       color: ColorPalette.dmTabBarCursor,
     ),
   ),
