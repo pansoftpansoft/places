@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:places/domain/sight.dart';
-import 'package:places/mocks.dart';
+import 'package:places/type_place.dart';
 import 'package:places/ui/res/color_palette.dart';
 import 'package:places/ui/res/labels.dart';
 import 'package:places/ui/res/sizes.dart';

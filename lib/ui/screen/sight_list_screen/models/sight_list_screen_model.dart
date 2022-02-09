@@ -1,5 +1,5 @@
 import 'package:flutter/foundation.dart';
-import 'package:places/mocks.dart';
+import 'package:places/type_place.dart';
 
 ///Модель для добавления фотографий в карточку места
 class SightListScreenModel extends ChangeNotifier {

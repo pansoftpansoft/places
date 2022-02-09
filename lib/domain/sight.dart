@@ -1,4 +1,4 @@
-import 'package:places/mocks.dart';
+import 'package:places/type_place.dart';
 
 /// Класс места
 class Sight {

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:places/mocks.dart';
+import 'package:places/type_place.dart';
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/screen/sight_list_screen/widgets/sticky_header.dart';
 import 'package:places/ui/screen/widgets/sight_card/sight_card.dart';

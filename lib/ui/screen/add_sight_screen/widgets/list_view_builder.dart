@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:places/mocks.dart';
+import 'package:places/type_place.dart';
 import 'package:places/ui/screen/add_sight_screen/models/add_sight_model.dart';
 import 'package:places/ui/screen/add_sight_screen/widgets/full_photo.dart';
 import 'package:places/ui/screen/add_sight_screen/widgets/gesture_detector_widget.dart';

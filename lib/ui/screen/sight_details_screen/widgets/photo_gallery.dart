@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:places/mocks.dart';
+import 'package:places/type_place.dart';
 import 'package:places/ui/screen/sight_details_screen/models/sight_details_model.dart';
 import 'package:places/ui/screen/sight_details_screen/widgets/photo_gallery_picture.dart';
 import 'package:places/ui/screen/sight_details_screen/widgets/scroll_indicator.dart';

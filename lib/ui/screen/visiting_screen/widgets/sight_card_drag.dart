@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:places/mocks.dart';
+import 'package:places/type_place.dart';
 import 'package:places/ui/screen/visiting_screen/models/visiting_model.dart';
 import 'package:places/ui/screen/widgets/sight_card/sight_card.dart';
 import 'package:provider/src/provider.dart';

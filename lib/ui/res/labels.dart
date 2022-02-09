@@ -1,4 +1,4 @@
-import 'package:places/mocks.dart';
+import 'package:places/type_place.dart';
 
 ///Текстовые константы
 const String addToFavorites = 'В избранное';

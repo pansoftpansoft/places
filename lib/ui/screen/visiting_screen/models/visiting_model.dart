@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:places/domain/sight.dart';
-import 'package:places/mocks.dart';
+import 'package:places/type_place.dart';
 
 ///Модель для Visiting
 class VisitingModel extends ChangeNotifier {

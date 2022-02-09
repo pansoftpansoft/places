@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:places/mocks.dart';
+import 'package:places/type_place.dart';
 
 ///Модель для SightDetails
 class SightDetailsModel extends ChangeNotifier {

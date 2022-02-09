@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:places/mocks.dart';
+import 'package:places/type_place.dart';
 
 class PhotoGalleryPicture extends StatelessWidget {
   final int index;

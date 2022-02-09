@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:places/mocks.dart';
+import 'package:places/type_place.dart';
 import 'package:places/ui/screen/filters_screen/widgets/bottom_sheet_widget_button_show.dart';
 import 'package:places/ui/screen/filters_screen/widgets/filters_screen_body.dart';
 import 'package:places/ui/screen/filters_screen/widgets/title_filter.dart';

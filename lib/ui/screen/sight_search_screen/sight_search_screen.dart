@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:places/mocks.dart';
+import 'package:places/type_place.dart';
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/screen/sight_search_screen/models/search_filter_model.dart';
 import 'package:places/ui/screen/sight_search_screen/widgets/sight_search_screen_body.dart';
