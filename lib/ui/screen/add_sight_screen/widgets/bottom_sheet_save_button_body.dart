@@ -4,7 +4,8 @@ import 'package:places/ui/res/color_palette.dart';
 import 'package:places/ui/res/labels.dart';
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/screen/add_sight_screen/models/add_sight_model.dart';
-import 'package:provider/src/provider.dart';
+import 'package:provider/provider.dart';
+
 
 class BottomSheetSaveButtonBody extends StatelessWidget {
   const BottomSheetSaveButtonBody({Key? key}) : super(key: key);

@@ -14,11 +14,11 @@ class ListOfFoundPlacesScreen extends StatelessWidget {
   Widget build(final BuildContext context) => ListView.separated(
         itemCount: mocksSearch.length,
         shrinkWrap: true,
-        itemBuilder: (final BuildContext context, final int index) =>
+        itemBuilder: (final context, final index) =>
             SightCardSearch(mocksSearch[index]),
         separatorBuilder: (
-          final BuildContext context,
-          final int index,
+          final context,
+          final index,
         ) =>
             const Padding(
           padding: EdgeInsets.fromLTRB(

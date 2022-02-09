@@ -19,7 +19,7 @@ class FiltersScreenBody extends StatelessWidget {
           final child,
         ) =>
             Column(
-          children: <Widget>[
+          children: const <Widget>[
             FiltersScreenBodyTextCategories(),
             SizedBox(height: 24),
             GridIcon(),

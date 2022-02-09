@@ -1,11 +1,6 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:places/type_place.dart';
-import 'package:places/ui/res/color_palette.dart';
-import 'package:places/ui/screen/filters_screen/filters_screen.dart';
 import 'package:places/ui/screen/filters_screen/widgets/category_icon_svg_icon.dart';
-import 'package:places/ui/screen/filters_screen/widgets/category_icon_tick_choice.dart';
 import 'package:places/ui/screen/sight_search_screen/models/search_filter_model.dart';
 import 'package:provider/provider.dart';
 

@@ -33,13 +33,13 @@ class SightSearchScreenBodySwitch extends StatelessWidget {
           case ScreenEnum.historyListScreen:
             return const HistoryListScreen();
           case ScreenEnum.errorScreen:
-            return EmptyScreen(
+            return const EmptyScreen(
               textHeader: dataLoadingError,
               textComment: tryAgain,
               svgIcon: SvgIcons.delete,
             );
           default:
-            return EmptyScreen(
+            return const EmptyScreen(
               textHeader: unknownError,
               textComment: tryAgain,
               svgIcon: SvgIcons.delete,

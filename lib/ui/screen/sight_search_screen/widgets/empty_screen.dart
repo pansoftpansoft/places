@@ -18,7 +18,7 @@ class EmptyScreen extends StatefulWidget {
 
 
   ///
-  EmptyScreen({
+  const EmptyScreen({
     required this.textHeader,
     required this.svgIcon,
     required this.textComment,

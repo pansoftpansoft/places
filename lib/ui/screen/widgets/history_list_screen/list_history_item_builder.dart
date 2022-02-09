@@ -3,7 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:places/ui/res/color_palette.dart';
 import 'package:places/ui/res/svg_icons.dart';
 import 'package:places/ui/screen/sight_search_screen/models/search_filter_model.dart';
-import 'package:provider/src/provider.dart';
+import 'package:provider/provider.dart';
 
 class ListHistoryItemBuilder extends StatelessWidget {
   final int index;

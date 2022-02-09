@@ -11,7 +11,7 @@ class SightSearchScreenBodySwitchNotFound extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return EmptyScreen(
+    return const EmptyScreen(
       textHeader: nothingWasFound,
       textComment: tryChangingTheSearchParameter,
       svgIcon: SvgIcons.search,

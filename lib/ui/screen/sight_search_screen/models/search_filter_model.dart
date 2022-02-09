@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_getters_setters
+
 import 'dart:async';
 import 'dart:math';
 import 'package:flutter/material.dart';
@@ -83,7 +85,7 @@ class SearchFilterModel extends ChangeNotifier {
 
   ///
   static bool getTypePlaceValue() =>
-      _filterMap[TypePlace] == null ? false : true;
+      _filterMap[TypePlace] == null;
 
 
   ///Получаем список историй поиска

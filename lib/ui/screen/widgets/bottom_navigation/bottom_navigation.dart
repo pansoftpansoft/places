@@ -1,3 +1,4 @@
+// ignore_for_file: must_be_immutable
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:places/ui/res/route_name.dart';
@@ -7,8 +8,7 @@ import 'package:places/ui/res/svg_icons.dart';
 class BottomNavigation extends StatefulWidget {
   int _selectedIndex;
 
-  ///
-  BottomNavigation(this._selectedIndex, {final Key? key}) : super(key: key);
+  BottomNavigation(this._selectedIndex, {Key? key}) : super(key: key);
 
   @override
   State<BottomNavigation> createState() => _BottomNavigationState();
@@ -16,7 +16,7 @@ class BottomNavigation extends StatefulWidget {
 
 class _BottomNavigationState extends State<BottomNavigation> {
   @override
-  Widget build(final BuildContext context) => Theme(
+  Widget build(BuildContext context) => Theme(
         data: Theme.of(context).copyWith(
           canvasColor:
               Theme.of(context).bottomNavigationBarTheme.backgroundColor,
@@ -31,44 +31,46 @@ class _BottomNavigationState extends State<BottomNavigation> {
         ),
       );
 
-  List<BottomNavigationBarItem> listBottomNavigationBarItem(BuildContext context) {
+  List<BottomNavigationBarItem> listBottomNavigationBarItem(
+    BuildContext context,
+  ) {
     return <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: SvgPicture.asset(
-              SvgIcons.list,
-              height: 30,
-              color: _color(context),
-            ),
-            label: '',
-          ),
-          BottomNavigationBarItem(
-            icon: SvgPicture.asset(
-              SvgIcons.map,
-              height: 30,
-              color: _color(context),
-            ),
-            label: '',
-          ),
-          BottomNavigationBarItem(
-            icon: SvgPicture.asset(
-              SvgIcons.heartTransparent,
-              height: 30,
-              color: _color(context),
-            ),
-            label: '',
-          ),
-          BottomNavigationBarItem(
-            icon: SvgPicture.asset(
-              SvgIcons.settings,
-              height: 30,
-              color: _color(context),
-            ),
-            label: '',
-          ),
-        ];
+      BottomNavigationBarItem(
+        icon: SvgPicture.asset(
+          SvgIcons.list,
+          height: 30,
+          color: _color(context),
+        ),
+        label: '',
+      ),
+      BottomNavigationBarItem(
+        icon: SvgPicture.asset(
+          SvgIcons.map,
+          height: 30,
+          color: _color(context),
+        ),
+        label: '',
+      ),
+      BottomNavigationBarItem(
+        icon: SvgPicture.asset(
+          SvgIcons.heartTransparent,
+          height: 30,
+          color: _color(context),
+        ),
+        label: '',
+      ),
+      BottomNavigationBarItem(
+        icon: SvgPicture.asset(
+          SvgIcons.settings,
+          height: 30,
+          color: _color(context),
+        ),
+        label: '',
+      ),
+    ];
   }
 
-  void _onItemTapped(final int index) {
+  void _onItemTapped(int index) {
     setState(() {
       widget._selectedIndex = index;
       switch (index) {
