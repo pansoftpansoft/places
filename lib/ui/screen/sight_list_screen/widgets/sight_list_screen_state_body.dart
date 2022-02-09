@@ -24,8 +24,11 @@ class SightListScreenStateBody extends StatelessWidget {
               final index,
             ) =>
                 Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: paddingPage,
+              padding: const EdgeInsets.fromLTRB(
+                heightSizeBox12,
+                0,
+                heightSizeBox12,
+                heightSizeBox12,
               ),
               child: SightCard(mocks[index]),
             ),

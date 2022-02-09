@@ -13,36 +13,33 @@ class BackgroundDismissible extends StatelessWidget {
   }) : super(key: key);
 
   @override
-  Widget build(final BuildContext context) => Card(
-        color: ColorPalette.redColor,
-        margin: _buildEdgeInsets(),
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(borderRadiusCard16)),
-        ),
-        elevation: 0,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.all(
-                paddingPage,
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  SvgPicture.asset(
-                    SvgIcons.bucket,
-                    height: heightSizeBox26,
-                    color: ColorPalette.whiteColor,
-                  ),
-                  Text(
-                    delete,
-                    style: textStyle(context),
-                  ),
-                ],
-              ),
+  Widget build(final BuildContext context) => AspectRatio(
+        aspectRatio: 5 / 3,
+        child: Container(
+          padding: _buildEdgeInsets(),
+          decoration: const BoxDecoration(
+            color: ColorPalette.redColor,
+            borderRadius: BorderRadius.all(
+              Radius.circular(borderRadiusCard16),
             ),
-          ],
+          ),
+          child: Align(
+            alignment: Alignment.centerRight,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                SvgPicture.asset(
+                  SvgIcons.bucket,
+                  height: heightSizeBox26,
+                  color: ColorPalette.whiteColor,
+                ),
+                Text(
+                  delete,
+                  style: textStyle(context),
+                ),
+              ],
+            ),
+          ),
         ),
       );
 
@@ -56,8 +53,8 @@ class BackgroundDismissible extends StatelessWidget {
     return const EdgeInsets.fromLTRB(
       0,
       0,
-      0,
       paddingPage,
+      0,
     );
   }
 }

@@ -38,28 +38,32 @@ class SightCard extends StatelessWidget {
   }) : super(key: key);
 
   @override
-  Widget build(final BuildContext context) => Card(
-        margin: const EdgeInsets.fromLTRB(0, 0, 0, paddingPage),
-        shape: _buildRoundedRectangleBorder(),
-        elevation: 0,
-        semanticContainer: false,
-        clipBehavior: Clip.antiAliasWithSaveLayer,
-        child: SightCardBody(
-          _sight,
-          goNeed,
-          goal,
-          iconDelete: iconDelete,
-          actionOnDelete: actionOnDelete,
-          wantToVisit: wantToVisit,
+  Widget build(final BuildContext context) => ClipRRect(
+        borderRadius: const BorderRadius.all(
+          Radius.circular(borderRadiusCard16),
+        ),
+        child: AspectRatio(
+          aspectRatio: 5 / 3,
+          child: Container(
+            color: Theme.of(context).cardTheme.color,
+            child: SightCardBody(
+              _sight,
+              goNeed,
+              goal,
+              iconDelete: iconDelete,
+              actionOnDelete: actionOnDelete,
+              wantToVisit: wantToVisit,
+            ),
+          ),
         ),
       );
 
-  ///
-  RoundedRectangleBorder _buildRoundedRectangleBorder() {
-    return const RoundedRectangleBorder(
-      borderRadius: BorderRadius.all(
-        Radius.circular(borderRadiusCard16),
-      ),
-    );
-  }
+  // ///
+  // RoundedRectangleBorder _buildRoundedRectangleBorder() {
+  //   return const RoundedRectangleBorder(
+  //     borderRadius: BorderRadius.all(
+  //       Radius.circular(borderRadiusCard16),
+  //     ),
+  //   );
+  // }
 }

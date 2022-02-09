@@ -8,6 +8,7 @@ import 'package:places/ui/res/svg_icons.dart';
 import 'package:places/ui/screen/visiting_screen/models/visiting_model.dart';
 import 'package:places/ui/screen/visiting_screen/widgets/list_view_card_drag.dart';
 import 'package:places/ui/screen/visiting_screen/widgets/tab1_widget_empty_list.dart';
+import 'package:places/ui/screen/widgets/sized_box_12.dart';
 import 'package:provider/provider.dart';
 
 /// Вкладка запланированные места
@@ -26,7 +27,9 @@ class Tab1Widget extends StatelessWidget {
         ) =>
             mocksWantVisit.isEmpty
                 ? const Tab1WidgetEmptyList()
-                : ListView.builder(
+                : ListView.separated(
+                    separatorBuilder: (final context, final index) =>
+                        const SizedBox12(),
                     itemCount: mocksWantVisit.length,
                     itemBuilder: (final context, final index) =>
                         ListViewCardDrag(index),
