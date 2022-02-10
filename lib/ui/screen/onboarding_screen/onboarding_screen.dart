@@ -10,9 +10,9 @@ class OnboardingScreen extends StatelessWidget {
   const OnboardingScreen({final Key? key}) : super(key: key);
 
   @override
-  Widget build(final BuildContext context) => SafeArea(
-        child: Scaffold(
-          body: Padding(
+  Widget build(final BuildContext context) => Scaffold(
+        body: SafeArea(
+          child: Padding(
             padding: const EdgeInsets.all(paddingPage),
             child: PageView(
               children: const <Widget>[
