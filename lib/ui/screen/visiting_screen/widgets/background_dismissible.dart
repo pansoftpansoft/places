@@ -14,7 +14,7 @@ class BackgroundDismissible extends StatelessWidget {
 
   @override
   Widget build(final BuildContext context) => AspectRatio(
-        aspectRatio: 5 / 3,
+        aspectRatio: 3 / 2,
         child: Container(
           padding: _buildEdgeInsets(),
           decoration: const BoxDecoration(

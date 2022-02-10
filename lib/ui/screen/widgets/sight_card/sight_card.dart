@@ -43,7 +43,7 @@ class SightCard extends StatelessWidget {
           Radius.circular(borderRadiusCard16),
         ),
         child: AspectRatio(
-          aspectRatio: 5 / 3,
+          aspectRatio: 3 / 2,
           child: Container(
             color: Theme.of(context).cardTheme.color,
             child: SightCardBody(
