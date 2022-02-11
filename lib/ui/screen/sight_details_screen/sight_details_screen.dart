@@ -23,7 +23,7 @@ class SightDetailsScreen extends StatelessWidget {
       ),
       child: Container(
         height: 650,
-        color: ColorPalette.whiteColor,
+        color: Theme.of(context).bottomNavigationBarTheme.backgroundColor,
         child: Stack(
           children: <Widget>[
             SightDetailsScreenPicture(sight: sight ?? ModalRoute
