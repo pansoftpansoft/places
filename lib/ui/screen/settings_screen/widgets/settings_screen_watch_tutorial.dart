@@ -31,6 +31,7 @@ class SettingsScreenWatchTutorial extends StatelessWidget {
             Navigator.pushNamed(
               context,
               RouteName.onboardingScreen,
+              arguments: {'callingFromSettings': true},
             );
           },
         ),

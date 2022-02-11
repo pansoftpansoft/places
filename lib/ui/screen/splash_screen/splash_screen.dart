@@ -113,6 +113,7 @@ class SplashScreenState extends State<SplashScreen> {
         await Navigator.pushReplacementNamed(
           context,
           RouteName.onboardingScreen,
+          arguments: {'callingFromSettings': false},
         );
         if (kDebugMode) {
           print('Переход на следующий экран ${RouteName.onboardingScreen}');
