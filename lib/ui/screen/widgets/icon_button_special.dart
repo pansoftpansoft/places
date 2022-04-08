@@ -5,17 +5,17 @@ import 'package:flutter_svg/flutter_svg.dart';
 ///
 class IconButtonSpecial extends StatefulWidget {
   ///
+  final String iconName;
+
+  ///
+  final VoidCallback? onPressed;
+
+  ///
   const IconButtonSpecial(
     this.iconName, {
     this.onPressed,
     final Key? key,
   }) : super(key: key);
-
-  ///
-  final String iconName;
-
-  ///
-  final VoidCallback? onPressed;
 
   @override
   State<StatefulWidget> createState() => _IconButtonSpecialState();
@@ -25,11 +25,14 @@ class _IconButtonSpecialState extends State<IconButtonSpecial> {
   @override
   Widget build(final BuildContext context) {
     if (kDebugMode) {
-      print(widget.onPressed.toString());
+      print('10--');
+      //print(widget.onPressed.toString());
     }
 
     return Material(
-      borderRadius: BorderRadius.circular(30),
+      borderRadius: const BorderRadius.all(
+        Radius.circular(30),
+      ),
       color: Colors.transparent,
       child: ElevatedButton(
         // splashColor: ColorPalette.lmCardColor,
@@ -40,8 +43,10 @@ class _IconButtonSpecialState extends State<IconButtonSpecial> {
           elevation: MaterialStateProperty.all(0),
           backgroundColor: MaterialStateProperty.all(Colors.transparent),
           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-            RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(50),
+            const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(
+                Radius.circular(50),
+              ),
             ),
           ),
         ),

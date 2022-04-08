@@ -3,14 +3,14 @@ import 'package:places/ui/res/labels.dart';
 
 ///Главный заголовое экрана
 class TitleAppBigOrSmall extends StatelessWidget {
+  ///Уменьшать заголовок AppBar. false-большой , true- маленький
+  final bool small;
+
   ///Конструктор
   const TitleAppBigOrSmall({
     final Key? key,
     this.small = false,
   }) : super(key: key);
-
-  ///Уменьшать заголовок AppBar. false-большой , true- маленький
-  final bool small;
 
   @override
   Widget build(final BuildContext context) => small

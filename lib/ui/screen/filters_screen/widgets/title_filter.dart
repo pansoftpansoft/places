@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:places/mocks.dart';
 import 'package:places/ui/res/color_palette.dart';
 import 'package:places/ui/res/labels.dart';
 import 'package:places/ui/screen/filters_screen/filters_screen.dart';
@@ -31,7 +30,7 @@ class TitleFilter extends StatelessWidget {
       );
 
   void _clearFilterValue(final BuildContext context) {
-    for (final MapEntry<TypePlace, bool> item
+    for (final item
         in SearchFilterModel.filterMap.entries) {
       SearchFilterModel.filterMap[item.key] = false;
     }

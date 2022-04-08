@@ -32,9 +32,15 @@ class ScheduleButton extends StatelessWidget {
             const SizedBox(width: 9),
             Text(
               schedule,
-              style: Theme.of(context).textTheme.button,
+              style: textStyle(context),
             ),
           ],
         ),
       );
+
+  TextStyle? textStyle(BuildContext context) {
+    return Theme.of(context).textTheme.subtitle2?.copyWith(
+          color: ColorPalette.lmFontHeadline2.withOpacity(1),
+        );
+  }
 }

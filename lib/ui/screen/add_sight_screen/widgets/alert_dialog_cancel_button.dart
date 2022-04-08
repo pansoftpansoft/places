@@ -2,16 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:places/ui/res/color_palette.dart';
 import 'package:places/ui/res/labels.dart';
 import 'package:places/ui/res/sizes.dart';
-import 'package:places/ui/screen/add_sight_screen/widgets/select_category.dart';
 
-///
+///Диалог придупреждения при нажатии кнопки отмена
 class AlertDialogCancelButton extends StatelessWidget {
-  ///
+  static double heightAlertDialog = 48;
+
+  ///Диалог придупреждения при нажатии кнопки отмена
   const AlertDialogCancelButton({
     final Key? key,
   }) : super(key: key);
-
-  ///
 
   @override
   Widget build(final BuildContext context) => Padding(
@@ -20,19 +19,11 @@ class AlertDialogCancelButton extends StatelessWidget {
           vertical: paddingPage / 2,
         ),
         child: ConstrainedBox(
-          constraints: const BoxConstraints.tightFor(height: 48),
+          constraints: BoxConstraints.tightFor(
+            height: heightAlertDialog,
+          ),
           child: ElevatedButton(
-            style: ButtonStyle(
-              padding: MaterialStateProperty.all(EdgeInsets.zero),
-              elevation: MaterialStateProperty.all(0),
-              backgroundColor:
-                  MaterialStateProperty.all<Color>(ColorPalette.dmBasicColor),
-              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(borderRadiusCard),
-                ),
-              ),
-            ),
+            style: _buildButtonStyle(),
             onPressed: () {
               Navigator.pop(context);
             },
@@ -50,4 +41,22 @@ class AlertDialogCancelButton extends StatelessWidget {
           ),
         ),
       );
+
+  ButtonStyle _buildButtonStyle() {
+    return ButtonStyle(
+      padding: MaterialStateProperty.all(EdgeInsets.zero),
+      elevation: MaterialStateProperty.all(0),
+      backgroundColor:
+          MaterialStateProperty.all<Color>(ColorPalette.dmBasicColor),
+      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+        const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(
+            Radius.circular(
+              borderRadiusCard16,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
 }

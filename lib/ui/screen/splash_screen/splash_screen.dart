@@ -31,36 +31,35 @@ class SplashScreenState extends State<SplashScreen> {
     }
   }
 
-  /// Логика перехода на следующий экран
-  Future<bool> _navigateToNextAsync() async {
-    ///Запускаем получение данных из сети
-    unawaited(getNetData());
-
-    /// Запускаем анимацию в цикле
-    /// Задаем максимальное количество анимаций 5, по 1 секунде
-    /// если за 5 секунд данные не пришли то выдаем ошибку
-    for (int i = 0; i < 5; i++) {
-      if (_isInitialized.isCompleted) {
-        await Navigator.pushReplacementNamed(
-          context,
-          RouteName.onboardingScreen,
-        );
-        if (kDebugMode) {
-          print('Переход на следующий экран ${RouteName.onboardingScreen}');
-        }
-
-        return true;
-      } else {
-        await startAnimation(i + 1);
-      }
-    }
-
-    if (kDebugMode) {
-      print('Истекло время получения данных ');
-    }
-
-    return false;
-  }
+  @override
+  Widget build(final BuildContext context) => Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: <Color>[
+              ColorPalette.gradientGreenDark,
+              ColorPalette.gradientGreenLight,
+            ],
+          ),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Container(
+              width: 160,
+              height: 160,
+              decoration: const BoxDecoration(
+                color: Colors.white,
+                shape: BoxShape.circle,
+              ),
+              child: Image.asset(
+                loader,
+                height: 120,
+                width: 122,
+              ),
+            ),
+          ],
+        ),
+      );
 
   /// Получение данных из сети. Инициализация.
   Future<void> getNetData() async {
@@ -101,33 +100,35 @@ class SplashScreenState extends State<SplashScreen> {
   void finishGetNetData({required final bool isComplete}) =>
       _isInitialized.complete(isComplete);
 
-  @override
-  Widget build(final BuildContext context) => Container(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            colors: <Color>[
-              ColorPalette.gradientGreenDark,
-              ColorPalette.gradientGreenLight,
-            ],
-          ),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Container(
-              width: 160,
-              height: 160,
-              decoration: const BoxDecoration(
-                color: Colors.white,
-                shape: BoxShape.circle,
-              ),
-              child: Image.asset(
-                loader,
-                height: 120,
-                width: 122,
-              ),
-            ),
-          ],
-        ),
-      );
+  /// Логика перехода на следующий экран
+  Future<bool> _navigateToNextAsync() async {
+    ///Запускаем получение данных из сети
+    unawaited(getNetData());
+
+    /// Запускаем анимацию в цикле
+    /// Задаем максимальное количество анимаций 5, по 1 секунде
+    /// если за 5 секунд данные не пришли то выдаем ошибку
+    for (var iCount = 0; iCount < 5; iCount++) {
+      if (_isInitialized.isCompleted) {
+        await Navigator.pushReplacementNamed(
+          context,
+          RouteName.onboardingScreen,
+          arguments: {'callingFromSettings': false},
+        );
+        if (kDebugMode) {
+          print('Переход на следующий экран ${RouteName.onboardingScreen}');
+        }
+
+        return true;
+      } else {
+        await startAnimation(iCount + 1);
+      }
+    }
+
+    if (kDebugMode) {
+      print('Истекло время получения данных ');
+    }
+
+    return false;
+  }
 }

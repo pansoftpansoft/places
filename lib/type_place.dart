@@ -18,6 +18,8 @@ enum TypePlace {
 
   ///
   cafe,
+
+
 }
 
 ///
@@ -113,14 +115,14 @@ final List<Sight> mocks = <Sight>[
 ///
 List<Sight> mocksWantVisit = mocks
     .where(
-      (final Sight element) =>
+      (final element) =>
           element.wantVisitDate != null && element.visitedDate == null,
     )
     .toList();
 
 ///
 List<Sight> mocksVisited =
-    mocks.where((final Sight element) => element.visitedDate != null).toList();
+    mocks.where((final element) => element.visitedDate != null).toList();
 
 ///
 List<String> tempPhotoPlace = <String>[

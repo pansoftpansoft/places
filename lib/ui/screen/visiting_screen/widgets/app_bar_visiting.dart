@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:places/ui/res/color_palette.dart';
 import 'package:places/ui/res/labels.dart';
+import 'package:places/ui/res/sizes.dart';
 
 ///
 class AppBarVisiting extends StatelessWidget {
@@ -15,15 +17,17 @@ class AppBarVisiting extends StatelessWidget {
           textAlign: TextAlign.center,
           style: Theme.of(context).textTheme.headline4,
         ),
-        bottom: PreferredSize(
-          preferredSize: const Size.fromHeight(60),
+        bottom: const PreferredSize(
+          preferredSize: Size.fromHeight(borderRadiusTapBar),
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
-            child: Card(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(30),
+            padding: EdgeInsets.symmetric(horizontal: paddingPage),
+            child: Material(
+              color: ColorPalette.lmCardColor,
+              clipBehavior: Clip.antiAlias,
+              borderRadius: BorderRadius.all(
+                Radius.circular(borderRadiusTapBar),
               ),
-              child: const TabBar(
+              child: TabBar(
                 tabs: <Widget>[
                   Tab(
                     text: iWantToVisit,

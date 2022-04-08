@@ -1,19 +1,7 @@
-import 'package:places/mocks.dart';
+import 'package:places/type_place.dart';
 
 /// Класс места
 class Sight {
-  ///
-  Sight(
-    this.name,
-    this.lat,
-    this.lon,
-    this.url,
-    this.details,
-    this.type, {
-    this.wantVisitDate,
-    this.visitedDate,
-  });
-
   ///название достопримечательности
   final String name;
 
@@ -43,4 +31,17 @@ class Sight {
 
   /// Фотограции места
   List<String> photoPlace = <String>[];
+
+  ///
+  Sight(
+    this.name,
+    this.lat,
+    this.lon,
+    this.url,
+    this.details,
+    this.type, {
+    this.wantVisitDate,
+    this.visitedDate,
+  });
+
 }

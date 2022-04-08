@@ -5,6 +5,15 @@ import 'package:places/ui/screen/onboarding_screen/widgets/header_page.dart';
 
 ///Шаблон страници Onboard
 class OnboardPage extends StatelessWidget {
+  ///
+  final bool buttonSkipVisible;
+  ///
+  final String header1;
+  ///
+  final String header2;
+  ///
+  final String svgIcon;
+
   ///Конструкор шаблон страници Onboard
   const OnboardPage({
     required this.header1,
@@ -14,14 +23,6 @@ class OnboardPage extends StatelessWidget {
     final Key? key,
   }) : super(key: key);
 
-  ///
-  final bool buttonSkipVisible;
-  ///
-  final String header1;
-  ///
-  final String header2;
-  ///
-  final String svgIcon;
 
   @override
   Widget build(final BuildContext context) => Column(

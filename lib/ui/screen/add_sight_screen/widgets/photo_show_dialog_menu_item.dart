@@ -6,18 +6,18 @@ import 'package:places/ui/res/sizes.dart';
 
 ///Пункт мену диалоговом окне при добавлении фотографий
 class PhotoShowDialogMenuItem extends StatelessWidget {
+  /// Название иконки
+  final String svgIcons;
+
+  /// Текст на кнопке пункта меню
+  final String buttonText;
+
   ///Пункт мену диалоговом окне при добавлении фотографий
   const PhotoShowDialogMenuItem(
     this.svgIcons,
     this.buttonText, {
     final Key? key,
   }) : super(key: key);
-
-  /// Название иконки
-  final String svgIcons;
-
-  /// Текст на кнопке пункта меню
-  final String buttonText;
 
   @override
   Widget build(final BuildContext context) => Row(

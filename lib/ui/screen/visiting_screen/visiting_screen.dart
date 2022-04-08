@@ -3,7 +3,7 @@ import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/screen/visiting_screen/widgets/app_bar_visiting.dart';
 import 'package:places/ui/screen/visiting_screen/widgets/tab1_widget.dart';
 import 'package:places/ui/screen/visiting_screen/widgets/tab2_widget.dart';
-import 'package:places/ui/screen/widgets/bottom_navigation.dart';
+import 'package:places/ui/screen/widgets/bottom_navigation/bottom_navigation.dart';
 
 ///Окно в котором можно выбрать
 ///места которые хочешь посетить и которые уже посетил
@@ -30,7 +30,7 @@ class VisitingScreenState extends State<VisitingScreen> {
             preferredSize: Size.fromHeight(120),
             child: AppBarVisiting(),
           ),
-          bottomNavigationBar: BottomNavigationList(2),
+          bottomNavigationBar: BottomNavigation(2),
           body: const Padding(
             padding: EdgeInsets.all(paddingPage),
             child: TabBarView(

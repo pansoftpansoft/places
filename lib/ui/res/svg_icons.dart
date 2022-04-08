@@ -12,7 +12,7 @@ class SvgIcons {
   static const String ellipse109 = '${catalog}ellipse109.svg';
   static const String filter = '${catalog}filter.svg';
   static const String fail = '${catalog}fail.svg';
-  static const String go = '${catalog}go.svg';
+  static const String gogo = '${catalog}go.svg';
   static const String heart = '${catalog}heart_cross.svg';
   static const String heartFull = '${catalog}heart_full.svg';
   static const String heartTransparent = '${catalog}heart_transparent.svg';

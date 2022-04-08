@@ -4,14 +4,6 @@ import 'package:places/ui/res/color_palette.dart';
 
 ///Тело шаблона страници Onboard
 class BodyPage extends StatelessWidget {
-  ///
-  const BodyPage({
-    required this.header1,
-    required this.header2,
-    required this.svgIcon,
-    final Key? key,
-  }) : super(key: key);
-
   /// Заголовок
   final String header1;
 
@@ -20,6 +12,15 @@ class BodyPage extends StatelessWidget {
 
   /// Иконка
   final String svgIcon;
+
+  ///
+  const BodyPage({
+    required this.header1,
+    required this.header2,
+    required this.svgIcon,
+    final Key? key,
+  }) : super(key: key);
+
 
   @override
   Widget build(final BuildContext context) => Column(

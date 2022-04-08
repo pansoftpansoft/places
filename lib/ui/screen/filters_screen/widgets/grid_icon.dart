@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:places/mocks.dart';
+import 'package:places/type_place.dart';
 import 'package:places/ui/res/svg_icons.dart';
 import 'package:places/ui/screen/filters_screen/widgets/category_icon.dart';
 

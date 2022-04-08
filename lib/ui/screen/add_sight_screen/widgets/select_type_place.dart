@@ -1,7 +1,6 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:places/mocks.dart';
+import 'package:places/type_place.dart';
 import 'package:places/ui/res/labels.dart';
 import 'package:places/ui/res/svg_icons.dart';
 import 'package:places/ui/screen/add_sight_screen/widgets/select_category.dart';
@@ -26,27 +25,7 @@ class _SelectTypePlaceState extends State<SelectTypePlace> {
             padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.zero),
           ),
           onPressed: () async {
-
-            TypePlace? _typePlaceRespons;
-            _typePlaceRespons = await Navigator.push(
-              context,
-              MaterialPageRoute<TypePlace>(
-                builder: (final BuildContext context) =>
-                    SelectCategory(typePlaceSelectedActual: _typePlaceSelected),
-              ),
-
-            );
-
-            if(_typePlaceRespons!=null){
-              _typePlaceSelected = _typePlaceRespons;
-            }
-
-            debugPrint('вернули ${_typePlaceSelected.toString()}');
-            setState(() {
-              if (kDebugMode) {
-                print('Выбор категории');
-              }
-            });
+            await _onPressed();
           },
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -67,4 +46,24 @@ class _SelectTypePlaceState extends State<SelectTypePlace> {
           ),
         ),
       );
+
+  Future<void> _onPressed() async {
+    TypePlace? _typePlaceResponse;
+    _typePlaceResponse = await Navigator.push(
+      context,
+      MaterialPageRoute<TypePlace>(
+        builder: (final context) =>
+            SelectCategory(typePlaceSelectedActual: _typePlaceSelected),
+      ),
+    );
+
+    if (_typePlaceResponse != null) {
+      _typePlaceSelected = _typePlaceResponse;
+    }
+
+    debugPrint('вернули ${_typePlaceSelected.toString()}');
+    setState(() {
+      debugPrint('Выбор категории');
+    });
+  }
 }

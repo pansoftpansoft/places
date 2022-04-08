@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:places/ui/res/color_palette.dart';
+import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/screen/sight_details_screen/models/sight_details_model.dart';
 import 'package:provider/provider.dart';
 
@@ -13,26 +14,24 @@ class ScrollIndicator extends StatelessWidget {
   @override
   Widget build(final BuildContext context) => Consumer<SightDetailsModel>(
         builder: (
-          final BuildContext context,
-          final SightDetailsModel sightDetailsModel,
-          final Widget? child,
+          final context,
+          final sightDetailsModel,
+          final child,
         ) =>
-            Padding(
+            Container(
           padding: EdgeInsets.only(
             left: (MediaQuery.of(context).size.width /
                     SightDetailsModel.countElements) *
                 SightDetailsModel.index,
           ),
-          child: Container(
-            height: 8,
-            width: MediaQuery.of(context).size.width /
-                SightDetailsModel.countElements,
-            decoration: BoxDecoration(
-              color: ColorPalette.whiteMain,
-              borderRadius: buildBorderRadius(
-                SightDetailsModel.index,
-                SightDetailsModel.countElements,
-              ),
+          height: 8,
+          width: MediaQuery.of(context).size.width /
+              SightDetailsModel.countElements,
+          decoration: BoxDecoration(
+            color: ColorPalette.whiteMain,
+            borderRadius: buildBorderRadius(
+              SightDetailsModel.index,
+              SightDetailsModel.countElements,
             ),
           ),
         ),
@@ -40,20 +39,22 @@ class ScrollIndicator extends StatelessWidget {
 
   ///Изменяем отображение индикатора прокрутки для крайних положений
   BorderRadius buildBorderRadius(final int _index, final int _countElements) {
-    BorderRadius borderRadius = const BorderRadius.all(Radius.circular(15));
+    var borderRadius = const BorderRadius.all(
+      Radius.circular(borderRadiusCard16),
+    );
 
     //Для первой позиции
     if (_index == 0) {
       borderRadius = const BorderRadius.only(
-        topRight: Radius.circular(15),
-        bottomRight: Radius.circular(15),
+        topRight: Radius.circular(borderRadiusCard16),
+        bottomRight: Radius.circular(borderRadiusCard16),
       );
     }
     //Для последней позиции
     if (_index + 1 == _countElements) {
       borderRadius = const BorderRadius.only(
-        topLeft: Radius.circular(15),
-        bottomLeft: Radius.circular(15),
+        topLeft: Radius.circular(borderRadiusCard16),
+        bottomLeft: Radius.circular(borderRadiusCard16),
       );
     }
 
