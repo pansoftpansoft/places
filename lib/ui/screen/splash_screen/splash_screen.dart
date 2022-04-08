@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:places/ui/res/color_palette.dart';
 import 'package:places/ui/res/img.dart';
 import 'package:places/ui/res/route_name.dart';
+import 'package:places/ui/screen/sight_search_screen/models/search_filter_model.dart';
 
 /// Экран затавка при загрузке приложения
 class SplashScreen extends StatefulWidget {
@@ -66,9 +67,10 @@ class SplashScreenState extends State<SplashScreen> {
     if (kDebugMode) {
       print('Запустилась GetNetData().');
     }
-
+    await SearchFilterModel.getListHistory(); //Обновляем список при загрузке
     /// Имитируем инициализацию, продолжительностью 2 секунды.
     await Future.delayed(
+
       const Duration(seconds: 2),
       () {
         if (kDebugMode) {

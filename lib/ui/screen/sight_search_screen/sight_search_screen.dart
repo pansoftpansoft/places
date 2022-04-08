@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:places/type_place.dart';
+
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/screen/sight_search_screen/models/search_filter_model.dart';
-import 'package:places/ui/screen/sight_search_screen/widgets/sight_search_screen_body.dart';
+
 import 'package:places/ui/screen/widgets/bottom_navigation/bottom_navigation.dart';
 import 'package:places/ui/screen/widgets/search_bar.dart';
 import 'package:places/ui/screen/widgets/title_app_big_or_small.dart';
-import 'package:provider/provider.dart';
+
+import 'widgets/sight_search_screen_body_switch.dart';
 
 ///Окно поиска мест
 class SightSearchScreen extends StatefulWidget {
@@ -19,39 +20,9 @@ class SightSearchScreen extends StatefulWidget {
 
 ///
 class SightSearchScreenState extends State<SightSearchScreen> {
-  ///
-  int countHistory = 0;
-
   @override
   void initState() {
     super.initState();
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    SearchFilterModel.textEditingControllerFind.clear();
-
-    SearchFilterModel.getListHistory().then(
-      (final _) {
-        final searchFilterModel = context.read<SearchFilterModel>();
-        if (SearchFilterModel.listHistory.isNotEmpty) {
-          searchFilterModel.managerSelectionScreen(
-            numberScreen: ScreenEnum.historyListScreen,
-          );
-        } else {
-          context.read<SearchFilterModel>()
-            ..countFilteredPlaces()
-            ..saveFilterSettings()
-            ..changeSearch();
-        }
-        setState(
-          () {
-            debugPrint('Установка значений');
-          },
-        );
-      },
-    );
   }
 
   @override
@@ -83,6 +54,7 @@ class SightSearchScreenState extends State<SightSearchScreen> {
                       textEditingController:
                           SearchFilterModel.textEditingControllerFind,
                       autofocus: true,
+                      focusNode: FocusNode(),
                     ),
                   ],
                 ),
@@ -92,6 +64,11 @@ class SightSearchScreenState extends State<SightSearchScreen> {
         ),
         bottomNavigationBar: BottomNavigation(0),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-        body: const SightSearchScreenBody(),
+        body: const Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: paddingPage,
+          ),
+          child: SightSearchScreenBodySwitch(),
+        ),
       );
 }

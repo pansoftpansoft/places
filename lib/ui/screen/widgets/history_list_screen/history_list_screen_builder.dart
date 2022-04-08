@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:places/type_place.dart';
 import 'package:places/ui/res/color_palette.dart';
 import 'package:places/ui/res/labels.dart';
 import 'package:places/ui/res/sizes.dart';
@@ -43,11 +44,15 @@ class HistoryListScreenBuilder extends StatelessWidget {
     );
   }
 
+  ///Чистим всю историю и показываем только отфильтрованные места
   void _onPressed(BuildContext context) {
     context.read<SearchFilterModel>()
       ..searchPlaceForDynamicText('')
       ..clearHistory()
       ..countFilteredPlaces()
-      ..saveFilterSettings();
+      ..getFilterSettings()
+      ..managerSelectionScreen(
+          numberScreen: ScreenEnum.listOfFoundPlacesScreen)
+      ..changeSearch();
   }
 }

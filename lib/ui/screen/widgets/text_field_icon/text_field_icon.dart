@@ -84,6 +84,14 @@ class TextFieldIcon extends StatefulWidget {
   final List<TextInputFormatter>? inputFormatters;
 
   ///
+  final VoidCallback? onTap;
+
+  ///
+  final ValueChanged<String>? onChanged;
+
+  final Color? cursorColor;
+
+  ///
   const TextFieldIcon({
     this.controller,
     this.textEditingControllerFunction,
@@ -109,6 +117,9 @@ class TextFieldIcon extends StatefulWidget {
     this.labelText,
     this.borderColor = ColorPalette.greenColor,
     this.fillColor,
+    this.onTap,
+    this.onChanged,
+    this.cursorColor,
     final Key? key,
   }) : super(key: key);
 
@@ -153,6 +164,7 @@ class _TextFieldIconState extends State<TextFieldIcon> {
 
   @override
   Widget build(final BuildContext context) => TextField(
+    cursorColor: widget.cursorColor,
     maxLines: widget.maxLines,
     controller: _textEditingController,
     focusNode: _focusNode,
@@ -170,6 +182,11 @@ class _TextFieldIconState extends State<TextFieldIcon> {
       }
     },
     inputFormatters: widget.inputFormatters,
+    onChanged: (final value) {
+      if (widget.onChanged != null) {
+        widget.onChanged!(value);
+      }
+    },
   );
 
   void focusNodeAddListener() {

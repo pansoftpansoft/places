@@ -24,19 +24,19 @@ enum TypePlace {
 
 ///
 enum ScreenEnum {
-  ///
+  ///Экран загрузки
   loadScreen,
 
-  ///
-  historyListScreen,
+  ///Список слов по которым производился поиск
+  listSearchWords,
 
-  ///
+  ///Пустой экран
   emptyScreen,
 
-  ///
+  ///Список с найдеными местами
   listOfFoundPlacesScreen,
 
-  ///
+  ///Экран ошибки
   errorScreen,
 }
 
