@@ -30,7 +30,10 @@ class _SelectCategoryState extends State<SelectCategory> {
   Widget build(final BuildContext context) {
     if (widget.typePlaceSelectedActual != null &&
         widget.typePlaceSelected == null) {
-      context.read<AddSightModel>().selectTypePlace = widget.typePlaceSelectedActual;
+      context.read<AddSightModel>().selectTypePlace =
+          widget.typePlaceSelectedActual;
+    } else {
+      context.read<AddSightModel>().selectTypePlace = null;
     }
 
     return Scaffold(
@@ -40,7 +43,7 @@ class _SelectCategoryState extends State<SelectCategory> {
         child: SelectCategoryAppBar(),
       ),
       body: Column(
-        children:  const <Widget>[
+        children: const <Widget>[
           SelectCategoryList(),
         ],
       ),

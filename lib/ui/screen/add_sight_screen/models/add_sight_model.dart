@@ -36,7 +36,7 @@ class AddSightModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  ///Удаляем фотографию
+  ///
   void selectCategory(final TypePlace? changeSelect) {
     selectTypePlace = changeSelect;
     notifyListeners();
