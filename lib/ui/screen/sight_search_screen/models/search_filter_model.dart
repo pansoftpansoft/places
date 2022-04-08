@@ -13,9 +13,6 @@ class SearchFilterModel extends ChangeNotifier {
   static List<History> listHistory = <History>[];
 
   ///
-  static bool isLoading = false;
-
-  ///
   static ScreenEnum? selectedScreen;
 
   ///Контроллер поля поиска
@@ -173,7 +170,7 @@ class SearchFilterModel extends ChangeNotifier {
         if (mocksSearch.isEmpty) {
           //ошибка выдаем экран сообщения
           debugPrint('Не найдено ни одного места');
-          managerSelectionScreen(numberScreen: ScreenEnum.errorScreen);
+          managerSelectionScreen(numberScreen: ScreenEnum.emptyScreen);
         } else {
           debugPrint('Найдено $countPlace места');
           managerSelectionScreen(
@@ -199,8 +196,6 @@ class SearchFilterModel extends ChangeNotifier {
           TextPosition(offset: searchString.length),
         ),
       );
-
-
     }
   }
 
@@ -232,7 +227,6 @@ class SearchFilterModel extends ChangeNotifier {
   Future<void> clearHistory() async {
     await DBProvider.dbProvider.clearHistory();
     await getListHistory(); //Обновляем список после удаления всех имторий
-    //notifyListeners();
   }
 
   ///Удаляю одну запись из истории поиска
@@ -245,49 +239,18 @@ class SearchFilterModel extends ChangeNotifier {
   ///
   Future<void> managerSelectionScreen({final ScreenEnum? numberScreen}) async {
     ///Если экран жестко задан
-    ///
     debugPrint('managerSelectionScreen $numberScreen');
     if (numberScreen != null) {
       selectedScreen = numberScreen;
 
+      /// Если найдено 0 мест то выдаем экрас с сообщением
+      if (selectedScreen == ScreenEnum.listOfFoundPlacesScreen &&
+          SearchFilterModel.countPlace == 0) {
+        selectedScreen = ScreenEnum.emptyScreen;
+      }
+
       return;
     }
-
-    // debugPrint('Строка поиска ${_searchString.isNotEmpty}');
-    //
-    // debugPrint(
-    //     'Строка поиска ${SearchFilterModel.textEditingControllerFind.text}');
-    //
-    // if (_searchString.isNotEmpty) {
-    //   selectedScreen = ScreenEnum.listOfFoundPlacesScreen;
-    //   return;
-    // }
-    //
-    // debugPrint('listHistory ${listHistory.length}');
-    // if (listHistory.isNotEmpty) {
-    //   selectedScreen = ScreenEnum.listSearchWords;
-    //   return;
-    // }
-    //
-    // //countFilteredPlaces();
-    // // Количество отфильтрованных мест 0
-    // debugPrint('countPlace2 $countPlace');
-    // if (SearchFilterModel.countPlace == 0) {
-    //   selectedScreen = ScreenEnum.emptyScreen;
-    //
-    //   return;
-    // }
-    // //Есть найденные места
-    // if (SearchFilterModel.countPlace != 0 && mocksSearch.isNotEmpty) {
-    //   selectedScreen = ScreenEnum.listOfFoundPlacesScreen;
-    //
-    //   return;
-    // } else {
-    //   selectedScreen = ScreenEnum.emptyScreen;
-    //   debugPrint('countPlace3 $countPlace');
-    //
-    //   return;
-    // }
   }
 
   ///Проверка вхождения точки в радиус
