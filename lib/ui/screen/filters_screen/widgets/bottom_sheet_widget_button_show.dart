@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:places/type_place.dart';
 import 'package:places/ui/res/color_palette.dart';
 import 'package:places/ui/res/labels.dart';
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/screen/sight_search_screen/models/search_filter_model.dart';
+import 'package:places/ui/screen/sight_search_screen/sight_search_screen.dart';
 import 'package:provider/provider.dart';
 
 ///Кнопка "показать"
@@ -68,9 +70,18 @@ class BottomSheetWidgetButtonShow extends StatelessWidget {
 
   void _onPressed(BuildContext context) {
     context.read<SearchFilterModel>()
+      ..searchPlaceForDynamicText('')
       ..saveFilterSettings()
-      ..changeSearch();
-    //возвращаемся на страници показа
-    Navigator.pop(context);
+      ..countFilteredPlaces()
+      ..getFilteredList()
+      ..managerSelectionScreen(
+          numberScreen: ScreenEnum.listOfFoundPlacesScreen);
+
+    Navigator.pushReplacement<void, void>(
+      context,
+      MaterialPageRoute<void>(
+        builder: (BuildContext context) => const SightSearchScreen(),
+      ),
+    );
   }
 }

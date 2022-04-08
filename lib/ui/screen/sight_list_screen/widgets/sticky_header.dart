@@ -4,10 +4,10 @@ import 'package:places/ui/screen/sight_list_screen/widgets/app_bar_sight_list_sc
 ///Упрваления AppBarSightListScreen при прокрутке списка
 class StickyHeader extends SliverPersistentHeaderDelegate {
   @override
-  double get maxExtent => 200;
+  double get maxExtent => 190;
 
   @override
-  double get minExtent => 70;
+  double get minExtent => 110;
 
   bool _shrink = false;
 
@@ -17,7 +17,7 @@ class StickyHeader extends SliverPersistentHeaderDelegate {
     final double shrinkOffset,
     final bool overlapsContent,
   ) {
-    _shrink = shrinkOffset < 50;
+    _shrink = shrinkOffset < 60;
 
     return AppBarSightListScreen(shrink: _shrink);
   }

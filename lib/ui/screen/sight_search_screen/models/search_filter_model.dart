@@ -7,20 +7,20 @@ import 'package:places/domain/db_provider.dart';
 import 'package:places/domain/history.dart';
 import 'package:places/type_place.dart';
 
-
 ///Модель для поиска
 class SearchFilterModel extends ChangeNotifier {
-  ///
+  ///Список истории поисковых запросов
   static List<History> listHistory = <History>[];
+
   ///
   static bool isLoading = false;
 
   ///
   static ScreenEnum? selectedScreen;
 
-  ///
+  ///Контроллер поля поиска
   static TextEditingController textEditingControllerFind =
-  TextEditingController();
+      TextEditingController();
 
   ///
   static RangeValues _selectedRange = const RangeValues(100, 1000);
@@ -30,8 +30,21 @@ class SearchFilterModel extends ChangeNotifier {
 
   static String _searchString = '';
 
-  ///
+  ///Мапа кнопок для фильтрации мест с изночальными значениями
   static Map<TypePlace, bool> _filterMap = <TypePlace, bool>{
+    TypePlace.hotel: true,
+    TypePlace.restaurant: true,
+    TypePlace.particularPlace: true,
+    TypePlace.park: true,
+    TypePlace.museum: true,
+    TypePlace.cafe: true,
+  };
+
+  //Запоминаем старые значения
+  //Если нажата кнопка Показать то переписываем значения
+  //Если пользователь вернулся на предыдущий
+  //экран то востановим текущие значения
+  static Map<TypePlace, bool> filterMapOld = <TypePlace, bool>{
     TypePlace.hotel: true,
     TypePlace.restaurant: true,
     TypePlace.particularPlace: true,
@@ -46,7 +59,6 @@ class SearchFilterModel extends ChangeNotifier {
 
   ///
   static int get countPlace => _countPlace;
-
 
   ///Количество интересных мест
   static set countPlace(final int value) {
@@ -69,36 +81,18 @@ class SearchFilterModel extends ChangeNotifier {
     _filterMap = filterMapNew;
   }
 
-
-  //Запоминаем старые значения
-  //Если нажата кнопка Показать то переписываем значения
-  //Если пользователь вернулся на предыдущий
-  // экран то востановим текущие значения
-  static Map<TypePlace, bool> get _filterMapOld => <TypePlace, bool>{
-        TypePlace.hotel: true,
-        TypePlace.restaurant: true,
-        TypePlace.particularPlace: true,
-        TypePlace.park: true,
-        TypePlace.museum: true,
-        TypePlace.cafe: true,
-      };
-
   ///
-  static bool getTypePlaceValue() =>
-      _filterMap[TypePlace] == null;
-
+  static bool getTypePlaceValue() => _filterMap[TypePlace] == null;
 
   ///Получаем список историй поиска
   static Future<int> getListHistory() async {
-    listHistory = (await DBProvider.dbProvider.getListHistory())!;
+    listHistory = (await DBProvider.dbProvider.getListHistoryFromDb())!;
     final _lengthList = listHistory.length;
 
     return _lengthList;
   }
 
-
-
-  ///
+  ///Взводим галочку на кнопке категорий
   void setTypePlaceSelected(final TypePlace typePlace) {
     if (_filterMap[typePlace]!) {
       _filterMap[typePlace] = false;
@@ -112,6 +106,7 @@ class SearchFilterModel extends ChangeNotifier {
   void countFilteredPlaces() {
     var _countPlace = 0; //Подсчет отфильтрованных мест,
     // для отображения на кнопке
+    debugPrint('mocks ${mocks.length}');
     for (final item in mocks) {
       item.visibleFilter = false;
       if (double.tryParse(item.lat) != null &&
@@ -126,18 +121,26 @@ class SearchFilterModel extends ChangeNotifier {
       }
     }
     countPlace = _countPlace;
-    managerSelectionScreen();
-    //debugPrint(selectedRange.toString());
+    _selectedRange = RangeValues(SearchFilterModel.selectedRange.start,
+        SearchFilterModel.selectedRange.end);
+    debugPrint('countPlace $countPlace');
+  }
+
+  //Об
+  void countFilteredPlacesSet() {
+    countFilteredPlaces();
     notifyListeners();
   }
 
   /// Получить отфильтрованный список мест
+  /// И проверить на совподение со строкой поиска
   bool getFilteredList() {
     countPlace = _countPlace;
     mocksSearch.clear();
     if (_searchString.isNotEmpty) {
       for (final item in mocks) {
         //фильтр установлен проверяем его и поиск по имени
+        debugPrint(_searchString);
         if (item.visibleFilter) {
           if (item.name.toLowerCase().contains(_searchString.toLowerCase())) {
             mocksSearch.add(item);
@@ -153,36 +156,52 @@ class SearchFilterModel extends ChangeNotifier {
         }
       }
     }
+    debugPrint('200 mocksSearch ${mocksSearch.length.toString()}');
 
     return _errorTest;
   }
 
   ///Сообщить всем что список мест изменился
   void changeSearch() {
-    var _error = false;
-    isLoading = true;
+    ///Запускаем загрузчик
     managerSelectionScreen(numberScreen: ScreenEnum.loadScreen);
     notifyListeners();
-    _error = getFilteredList();
     Timer(
       const Duration(seconds: 1),
       () {
-        if (_error) {
+        debugPrint('300 mocksSearch ${mocksSearch.length.toString()}');
+        if (mocksSearch.isEmpty) {
           //ошибка выдаем экран сообщения
+          debugPrint('Не найдено ни одного места');
           managerSelectionScreen(numberScreen: ScreenEnum.errorScreen);
         } else {
-          isLoading = false;
-          managerSelectionScreen();
+          debugPrint('Найдено $countPlace места');
+          managerSelectionScreen(
+              numberScreen: ScreenEnum.listOfFoundPlacesScreen);
         }
+        debugPrint('changeSearch notifyListeners()');
         notifyListeners();
       },
     );
   }
 
-  ///  динамический поиск мест по вводимому тексту при нажатии пробела
+  ///Устанавливаем строку поиска
   void searchPlaceForDynamicText(final String searchString) {
-    _searchString = searchString;
-    changeSearch();
+    if (searchString == '') {
+      _searchString = '';
+      SearchFilterModel.textEditingControllerFind.clear();
+    } else {
+      _searchString = searchString;
+
+      SearchFilterModel.textEditingControllerFind.value = TextEditingValue(
+        text: searchString,
+        selection: TextSelection.fromPosition(
+          TextPosition(offset: searchString.length),
+        ),
+      );
+
+
+    }
   }
 
   /// поиск мест по вводимому тексту при нажатии Enter
@@ -196,66 +215,81 @@ class SearchFilterModel extends ChangeNotifier {
 
   ///Расставить сохраненные настройки фильтра
   void getFilterSettings() {
-    for (final k in _filterMapOld.entries) {
+    for (final k in filterMapOld.entries) {
       _filterMap[k.key] = k.value;
     }
   }
 
   ///Сохранить настройки фильтра
   void saveFilterSettings() {
+    filterMapOld.clear();
     for (final k in _filterMap.entries) {
-      _filterMapOld[k.key] = k.value;
+      filterMapOld[k.key] = k.value;
     }
   }
-
 
   ///Очищаем список историй поиска
   Future<void> clearHistory() async {
     await DBProvider.dbProvider.clearHistory();
-    await getListHistory();
+    await getListHistory(); //Обновляем список после удаления всех имторий
     //notifyListeners();
   }
 
   ///Удаляю одну запись из истории поиска
   Future<void> deleteHistory(final String historyText) async {
     await DBProvider.deleteHistory(historyText);
-    await getListHistory();
+    await getListHistory(); //Обновляем список после удаления всей истории
     notifyListeners();
   }
 
-
   ///
-  void managerSelectionScreen({final ScreenEnum? numberScreen}) {
+  Future<void> managerSelectionScreen({final ScreenEnum? numberScreen}) async {
     ///Если экран жестко задан
+    ///
+    debugPrint('managerSelectionScreen $numberScreen');
     if (numberScreen != null) {
       selectedScreen = numberScreen;
 
       return;
     }
-    //Отображение экрана в зависимости от данных
-    //Идет загрузка
-    if (SearchFilterModel.isLoading) {
-      selectedScreen = ScreenEnum.loadScreen;
 
-      return;
-    }
-    // Количество отфильтрованных мест 0
-    if (SearchFilterModel.countPlace == 0) {
-      selectedScreen = ScreenEnum.emptyScreen;
-
-      return;
-    }
-    //Есть найденные места
-    if (SearchFilterModel.countPlace != 0 && mocksSearch.isNotEmpty) {
-      selectedScreen = ScreenEnum.listOfFoundPlacesScreen;
-
-      return;
-    } else {
-      selectedScreen = ScreenEnum.emptyScreen;
-
-      return;
-    }
+    // debugPrint('Строка поиска ${_searchString.isNotEmpty}');
+    //
+    // debugPrint(
+    //     'Строка поиска ${SearchFilterModel.textEditingControllerFind.text}');
+    //
+    // if (_searchString.isNotEmpty) {
+    //   selectedScreen = ScreenEnum.listOfFoundPlacesScreen;
+    //   return;
+    // }
+    //
+    // debugPrint('listHistory ${listHistory.length}');
+    // if (listHistory.isNotEmpty) {
+    //   selectedScreen = ScreenEnum.listSearchWords;
+    //   return;
+    // }
+    //
+    // //countFilteredPlaces();
+    // // Количество отфильтрованных мест 0
+    // debugPrint('countPlace2 $countPlace');
+    // if (SearchFilterModel.countPlace == 0) {
+    //   selectedScreen = ScreenEnum.emptyScreen;
+    //
+    //   return;
+    // }
+    // //Есть найденные места
+    // if (SearchFilterModel.countPlace != 0 && mocksSearch.isNotEmpty) {
+    //   selectedScreen = ScreenEnum.listOfFoundPlacesScreen;
+    //
+    //   return;
+    // } else {
+    //   selectedScreen = ScreenEnum.emptyScreen;
+    //   debugPrint('countPlace3 $countPlace');
+    //
+    //   return;
+    // }
   }
+
   ///Проверка вхождения точки в радиус
   bool _arePointsNear(final double checkPointLat, final double checkPointLon) {
     const centerPointLat = 55.753605;
@@ -265,7 +299,9 @@ class SearchFilterModel extends ChangeNotifier {
     final dxPoint = (centerPointLon - checkPointLon).abs() * kxPoint;
     final dyPoint = (centerPointLat - checkPointLat).abs() * kyPoint;
 
-    return sqrt(dxPoint * dxPoint + dyPoint * dyPoint) <= SearchFilterModel.selectedRange.end &&
-        sqrt(dxPoint * dxPoint + dyPoint * dyPoint) >= SearchFilterModel.selectedRange.start;
+    return sqrt(dxPoint * dxPoint + dyPoint * dyPoint) <=
+            SearchFilterModel.selectedRange.end &&
+        sqrt(dxPoint * dxPoint + dyPoint * dyPoint) >=
+            SearchFilterModel.selectedRange.start;
   }
 }

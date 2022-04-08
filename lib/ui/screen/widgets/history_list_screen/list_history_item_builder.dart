@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:places/type_place.dart';
 import 'package:places/ui/res/color_palette.dart';
 import 'package:places/ui/res/svg_icons.dart';
 import 'package:places/ui/screen/sight_search_screen/models/search_filter_model.dart';
@@ -14,24 +15,29 @@ class ListHistoryItemBuilder extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        _onTap(index, context);
+        _onDeleteWord(index, context);
       },
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
-          Text(
-            SearchFilterModel.listHistory[index].historyText,
-            style: Theme.of(context)
-                .textTheme
-                .subtitle1!
-                .copyWith(color: ColorPalette.lmFontSubtitle2),
+          InkWell(
+            onTap: () {
+              _onSelectWord(index, context);
+            },
+            child: Text(
+              SearchFilterModel.listHistory[index].historyText,
+              style: Theme.of(context)
+                  .textTheme
+                  .subtitle1!
+                  .copyWith(color: ColorPalette.lmFontSubtitle2),
+            ),
           ),
           const SizedBox(
             height: 50,
           ),
           InkWell(
             onTap: () {
-              _onTap(index, context);
+              _onDeleteWord(index, context);
             },
             child: SvgPicture.asset(
               SvgIcons.delete,
@@ -44,12 +50,48 @@ class ListHistoryItemBuilder extends StatelessWidget {
     );
   }
 
-  void _onTap(
+  // удаляем слово из истории поиска
+  Future<void> _onDeleteWord(
+    int index,
+    BuildContext context,
+  ) async {
+    debugPrint('Удалаем строку истории!');
+
+    context
+        .read<SearchFilterModel>()
+        .deleteHistory(SearchFilterModel.listHistory[index].historyText);
+
+    //Обновляем список при удалении строки из поиска
+    await SearchFilterModel.getListHistory().then((value) {
+      if (SearchFilterModel.listHistory.isEmpty) {
+        context.read<SearchFilterModel>()
+          ..searchPlaceForDynamicText('')
+          ..countFilteredPlaces()
+          ..getFilteredList()
+          ..managerSelectionScreen(
+              numberScreen: ScreenEnum.listOfFoundPlacesScreen)
+          ..changeSearch();
+      } else {
+        context.read<SearchFilterModel>()
+          ..searchPlaceForDynamicText('')
+          ..countFilteredPlaces()
+          ..getFilteredList()
+          ..managerSelectionScreen(numberScreen: ScreenEnum.listSearchWords)
+          ..changeSearch();
+      }
+    });
+  }
+
+  void _onSelectWord(
     int index,
     BuildContext context,
   ) {
-    context.read<SearchFilterModel>().searchPlaceForDynamicText(
-          SearchFilterModel.listHistory[index].historyText,
-        );
+    context.read<SearchFilterModel>()
+      ..searchPlaceForDynamicText(
+          SearchFilterModel.listHistory[index].historyText)
+      ..countFilteredPlaces()
+      ..getFilteredList()
+      ..managerSelectionScreen(numberScreen: ScreenEnum.listOfFoundPlacesScreen)
+      ..changeSearch();
   }
 }

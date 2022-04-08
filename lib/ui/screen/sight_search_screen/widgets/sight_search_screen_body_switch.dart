@@ -17,12 +17,14 @@ class SightSearchScreenBodySwitch extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return Consumer<SearchFilterModel>(
       builder: (
         final context,
         final cart,
         final child,
       ) {
+        debugPrint('SightSearchScreenBodySwitch ${SearchFilterModel.selectedScreen}');
         switch (SearchFilterModel.selectedScreen) {
           case ScreenEnum.loadScreen:
             return const LoadScreen();
@@ -30,7 +32,7 @@ class SightSearchScreenBodySwitch extends StatelessWidget {
             return const SightSearchScreenBodySwitchNotFound();
           case ScreenEnum.listOfFoundPlacesScreen:
             return const ListOfFoundPlacesScreen();
-          case ScreenEnum.historyListScreen:
+          case ScreenEnum.listSearchWords:
             return const HistoryListScreen();
           case ScreenEnum.errorScreen:
             return const EmptyScreen(

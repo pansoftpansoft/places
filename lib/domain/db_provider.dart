@@ -71,7 +71,7 @@ class DBProvider {
   }
 
   ///
-  Future<List<History>?> getListHistory() async {
+  Future<List<History>?> getListHistoryFromDb() async {
     final _database = await database;
     final res =
         await _database!.query('history', orderBy: 'date_add desc', limit: 10);
@@ -88,6 +88,7 @@ class DBProvider {
     if (historyText.isEmpty) {
       return 0;
     }
+    //ToDo сделать проверку на совпадение
     final _database = await database;
     final newHistory = History(historyText: historyText);
     final res = await _database!.insert('history', newHistory.toMap());

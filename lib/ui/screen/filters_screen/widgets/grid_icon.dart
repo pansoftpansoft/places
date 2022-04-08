@@ -3,7 +3,7 @@ import 'package:places/type_place.dart';
 import 'package:places/ui/res/svg_icons.dart';
 import 'package:places/ui/screen/filters_screen/widgets/category_icon.dart';
 
-///
+///Область расположения кнопок
 class GridIcon extends StatelessWidget {
   ///
   const GridIcon({

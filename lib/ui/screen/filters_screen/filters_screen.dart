@@ -13,8 +13,11 @@ class FiltersScreen extends StatelessWidget {
 
   @override
   Widget build(final BuildContext context) {
-    ///Запомним состояния фильтров
+
+    //Сохраняем настройки фильтра на случай выхода бех применения фильтра
     context.read<SearchFilterModel>().getFilterSettings();
+
+    context.read<SearchFilterModel>().countFilteredPlaces();
 
     return Scaffold(
       appBar: AppBar(
@@ -31,12 +34,13 @@ class FiltersScreen extends StatelessWidget {
     final BuildContext context,
     final TypePlace nameKey,
   ) {
+
     context.read<SearchFilterModel>().setTypePlaceSelected(nameKey);
     setFilter(context);
   }
 
   ///Установка фильтра
   static void setFilter(final BuildContext context) {
-    context.read<SearchFilterModel>().countFilteredPlaces();
+    context.read<SearchFilterModel>().countFilteredPlacesSet();
   }
 }
