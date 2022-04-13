@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:places/ui/res/color_palette.dart';
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/screen/sight_details_screen/models/sight_details_model.dart';
 import 'package:provider/provider.dart';
@@ -17,24 +16,30 @@ class ScrollIndicator extends StatelessWidget {
           final context,
           final sightDetailsModel,
           final child,
-        ) =>
-            Container(
-          padding: EdgeInsets.only(
-            left: (MediaQuery.of(context).size.width /
-                    SightDetailsModel.countElements) *
-                SightDetailsModel.index,
-          ),
-          height: 8,
-          width: MediaQuery.of(context).size.width /
-              SightDetailsModel.countElements,
-          decoration: BoxDecoration(
-            color: ColorPalette.whiteMain,
-            borderRadius: buildBorderRadius(
-              SightDetailsModel.index,
-              SightDetailsModel.countElements,
+        ) {
+          debugPrint('_index ${SightDetailsModel.index} '
+              'элементов ${SightDetailsModel.countElements}  '
+              'width ${MediaQuery.of(context).size.width}');
+          return Padding(
+            padding: EdgeInsets.only(
+              left: (MediaQuery.of(context).size.width /
+                      SightDetailsModel.countElements) *
+                  SightDetailsModel.index,
             ),
-          ),
-        ),
+            child: Container(
+              height: 8,
+              width: MediaQuery.of(context).size.width /
+                  SightDetailsModel.countElements,
+              decoration: BoxDecoration(
+                color: Theme.of(context).indicatorColor,
+                borderRadius: buildBorderRadius(
+                  SightDetailsModel.index,
+                  SightDetailsModel.countElements,
+                ),
+              ),
+            ),
+          );
+        },
       );
 
   ///Изменяем отображение индикатора прокрутки для крайних положений
@@ -43,6 +48,7 @@ class ScrollIndicator extends StatelessWidget {
       Radius.circular(borderRadiusCard16),
     );
 
+    debugPrint('_index $_index элементов $_countElements');
     //Для первой позиции
     if (_index == 0) {
       borderRadius = const BorderRadius.only(

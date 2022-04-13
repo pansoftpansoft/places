@@ -57,6 +57,7 @@ class ColorPalette {
 
   //--Иконки
   static const Color lmIcon = Color(0xFF3B3E5B);
+  static const Color lmIconOnBoard = Color(0xFF252849);
 
   //
   static const Color lmFontButton = Color(0xFF3B3E5B);
@@ -64,7 +65,7 @@ class ColorPalette {
   //
 
   //---------------------------------------------------------
-  //----Темная тема
+  //----Темная тема----------------------------------------------------------------------------
   //---------------------------------------------------------
   static const Color dmCardColor = Color(0xFF1A1A20);
   static const Color dmPrimaryColor = Color(0xFF21222C);
@@ -97,7 +98,7 @@ class ColorPalette {
   //-----------------------------------------------------------
   //--Иконки
   static const Color dmIcon = Color(0xFFFFFFFF);
-
+  static const Color dmIconOnBoard = Color(0xFFFFFFFF);
   //
   static const Color dmFontButton = Color(0xFFFFFFFF);
 }

@@ -253,6 +253,11 @@ class SearchFilterModel extends ChangeNotifier {
     }
   }
 
+
+  void chengFilter() {
+    notifyListeners();
+  }
+
   ///Проверка вхождения точки в радиус
   bool _arePointsNear(final double checkPointLat, final double checkPointLon) {
     const centerPointLat = 55.753605;

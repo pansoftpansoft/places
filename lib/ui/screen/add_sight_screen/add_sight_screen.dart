@@ -36,11 +36,6 @@ class FiltersScreenState extends State<AddSightScreen> {
   @override
   void initState() {
     super.initState();
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
     Future(() {
       showDialog<void>(
         context: context,
@@ -74,7 +69,4 @@ class FiltersScreenState extends State<AddSightScreen> {
           ),
         ),
       );
-
-  ///Выбор категории
-//Widget selectTypePlace(final BuildContext context) =>
 }

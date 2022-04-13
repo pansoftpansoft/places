@@ -4,6 +4,7 @@ import 'package:places/domain/sight.dart';
 import 'package:places/ui/res/color_palette.dart';
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/res/svg_icons.dart';
+import 'package:places/ui/screen/sight_details_screen/models/sight_details_model.dart';
 import 'package:places/ui/screen/sight_details_screen/widgets/sight_details_screen_decoration_container.dart';
 import 'package:places/ui/screen/sight_details_screen/widgets/sight_details_screen_picture.dart';
 
@@ -52,6 +53,7 @@ class SightDetailsScreen extends StatelessWidget {
   }
 
   void _onPressed(BuildContext context) {
+    SightDetailsModel.index=0;
     Navigator.of(context).pop();
   }
 

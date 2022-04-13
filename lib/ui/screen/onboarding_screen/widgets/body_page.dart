@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:places/ui/res/color_palette.dart';
 
 ///Тело шаблона страници Onboard
 class BodyPage extends StatelessWidget {
@@ -21,13 +20,13 @@ class BodyPage extends StatelessWidget {
     final Key? key,
   }) : super(key: key);
 
-
   @override
   Widget build(final BuildContext context) => Column(
         children: <Widget>[
           SvgPicture.asset(
             svgIcon,
-            color: ColorPalette.whiteMain,
+            //color: ColorPalette.whiteMain,
+            color: Theme.of(context).iconTheme.color,
           ),
           //lmFontHeadline1
           const SizedBox(height: 42),

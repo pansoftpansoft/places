@@ -13,45 +13,53 @@ class BottomSheetWidgetButtonShow extends StatelessWidget {
   const BottomSheetWidgetButtonShow({final Key? key}) : super(key: key);
 
   @override
-  Widget build(final BuildContext context) => Padding(
-        padding: const EdgeInsets.symmetric(
-          horizontal: paddingPage,
-          vertical: paddingPage / 2,
-        ),
-        child: ConstrainedBox(
-          constraints: const BoxConstraints.tightFor(height: 48),
-          child: ElevatedButton(
-            style: _buildButtonStyle(),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Consumer<SearchFilterModel>(
-                  builder: (
-                    final context,
-                    final cart,
-                    final child,
-                  ) =>
-                      Text(
+  Widget build(final BuildContext context) {
+    return Consumer<SearchFilterModel>(
+      builder: (
+        final context,
+        final cart,
+        final child,
+      ) {
+        debugPrint('Обновим кнопку показать');
+        return Padding(
+          padding: const EdgeInsets.symmetric(
+            horizontal: paddingPage,
+            vertical: paddingPage / 2,
+          ),
+          child: ConstrainedBox(
+            constraints: const BoxConstraints.tightFor(height: 48),
+            child: ElevatedButton(
+              style: _buildButtonStyle(),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Text(
                     '$show (${SearchFilterModel.countPlace})',
                     style: _textStyle(context),
                   ),
-                ),
-              ],
+                ],
+              ),
+              onPressed: () {
+                SearchFilterModel.countPlace == 0
+                    ? null
+                    :
+                    //Записываем состояние фильтра
+                    _onPressed(context);
+              },
             ),
-            onPressed: () {
-              //Записываем состояние фильтра
-              _onPressed(context);
-            },
           ),
-        ),
-      );
+        );
+      },
+    );
+  }
 
   ButtonStyle _buildButtonStyle() {
     return ButtonStyle(
       padding: MaterialStateProperty.all(EdgeInsets.zero),
       elevation: MaterialStateProperty.all(0),
-      backgroundColor:
-          MaterialStateProperty.all<Color>(ColorPalette.greenColor),
+      backgroundColor: SearchFilterModel.countPlace == 0 ?
+          MaterialStateProperty.all<Color>(ColorPalette.dmBasicColor)
+      : MaterialStateProperty.all<Color>(ColorPalette.greenColor),
       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
         const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(

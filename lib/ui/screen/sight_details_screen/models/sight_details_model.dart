@@ -13,9 +13,8 @@ class SightDetailsModel extends ChangeNotifier {
   ///Изменнение положения индикатора
   void changeScrollIndicator(
     final int _index,
-    final int _countElements,
   ) {
-    countElements = _countElements;
+    countElements = tempPhotoPlace.length;
     index = _index;
     notifyListeners();
   }
