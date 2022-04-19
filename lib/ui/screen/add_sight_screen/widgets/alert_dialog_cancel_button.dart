@@ -14,9 +14,8 @@ class AlertDialogCancelButton extends StatelessWidget {
 
   @override
   Widget build(final BuildContext context) => Padding(
-        padding: const EdgeInsets.symmetric(
-          horizontal: paddingPage,
-          vertical: paddingPage / 2,
+        padding: const EdgeInsets.only(
+          top: paddingPage / 2,
         ),
         child: ConstrainedBox(
           constraints: BoxConstraints.tightFor(

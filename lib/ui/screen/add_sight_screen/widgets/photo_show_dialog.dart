@@ -17,13 +17,19 @@ class PhotoShowDialog extends StatelessWidget {
         insetPadding: EdgeInsets.zero,
         backgroundColor: Colors.transparent,
         alignment: Alignment.bottomCenter,
-        contentPadding: EdgeInsets.zero,
+        contentPadding: const EdgeInsets.symmetric(
+          horizontal: paddingPage,
+          vertical: paddingPage_2,
+        ),
         content: Column(
           mainAxisAlignment: MainAxisAlignment.end,
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             Container(
-              padding: const EdgeInsets.symmetric(horizontal: paddingPage),
+              padding: const EdgeInsets.symmetric(
+                horizontal: paddingPage / 2,
+                vertical: paddingPage,
+              ),
               decoration: _buildBoxDecoration(),
               width: MediaQuery.of(context).size.width,
               child: Padding(
