@@ -14,11 +14,16 @@ class OnboardPage extends StatelessWidget {
   ///
   final String svgIcon;
 
+  ///
+  final int numberPage;
+
+
   ///Конструкор шаблон страници Onboard
   const OnboardPage({
     required this.header1,
     required this.header2,
     required this.svgIcon,
+    required this.numberPage,
     this.buttonSkipVisible = true,
     final Key? key,
   }) : super(key: key);
@@ -47,7 +52,8 @@ class OnboardPage extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              FooterPage(buttonOnStartVisible: !buttonSkipVisible),
+              FooterPage(buttonOnStartVisible: !buttonSkipVisible,
+              numberPage: numberPage,),
             ],
           ),
         ],

@@ -41,4 +41,12 @@ class SvgIcons {
   static const String tutorialFrame3 = '${catalog}tutorial_frame_3.svg';
   static const String view = '${catalog}view.svg';
   static const String union = '${catalog}union.svg';
+
+  static const String catalogPoints = 'res/icon/points/';
+  static const String black1 = '${catalogPoints}black1.svg';
+  static const String black2 = '${catalogPoints}black2.svg';
+  static const String black3 = '${catalogPoints}black3.svg';
+  static const String white1 = '${catalogPoints}white1.svg';
+  static const String white2 = '${catalogPoints}white2.svg';
+  static const String white3 = '${catalogPoints}white3.svg';
 }

@@ -6,6 +6,7 @@ import 'package:places/ui/res/text_themas.dart';
 
 ///Светлая тема
 final ThemeData lightTheme = ThemeData(
+
     primaryColor: ColorPalette.lmPrimaryColor,
     backgroundColor: ColorPalette.lmPrimaryColor,
     scaffoldBackgroundColor: ColorPalette.lmPrimaryColor,
