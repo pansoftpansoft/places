@@ -4,7 +4,6 @@ import 'package:places/ui/res/color_palette.dart';
 import 'package:places/ui/res/labels.dart';
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/screen/sight_search_screen/models/search_filter_model.dart';
-import 'package:places/ui/screen/sight_search_screen/sight_search_screen.dart';
 import 'package:provider/provider.dart';
 
 ///Кнопка "показать"
@@ -57,9 +56,9 @@ class BottomSheetWidgetButtonShow extends StatelessWidget {
     return ButtonStyle(
       padding: MaterialStateProperty.all(EdgeInsets.zero),
       elevation: MaterialStateProperty.all(0),
-      backgroundColor: SearchFilterModel.countPlace == 0 ?
-          MaterialStateProperty.all<Color>(ColorPalette.dmBasicColor)
-      : MaterialStateProperty.all<Color>(ColorPalette.greenColor),
+      backgroundColor: SearchFilterModel.countPlace == 0
+          ? MaterialStateProperty.all<Color>(ColorPalette.dmBasicColor)
+          : MaterialStateProperty.all<Color>(ColorPalette.greenColor),
       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
         const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(
@@ -82,14 +81,9 @@ class BottomSheetWidgetButtonShow extends StatelessWidget {
       ..saveFilterSettings()
       ..countFilteredPlaces()
       ..getFilteredList()
-      ..managerSelectionScreen(
-          numberScreen: ScreenEnum.listOfFoundPlacesScreen);
+      ..managerSelectionScreen(numberScreen: ScreenEnum.listFoundPlacesScreen)
+      ..countFilteredPlacesSet();
 
-    Navigator.pushReplacement<void, void>(
-      context,
-      MaterialPageRoute<void>(
-        builder: (BuildContext context) => const SightSearchScreen(),
-      ),
-    );
+    Navigator.pop(context);
   }
 }

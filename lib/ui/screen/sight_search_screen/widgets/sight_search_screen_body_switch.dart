@@ -30,7 +30,7 @@ class SightSearchScreenBodySwitch extends StatelessWidget {
             return const LoadScreen();
           case ScreenEnum.emptyScreen:
             return const SightSearchScreenBodySwitchNotFound();
-          case ScreenEnum.listOfFoundPlacesScreen:
+          case ScreenEnum.listFoundPlacesScreen:
             return const ListOfFoundPlacesScreen();
           case ScreenEnum.listSearchWords:
             return const HistoryListScreen();

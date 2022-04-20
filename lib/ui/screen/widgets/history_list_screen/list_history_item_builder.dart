@@ -69,7 +69,7 @@ class ListHistoryItemBuilder extends StatelessWidget {
           ..countFilteredPlaces()
           ..getFilteredList()
           ..managerSelectionScreen(
-              numberScreen: ScreenEnum.listOfFoundPlacesScreen)
+              numberScreen: ScreenEnum.listFoundPlacesScreen)
           ..changeSearch();
       } else {
         context.read<SearchFilterModel>()
@@ -91,7 +91,7 @@ class ListHistoryItemBuilder extends StatelessWidget {
           SearchFilterModel.listHistory[index].historyText)
       ..countFilteredPlaces()
       ..getFilteredList()
-      ..managerSelectionScreen(numberScreen: ScreenEnum.listOfFoundPlacesScreen)
+      ..managerSelectionScreen(numberScreen: ScreenEnum.listFoundPlacesScreen)
       ..changeSearch();
   }
 }

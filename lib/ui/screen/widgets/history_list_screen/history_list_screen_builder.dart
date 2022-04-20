@@ -52,7 +52,7 @@ class HistoryListScreenBuilder extends StatelessWidget {
       ..countFilteredPlaces()
       ..getFilterSettings()
       ..managerSelectionScreen(
-          numberScreen: ScreenEnum.listOfFoundPlacesScreen)
+          numberScreen: ScreenEnum.listFoundPlacesScreen)
       ..changeSearch();
   }
 }

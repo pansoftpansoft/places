@@ -94,7 +94,7 @@ class SearchBarFirst extends StatelessWidget {
         ..countFilteredPlaces()
         ..getFilteredList()
         ..managerSelectionScreen(
-            numberScreen: ScreenEnum.listOfFoundPlacesScreen);
+            numberScreen: ScreenEnum.listFoundPlacesScreen);
     } else {
       ///Чистим строку поиска
       context.read<SearchFilterModel>()

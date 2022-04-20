@@ -174,7 +174,7 @@ class SearchFilterModel extends ChangeNotifier {
         } else {
           debugPrint('Найдено $countPlace места');
           managerSelectionScreen(
-              numberScreen: ScreenEnum.listOfFoundPlacesScreen);
+              numberScreen: ScreenEnum.listFoundPlacesScreen);
         }
         debugPrint('changeSearch notifyListeners()');
         notifyListeners();
@@ -244,7 +244,7 @@ class SearchFilterModel extends ChangeNotifier {
       selectedScreen = numberScreen;
 
       /// Если найдено 0 мест то выдаем экрас с сообщением
-      if (selectedScreen == ScreenEnum.listOfFoundPlacesScreen &&
+      if (selectedScreen == ScreenEnum.listFoundPlacesScreen &&
           SearchFilterModel.countPlace == 0) {
         selectedScreen = ScreenEnum.emptyScreen;
       }

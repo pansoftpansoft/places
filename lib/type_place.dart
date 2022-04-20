@@ -34,7 +34,7 @@ enum ScreenEnum {
   emptyScreen,
 
   ///Список с найдеными местами
-  listOfFoundPlacesScreen,
+  listFoundPlacesScreen,
 
   ///Экран ошибки
   errorScreen,
