@@ -19,6 +19,7 @@ class OnboardingScreen extends StatelessWidget {
         '  ${OnboardingScreenModel.callingFromSettings}');
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(paddingPage),
