@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:places/ui/res/color_palette.dart';
 import 'package:places/ui/res/labels.dart';
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/res/svg_icons.dart';
@@ -30,7 +29,7 @@ class PhotoShowDialog extends StatelessWidget {
                 horizontal: paddingPage / 2,
                 vertical: paddingPage,
               ),
-              decoration: _buildBoxDecoration(),
+              decoration: _buildBoxDecoration(context),
               width: MediaQuery.of(context).size.width,
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: paddingPage),
@@ -50,10 +49,10 @@ class PhotoShowDialog extends StatelessWidget {
         ),
       );
 
-  BoxDecoration _buildBoxDecoration() {
-    return const BoxDecoration(
-      color: ColorPalette.whiteColor,
-      borderRadius: BorderRadius.all(Radius.circular(borderRadiusCard16)),
+  BoxDecoration _buildBoxDecoration(context) {
+    return BoxDecoration(
+      color: Theme.of(context).backgroundColor,
+      borderRadius: const BorderRadius.all(Radius.circular(borderRadiusCard16)),
     );
   }
 }
