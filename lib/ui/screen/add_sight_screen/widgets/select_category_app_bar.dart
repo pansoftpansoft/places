@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:places/ui/res/labels.dart';
+
 ///
 class SelectCategoryAppBar extends StatelessWidget {
   const SelectCategoryAppBar({

@@ -68,7 +68,7 @@ class SightCardSearchTextSpan extends StatelessWidget {
       ),
       TextSpan(
         text: sight.name.substring(start, end),
-        style: Theme.of(context).textTheme.subtitle1,
+        style: const TextStyle(color: Colors.green),
       ),
       TextSpan(
         text: sight.name.substring(end, sightName.length),
