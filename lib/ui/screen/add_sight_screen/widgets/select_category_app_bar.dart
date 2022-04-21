@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:places/ui/res/color_palette.dart';
 import 'package:places/ui/res/labels.dart';
 ///
 class SelectCategoryAppBar extends StatelessWidget {
@@ -10,8 +9,8 @@ class SelectCategoryAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      iconTheme: const IconThemeData(
-        color: ColorPalette.lmTabBarUnSelect, //change your color here
+      iconTheme: IconThemeData(
+        color: Theme.of(context).iconTheme.color,
       ),
       title: Text(
         category,
