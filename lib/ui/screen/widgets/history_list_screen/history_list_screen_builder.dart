@@ -20,9 +20,13 @@ class HistoryListScreenBuilder extends StatelessWidget {
       children: <Widget>[
         Text(
           youLooking,
-          style: Theme.of(context).textTheme.subtitle2!.copyWith(
-                color: ColorPalette.lmFontSubtitle2.withOpacity(opacityText),
-              ),
+          style: Theme
+              .of(context)
+              .textTheme
+              .subtitle2!
+              .copyWith(
+            color: ColorPalette.lmFontSubtitle2.withOpacity(opacityText),
+          ),
         ),
         const Flexible(child: ListHistory()),
         TextButton(
@@ -34,7 +38,8 @@ class HistoryListScreenBuilder extends StatelessWidget {
           },
           child: Text(
             clearHistory,
-            style: Theme.of(context)
+            style: Theme
+                .of(context)
                 .textTheme
                 .subtitle1!
                 .copyWith(color: ColorPalette.greenColor),
@@ -44,15 +49,13 @@ class HistoryListScreenBuilder extends StatelessWidget {
     );
   }
 
-  ///Чистим всю историю и показываем только отфильтрованные места
+  ///Чистим всю историю и показываем пустой экран
   void _onPressed(BuildContext context) {
     context.read<SearchFilterModel>()
-      ..searchPlaceForDynamicText('')
+      ..setSearchText('')
       ..clearHistory()
-      ..countFilteredPlaces()
-      ..getFilterSettings()
-      ..managerSelectionScreen(
-          numberScreen: ScreenEnum.listFoundPlacesScreen)
-      ..changeSearch();
+      ..managerSelectionScreen(numberScreen: ScreenEnum.cleanScreen)
+      ..notifyListenersSearchScreen();
+    //Navigator.pushNamed(context, RouteName.sightSearchScreen);
   }
 }

@@ -104,8 +104,8 @@ class SplashScreenState extends State<SplashScreen> {
   void finishGetNetData({required final bool isComplete}) {
     //Произыодим первую фильтрацию мест перед открытием экрана
     context.read<SearchFilterModel>()
-      ..searchPlaceForDynamicText('')
-      ..countFilteredPlaces()
+      ..setSearchText('')
+      ..setFilteredPlaces()
       ..getFilteredList();
 
     _isInitialized.complete(isComplete);

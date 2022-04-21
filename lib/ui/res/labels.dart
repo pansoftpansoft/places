@@ -63,6 +63,7 @@ const String tryChangingTheSearchParameter =
     'Попробуйте изменить\n параметры поиска!';
 const String visited = 'Посетил';
 const String unknownError = 'Неизвестная ошибка';
+const String insertText = 'Введите текст для начала поиска';
 const String youLooking = 'ВЫ ИСКАЛИ';
 const String watchTutorial = 'Смотреть туториал';
 const String welcomeToTheTravelGuide = 'Добро пожаловать\nв Путеводитель';

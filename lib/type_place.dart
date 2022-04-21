@@ -38,10 +38,14 @@ enum ScreenEnum {
 
   ///Экран ошибки
   errorScreen,
+
+  ///Чистый экран
+  cleanScreen,
 }
 
 ///
 List<Sight> mocksSearch = <Sight>[];
+List<Sight> mocksSearchText = <Sight>[];
 
 ///Тестовые данные
 final List<Sight> mocks = <Sight>[

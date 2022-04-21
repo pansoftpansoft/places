@@ -17,7 +17,7 @@ class FiltersScreen extends StatelessWidget {
     //Сохраняем настройки фильтра на случай выхода бех применения фильтра
     context.read<SearchFilterModel>().getFilterSettings();
 
-    context.read<SearchFilterModel>().countFilteredPlaces();
+    context.read<SearchFilterModel>().setFilteredPlaces();
 
     return Scaffold(
       appBar: AppBar(

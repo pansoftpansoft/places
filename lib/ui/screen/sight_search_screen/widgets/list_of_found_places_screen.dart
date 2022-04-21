@@ -6,9 +6,9 @@ import 'package:places/ui/screen/sight_search_screen/widgets/sight_card_search.d
 import 'package:provider/provider.dart';
 
 ///Список найденых мест
-class ListOfFoundPlacesScreen extends StatelessWidget {
+class ListFoundPlacesScreen extends StatelessWidget {
   ///
-  const ListOfFoundPlacesScreen({
+  const ListFoundPlacesScreen({
     final Key? key,
   }) : super(key: key);
 
@@ -22,10 +22,10 @@ class ListOfFoundPlacesScreen extends StatelessWidget {
       final child,
     ) {
       return ListView.separated(
-        itemCount: mocksSearch.length,
+        itemCount: mocksSearchText.length,
         shrinkWrap: true,
         itemBuilder: (final context, final index) =>
-            SightCardSearch(mocksSearch[index]),
+            SightCardSearch(mocksSearchText[index]),
         separatorBuilder: (
           final context,
           final index,

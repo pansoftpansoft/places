@@ -67,6 +67,6 @@ class _CategoryIconSvgIconState extends State<CategoryIconSvgIcon> {
       debugPrint('Обновить даные 11');
     });
 
-    context.read<SearchFilterModel>().chengFilter();
+    context.read<SearchFilterModel>().notifyListenersSearchScreen();
   }
 }

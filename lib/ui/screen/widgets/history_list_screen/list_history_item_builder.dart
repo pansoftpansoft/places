@@ -65,19 +65,16 @@ class ListHistoryItemBuilder extends StatelessWidget {
     await SearchFilterModel.getListHistory().then((value) {
       if (SearchFilterModel.listHistory.isEmpty) {
         context.read<SearchFilterModel>()
-          ..searchPlaceForDynamicText('')
-          ..countFilteredPlaces()
-          ..getFilteredList()
-          ..managerSelectionScreen(
-              numberScreen: ScreenEnum.listFoundPlacesScreen)
-          ..changeSearch();
+          ..setSearchText('')
+          ..managerSelectionScreen(numberScreen: ScreenEnum.cleanScreen)
+          ..notifyListenersSearchScreen();
+        debugPrint('Удалаем строку истории! 1');
       } else {
         context.read<SearchFilterModel>()
-          ..searchPlaceForDynamicText('')
-          ..countFilteredPlaces()
-          ..getFilteredList()
+          ..setSearchText('')
           ..managerSelectionScreen(numberScreen: ScreenEnum.listSearchWords)
-          ..changeSearch();
+          ..notifyListenersSearchScreen();
+        debugPrint('Удалаем строку истории! 2');
       }
     });
   }
@@ -87,10 +84,9 @@ class ListHistoryItemBuilder extends StatelessWidget {
     BuildContext context,
   ) {
     context.read<SearchFilterModel>()
-      ..searchPlaceForDynamicText(
+      ..setSearchText(
           SearchFilterModel.listHistory[index].historyText)
-      ..countFilteredPlaces()
-      ..getFilteredList()
+      ..getSearchTextList()
       ..managerSelectionScreen(numberScreen: ScreenEnum.listFoundPlacesScreen)
       ..changeSearch();
   }

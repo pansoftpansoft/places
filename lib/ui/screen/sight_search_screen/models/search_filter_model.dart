@@ -27,6 +27,8 @@ class SearchFilterModel extends ChangeNotifier {
 
   static String _searchString = '';
 
+  static String get searchString => _searchString;
+
   ///Мапа кнопок для фильтрации мест с изночальными значениями
   static Map<TypePlace, bool> _filterMap = <TypePlace, bool>{
     TypePlace.hotel: true,
@@ -100,7 +102,8 @@ class SearchFilterModel extends ChangeNotifier {
 
   ///Подсчет отфильтрованных мест
   ///Пометка мест что они попали в фильтр
-  void countFilteredPlaces() {
+  void setFilteredPlaces() {
+    mocksSearchText.clear();
     var _countPlace = 0; //Подсчет отфильтрованных мест,
     // для отображения на кнопке
     debugPrint('mocks ${mocks.length}');
@@ -125,7 +128,7 @@ class SearchFilterModel extends ChangeNotifier {
 
   //Об
   void countFilteredPlacesSet() {
-    countFilteredPlaces();
+    setFilteredPlaces();
     notifyListeners();
   }
 
@@ -134,6 +137,7 @@ class SearchFilterModel extends ChangeNotifier {
   bool getFilteredList() {
     countPlace = _countPlace;
     mocksSearch.clear();
+    mocksSearchText.clear();
     if (_searchString.isNotEmpty) {
       for (final item in mocks) {
         //фильтр установлен проверяем его и поиск по имени
@@ -155,6 +159,26 @@ class SearchFilterModel extends ChangeNotifier {
     }
     debugPrint('200 mocksSearch ${mocksSearch.length.toString()}');
 
+    return _errorTest;
+  }
+
+  bool getSearchTextList() {
+    countPlace = _countPlace;
+    mocksSearchText.clear();
+    if (_searchString.isNotEmpty) {
+      debugPrint('900 mocksSearch ${mocksSearch.length.toString()}');
+      for (final item in mocksSearch) {
+        //фильтр установлен проверяем его и поиск по имени
+        debugPrint(_searchString);
+        if (item.visibleFilter) {
+          if (item.name
+              .toLowerCase()
+              .contains(_searchString.trimRight().toLowerCase())) {
+            mocksSearchText.add(item);
+          }
+        }
+      }
+    }
     return _errorTest;
   }
 
@@ -183,7 +207,8 @@ class SearchFilterModel extends ChangeNotifier {
   }
 
   ///Устанавливаем строку поиска
-  void searchPlaceForDynamicText(final String searchString) {
+  void setSearchText(final String searchString) {
+    mocksSearchText.clear();
     if (searchString == '') {
       _searchString = '';
       SearchFilterModel.textEditingControllerFind.clear();
@@ -203,7 +228,7 @@ class SearchFilterModel extends ChangeNotifier {
   ///c записью запроса в историю запросов
   void searchPlaceForEnter(final String searchString) {
     //Ищем текст
-    searchPlaceForDynamicText(searchString);
+    setSearchText(searchString);
     //сохранить текст поиска
     DBProvider.dbProvider.addHistory(searchString);
   }
@@ -253,8 +278,7 @@ class SearchFilterModel extends ChangeNotifier {
     }
   }
 
-
-  void chengFilter() {
+  void notifyListenersSearchScreen() {
     notifyListeners();
   }
 

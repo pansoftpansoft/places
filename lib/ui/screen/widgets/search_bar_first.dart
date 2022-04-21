@@ -90,19 +90,15 @@ class SearchBarFirst extends StatelessWidget {
     if (SearchFilterModel.listHistory.isEmpty) {
       ///Чистим строку поиска
       context.read<SearchFilterModel>()
-        ..searchPlaceForDynamicText('')
-        ..countFilteredPlaces()
-        ..getFilteredList()
-        ..managerSelectionScreen(
-            numberScreen: ScreenEnum.listFoundPlacesScreen);
+        ..setSearchText('')
+        ..managerSelectionScreen(numberScreen: ScreenEnum.cleanScreen);
     } else {
       ///Чистим строку поиска
       context.read<SearchFilterModel>()
-        ..searchPlaceForDynamicText('')
-        ..countFilteredPlaces()
-        ..getFilteredList()
+        ..setSearchText('')
         ..managerSelectionScreen(numberScreen: ScreenEnum.listSearchWords);
     }
+
     Navigator.pushNamed(context, RouteName.sightSearchScreen);
   }
 }

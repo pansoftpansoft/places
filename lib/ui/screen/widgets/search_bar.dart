@@ -3,7 +3,6 @@ import 'package:places/domain/db_provider.dart';
 import 'package:places/type_place.dart';
 import 'package:places/ui/res/color_palette.dart';
 import 'package:places/ui/res/labels.dart';
-import 'package:places/ui/res/route_name.dart';
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/res/svg_icons.dart';
 import 'package:places/ui/screen/sight_search_screen/models/search_filter_model.dart';
@@ -46,16 +45,10 @@ class SearchBar extends StatelessWidget {
               _textEditingControllerFunction(_textEditingController, context);
             },
             borderRadius: borderRadiusCard12,
-            svgIconSuffix: SvgIcons.filter,
-            svgIconSuffixColor: ColorPalette.greenColor,
-            actionIconSuffix: () {
-              _actionIconSuffix(context);
-            },
             svgIconSuffixForText: SvgIcons.clear,
             svgIconSuffixForTextColor: Colors.black,
             actionIconSuffixForText: () {
-              textEditingController!.clear();
-              context.read<SearchFilterModel>().searchPlaceForDynamicText('');
+              _clearSearchBar(context);
             },
             svgIconPrefix: SvgIcons.search,
             svgIconPrefixColor: ColorPalette.textInTextField,
@@ -79,22 +72,16 @@ class SearchBar extends StatelessWidget {
       if (_textEditingController.text
               .substring(_textEditingController.text.length - 1) ==
           ' ') {
-        context.read<SearchFilterModel>().searchPlaceForDynamicText(
+        context.read<SearchFilterModel>().setSearchText(
               _textEditingController.text,
             );
       }
     } else {
       //context.read<SearchFilterModel>().searchPlaceForDynamicText('');
       context.read<SearchFilterModel>()
-        ..countFilteredPlaces()
+        ..setFilteredPlaces()
         ..saveFilterSettings();
     }
-  }
-
-  void _actionIconSuffix(
-    BuildContext context,
-  ) {
-    Navigator.pushNamed(context, RouteName.filtersScreen);
   }
 
   void _actionOnSubmitted(
@@ -108,9 +95,8 @@ class SearchBar extends StatelessWidget {
     //Подготовка Отображаем найденые места
     debugPrint(value);
     context.read<SearchFilterModel>()
-      ..searchPlaceForDynamicText(value)
-      ..countFilteredPlaces()
-      ..getFilteredList()
+      ..setSearchText(value)
+      ..getSearchTextList()
       ..managerSelectionScreen(numberScreen: ScreenEnum.listFoundPlacesScreen)
       ..changeSearch();
   }
@@ -122,11 +108,32 @@ class SearchBar extends StatelessWidget {
     if (value[value.length - 1] == ' ') {
       debugPrint('Обработка пробела в строке поиска');
       context.read<SearchFilterModel>()
-        ..searchPlaceForDynamicText(value)
-        ..countFilteredPlaces()
-        ..getFilteredList()
+        ..setSearchText(value)
+        ..getSearchTextList()
         ..managerSelectionScreen(numberScreen: ScreenEnum.listFoundPlacesScreen)
-        ..changeSearch();
+        ..notifyListenersSearchScreen();
+    }
+  }
+
+  void _clearSearchBar(
+    BuildContext context,
+  ) {
+    textEditingController!.clear();
+
+    if (SearchFilterModel.listHistory.isEmpty) {
+      ///Чистим строку поиска
+      context.read<SearchFilterModel>()
+        ..setSearchText('')
+        ..managerSelectionScreen(numberScreen: ScreenEnum.cleanScreen)
+        ..notifyListenersSearchScreen();
+    } else {
+      ///Чистим строку поиска
+      context.read<SearchFilterModel>()
+        ..setSearchText('')
+        ..setFilteredPlaces()
+        ..getFilteredList()
+        ..managerSelectionScreen(numberScreen: ScreenEnum.listSearchWords)
+        ..notifyListenersSearchScreen();
     }
   }
 }

@@ -77,9 +77,9 @@ class BottomSheetWidgetButtonShow extends StatelessWidget {
 
   void _onPressed(BuildContext context) {
     context.read<SearchFilterModel>()
-      ..searchPlaceForDynamicText('')
+      ..setSearchText('')
       ..saveFilterSettings()
-      ..countFilteredPlaces()
+      ..setFilteredPlaces()
       ..getFilteredList()
       ..managerSelectionScreen(numberScreen: ScreenEnum.listFoundPlacesScreen)
       ..countFilteredPlacesSet();
