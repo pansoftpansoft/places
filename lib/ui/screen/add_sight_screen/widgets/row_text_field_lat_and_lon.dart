@@ -28,7 +28,7 @@ class RowTextFieldLatAndLon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: heightSizeBox48,
+      height: heightSizeBox40,
       child: Row(
         children: <Widget>[
           RowTextFieldTextFieldIconLat(

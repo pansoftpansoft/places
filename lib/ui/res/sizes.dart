@@ -38,6 +38,7 @@ const double heightSizeBox32 = 32;
 const double heightSizeBox12 = 12;
 const double heightSizeBox24 = 24;
 const double heightSizeBox26 = 26;
+const double heightSizeBox40 = 40;
 const double heightSizeBox48 = 48;
 const double heightSizeBox72 = 72;
 
