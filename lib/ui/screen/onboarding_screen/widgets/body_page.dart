@@ -22,6 +22,7 @@ class BodyPage extends StatelessWidget {
 
   @override
   Widget build(final BuildContext context) => Column(
+    mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
           SvgPicture.asset(
             svgIcon,
@@ -29,7 +30,7 @@ class BodyPage extends StatelessWidget {
             color: Theme.of(context).iconTheme.color,
           ),
           //lmFontHeadline1
-          const SizedBox(height: 42),
+          const SizedBox(height: 12),
           Text(
             header1,
             textAlign: TextAlign.center,

@@ -20,6 +20,7 @@ class FooterPageButtonStart extends StatelessWidget {
       constraints: const BoxConstraints.tightFor(
         height: heightFooterPage,
       ),
+      margin: const EdgeInsets.all(paddingPage),
       child: Visibility(
         visible: buttonOnStartVisible,
         child: ElevatedButton(
@@ -45,21 +46,18 @@ class FooterPageButtonStart extends StatelessWidget {
 
   ButtonStyle _buildButtonStyle() {
     return ButtonStyle(
-          padding: MaterialStateProperty.all(
-            EdgeInsets.zero,
+      elevation: MaterialStateProperty.all(0),
+      backgroundColor: MaterialStateProperty.all<Color>(
+        ColorPalette.greenColor,
+      ),
+      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+        const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(
+            Radius.circular(borderRadiusCard12),
           ),
-          elevation: MaterialStateProperty.all(0),
-          backgroundColor: MaterialStateProperty.all<Color>(
-            ColorPalette.greenColor,
-          ),
-          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-            const RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(
-                Radius.circular(borderRadiusCard12),
-              ),
-            ),
-          ),
-        );
+        ),
+      ),
+    );
   }
 
   void _onPressed(BuildContext context) {
