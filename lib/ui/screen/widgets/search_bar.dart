@@ -93,12 +93,18 @@ class SearchBar extends StatelessWidget {
     //Обновляем список при загрузке
     SearchFilterModel.getListHistory();
     //Подготовка Отображаем найденые места
-    debugPrint(value);
-    context.read<SearchFilterModel>()
-      ..setSearchText(value)
-      ..getSearchTextList()
-      ..managerSelectionScreen(numberScreen: ScreenEnum.listFoundPlacesScreen)
-      ..changeSearch();
+    debugPrint('value = $value');
+    if (value.isEmpty) {
+      context.read<SearchFilterModel>()
+        ..managerSelectionScreen(numberScreen: ScreenEnum.cleanScreen)
+        ..notifyListenersSearchScreen();
+    } else {
+      context.read<SearchFilterModel>()
+        ..setSearchText(value)
+        ..getSearchTextList()
+        ..managerSelectionScreen(numberScreen: ScreenEnum.listFoundPlacesScreen)
+        ..changeSearch();
+    }
   }
 
   void _actionOnChanged(
