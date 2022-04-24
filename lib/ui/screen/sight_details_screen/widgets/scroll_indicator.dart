@@ -16,15 +16,10 @@ class ScrollIndicator extends StatelessWidget {
           final context,
           final sightDetailsModel,
           final child,
-        ) {
-          debugPrint('_index ${SightDetailsModel.index} '
-              'элементов ${SightDetailsModel.countElements}  '
-              'width ${MediaQuery.of(context).size.width}');
-
-          return Container(
-            padding: EdgeInsets.only(
+        ) => Container(
+            margin: EdgeInsets.only(
               left: (MediaQuery.of(context).size.width /
-                  SightDetailsModel.countElements) *
+                      SightDetailsModel.countElements) *
                   SightDetailsModel.index,
             ),
             height: 8,
@@ -37,8 +32,7 @@ class ScrollIndicator extends StatelessWidget {
                 SightDetailsModel.countElements,
               ),
             ),
-          );
-        },
+          ),
       );
 
   ///Изменяем отображение индикатора прокрутки для крайних положений
