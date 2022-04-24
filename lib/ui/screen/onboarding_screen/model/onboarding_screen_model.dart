@@ -19,7 +19,7 @@ class OnboardingScreenModel extends ChangeNotifier {
   static void onPageChanged(double? page) {
     numberPage = page!;
     debugPrint(numberPage.toString());
-    if (page == 2) {
+    if (page > 1.9) {
       buttonOnVisible = true;
       debugPrint(page.toString());
     } else {

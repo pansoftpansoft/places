@@ -20,7 +20,10 @@ class FooterPageButtonStart extends StatelessWidget {
       constraints: const BoxConstraints.tightFor(
         height: heightFooterPage,
       ),
-      margin: const EdgeInsets.all(paddingPage),
+      margin: const EdgeInsets.symmetric(
+        vertical: paddingPage_2,
+        horizontal: paddingPage,
+      ),
       child: Visibility(
         visible: buttonOnStartVisible,
         child: ElevatedButton(

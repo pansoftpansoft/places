@@ -45,3 +45,4 @@ const double heightSizeBox72 = 72;
 const int maxLines5 = 5;
 const double padding10 = 10;
 const double height95 = 95;
+const double heightBottomSheetOnboarding = 105;

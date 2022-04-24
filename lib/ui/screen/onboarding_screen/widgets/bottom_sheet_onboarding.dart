@@ -13,9 +13,8 @@ class BottomSheetOnboarding extends StatelessWidget {
 
   @override
   Widget build(final BuildContext context) {
-    debugPrint('${OnboardingScreenModel.numberPage} '
-        '${OnboardingScreenModel.fileName}');
-
+    debugPrint(
+        '${OnboardingScreenModel.numberPage} ${OnboardingScreenModel.fileName}');
     return Consumer<OnboardingScreenModel>(
       builder: (
         final context,
@@ -23,8 +22,10 @@ class BottomSheetOnboarding extends StatelessWidget {
         final child,
       ) =>
           ConstrainedBox(
-        constraints:
-            const BoxConstraints.tightFor(height: 110, width: double.maxFinite),
+        constraints: const BoxConstraints.tightFor(
+          height: heightBottomSheetOnboarding,
+          width: double.maxFinite,
+        ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.end,
           children: <Widget>[

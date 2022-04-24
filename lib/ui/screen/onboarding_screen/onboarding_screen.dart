@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:places/ui/res/labels.dart';
+import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/res/svg_icons.dart';
 import 'package:places/ui/screen/onboarding_screen/model/onboarding_screen_model.dart';
 import 'package:places/ui/screen/onboarding_screen/widgets/body_page.dart';
@@ -27,7 +28,7 @@ class OnboardingScreen extends StatelessWidget {
     pageController.addListener(() {
       if (pageController.page == 0 ||
           pageController.page == 1 ||
-          pageController.page == 2) {
+          pageController.page! > 1.9) {
         OnboardingScreenModel.onPageChanged(pageController.page);
         context.read<OnboardingScreenModel>().notify();
       }
@@ -35,7 +36,7 @@ class OnboardingScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: const PreferredSize(
-        preferredSize: Size(double.infinity, 100),
+        preferredSize: Size(double.infinity, heightBottomSheetOnboarding),
         child: HeaderPage(),
       ),
 
