@@ -41,8 +41,8 @@ class SearchBar extends StatelessWidget {
             controller: textEditingController,
             autofocus: autofocus,
             focusNode: focusNode,
-            textEditingControllerFunction: (final _textEditingController) {
-              _textEditingControllerFunction(_textEditingController, context);
+            textEditingControllerFunction: (final textEditingController) {
+              _textEditingControllerFunction(textEditingController, context);
             },
             borderRadius: borderRadiusCard12,
             svgIconSuffixForText: SvgIcons.clear,
@@ -65,19 +65,18 @@ class SearchBar extends StatelessWidget {
       });
 
   void _textEditingControllerFunction(
-    TextEditingController _textEditingController,
+    TextEditingController textEditingController,
     BuildContext context,
   ) {
-    if (_textEditingController.text.isNotEmpty) {
-      if (_textEditingController.text
-              .substring(_textEditingController.text.length - 1) ==
+    if (textEditingController.text.isNotEmpty) {
+      if (textEditingController.text
+              .substring(textEditingController.text.length - 1) ==
           ' ') {
         context.read<SearchFilterModel>().setSearchText(
-              _textEditingController.text,
+              textEditingController.text,
             );
       }
     } else {
-      //context.read<SearchFilterModel>().searchPlaceForDynamicText('');
       context.read<SearchFilterModel>()
         ..setFilteredPlaces()
         ..saveFilterSettings();

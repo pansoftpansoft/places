@@ -20,22 +20,21 @@ class ScrollIndicator extends StatelessWidget {
           debugPrint('_index ${SightDetailsModel.index} '
               'элементов ${SightDetailsModel.countElements}  '
               'width ${MediaQuery.of(context).size.width}');
-          return Padding(
+
+          return Container(
             padding: EdgeInsets.only(
               left: (MediaQuery.of(context).size.width /
-                      SightDetailsModel.countElements) *
+                  SightDetailsModel.countElements) *
                   SightDetailsModel.index,
             ),
-            child: Container(
-              height: 8,
-              width: MediaQuery.of(context).size.width /
-                  SightDetailsModel.countElements,
-              decoration: BoxDecoration(
-                color: Theme.of(context).indicatorColor,
-                borderRadius: buildBorderRadius(
-                  SightDetailsModel.index,
-                  SightDetailsModel.countElements,
-                ),
+            height: 8,
+            width: MediaQuery.of(context).size.width /
+                SightDetailsModel.countElements,
+            decoration: BoxDecoration(
+              color: Theme.of(context).indicatorColor,
+              borderRadius: buildBorderRadius(
+                SightDetailsModel.index,
+                SightDetailsModel.countElements,
               ),
             ),
           );
@@ -43,21 +42,21 @@ class ScrollIndicator extends StatelessWidget {
       );
 
   ///Изменяем отображение индикатора прокрутки для крайних положений
-  BorderRadius buildBorderRadius(final int _index, final int _countElements) {
+  BorderRadius buildBorderRadius(final int index, final int countElements) {
     var borderRadius = const BorderRadius.all(
       Radius.circular(borderRadiusCard16),
     );
 
-    debugPrint('_index $_index элементов $_countElements');
+    debugPrint('_index $index элементов $countElements');
     //Для первой позиции
-    if (_index == 0) {
+    if (index == 0) {
       borderRadius = const BorderRadius.only(
         topRight: Radius.circular(borderRadiusCard16),
         bottomRight: Radius.circular(borderRadiusCard16),
       );
     }
     //Для последней позиции
-    if (_index + 1 == _countElements) {
+    if (index + 1 == countElements) {
       borderRadius = const BorderRadius.only(
         topLeft: Radius.circular(borderRadiusCard16),
         bottomLeft: Radius.circular(borderRadiusCard16),

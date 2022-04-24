@@ -48,8 +48,8 @@ class _SelectTypePlaceState extends State<SelectTypePlace> {
       );
 
   Future<void> _onPressed() async {
-    TypePlace? _typePlaceResponse;
-    _typePlaceResponse = await Navigator.push(
+    TypePlace? typePlaceResponse;
+    typePlaceResponse = await Navigator.push(
       context,
       MaterialPageRoute<TypePlace>(
         builder: (final context) =>
@@ -57,8 +57,8 @@ class _SelectTypePlaceState extends State<SelectTypePlace> {
       ),
     );
 
-    if (_typePlaceResponse != null) {
-      _typePlaceSelected = _typePlaceResponse;
+    if (typePlaceResponse != null) {
+      _typePlaceSelected = typePlaceResponse;
     }
 
     debugPrint('вернули ${_typePlaceSelected.toString()}');

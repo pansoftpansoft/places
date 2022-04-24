@@ -47,8 +47,11 @@ class AddElevatedButton extends StatelessWidget {
                     context: context,
                     builder: (final context) => const ShowAlertAdd(),
                   );
+                  // ignore: use_build_context_synchronously
                   context.read<SightListScreenModel>().updateSightList();
+                  // ignore: use_build_context_synchronously
                   Navigator.pop(context);
+                  // ignore: use_build_context_synchronously
                   context.read<AddSightModel>().disableButton = null;
                 });
               },

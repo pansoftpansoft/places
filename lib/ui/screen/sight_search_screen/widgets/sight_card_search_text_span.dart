@@ -42,8 +42,8 @@ class SightCardSearchTextSpan extends StatelessWidget {
     String sightName,
     String searchText,
   ) {
-    int start = 0;
-    int end = 0;
+    var start = 0;
+    var end = 0;
 
     if (searchText.isEmpty) {
       start = sightName.length - 1;
@@ -58,7 +58,7 @@ class SightCardSearchTextSpan extends StatelessWidget {
       }
     }
 
-    List<InlineSpan> listText = [
+    final listText = <InlineSpan>[
       TextSpan(
         text: sight.name.substring(0, start),
         style: Theme.of(context)

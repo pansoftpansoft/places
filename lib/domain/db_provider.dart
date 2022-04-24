@@ -5,7 +5,6 @@ import 'package:sqflite/sqflite.dart';
 
 /// Класс для работы с SQLite Сохраняем историю поиска
 class DBProvider {
-
   ///
   static const String _databaseName = '/placeDB.db';
 
@@ -24,12 +23,11 @@ class DBProvider {
     return initDB();
   }
 
-
   DBProvider._();
 
   ///
   static Future<int> deleteHistory(final String historyText) async {
-    final _database = await database;
+    _database = await database;
     final res = await _database!.delete(
       'history',
       where: 'history_text = ?',
@@ -39,11 +37,9 @@ class DBProvider {
     return res;
   }
 
-
   ///
   static Future<Database> initDB() async {
-    final documentsDirectory =
-        await getApplicationDocumentsDirectory();
+    final documentsDirectory = await getApplicationDocumentsDirectory();
     final path = '${documentsDirectory.path}$_databaseName';
 
     return openDatabase(
@@ -55,10 +51,10 @@ class DBProvider {
         }
       },
       onCreate: (
-        final  _database,
-        final  version,
+        final database,
+        final version,
       ) async {
-        await _database.execute(
+        await database.execute(
           <String>[
             'CREATE TABLE history (',
             'history_text TEXT PRIMARY KEY NOT NULL UNIQUE,',
@@ -72,12 +68,12 @@ class DBProvider {
 
   ///
   Future<List<History>?> getListHistoryFromDb() async {
-    final _database = await database;
+    _database = await database;
     final res =
         await _database!.query('history', orderBy: 'date_add desc', limit: 10);
 
     final list = res.isNotEmpty
-        ? res.map((final c) => History.fromMap(c)).toList()
+        ? res.map(History.fromMap).toList()
         : <History>[];
 
     return list;
@@ -89,7 +85,7 @@ class DBProvider {
       return 0;
     }
     //ToDo сделать проверку на совпадение
-    final _database = await database;
+    _database = await database;
     final newHistory = History(historyText: historyText);
     final res = await _database!.insert('history', newHistory.toMap());
 
@@ -98,11 +94,9 @@ class DBProvider {
 
   ///
   Future<int> clearHistory() async {
-    final _database = await database;
+    _database = await database;
     final res = await _database!.delete('history');
 
     return res;
   }
-
-
 }

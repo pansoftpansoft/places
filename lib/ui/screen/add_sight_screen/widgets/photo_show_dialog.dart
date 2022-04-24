@@ -49,7 +49,7 @@ class PhotoShowDialog extends StatelessWidget {
         ),
       );
 
-  BoxDecoration _buildBoxDecoration(context) {
+  BoxDecoration _buildBoxDecoration(final BuildContext context) {
     return BoxDecoration(
       color: Theme.of(context).backgroundColor,
       borderRadius: const BorderRadius.all(Radius.circular(borderRadiusCard16)),

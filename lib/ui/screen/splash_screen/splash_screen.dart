@@ -35,7 +35,7 @@ class SplashScreenState extends State<SplashScreen> {
   }
 
   @override
-  Widget build(final BuildContext context) => Container(
+  Widget build(final BuildContext context) => DecoratedBox(
         decoration: const BoxDecoration(
           gradient: LinearGradient(
             colors: <Color>[

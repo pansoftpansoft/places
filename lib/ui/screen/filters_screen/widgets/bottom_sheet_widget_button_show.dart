@@ -18,37 +18,37 @@ class BottomSheetWidgetButtonShow extends StatelessWidget {
         final context,
         final cart,
         final child,
-      ) {
-        debugPrint('Обновим кнопку показать');
-        return Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: paddingPage,
-            vertical: paddingPage / 2,
-          ),
-          child: ConstrainedBox(
-            constraints: const BoxConstraints.tightFor(height: 48),
-            child: ElevatedButton(
-              style: _buildButtonStyle(),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Text(
-                    '$show (${SearchFilterModel.countPlace})',
-                    style: _textStyle(context),
-                  ),
-                ],
-              ),
-              onPressed: () {
-                SearchFilterModel.countPlace == 0
-                    ? null
-                    :
-                    //Записываем состояние фильтра
-                    _onPressed(context);
-              },
+      ) =>
+          Padding(
+        padding: const EdgeInsets.symmetric(
+          horizontal: paddingPage,
+          vertical: paddingPage / 2,
+        ),
+        child: ConstrainedBox(
+          constraints: const BoxConstraints.tightFor(height: 48),
+          child: ElevatedButton(
+            style: _buildButtonStyle(),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Text(
+                  '$show (${SearchFilterModel.countPlace})',
+                  style: _textStyle(context),
+                ),
+              ],
             ),
+            onPressed: () {
+              SearchFilterModel.countPlace == 0
+                  // ignore: unnecessary_statements
+                  ? null
+                  : _onPressed(
+                      context,
+                    );
+              //Записываем состояние фильтра
+            },
           ),
-        );
-      },
+        ),
+      ),
     );
   }
 

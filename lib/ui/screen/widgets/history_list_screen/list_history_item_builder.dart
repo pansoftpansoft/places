@@ -57,7 +57,7 @@ class ListHistoryItemBuilder extends StatelessWidget {
   ) async {
     debugPrint('Удалаем строку истории!');
 
-    context
+    await context
         .read<SearchFilterModel>()
         .deleteHistory(SearchFilterModel.listHistory[index].historyText);
 
@@ -85,7 +85,8 @@ class ListHistoryItemBuilder extends StatelessWidget {
   ) {
     context.read<SearchFilterModel>()
       ..setSearchText(
-          SearchFilterModel.listHistory[index].historyText)
+        SearchFilterModel.listHistory[index].historyText,
+      )
       ..getSearchTextList()
       ..managerSelectionScreen(numberScreen: ScreenEnum.listFoundPlacesScreen)
       ..changeSearch();

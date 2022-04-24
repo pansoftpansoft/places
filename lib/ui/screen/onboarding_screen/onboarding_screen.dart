@@ -1,11 +1,11 @@
-import 'package:places/ui/screen/onboarding_screen/widgets/body_page.dart';
-import 'package:places/ui/screen/onboarding_screen/widgets/header_page.dart';
-import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:places/ui/res/labels.dart';
 import 'package:places/ui/res/svg_icons.dart';
 import 'package:places/ui/screen/onboarding_screen/model/onboarding_screen_model.dart';
+import 'package:places/ui/screen/onboarding_screen/widgets/body_page.dart';
 import 'package:places/ui/screen/onboarding_screen/widgets/bottom_sheet_onboarding.dart';
+import 'package:places/ui/screen/onboarding_screen/widgets/header_page.dart';
+import 'package:provider/provider.dart';
 
 ///Экран Onboarding
 class OnboardingScreen extends StatelessWidget {
@@ -23,7 +23,7 @@ class OnboardingScreen extends StatelessWidget {
     OnboardingScreenModel.onPageChanged(0);
     //context.read<OnboardingScreenModel>().notify();
 
-    PageController pageController = PageController();
+    final pageController = PageController();
     pageController.addListener(() {
       if (pageController.page == 0 ||
           pageController.page == 1 ||

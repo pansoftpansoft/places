@@ -8,8 +8,7 @@ class ShowAlertAdd extends StatelessWidget {
   const ShowAlertAdd({final Key? key}) : super(key: key);
 
   @override
-  Widget build(final BuildContext context) =>
-      AlertDialog(
+  Widget build(final BuildContext context) => AlertDialog(
         elevation: 0,
         insetPadding: EdgeInsets.zero,
         backgroundColor: Colors.transparent,
@@ -28,13 +27,12 @@ class ShowAlertAdd extends StatelessWidget {
                 vertical: paddingPage,
               ),
               decoration: _buildBoxDecoration(context),
-              width: MediaQuery
-                  .of(context)
-                  .size
-                  .width,
+              width: MediaQuery.of(context).size.width,
               child: const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: paddingPage),
-                  child: Text(newPlaceAdd)
+                padding: EdgeInsets.symmetric(horizontal: paddingPage),
+                child: Text(
+                  newPlaceAdd,
+                ),
               ),
             ),
             const AlertDialogOkButton(),
@@ -42,11 +40,10 @@ class ShowAlertAdd extends StatelessWidget {
         ),
       );
 
-  BoxDecoration _buildBoxDecoration(context) {
+  BoxDecoration _buildBoxDecoration(final BuildContext context) {
+
     return BoxDecoration(
-      color: Theme
-          .of(context)
-          .backgroundColor,
+      color: Theme.of(context).backgroundColor,
       borderRadius: const BorderRadius.all(Radius.circular(borderRadiusCard16)),
     );
   }

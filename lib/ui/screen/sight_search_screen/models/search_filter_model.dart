@@ -27,8 +27,6 @@ class SearchFilterModel extends ChangeNotifier {
 
   static String _searchString = '';
 
-  static String get searchString => _searchString;
-
   ///Мапа кнопок для фильтрации мест с изночальными значениями
   static Map<TypePlace, bool> _filterMap = <TypePlace, bool>{
     TypePlace.hotel: true,
@@ -43,7 +41,8 @@ class SearchFilterModel extends ChangeNotifier {
   //Если нажата кнопка Показать то переписываем значения
   //Если пользователь вернулся на предыдущий
   //экран то востановим текущие значения
-  static Map<TypePlace, bool> filterMapOld = <TypePlace, bool>{
+
+  static Map<TypePlace, bool> _filterMapOld = <TypePlace, bool>{
     TypePlace.hotel: true,
     TypePlace.restaurant: true,
     TypePlace.particularPlace: true,
@@ -52,9 +51,16 @@ class SearchFilterModel extends ChangeNotifier {
     TypePlace.cafe: true,
   };
 
-  // Тестовая переменная для проверки экрана Ошибка.
-  // false - нет ошибок, true - есть ошибка
   final bool _errorTest = false;
+
+  static Map<TypePlace, bool> get filterMapOld => _filterMapOld;
+
+  static set filterMapOld(Map<TypePlace, bool> value) {
+    _filterMapOld = value;
+  } // Тестовая переменная для проверки экрана Ошибка.
+  // false - нет ошибок, true - есть ошибка
+
+  static String get searchString => _searchString;
 
   ///
   static int get countPlace => _countPlace;
@@ -65,19 +71,19 @@ class SearchFilterModel extends ChangeNotifier {
   }
 
   ///
-  static RangeValues get selectedRange => _selectedRange;
-
-  ///
   static Map<TypePlace, bool> get filterMap => _filterMap;
-
-  ///
-  static set selectedRange(final RangeValues value) {
-    _selectedRange = value;
-  }
 
   ///
   static set filterMap(final Map<TypePlace, bool> filterMapNew) {
     _filterMap = filterMapNew;
+  }
+
+  ///
+  static RangeValues get selectedRange => _selectedRange;
+
+  ///
+  static set selectedRange(final RangeValues value) {
+    _selectedRange = value;
   }
 
   ///
@@ -86,9 +92,8 @@ class SearchFilterModel extends ChangeNotifier {
   ///Получаем список историй поиска
   static Future<int> getListHistory() async {
     listHistory = (await DBProvider.dbProvider.getListHistoryFromDb())!;
-    final _lengthList = listHistory.length;
 
-    return _lengthList;
+    return listHistory.length;
   }
 
   ///Взводим галочку на кнопке категорий
@@ -104,7 +109,7 @@ class SearchFilterModel extends ChangeNotifier {
   ///Пометка мест что они попали в фильтр
   void setFilteredPlaces() {
     mocksSearchText.clear();
-    var _countPlace = 0; //Подсчет отфильтрованных мест,
+    var countPlaceFiltered = 0; //Подсчет отфильтрованных мест,
     // для отображения на кнопке
     debugPrint('mocks ${mocks.length}');
     for (final item in mocks) {
@@ -117,12 +122,14 @@ class SearchFilterModel extends ChangeNotifier {
           ) &&
           SearchFilterModel.filterMap[item.type]!) {
         item.visibleFilter = true;
-        _countPlace++;
+        countPlaceFiltered++;
       }
     }
-    countPlace = _countPlace;
-    _selectedRange = RangeValues(SearchFilterModel.selectedRange.start,
-        SearchFilterModel.selectedRange.end);
+    countPlace = countPlaceFiltered;
+    _selectedRange = RangeValues(
+      SearchFilterModel.selectedRange.start,
+      SearchFilterModel.selectedRange.end,
+    );
     debugPrint('countPlace $countPlace');
   }
 
@@ -179,6 +186,7 @@ class SearchFilterModel extends ChangeNotifier {
         }
       }
     }
+
     return _errorTest;
   }
 
@@ -198,7 +206,8 @@ class SearchFilterModel extends ChangeNotifier {
         } else {
           debugPrint('Найдено $countPlace места');
           managerSelectionScreen(
-              numberScreen: ScreenEnum.listFoundPlacesScreen);
+            numberScreen: ScreenEnum.listFoundPlacesScreen,
+          );
         }
         debugPrint('changeSearch notifyListeners()');
         notifyListeners();
@@ -235,16 +244,16 @@ class SearchFilterModel extends ChangeNotifier {
 
   ///Расставить сохраненные настройки фильтра
   void getFilterSettings() {
-    for (final k in filterMapOld.entries) {
+    for (final k in _filterMapOld.entries) {
       _filterMap[k.key] = k.value;
     }
   }
 
   ///Сохранить настройки фильтра
   void saveFilterSettings() {
-    filterMapOld.clear();
+    _filterMapOld.clear();
     for (final k in _filterMap.entries) {
-      filterMapOld[k.key] = k.value;
+      _filterMapOld[k.key] = k.value;
     }
   }
 

@@ -22,7 +22,7 @@ class PhotoGallery extends StatelessWidget {
             child: PageView.builder(
               onPageChanged: (final index) {
                 context.read<SightDetailsModel>().changeScrollIndicator(
-                      index
+                      index,
                     );
               },
               itemCount: tempPhotoPlace.length,

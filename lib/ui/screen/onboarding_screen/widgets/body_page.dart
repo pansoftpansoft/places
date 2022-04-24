@@ -22,7 +22,6 @@ class BodyPage extends StatelessWidget {
 
   @override
   Widget build(final BuildContext context) => Column(
-    mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
           SvgPicture.asset(
             svgIcon,
