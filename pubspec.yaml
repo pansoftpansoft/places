@@ -17,7 +17,7 @@ dependencies:
   path_provider: any
   provider: ^5.0.0
   sqflite: any
-  surf_lint_rules: ^1.4.1
+  surf_lint_rules: ^1.5.0
 
 
 
