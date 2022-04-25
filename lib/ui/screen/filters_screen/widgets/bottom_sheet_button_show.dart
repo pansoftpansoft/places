@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:places/type_place.dart';
 import 'package:places/ui/res/color_palette.dart';
-import 'package:places/ui/res/labels.dart';
 import 'package:places/ui/res/sizes.dart';
-import 'package:places/ui/screen/sight_search_screen/models/search_filter_model.dart';
+import 'package:places/ui/screen/filters_screen/widgets/bottom_sheet_button_show_text.dart';
+import 'package:places/ui/screen/'
+    'sight_search_screen/models/search_filter_model.dart';
 import 'package:provider/provider.dart';
 
 ///Кнопка "показать"
-class BottomSheetWidgetButtonShow extends StatelessWidget {
-  ///
-  const BottomSheetWidgetButtonShow({final Key? key}) : super(key: key);
+class BottomSheetButtonShow extends StatelessWidget {
+  ///Кнопка "показать"
+  const BottomSheetButtonShow({final Key? key}) : super(key: key);
 
   @override
   Widget build(final BuildContext context) {
@@ -22,30 +23,23 @@ class BottomSheetWidgetButtonShow extends StatelessWidget {
           Padding(
         padding: const EdgeInsets.symmetric(
           horizontal: paddingPage,
-          vertical: paddingPage / 2,
+          vertical: paddingPage_2,
         ),
         child: ConstrainedBox(
-          constraints: const BoxConstraints.tightFor(height: 48),
+          constraints: const BoxConstraints.tightFor(height: heightSizeBox48),
           child: ElevatedButton(
             style: _buildButtonStyle(),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Text(
-                  '$show (${SearchFilterModel.countPlace})',
-                  style: _textStyle(context),
-                ),
+              children:  const <Widget>[
+                BottomSheetButtonShowText(),
               ],
             ),
-            onPressed: () {
-              SearchFilterModel.countPlace == 0
-                  // ignore: unnecessary_statements
-                  ? null
-                  : _onPressed(
-                      context,
-                    );
-              //Записываем состояние фильтра
-            },
+            onPressed: () => SearchFilterModel.countPlace == 0
+                ? null
+                : _onPressed(
+                    context,
+                  ),
           ),
         ),
       ),
@@ -67,12 +61,6 @@ class BottomSheetWidgetButtonShow extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  TextStyle _textStyle(BuildContext context) {
-    return Theme.of(context).textTheme.headline5!.copyWith(
-          color: ColorPalette.lmPrimaryColor,
-        );
   }
 
   void _onPressed(BuildContext context) {

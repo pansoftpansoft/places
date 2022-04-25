@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:places/type_place.dart';
 import 'package:places/ui/screen/add_sight_screen/models/add_sight_model.dart';
 import 'package:places/ui/screen/add_sight_screen/widgets/bottom_sheet_save_button.dart';
-import 'package:places/ui/screen/add_sight_screen/widgets/select_category_app_bar.dart';
-import 'package:places/ui/screen/add_sight_screen/widgets/select_category_list.dart';
+import 'package:places/ui/screen/select_category/widgets/select_category_app_bar.dart';
+import 'package:places/ui/screen/select_category/widgets/select_category_list.dart';
 import 'package:provider/provider.dart';
 
 /// Сисок категорий мест с возможностью выбора

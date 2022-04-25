@@ -14,39 +14,40 @@ class HeaderPage extends StatelessWidget {
   @override
   Widget build(final BuildContext context) {
     return Consumer<OnboardingScreenModel>(
-        builder: (
-      final context,
-      final cart,
-      final child,
-    ) {
-      return Row(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          const SizedBox(height: 110),
-          Visibility(
-            visible: !OnboardingScreenModel.buttonOnVisible,
-            child: TextButton(
-              onPressed: () {
-                if (OnboardingScreenModel.callingFromSettings) {
-                  Navigator.pop(context);
-                } else {
-                  Navigator.pushReplacementNamed(
-                    context,
-                    RouteName.sightListScreen,
-                  );
-                }
-              },
-              child: Text(
-                skip,
-                style: Theme.of(context).textTheme.subtitle1!.copyWith(
-                      fontSize: 16,
-                      color: ColorPalette.greenColor,
-                    ),
+      builder: (
+        final context,
+        final cart,
+        final child,
+      ) {
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            const SizedBox(height: 110),
+            Visibility(
+              visible: !OnboardingScreenModel.buttonOnVisible,
+              child: TextButton(
+                onPressed: () {
+                  if (OnboardingScreenModel.callingFromSettings) {
+                    Navigator.pop(context);
+                  } else {
+                    Navigator.pushReplacementNamed(
+                      context,
+                      RouteName.sightListScreen,
+                    );
+                  }
+                },
+                child: Text(
+                  skip,
+                  style: Theme.of(context).textTheme.subtitle1!.copyWith(
+                        fontSize: 16,
+                        color: ColorPalette.greenColor,
+                      ),
+                ),
               ),
             ),
-          ),
-        ],
-      );
-    });
+          ],
+        );
+      },
+    );
   }
 }

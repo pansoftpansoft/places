@@ -31,32 +31,7 @@ class AddElevatedButton extends StatelessWidget {
         onPressed: context.read<AddSightModel>().disableButton == null
             ? null
             : () {
-                final sight = Sight(
-                  'Ивановская площадь',
-                  '55.751426',
-                  '37.618879',
-                  'https://static.mk.ru/upload/entities/2017/12/21/articles/facebookPicture/ce/31/98/e7/d15fd0053ec3372a03dc97795b74a33f.jpg',
-                  details,
-                  TypePlace.park,
-                );
-                mocks.add(
-                  sight,
-                );
-                Future(() async {
-                  await showDialog<void>(
-                    context: context,
-                    builder: (final context) => const ShowAlertAdd(),
-                  ).then((value) {
-                    context.read<AddSightModel>().disableButton = null;
-                    context.read<SearchFilterModel>()
-                      ..setFilteredPlaces()
-                      ..getFilteredList();
-                    Navigator.pushReplacementNamed(
-                      context,
-                      '/SightListScreen',
-                    );
-                  });
-                });
+                _addSight(context);
               },
       ),
     );
@@ -87,6 +62,41 @@ class AddElevatedButton extends StatelessWidget {
           borderRadius: BorderRadius.all(Radius.circular(borderRadiusCard16)),
         ),
       ),
+    );
+  }
+
+  ///Обрабатываем кнопку добавить
+  void _addSight(BuildContext context) {
+    final sight = Sight(
+      'Ивановская площадь',
+      '55.751426',
+      '37.618879',
+      'https://static.mk.ru/upload/entities/2017/12/21/articles/facebookPicture/ce/31/98/e7/d15fd0053ec3372a03dc97795b74a33f.jpg',
+      details,
+      TypePlace.park,
+    );
+    mocks.add(
+      sight,
+    );
+    Future(() async {
+      await showDialog<void>(
+        context: context,
+        builder: (final context) => const ShowAlertAdd(),
+      ).then((value) {
+        _onPress(context);
+      });
+    });
+  }
+
+  ///Обработка кнопки предупреждения что добавляется новое место или ошибка
+  void _onPress(BuildContext context) {
+    context.read<AddSightModel>().disableButton = null;
+    context.read<SearchFilterModel>()
+      ..setFilteredPlaces()
+      ..getFilteredList();
+    Navigator.pushReplacementNamed(
+      context,
+      '/SightListScreen',
     );
   }
 }

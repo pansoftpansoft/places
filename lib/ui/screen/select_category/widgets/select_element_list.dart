@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:places/type_place.dart';
 import 'package:places/ui/screen/add_sight_screen/models/add_sight_model.dart';
-import 'package:places/ui/screen/add_sight_screen/widgets/select_element_list_row.dart';
+import 'package:places/ui/screen/select_category/widgets/select_element_list_row.dart';
 import 'package:provider/provider.dart';
 
 ///

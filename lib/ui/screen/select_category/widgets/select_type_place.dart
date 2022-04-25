@@ -3,7 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:places/type_place.dart';
 import 'package:places/ui/res/labels.dart';
 import 'package:places/ui/res/svg_icons.dart';
-import 'package:places/ui/screen/add_sight_screen/widgets/select_category.dart';
+import 'package:places/ui/screen/select_category/select_category.dart';
 
 ///
 class SelectTypePlace extends StatefulWidget {

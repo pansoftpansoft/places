@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:places/ui/res/labels.dart';
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/res/svg_icons.dart';
-import 'package:places/ui/screen/onboarding_screen/model/onboarding_screen_model.dart';
+import 'package:places/ui/screen/onboarding_screen/model/'
+    'onboarding_screen_model.dart';
 import 'package:places/ui/screen/onboarding_screen/widgets/body_page.dart';
-import 'package:places/ui/screen/onboarding_screen/widgets/bottom_sheet_onboarding.dart';
+import 'package:places/ui/screen/onboarding_screen/widgets/'
+    'bottom_sheet_onboarding.dart';
 import 'package:places/ui/screen/onboarding_screen/widgets/header_page.dart';
 import 'package:provider/provider.dart';
 
@@ -18,11 +20,8 @@ class OnboardingScreen extends StatelessWidget {
     OnboardingScreenModel.callingFromSettings = (ModalRoute.of(context)
         ?.settings
         .arguments as Map)['callingFromSettings'] as bool;
-    debugPrint('OnboardingScreenModel.callingFromSettings'
-        '  ${OnboardingScreenModel.callingFromSettings}');
 
     OnboardingScreenModel.onPageChanged(0);
-    //context.read<OnboardingScreenModel>().notify();
 
     final pageController = PageController();
     pageController.addListener(() {

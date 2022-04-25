@@ -7,8 +7,8 @@ import 'package:places/ui/screen/add_sight_screen/widgets/add_sight_screen_body_
 import 'package:places/ui/screen/add_sight_screen/widgets/divider_opacity.dart';
 import 'package:places/ui/screen/add_sight_screen/widgets/list_view_photo_add.dart';
 import 'package:places/ui/screen/add_sight_screen/widgets/row_text_field_lat_and_lon.dart';
-import 'package:places/ui/screen/add_sight_screen/widgets/select_type_place.dart';
 import 'package:places/ui/screen/add_sight_screen/widgets/title_field.dart';
+import 'package:places/ui/screen/select_category/widgets/select_type_place.dart';
 import 'package:places/ui/screen/widgets/sized_box_12.dart';
 import 'package:places/ui/screen/widgets/sized_box_24.dart';
 import 'package:places/ui/screen/widgets/sized_box_48.dart';
