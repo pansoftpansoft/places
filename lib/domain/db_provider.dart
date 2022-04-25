@@ -46,9 +46,7 @@ class DBProvider {
       path,
       version: 1,
       onOpen: (final db) {
-        if (kDebugMode) {
-          print('Открать базу данных');
-        }
+        debugPrint('Открать базу данных');
       },
       onCreate: (
         final database,
@@ -72,9 +70,8 @@ class DBProvider {
     final res =
         await _database!.query('history', orderBy: 'date_add desc', limit: 10);
 
-    final list = res.isNotEmpty
-        ? res.map(History.fromMap).toList()
-        : <History>[];
+    final list =
+        res.isNotEmpty ? res.map(History.fromMap).toList() : <History>[];
 
     return list;
   }

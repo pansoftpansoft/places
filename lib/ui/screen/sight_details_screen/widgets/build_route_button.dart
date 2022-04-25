@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:places/ui/res/color_palette.dart';
 import 'package:places/ui/res/labels.dart';
@@ -47,9 +46,7 @@ class BuildRouteButton extends StatelessWidget {
       );
 
   void _onPress(BuildContext context) {
-    if (kDebugMode) {
-      print('Это кнопка "Построить маршрут"');
-    }
+    debugPrint('Это кнопка "Построить маршрут"');
     Navigator.pushNamed(context, RouteName.mapScreen);
   }
 }

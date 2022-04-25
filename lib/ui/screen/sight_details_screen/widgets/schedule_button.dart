@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:places/ui/res/color_palette.dart';
@@ -16,9 +15,7 @@ class ScheduleButton extends StatelessWidget {
   Widget build(final BuildContext context) => TextButton(
         //style: Theme.of(context).textButtonTheme.style,
         onPressed: () {
-          if (kDebugMode) {
-            print('Это кнопка "Заплонировать"');
-          }
+          debugPrint('Это кнопка "Заплонировать"');
         },
         child: Row(
           children: <Widget>[

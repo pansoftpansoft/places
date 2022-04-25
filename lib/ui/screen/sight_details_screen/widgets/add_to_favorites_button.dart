@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:places/ui/res/labels.dart';
@@ -15,9 +14,7 @@ class AddToFavoritesButton extends StatelessWidget {
   Widget build(final BuildContext context) => TextButton(
         //Style: Theme.of(context).textButtonTheme.style,
         onPressed: () {
-          if (kDebugMode) {
-            print('Это кнопка "В избранное"');
-          }
+          debugPrint('Это кнопка "В избранное"');
         },
         child: Row(
           children: <Widget>[
