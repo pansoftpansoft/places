@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:places/domain/sight.dart';
 import 'package:places/ui/res/route_name.dart';
 import 'package:places/ui/res/sizes.dart';
+import 'package:places/ui/screen/sight_search_screen/models/search_filter_model.dart';
 import 'package:places/ui/screen/sight_search_screen/widgets/sight_card_search_text_span.dart';
 
 ///Карточка достопримечательностей из списка поиска
@@ -56,7 +57,7 @@ class SightCardSearch extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 0, width: 16),
-              SightCardSearchTextSpan(sight),
+              SightCardSearchTextSpan(sight, SearchFilterModel.searchString),
             ],
           ),
         ),

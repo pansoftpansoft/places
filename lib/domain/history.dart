@@ -8,8 +8,11 @@ class History {
   History({required this.historyText});
 
   ///
-  factory History.fromMap(final Map<String, dynamic> _map) => History(
-        historyText: _map['history_text'].toString(),
+  factory History.fromMap(
+    final Map<String, dynamic> mapHistory,
+  ) =>
+      History(
+        historyText: mapHistory['history_text'].toString(),
       );
 
   ///

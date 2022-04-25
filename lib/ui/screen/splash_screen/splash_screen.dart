@@ -5,6 +5,7 @@ import 'package:places/ui/res/color_palette.dart';
 import 'package:places/ui/res/img.dart';
 import 'package:places/ui/res/route_name.dart';
 import 'package:places/ui/screen/sight_search_screen/models/search_filter_model.dart';
+import 'package:provider/provider.dart';
 
 /// Экран затавка при загрузке приложения
 class SplashScreen extends StatefulWidget {
@@ -27,13 +28,14 @@ class SplashScreenState extends State<SplashScreen> {
       print('Старт программы');
     }
     _navigateToNextAsync();
+
     if (kDebugMode) {
       print('Стоп программы');
     }
   }
 
   @override
-  Widget build(final BuildContext context) => Container(
+  Widget build(final BuildContext context) => DecoratedBox(
         decoration: const BoxDecoration(
           gradient: LinearGradient(
             colors: <Color>[
@@ -99,8 +101,15 @@ class SplashScreenState extends State<SplashScreen> {
   }
 
   /// Произошло завершение плучения дынных
-  void finishGetNetData({required final bool isComplete}) =>
-      _isInitialized.complete(isComplete);
+  void finishGetNetData({required final bool isComplete}) {
+    //Произыодим первую фильтрацию мест перед открытием экрана
+    context.read<SearchFilterModel>()
+      ..setSearchText('')
+      ..setFilteredPlaces()
+      ..getFilteredList();
+
+    _isInitialized.complete(isComplete);
+  }
 
   /// Логика перехода на следующий экран
   Future<bool> _navigateToNextAsync() async {

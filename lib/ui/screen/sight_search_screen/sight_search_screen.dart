@@ -35,6 +35,9 @@ class SightSearchScreenState extends State<SightSearchScreen> {
         appBar: PreferredSize(
           preferredSize: const Size.fromHeight(110),
           child: AppBar(
+            iconTheme: IconThemeData(
+              color: Theme.of(context).iconTheme.color,
+            ),
             toolbarHeight: double.infinity,
             centerTitle: false,
             elevation: 0,

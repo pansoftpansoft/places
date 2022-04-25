@@ -12,18 +12,21 @@ class SightDetailsScreenPictureListViewType extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: <Widget>[
-        Text(
-          typePlaceString(_sight.type),
-          style: Theme.of(context).textTheme.headline5,
-        ),
-        const SizedBox(width: 16),
-        Text(
-          'закрыто до 09:00',
-          style: Theme.of(context).textTheme.subtitle2,
-        ),
-      ],
+    return Padding(
+      padding: const EdgeInsets.only(top: 2.0),
+      child: Row(
+        children: <Widget>[
+          Text(
+            typePlaceString(_sight.type),
+            style: Theme.of(context).textTheme.headline5,
+          ),
+          const SizedBox(width: 16),
+          Text(
+            'закрыто до 09:00',
+            style: Theme.of(context).textTheme.subtitle2,
+          ),
+        ],
+      ),
     );
   }
 }

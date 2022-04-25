@@ -6,9 +6,9 @@ import 'package:places/ui/res/labels.dart';
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/screen/add_sight_screen/models/add_sight_model.dart';
 import 'package:places/ui/screen/add_sight_screen/widgets/bottom_sheet_create_button_row.dart';
-import 'package:places/ui/screen/sight_list_screen/models/sight_list_screen_model.dart';
+import 'package:places/ui/screen/add_sight_screen/widgets/show_alert_add.dart';
+import 'package:places/ui/screen/sight_search_screen/models/search_filter_model.dart';
 import 'package:provider/provider.dart';
-
 
 class AddElevatedButton extends StatelessWidget {
   const AddElevatedButton({
@@ -17,41 +17,32 @@ class AddElevatedButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-      style: context
-          .read<AddSightModel>()
-          .disableButton == null
-          ? _buildButtonStyleDisable()
-          : _buildButtonStyle(),
-      child: BottomSheetCreateButtonRow(context: context),
-      onPressed: context
-          .read<AddSightModel>()
-          .disableButton == null
-          ? null
-          : () {
-        final sight = Sight(
-          'Ивановская площадь',
-          '55.751426',
-          '37.618879',
-          'https://static.mk.ru/upload/entities/2017/12/21/articles/facebookPicture/ce/31/98/e7/d15fd0053ec3372a03dc97795b74a33f.jpg',
-          details,
-          TypePlace.park,
-        );
-        mocks.add(
-          sight,
-        );
-        context.read<SightListScreenModel>().updateSightList();
-        Navigator.pop(context);
-      },
-
+    return Consumer<AddSightModel>(
+      builder: (
+        final context,
+        final sight,
+        final child,
+      ) =>
+          ElevatedButton(
+        style: context.read<AddSightModel>().disableButton == null
+            ? _buildButtonStyleDisable()
+            : _buildButtonStyle(),
+        child: BottomSheetCreateButtonRow(context: context),
+        onPressed: context.read<AddSightModel>().disableButton == null
+            ? null
+            : () {
+                _addSight(context);
+              },
+      ),
     );
   }
+
   ButtonStyle _buildButtonStyle() {
     return ButtonStyle(
       padding: MaterialStateProperty.all(EdgeInsets.zero),
       elevation: MaterialStateProperty.all(0),
       backgroundColor:
-      MaterialStateProperty.all<Color>(ColorPalette.greenColor),
+          MaterialStateProperty.all<Color>(ColorPalette.greenColor),
       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
         const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(borderRadiusCard16)),
@@ -65,12 +56,47 @@ class AddElevatedButton extends StatelessWidget {
       padding: MaterialStateProperty.all(EdgeInsets.zero),
       elevation: MaterialStateProperty.all(0),
       backgroundColor:
-      MaterialStateProperty.all<Color>(ColorPalette.dmBasicColor),
+          MaterialStateProperty.all<Color>(ColorPalette.dmBasicColor),
       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
         const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(borderRadiusCard16)),
         ),
       ),
+    );
+  }
+
+  ///Обрабатываем кнопку добавить
+  void _addSight(BuildContext context) {
+    final sight = Sight(
+      'Ивановская площадь',
+      '55.751426',
+      '37.618879',
+      'https://static.mk.ru/upload/entities/2017/12/21/articles/facebookPicture/ce/31/98/e7/d15fd0053ec3372a03dc97795b74a33f.jpg',
+      details,
+      TypePlace.park,
+    );
+    mocks.add(
+      sight,
+    );
+    Future(() async {
+      await showDialog<void>(
+        context: context,
+        builder: (final context) => const ShowAlertAdd(),
+      ).then((value) {
+        _onPress(context);
+      });
+    });
+  }
+
+  ///Обработка кнопки предупреждения что добавляется новое место или ошибка
+  void _onPress(BuildContext context) {
+    context.read<AddSightModel>().disableButton = null;
+    context.read<SearchFilterModel>()
+      ..setFilteredPlaces()
+      ..getFilteredList();
+    Navigator.pushReplacementNamed(
+      context,
+      '/SightListScreen',
     );
   }
 }

@@ -57,13 +57,4 @@ class SightCard extends StatelessWidget {
           ),
         ),
       );
-
-  // ///
-  // RoundedRectangleBorder _buildRoundedRectangleBorder() {
-  //   return const RoundedRectangleBorder(
-  //     borderRadius: BorderRadius.all(
-  //       Radius.circular(borderRadiusCard16),
-  //     ),
-  //   );
-  // }
 }

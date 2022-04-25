@@ -4,11 +4,11 @@ import 'package:places/ui/res/labels.dart';
 import 'package:places/ui/res/sizes.dart';
 
 ///Диалог придупреждения при нажатии кнопки отмена
-class AlertDialogCancelButton extends StatelessWidget {
+class AlertDialogOkButton extends StatelessWidget {
   static double heightAlertDialog = 48;
 
   ///Диалог придупреждения при нажатии кнопки отмена
-  const AlertDialogCancelButton({
+  const AlertDialogOkButton({
     final Key? key,
   }) : super(key: key);
 
@@ -30,7 +30,7 @@ class AlertDialogCancelButton extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Text(
-                  cancel.toUpperCase(),
+                  okTexe.toUpperCase(),
                   style: Theme.of(context).textTheme.headline5!.copyWith(
                         color: ColorPalette.greenColor,
                       ),

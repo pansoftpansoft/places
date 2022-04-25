@@ -49,7 +49,10 @@ final ThemeData lightTheme = ThemeData(
     backgroundColor: ColorPalette.lmNavigationBarBackground,
     showSelectedLabels: true,
     elevation: 10,
-    selectedIconTheme: IconThemeData(color: ColorPalette.greenColor, size: 30),
+    selectedIconTheme: IconThemeData(
+      color: ColorPalette.greenColor,
+      size: 30,
+    ),
     unselectedIconTheme:
         IconThemeData(color: ColorPalette.lmBasicColor, size: 30),
   ),
@@ -66,6 +69,10 @@ final ThemeData lightTheme = ThemeData(
   * textTheme
   */
   textTheme: lmTextTheme,
+  iconTheme: const IconThemeData(
+    color: ColorPalette.lmIconOnBoard,
+  ),
+  indicatorColor: ColorPalette.lmBasicColor,
 );
 
 /// Темная тема
@@ -146,4 +153,5 @@ final ThemeData darkTheme = ThemeData(
   * textTheme
   */
   textTheme: dmTextTheme,
+  indicatorColor: ColorPalette.dmBasicColor,
 );

@@ -19,10 +19,7 @@ class CategoryIconTickChoice extends StatelessWidget {
               SvgIcons.tickChoice,
               height: 25,
             )
-          : const SizedBox(
-              height: 0,
-              width: 0,
-            ),
+          : const SizedBox.shrink(),
     );
   }
 }

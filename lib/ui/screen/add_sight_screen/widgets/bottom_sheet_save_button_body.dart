@@ -6,7 +6,6 @@ import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/screen/add_sight_screen/models/add_sight_model.dart';
 import 'package:provider/provider.dart';
 
-
 class BottomSheetSaveButtonBody extends StatelessWidget {
   const BottomSheetSaveButtonBody({Key? key}) : super(key: key);
 
@@ -14,21 +13,28 @@ class BottomSheetSaveButtonBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return ConstrainedBox(
       constraints: const BoxConstraints.tightFor(height: 48),
-      child: ElevatedButton(
-        style: _buildButtonStyle(
-          context.read<AddSightModel>().selectTypePlace,
-        ),
-        onPressed: () {
-          _onPressed(context);
-        },
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              save,
-              style: _buildTextStyle(context),
-            ),
-          ],
+      child: Consumer<AddSightModel>(
+        builder: (
+          final context,
+          final sight,
+          final child,
+        ) =>
+            ElevatedButton(
+          style: _buildButtonStyle(
+            context.read<AddSightModel>().selectTypePlace,
+          ),
+          onPressed: () {
+            _onPressed(context);
+          },
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Text(
+                save,
+                style: _buildTextStyle(context),
+              ),
+            ],
+          ),
         ),
       ),
     );

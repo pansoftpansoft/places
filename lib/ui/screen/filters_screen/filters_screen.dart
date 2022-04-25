@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:places/type_place.dart';
-import 'package:places/ui/screen/filters_screen/widgets/bottom_sheet_widget_button_show.dart';
+import 'package:places/ui/screen/filters_screen/widgets/bottom_sheet_button_show.dart';
 import 'package:places/ui/screen/filters_screen/widgets/filters_screen_body.dart';
 import 'package:places/ui/screen/filters_screen/widgets/title_filter.dart';
 import 'package:places/ui/screen/sight_search_screen/models/search_filter_model.dart';
@@ -17,14 +17,14 @@ class FiltersScreen extends StatelessWidget {
     //Сохраняем настройки фильтра на случай выхода бех применения фильтра
     context.read<SearchFilterModel>().getFilterSettings();
 
-    context.read<SearchFilterModel>().countFilteredPlaces();
+    context.read<SearchFilterModel>().setFilteredPlaces();
 
     return Scaffold(
       appBar: AppBar(
         centerTitle: false,
         title: const TitleFilter(),
       ),
-      bottomSheet: const BottomSheetWidgetButtonShow(),
+      bottomSheet: const BottomSheetButtonShow(),
       body: const FiltersScreenBody(),
     );
   }

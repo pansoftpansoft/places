@@ -4,6 +4,8 @@ import 'package:places/type_place.dart';
 import 'package:places/ui/res/color_palette.dart';
 import 'package:places/ui/screen/filters_screen/filters_screen.dart';
 import 'package:places/ui/screen/filters_screen/widgets/category_icon_tick_choice.dart';
+import 'package:places/ui/screen/sight_search_screen/models/search_filter_model.dart';
+import 'package:provider/provider.dart';
 
 class CategoryIconSvgIcon extends StatefulWidget {
   ///
@@ -60,8 +62,11 @@ class _CategoryIconSvgIconState extends State<CategoryIconSvgIcon> {
   void _onPressed() {
     FiltersScreen.setButtonSelect(context, widget.nameKey);
     FiltersScreen.setFilter(context);
+
     setState(() {
-      debugPrint('Обновить даные');
+      debugPrint('Обновить даные 11');
     });
+
+    context.read<SearchFilterModel>().notifyListenersSearchScreen();
   }
 }

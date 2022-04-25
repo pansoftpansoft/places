@@ -4,9 +4,11 @@ import 'package:places/ui/res/labels.dart';
 
 class SightCardSearchTextSpan extends StatelessWidget {
   final Sight sight;
+  final String searchText;
 
   const SightCardSearchTextSpan(
-    this.sight, {
+    this.sight,
+    this.searchText, {
     Key? key,
   }) : super(key: key);
 
@@ -19,17 +21,9 @@ class SightCardSearchTextSpan extends StatelessWidget {
         children: <Widget>[
           RichText(
             text: TextSpan(
-              text: sight.name.substring(0, 4),
+              text: '',
               style: Theme.of(context).textTheme.subtitle1,
-              children: <InlineSpan>[
-                TextSpan(
-                  text: sight.name.substring(4),
-                  style: Theme.of(context)
-                      .textTheme
-                      .subtitle1!
-                      .copyWith(fontWeight: FontWeight.w400),
-                ),
-              ],
+              children: _textColLor(context, sight.name, searchText),
             ),
           ),
           const SizedBox(height: 8),
@@ -41,5 +35,50 @@ class SightCardSearchTextSpan extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  List<InlineSpan> _textColLor(
+    BuildContext context,
+    String sightName,
+    String searchText,
+  ) {
+    var start = 0;
+    var end = 0;
+
+    if (searchText.isEmpty) {
+      start = sightName.length - 1;
+      end = sightName.length - 1;
+    } else {
+      start = sightName.toLowerCase().indexOf(searchText.toLowerCase());
+      if (start < 0) {
+        start = sightName.length - 1;
+        end = sightName.length - 1;
+      } else {
+        end = start + searchText.length;
+      }
+    }
+
+    final listText = <InlineSpan>[
+      TextSpan(
+        text: sight.name.substring(0, start),
+        style: Theme.of(context)
+            .textTheme
+            .subtitle1!
+            .copyWith(fontWeight: FontWeight.w400),
+      ),
+      TextSpan(
+        text: sight.name.substring(start, end),
+        style: const TextStyle(color: Colors.green),
+      ),
+      TextSpan(
+        text: sight.name.substring(end, sightName.length),
+        style: Theme.of(context)
+            .textTheme
+            .subtitle1!
+            .copyWith(fontWeight: FontWeight.w400),
+      ),
+    ];
+
+    return listText;
   }
 }

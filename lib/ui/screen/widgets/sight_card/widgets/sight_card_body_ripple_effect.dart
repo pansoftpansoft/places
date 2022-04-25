@@ -30,11 +30,11 @@ class SightCardBodyRippleEffect extends StatelessWidget {
 
   Future<void> showDetailsScreen(
     final BuildContext context,
-    final Sight _sight,
+    final Sight sight,
   ) async =>
       showModalBottomSheet<Widget>(
         context: context,
-        builder: (final _) => SightDetailsScreen(sight: _sight),
+        builder: (final _) => SightDetailsScreen(sight: sight),
 
         isScrollControlled: true,
         isDismissible: true,
