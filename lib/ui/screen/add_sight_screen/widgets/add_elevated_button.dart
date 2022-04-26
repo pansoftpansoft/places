@@ -3,11 +3,12 @@ import 'package:places/domain/sight.dart';
 import 'package:places/type_place.dart';
 import 'package:places/ui/res/labels.dart';
 import 'package:places/ui/screen/add_sight_screen/models/add_sight_model.dart';
-import 'package:places/ui/screen/add_sight_screen/widgets/bottom_sheet_create_button_row.dart';
 import 'package:places/ui/screen/add_sight_screen/widgets/show_alert_add.dart';
 import 'package:places/ui/screen/sight_search_screen/models/search_filter_model.dart';
+import 'package:places/ui/screen/widgets/elevated_button_green_big.dart';
 import 'package:provider/provider.dart';
 
+/// Кнопка "Создать"
 class AddElevatedButton extends StatelessWidget {
   const AddElevatedButton({
     final Key? key,
@@ -21,8 +22,8 @@ class AddElevatedButton extends StatelessWidget {
         final sight,
         final child,
       ) =>
-          ElevatedButton(
-        child: BottomSheetCreateButtonRow(context: context),
+          ElevatedButtonGreenBig(
+        title: create.toUpperCase(),
         onPressed: context.read<AddSightModel>().disableButton == null
             ? null
             : () {
@@ -32,7 +33,7 @@ class AddElevatedButton extends StatelessWidget {
     );
   }
 
-  ///Обрабатываем кнопку добавить
+  ///Обрабатываем кнопку "Создать"
   void _addSight(BuildContext context) {
     final sight = Sight(
       'Ивановская площадь',

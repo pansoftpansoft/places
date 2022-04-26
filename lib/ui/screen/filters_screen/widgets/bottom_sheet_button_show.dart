@@ -4,6 +4,7 @@ import 'package:places/ui/res/labels.dart';
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/screen/'
     'sight_search_screen/models/search_filter_model.dart';
+import 'package:places/ui/screen/widgets/elevated_button_green_big.dart';
 import 'package:provider/provider.dart';
 
 ///Кнопка "показать"
@@ -26,15 +27,8 @@ class BottomSheetButtonShow extends StatelessWidget {
         ),
         child: ConstrainedBox(
           constraints: const BoxConstraints.tightFor(height: heightSizeBox48),
-          child: ElevatedButton(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Text(
-                  '$show (${SearchFilterModel.countPlace})',
-                ),
-              ],
-            ),
+          child: ElevatedButtonGreenBig(
+            title: '$show (${SearchFilterModel.countPlace})',
             onPressed: SearchFilterModel.countPlace != 0
                 ? () {
                     _onPressed(context);

@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:places/ui/res/color_palette.dart';
 import 'package:places/ui/res/labels.dart';
 import 'package:places/ui/res/route_name.dart';
-import 'package:places/ui/res/sizes.dart';
+import 'package:places/ui/screen/widgets/elevated_button_green_big.dart';
 
 ///Кнопка 'Построить маршрут'
 class BuildRouteButton extends StatelessWidget {
@@ -12,37 +11,12 @@ class BuildRouteButton extends StatelessWidget {
   }) : super(key: key);
 
   @override
-  Widget build(final BuildContext context) => ElevatedButton(
-        style: ButtonStyle(
-          padding: MaterialStateProperty.all(EdgeInsets.zero),
-          elevation: MaterialStateProperty.all(0),
-          backgroundColor: MaterialStateProperty.all<Color>(
-            ColorPalette.greenColor,
-          ),
-          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-            const RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(
-                Radius.circular(borderRadiusCard16),
-              ),
-            ),
-          ),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Icon(Icons.gesture_outlined),
-            Text(
-              buildRoute,
-              style: Theme.of(context)
-                  .textTheme
-                  .headline5!
-                  .copyWith(color: const Color(0xFFFFFFFF)),
-            ),
-          ],
-        ),
+  Widget build(final BuildContext context) => ElevatedButtonGreenBig(
+        title: buildRoute.toUpperCase(),
         onPressed: () {
           _onPress(context);
         },
+        iconNamePrefix: Icons.gesture_outlined,
       );
 
   void _onPress(BuildContext context) {
