@@ -17,18 +17,22 @@ class OnboardingScreen extends StatelessWidget {
 
   @override
   Widget build(final BuildContext context) {
+    // Проверяем онбординг был вызван из Settings
     OnboardingScreenModel.callingFromSettings = (ModalRoute.of(context)
         ?.settings
         .arguments as Map)['callingFromSettings'] as bool;
 
+    // Устанавливаем начальные значения
     OnboardingScreenModel.onPageChanged(0);
 
-    final pageController = PageController();
-    pageController.addListener(() {
-      if (pageController.page == 0 ||
-          pageController.page == 1 ||
-          pageController.page! > 1.9) {
-        OnboardingScreenModel.onPageChanged(pageController.page);
+    // Подписываемся на pageControllerOnboardingScreen
+    OnboardingScreenModel.pageControllerOnboardingScreen.addListener(() {
+      if (OnboardingScreenModel.pageControllerOnboardingScreen.page!
+              .roundToDouble() ==
+          OnboardingScreenModel.pageControllerOnboardingScreen.page) {
+        OnboardingScreenModel.onPageChanged(
+          OnboardingScreenModel.pageControllerOnboardingScreen.page,
+        );
         context.read<OnboardingScreenModel>().notify();
       }
     });
@@ -38,12 +42,10 @@ class OnboardingScreen extends StatelessWidget {
         preferredSize: Size(double.infinity, heightBottomSheetOnboarding),
         child: HeaderPage(),
       ),
-
       bottomSheet: const BottomSheetOnboarding(),
-      //resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: PageView(
-          controller: pageController,
+          controller: OnboardingScreenModel.pageControllerOnboardingScreen,
           children: [
             for (OnboardingPage page in mocksOnboardingScreen)
               BodyPage(

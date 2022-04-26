@@ -25,7 +25,7 @@ class FooterPageButtonStart extends StatelessWidget {
         horizontal: paddingPage,
       ),
       child: Visibility(
-        visible: buttonOnStartVisible,
+        visible: OnboardingScreenModel.buttonOnVisible,
         child: ElevatedButton(
           style: _buildButtonStyle(),
           onPressed: () {
