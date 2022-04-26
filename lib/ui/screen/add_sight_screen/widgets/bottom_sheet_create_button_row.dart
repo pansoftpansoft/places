@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:places/ui/res/color_palette.dart';
 import 'package:places/ui/res/labels.dart';
 
 ///
@@ -17,12 +16,9 @@ class BottomSheetCreateButtonRow extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
+      children: const <Widget>[
         Text(
           create,
-          style: Theme.of(context).textTheme.headline5!.copyWith(
-                color: ColorPalette.lmPrimaryColor,
-              ),
         ),
       ],
     );

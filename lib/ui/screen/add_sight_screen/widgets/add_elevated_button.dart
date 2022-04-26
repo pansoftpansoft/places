@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:places/domain/sight.dart';
 import 'package:places/type_place.dart';
-import 'package:places/ui/res/color_palette.dart';
 import 'package:places/ui/res/labels.dart';
-import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/screen/add_sight_screen/models/add_sight_model.dart';
 import 'package:places/ui/screen/add_sight_screen/widgets/bottom_sheet_create_button_row.dart';
 import 'package:places/ui/screen/add_sight_screen/widgets/show_alert_add.dart';
@@ -24,43 +22,12 @@ class AddElevatedButton extends StatelessWidget {
         final child,
       ) =>
           ElevatedButton(
-        style: context.read<AddSightModel>().disableButton == null
-            ? _buildButtonStyleDisable()
-            : _buildButtonStyle(),
         child: BottomSheetCreateButtonRow(context: context),
         onPressed: context.read<AddSightModel>().disableButton == null
             ? null
             : () {
                 _addSight(context);
               },
-      ),
-    );
-  }
-
-  ButtonStyle _buildButtonStyle() {
-    return ButtonStyle(
-      padding: MaterialStateProperty.all(EdgeInsets.zero),
-      elevation: MaterialStateProperty.all(0),
-      backgroundColor:
-          MaterialStateProperty.all<Color>(ColorPalette.greenColor),
-      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-        const RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(borderRadiusCard16)),
-        ),
-      ),
-    );
-  }
-
-  ButtonStyle _buildButtonStyleDisable() {
-    return ButtonStyle(
-      padding: MaterialStateProperty.all(EdgeInsets.zero),
-      elevation: MaterialStateProperty.all(0),
-      backgroundColor:
-          MaterialStateProperty.all<Color>(ColorPalette.dmBasicColor),
-      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-        const RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(borderRadiusCard16)),
-        ),
       ),
     );
   }

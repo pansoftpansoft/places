@@ -27,7 +27,6 @@ class FooterPageButtonStart extends StatelessWidget {
       child: Visibility(
         visible: OnboardingScreenModel.buttonOnVisible,
         child: ElevatedButton(
-          style: _buildButtonStyle(),
           onPressed: () {
             _onPressed(context);
           },
@@ -41,22 +40,6 @@ class FooterPageButtonStart extends StatelessWidget {
                     ),
               ),
             ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  ButtonStyle _buildButtonStyle() {
-    return ButtonStyle(
-      elevation: MaterialStateProperty.all(0),
-      backgroundColor: MaterialStateProperty.all<Color>(
-        ColorPalette.greenColor,
-      ),
-      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-        const RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(
-            Radius.circular(borderRadiusCard12),
           ),
         ),
       ),

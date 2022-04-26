@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:places/ui/res/color_palette.dart';
 import 'package:places/ui/res/labels.dart';
 import 'package:places/ui/res/sizes.dart';
 
@@ -15,47 +14,25 @@ class AlertDialogOkButton extends StatelessWidget {
   @override
   Widget build(final BuildContext context) => Padding(
         padding: const EdgeInsets.only(
-          top: paddingPage / 2,
+          top: paddingPage_2,
         ),
         child: ConstrainedBox(
           constraints: BoxConstraints.tightFor(
             height: heightAlertDialog,
           ),
           child: ElevatedButton(
-            style: _buildButtonStyle(),
-            onPressed: () {
-              Navigator.pop(context);
-            },
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Text(
                   okTexe.toUpperCase(),
-                  style: Theme.of(context).textTheme.headline5!.copyWith(
-                        color: ColorPalette.greenColor,
-                      ),
                 ),
               ],
             ),
+            onPressed: () {
+              Navigator.pop(context);
+            },
           ),
         ),
       );
-
-  ButtonStyle _buildButtonStyle() {
-    return ButtonStyle(
-      padding: MaterialStateProperty.all(EdgeInsets.zero),
-      elevation: MaterialStateProperty.all(0),
-      backgroundColor:
-          MaterialStateProperty.all<Color>(ColorPalette.dmBasicColor),
-      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-        const RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(
-            Radius.circular(
-              borderRadiusCard16,
-            ),
-          ),
-        ),
-      ),
-    );
-  }
 }

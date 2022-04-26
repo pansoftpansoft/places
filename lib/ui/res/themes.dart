@@ -73,6 +73,37 @@ final ThemeData lightTheme = ThemeData(
     color: ColorPalette.lmIconOnBoard,
   ),
   indicatorColor: ColorPalette.lmBasicColor,
+
+  /// Кнопка как елка на всех формах одним зеленым цветом
+  elevatedButtonTheme: ElevatedButtonThemeData(
+    style: ButtonStyle(
+      textStyle: MaterialStateProperty.all<TextStyle>(
+        TextStyle(
+          color: ColorPalette.lmFontHeadline2.withOpacity(opacityText),
+        ),
+      ),
+      padding: MaterialStateProperty.all(EdgeInsets.zero),
+      elevation: MaterialStateProperty.all(0),
+      backgroundColor: MaterialStateProperty.resolveWith<Color?>(
+        (states) {
+          debugPrint(
+            'states.contains(MaterialState.disabled = '
+            '${states.contains(MaterialState.disabled)}',
+          );
+          if (states.contains(MaterialState.disabled)) {
+            return null;
+          }
+
+          return Colors.green;
+        },
+      ),
+      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+        const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(borderRadiusCard16)),
+        ),
+      ),
+    ),
+  ),
 );
 
 /// Темная тема

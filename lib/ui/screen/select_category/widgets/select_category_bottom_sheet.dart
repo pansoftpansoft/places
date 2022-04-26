@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:places/ui/res/sizes.dart';
-import 'package:places/ui/screen/add_sight_screen/widgets/bottom_sheet_save_button_body.dart';
+import 'package:places/ui/screen/select_category/widgets/select_category_bottom_sheet_body.dart';
 
 ///
-class BottomSheetSaveButton extends StatelessWidget {
+class SelectCategoryBottomSheet extends StatelessWidget {
   ///
-  const BottomSheetSaveButton({
+  const SelectCategoryBottomSheet({
     final Key? key,
   }) : super(key: key);
 
@@ -15,6 +15,6 @@ class BottomSheetSaveButton extends StatelessWidget {
           horizontal: paddingPage,
           vertical: paddingPage / 2,
         ),
-        child: BottomSheetSaveButtonBody(),
+        child: SelectCategoryBottomSheetBody(),
       );
 }
