@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:places/ui/res/labels.dart';
+import 'package:places/domain/onboarding_page.dart';
+import 'package:places/type_place.dart';
 import 'package:places/ui/res/sizes.dart';
-import 'package:places/ui/res/svg_icons.dart';
 import 'package:places/ui/screen/onboarding_screen/model/'
     'onboarding_screen_model.dart';
 import 'package:places/ui/screen/onboarding_screen/widgets/body_page.dart';
@@ -44,22 +44,13 @@ class OnboardingScreen extends StatelessWidget {
       body: SafeArea(
         child: PageView(
           controller: pageController,
-          children: const <Widget>[
-            BodyPage(
-              header1: welcomeToTheTravelGuide,
-              header2: lookNewLocations,
-              svgIcon: SvgIcons.tutorialFrame1,
-            ),
-            BodyPage(
-              header1: buildRouteAndRoad,
-              header2: reachGoalQuicklyComfortablyPossible,
-              svgIcon: SvgIcons.tutorialFrame2,
-            ),
-            BodyPage(
-              header1: addPlacesYouFoundYourself,
-              header2: shareMostInterestingOnes,
-              svgIcon: SvgIcons.tutorialFrame3,
-            ),
+          children: [
+            for (OnboardingPage page in mocksOnboardingScreen)
+              BodyPage(
+                header1: page.header1,
+                header2: page.header2,
+                svgIcon: page.svgIcon,
+              ),
           ],
         ),
       ),
