@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:places/ui/res/color_palette.dart';
 
 class ElevatedButtonGreenBig extends StatelessWidget {
   final String title;
@@ -24,9 +23,6 @@ class ElevatedButtonGreenBig extends StatelessWidget {
           Icon(iconNamePrefix),
           Text(
             title.toUpperCase(),
-            style: Theme.of(context).textTheme.headline5!.copyWith(
-                  color: ColorPalette.lmPrimaryColor,
-                ),
           ),
           Icon(iconNameSuffix),
         ],

@@ -19,7 +19,6 @@ class ColorPalette {
   /// Цвет для градиентной заливки Сплеш экрана
   static const Color gradientGreenDark = Color(0xFFFCDD3D);
 
-
   //D5D341
   static const Color greenColorLightGradient = Color(0xFFD5D341);
   static const Color greenColorStrongGradient = Color(0xFF6BB74D);
@@ -62,8 +61,6 @@ class ColorPalette {
   //
   static const Color lmFontButton = Color(0xFF3B3E5B);
 
-  //
-
   //---------------------------------------------------------
   //----Темная тема----------------------------------------------------------------------------
   //---------------------------------------------------------
@@ -99,6 +96,36 @@ class ColorPalette {
   //--Иконки
   static const Color dmIcon = Color(0xFFFFFFFF);
   static const Color dmIconOnBoard = Color(0xFFFFFFFF);
+
   //
   static const Color dmFontButton = Color(0xFFFFFFFF);
+
+
+  ///ElevatedButton
+  // light
+  static const Color lmElevatedButtonBackground = Color(0xFF4CAF50);
+  static const Color lmElevatedButtonBackgroundDisable = Color(0xFFF5F5F5);
+  static const Color lmElevatedButtonText = Color(0xFFFFFFFF);
+  static const Color lmElevatedButtonTextDisable = Color(0xFFB1B2BE);
+  // dark
+  static const Color dmElevatedButtonBackground = Color(0xFF2D2E3E);
+  static const Color dmElevatedButtonBackgroundDisable = Color(0xFFF5F5F5);
+  static const Color dmElevatedButtonText = Color(0xFF4CAF50);
+  static const Color dmElevatedButtonTextDisable =  Color(0xFF505260);
+  ///
+
+
+  ///TextButton
+  // light
+  static const Color lmTextButtonBackground = Color(0xFFFFFFFF);
+  static const Color lmTextButtonBackgroundDisable = Color(0xFFFFFFFF);
+  static const Color lmTextButtonText = Color(0xFF3B3E5B);
+  static const Color lmTextButtonTextDisable = Color(0xFFB1B2BE);
+  // dark
+  static const Color dmTextButtonBackground = Color(0xFF2D2E3E);
+  static const Color dmTextButtonBackgroundDisable = Color(0xFFF5F5F5);
+  static const Color dmTextButtonText = Color(0xFF4CAF50);
+  static const Color dmTextButtonTextDisable =  Color(0xFFB6B7C2);
+  ///
+
 }
