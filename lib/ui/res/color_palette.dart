@@ -123,9 +123,9 @@ class ColorPalette {
   static const Color lmTextButtonTextDisable = Color(0xFFB1B2BE);
   // dark
   static const Color dmTextButtonBackground = Color(0xFF2D2E3E);
-  static const Color dmTextButtonBackgroundDisable = Color(0xFFF5F5F5);
-  static const Color dmTextButtonText = Color(0xFF4CAF50);
-  static const Color dmTextButtonTextDisable =  Color(0xFFB6B7C2);
+  static const Color dmTextButtonBackgroundDisable = Color(0xFF2D2E3E);
+  static const Color dmTextButtonText = Color(0xFFFFFFFF);
+  static const Color dmTextButtonTextDisable =  Color(0xFF3B3E5B);
   ///
 
 }

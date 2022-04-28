@@ -221,11 +221,6 @@ final ThemeData darkTheme = ThemeData(
           return ColorPalette.dmTextButtonBackground;
         },
       ),
-      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-        const RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(borderRadiusCard16)),
-        ),
-      ),
     ),
   ),
 
@@ -240,6 +235,9 @@ final ThemeData darkTheme = ThemeData(
   /*
   * textTheme
   */
+
+
+
   textTheme: dmTextTheme,
   indicatorColor: ColorPalette.dmBasicColor,
 
