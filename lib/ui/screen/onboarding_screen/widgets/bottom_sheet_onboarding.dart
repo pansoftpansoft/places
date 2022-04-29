@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:places/type_place.dart';
 import 'package:places/ui/res/sizes.dart';
+import 'package:places/ui/res/svg_icons.dart';
 import 'package:places/ui/screen/onboarding_screen/model/onboarding_screen_model.dart';
 import 'package:places/ui/screen/onboarding_screen/widgets/footer_page_button_start.dart';
 import 'package:provider/provider.dart';
@@ -31,9 +33,22 @@ class BottomSheetOnboarding extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.end,
           children: <Widget>[
-            SvgPicture.asset(
-              OnboardingScreenModel.fileName,
-              color: Colors.green,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                for (int indexOnboardingScreen = 0;
+                    indexOnboardingScreen < mocksOnboardingScreen.length;
+                    indexOnboardingScreen++)
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                    child: SvgPicture.asset(
+                      indexOnboardingScreen == OnboardingScreenModel.numberPage
+                          ? SvgIcons.indicatorLine
+                          : SvgIcons.indicatorPoint,
+                      color: Colors.green,
+                    ),
+                  ),
+              ],
             ),
             const SizedBox(height: heightSizeBox12),
             FooterPageButtonStart(

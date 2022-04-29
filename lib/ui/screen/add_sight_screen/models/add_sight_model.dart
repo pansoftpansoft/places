@@ -11,9 +11,7 @@ class AddSightModel extends ChangeNotifier {
 
   ///Добавляем фотографию
   void addPhoto(final String pathPhoto) {
-    if (kDebugMode) {
-      print('tempPhotoPlace.add');
-    }
+    debugPrint('tempPhotoPlace.add');
     tempPhotoPlace.add(pathPhoto);
     notifyListeners();
   }

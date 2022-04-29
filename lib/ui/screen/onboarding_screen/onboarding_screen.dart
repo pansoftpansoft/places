@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:places/ui/res/labels.dart';
+import 'package:places/domain/onboarding_page.dart';
+import 'package:places/type_place.dart';
 import 'package:places/ui/res/sizes.dart';
-import 'package:places/ui/res/svg_icons.dart';
 import 'package:places/ui/screen/onboarding_screen/model/'
     'onboarding_screen_model.dart';
 import 'package:places/ui/screen/onboarding_screen/widgets/body_page.dart';
@@ -17,18 +17,22 @@ class OnboardingScreen extends StatelessWidget {
 
   @override
   Widget build(final BuildContext context) {
+    // Проверяем онбординг был вызван из Settings
     OnboardingScreenModel.callingFromSettings = (ModalRoute.of(context)
         ?.settings
         .arguments as Map)['callingFromSettings'] as bool;
 
+    // Устанавливаем начальные значения
     OnboardingScreenModel.onPageChanged(0);
 
-    final pageController = PageController();
-    pageController.addListener(() {
-      if (pageController.page == 0 ||
-          pageController.page == 1 ||
-          pageController.page! > 1.9) {
-        OnboardingScreenModel.onPageChanged(pageController.page);
+    // Подписываемся на pageControllerOnboardingScreen
+    OnboardingScreenModel.pageControllerOnboardingScreen.addListener(() {
+      if (OnboardingScreenModel.pageControllerOnboardingScreen.page!
+              .roundToDouble() ==
+          OnboardingScreenModel.pageControllerOnboardingScreen.page) {
+        OnboardingScreenModel.onPageChanged(
+          OnboardingScreenModel.pageControllerOnboardingScreen.page,
+        );
         context.read<OnboardingScreenModel>().notify();
       }
     });
@@ -38,28 +42,17 @@ class OnboardingScreen extends StatelessWidget {
         preferredSize: Size(double.infinity, heightBottomSheetOnboarding),
         child: HeaderPage(),
       ),
-
       bottomSheet: const BottomSheetOnboarding(),
-      //resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: PageView(
-          controller: pageController,
-          children: const <Widget>[
-            BodyPage(
-              header1: welcomeToTheTravelGuide,
-              header2: lookNewLocations,
-              svgIcon: SvgIcons.tutorialFrame1,
-            ),
-            BodyPage(
-              header1: buildRouteAndRoad,
-              header2: reachGoalQuicklyComfortablyPossible,
-              svgIcon: SvgIcons.tutorialFrame2,
-            ),
-            BodyPage(
-              header1: addPlacesYouFoundYourself,
-              header2: shareMostInterestingOnes,
-              svgIcon: SvgIcons.tutorialFrame3,
-            ),
+          controller: OnboardingScreenModel.pageControllerOnboardingScreen,
+          children: [
+            for (OnboardingPage page in mocksOnboardingScreen)
+              BodyPage(
+                header1: page.header1,
+                header2: page.header2,
+                svgIcon: page.svgIcon,
+              ),
           ],
         ),
       ),

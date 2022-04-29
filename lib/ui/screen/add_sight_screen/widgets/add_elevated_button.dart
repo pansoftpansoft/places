@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:places/domain/sight.dart';
 import 'package:places/type_place.dart';
-import 'package:places/ui/res/color_palette.dart';
 import 'package:places/ui/res/labels.dart';
-import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/screen/add_sight_screen/models/add_sight_model.dart';
-import 'package:places/ui/screen/add_sight_screen/widgets/bottom_sheet_create_button_row.dart';
 import 'package:places/ui/screen/add_sight_screen/widgets/show_alert_add.dart';
 import 'package:places/ui/screen/sight_search_screen/models/search_filter_model.dart';
+import 'package:places/ui/screen/widgets/elevated_button_green_big.dart';
 import 'package:provider/provider.dart';
 
+/// Кнопка "Создать"
 class AddElevatedButton extends StatelessWidget {
   const AddElevatedButton({
     final Key? key,
@@ -23,11 +22,8 @@ class AddElevatedButton extends StatelessWidget {
         final sight,
         final child,
       ) =>
-          ElevatedButton(
-        style: context.read<AddSightModel>().disableButton == null
-            ? _buildButtonStyleDisable()
-            : _buildButtonStyle(),
-        child: BottomSheetCreateButtonRow(context: context),
+          ElevatedButtonGreenBig(
+        title: create.toUpperCase(),
         onPressed: context.read<AddSightModel>().disableButton == null
             ? null
             : () {
@@ -37,35 +33,7 @@ class AddElevatedButton extends StatelessWidget {
     );
   }
 
-  ButtonStyle _buildButtonStyle() {
-    return ButtonStyle(
-      padding: MaterialStateProperty.all(EdgeInsets.zero),
-      elevation: MaterialStateProperty.all(0),
-      backgroundColor:
-          MaterialStateProperty.all<Color>(ColorPalette.greenColor),
-      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-        const RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(borderRadiusCard16)),
-        ),
-      ),
-    );
-  }
-
-  ButtonStyle _buildButtonStyleDisable() {
-    return ButtonStyle(
-      padding: MaterialStateProperty.all(EdgeInsets.zero),
-      elevation: MaterialStateProperty.all(0),
-      backgroundColor:
-          MaterialStateProperty.all<Color>(ColorPalette.dmBasicColor),
-      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-        const RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(borderRadiusCard16)),
-        ),
-      ),
-    );
-  }
-
-  ///Обрабатываем кнопку добавить
+  ///Обрабатываем кнопку "Создать"
   void _addSight(BuildContext context) {
     final sight = Sight(
       'Ивановская площадь',

@@ -1,5 +1,8 @@
+import 'package:places/domain/onboarding_page.dart';
 import 'package:places/domain/sight.dart';
-///
+import 'package:places/ui/res/labels.dart';
+import 'package:places/ui/res/svg_icons.dart';
+///Mock
 enum TypePlace {
   ///
   hotel,
@@ -46,6 +49,7 @@ enum ScreenEnum {
 ///
 List<Sight> mocksSearch = <Sight>[];
 List<Sight> mocksSearchText = <Sight>[];
+
 
 ///Тестовые данные
 final List<Sight> mocks = <Sight>[
@@ -135,4 +139,23 @@ List<String> tempPhotoPlace = <String>[
   'https://i.pinimg.com/originals/e5/72/4d/e5724d58879e3057d02f384ddf6707c3.jpg',
   'https://avatars.mds.yandex.net/get-altay/1001354/2a00000162874cd6ce152a8542931ecfe3ae/XXXL',
   'https://avatars.mds.yandex.net/get-altay/223006/2a0000015b171765cf7ab0eaae8e1489f6f1/XXXL',
+];
+
+
+List<OnboardingPage> mocksOnboardingScreen = <OnboardingPage>[
+  OnboardingPage(
+    welcomeToTheTravelGuide,
+    lookNewLocations,
+    SvgIcons.tutorialFrame1,
+  ),
+  OnboardingPage(
+    buildRouteAndRoad,
+    reachGoalQuicklyComfortablyPossible,
+    SvgIcons.tutorialFrame2,
+  ),
+  OnboardingPage(
+    addPlacesYouFoundYourself,
+    shareMostInterestingOnes,
+    SvgIcons.tutorialFrame3,
+  ),
 ];

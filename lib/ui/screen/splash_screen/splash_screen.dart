@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:places/ui/res/color_palette.dart';
 import 'package:places/ui/res/img.dart';
@@ -24,14 +23,12 @@ class SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    if (kDebugMode) {
-      print('Старт программы');
-    }
+
+    debugPrint('Старт программы');
+
     _navigateToNextAsync();
 
-    if (kDebugMode) {
-      print('Стоп программы');
-    }
+    debugPrint('Стоп программы');
   }
 
   @override
@@ -66,23 +63,17 @@ class SplashScreenState extends State<SplashScreen> {
 
   /// Получение данных из сети. Инициализация.
   Future<void> getNetData() async {
-    if (kDebugMode) {
-      print('Запустилась GetNetData().');
-    }
+    debugPrint('Запустилась GetNetData().');
+
     await SearchFilterModel.getListHistory(); //Обновляем список при загрузке
     /// Имитируем инициализацию, продолжительностью 2 секунды.
     await Future.delayed(
-
       const Duration(seconds: 2),
       () {
-        if (kDebugMode) {
-          print('Ждем две секунды!');
-        }
+        debugPrint('Ждем две секунды!');
       },
     );
-    if (kDebugMode) {
-      print('Завершилась GetNetData().');
-    }
+    debugPrint('Завершилась GetNetData().');
 
     /// Завершение инициалзации
     finishGetNetData(isComplete: true);
@@ -90,13 +81,9 @@ class SplashScreenState extends State<SplashScreen> {
 
   /// Запуск анимации на заставке
   Future<void> startAnimation(final int numberCycle) async {
-    if (kDebugMode) {
-      print('Анимация запустилась $numberCycle раз.');
-    }
+    debugPrint('Анимация запустилась $numberCycle раз.');
     await Future.delayed(const Duration(seconds: 1), () {
-      if (kDebugMode) {
-        print('Ждем две секунды!');
-      }
+      debugPrint('Ждем две секунды!');
     });
   }
 
@@ -126,9 +113,8 @@ class SplashScreenState extends State<SplashScreen> {
           RouteName.onboardingScreen,
           arguments: {'callingFromSettings': false},
         );
-        if (kDebugMode) {
-          print('Переход на следующий экран ${RouteName.onboardingScreen}');
-        }
+
+        debugPrint('Переход на следующий экран ${RouteName.onboardingScreen}');
 
         return true;
       } else {
@@ -136,9 +122,7 @@ class SplashScreenState extends State<SplashScreen> {
       }
     }
 
-    if (kDebugMode) {
-      print('Истекло время получения данных ');
-    }
+    debugPrint('Истекло время получения данных ');
 
     return false;
   }

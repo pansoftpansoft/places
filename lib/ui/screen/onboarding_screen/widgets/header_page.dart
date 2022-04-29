@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:places/ui/res/color_palette.dart';
 import 'package:places/ui/res/labels.dart';
 import 'package:places/ui/res/route_name.dart';
 import 'package:places/ui/screen/onboarding_screen/model/onboarding_screen_model.dart';
+import 'package:places/ui/screen/widgets/text_button_green_text.dart';
 import 'package:provider/provider.dart';
 
 ///Заголовок шаблон страници Onboard
@@ -25,7 +25,8 @@ class HeaderPage extends StatelessWidget {
             const SizedBox(height: 110),
             Visibility(
               visible: !OnboardingScreenModel.buttonOnVisible,
-              child: TextButton(
+              child: TextButtonGreenText(
+                title: skip,
                 onPressed: () {
                   if (OnboardingScreenModel.callingFromSettings) {
                     Navigator.pop(context);
@@ -36,13 +37,6 @@ class HeaderPage extends StatelessWidget {
                     );
                   }
                 },
-                child: Text(
-                  skip,
-                  style: Theme.of(context).textTheme.subtitle1!.copyWith(
-                        fontSize: 16,
-                        color: ColorPalette.greenColor,
-                      ),
-                ),
               ),
             ),
           ],

@@ -18,6 +18,8 @@ class SvgIcons {
   static const String heartTransparent = '${catalog}heart_transparent.svg';
   static const String hotel = '${catalog}hotel.svg';
   static const String info = '${catalog}info.svg';
+  static const String indicatorLine = '${catalog}indicator_line.svg';
+  static const String indicatorPoint = '${catalog}indicator_point.svg';
   static const String list = '${catalog}list.svg';
   static const String map = '${catalog}map.svg';
   static const String museum = '${catalog}museum.svg';
