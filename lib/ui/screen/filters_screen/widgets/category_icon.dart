@@ -37,10 +37,13 @@ class _CategoryIconState extends State<CategoryIcon> {
         ) =>
             Column(
           children: <Widget>[
-            CategoryIconSvgIcon(
-              widget.nameIcon,
-              widget.nameKey,
-              widget.svgIcons,
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: CategoryIconSvgIcon(
+                widget.nameIcon,
+                widget.nameKey,
+                widget.svgIcons,
+              ),
             ),
             const SizedBox(
               height: 12,
