@@ -270,7 +270,9 @@ class SearchFilterModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  ///
+  ///Здесь мы устанавливаем какой экран хотим получить и корректируем
+  ///в зависимости от данных, выдавая
+  ///пустые экраны или экраны с ошибкой
   Future<void> managerSelectionScreen({final ScreenEnum? numberScreen}) async {
     ///Если экран жестко задан
     debugPrint('managerSelectionScreen $numberScreen');
@@ -279,8 +281,11 @@ class SearchFilterModel extends ChangeNotifier {
 
       /// Если найдено 0 мест то выдаем экрас с сообщением
       if (selectedScreen == ScreenEnum.listFoundPlacesScreen &&
-          SearchFilterModel.countPlace == 0) {
-        selectedScreen = ScreenEnum.emptyScreen;
+          mocksSearchText.isEmpty) {
+        debugPrint('_searchString  ${_searchString.isEmpty.toString()}');
+        selectedScreen = _searchString.isEmpty
+            ? ScreenEnum.emptyScreen
+            : ScreenEnum.errorScreen;
       }
 
       return;

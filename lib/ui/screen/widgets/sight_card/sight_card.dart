@@ -38,23 +38,26 @@ class SightCard extends StatelessWidget {
   }) : super(key: key);
 
   @override
-  Widget build(final BuildContext context) => ClipRRect(
-        borderRadius: const BorderRadius.all(
-          Radius.circular(borderRadiusCard16),
-        ),
-        child: AspectRatio(
-          aspectRatio: 3 / 2,
-          child: Container(
-            color: Theme.of(context).cardTheme.color,
-            child: SightCardBody(
-              _sight,
-              goNeed,
-              goal,
-              iconDelete: iconDelete,
-              actionOnDelete: actionOnDelete,
-              wantToVisit: wantToVisit,
+  Widget build(final BuildContext context) => Padding(
+    padding: const EdgeInsets.only(bottom: heightSizeBox24),
+    child: ClipRRect(
+          borderRadius: const BorderRadius.all(
+            Radius.circular(borderRadiusCard16),
+          ),
+          child: AspectRatio(
+            aspectRatio: 3 / 2,
+            child: Container(
+              color: Theme.of(context).cardTheme.color,
+              child: SightCardBody(
+                _sight,
+                goNeed,
+                goal,
+                iconDelete: iconDelete,
+                actionOnDelete: actionOnDelete,
+                wantToVisit: wantToVisit,
+              ),
             ),
           ),
         ),
-      );
+  );
 }

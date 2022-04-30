@@ -31,8 +31,9 @@ class SightCardBodyText extends StatelessWidget {
           const SizeBoxHeight(),
           Text(
             _sight.name,
-            maxLines: maxLines5,
+            maxLines: maxLines2,
             style: Theme.of(context).textTheme.subtitle1,
+            overflow: TextOverflow.ellipsis,
           ),
           if (goNeed != '' && goal == '')
             SightCardBodyTextGoNeed(
