@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:places/type_place.dart';
+import 'package:places/ui/res/labels.dart';
+import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/res/svg_icons.dart';
 import 'package:places/ui/screen/filters_screen/widgets/category_icon.dart';
 
@@ -16,44 +18,41 @@ class GridIcon extends StatelessWidget {
 
     const typePlaceList = <Widget>[
       CategoryIcon(
-        'Отель',
+        hotel,
         TypePlace.hotel,
         SvgIcons.hotel,
       ),
       CategoryIcon(
-        'Ресторан',
+        restaurant,
         TypePlace.restaurant,
         SvgIcons.restaurant,
       ),
       CategoryIcon(
-        'Особое место',
+        particularPlace,
         TypePlace.particularPlace,
         SvgIcons.particularPlace,
       ),
       CategoryIcon(
-        'Парк',
+        park,
         TypePlace.park,
         SvgIcons.park,
       ),
       CategoryIcon(
-        'Музей',
+        museum,
         TypePlace.museum,
         SvgIcons.museum,
       ),
       CategoryIcon(
-        'Кафе',
+        cafe,
         TypePlace.cafe,
         SvgIcons.cafe,
       ),
     ];
 
-    return height > 1000
-        ? GridView.count(
-            crossAxisCount: 3,
-            shrinkWrap: true,
-            children: typePlaceList,
-          )
-        : SizedBox(
+    debugPrint('$height < $maxHeightSmallScreen');
+
+    return height < maxHeightSmallScreen
+        ? SizedBox(
             height: 150.0,
             child: ListView(
               padding: const EdgeInsets.only(right: 30),
@@ -61,6 +60,11 @@ class GridIcon extends StatelessWidget {
               scrollDirection: Axis.horizontal,
               children: typePlaceList,
             ),
+          )
+        : GridView.count(
+            crossAxisCount: 3,
+            shrinkWrap: true,
+            children: typePlaceList,
           );
   }
 }

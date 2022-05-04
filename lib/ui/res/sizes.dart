@@ -47,3 +47,9 @@ const int maxLines2 = 2;
 const double padding10 = 10;
 const double height95 = 94;
 const double heightBottomSheetOnboarding = 105;
+
+
+// Размеры экранов
+/// Минимальная высота экрана до которого,
+/// экраны считаются маленькими.(на пример на старых телефонах)
+const int maxHeightSmallScreen = 550;
