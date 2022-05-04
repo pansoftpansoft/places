@@ -16,6 +16,7 @@ class AppBarSightListScreen extends StatelessWidget {
 
   @override
   Widget build(final BuildContext context) => AppBar(
+        titleSpacing: 0,
         toolbarHeight: 100,
         centerTitle: false,
         elevation: 0,
@@ -25,8 +26,6 @@ class AppBarSightListScreen extends StatelessWidget {
           child: shrink
               ? const Padding(
                   padding: EdgeInsets.only(
-                    left: 12,
-                    right: 12,
                     top: heightSizeBox24,
                     bottom: paddingPage,
                   ),
@@ -34,8 +33,6 @@ class AppBarSightListScreen extends StatelessWidget {
                 )
               : const Padding(
                   padding: EdgeInsets.only(
-                    left: 12,
-                    right: 12,
                     bottom: paddingPage,
                   ),
                   child: SearchBarFirst(),

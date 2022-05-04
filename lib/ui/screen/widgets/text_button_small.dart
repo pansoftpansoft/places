@@ -30,6 +30,14 @@ class TextButtonSmall extends StatelessWidget {
 
     debugPrint('AppModel().themeColor ${AppModel().themeColor}');
 
+    final colorTextButtonDisable = AppModel().themeColor == darkTheme
+        ? ColorPalette.dmTextButtonTextDisable
+        : ColorPalette.lmTextButtonTextDisable;
+
+    final colorTextButton = AppModel().themeColor == darkTheme
+        ? ColorPalette.dmTextButtonText
+        : ColorPalette.lmTextButtonText;
+
     return TextButton(
       child: SizedBox(
         width: 164,
@@ -49,14 +57,8 @@ class TextButtonSmall extends StatelessWidget {
                         height: 30,
                         width: 30,
                         color: onPressed == null
-                            // ignore: unrelated_type_equality_checks
-                            ? (AppModel().themeColor == darkTheme
-                                ? ColorPalette.dmTextButtonTextDisable
-                                : ColorPalette.lmTextButtonTextDisable)
-                            // ignore: unrelated_type_equality_checks
-                            : (AppModel().themeColor == darkTheme
-                                ? ColorPalette.dmTextButtonText
-                                : ColorPalette.lmTextButtonText),
+                            ? colorTextButtonDisable
+                            : colorTextButton,
                       ),
               ),
             Text(
@@ -76,13 +78,9 @@ class TextButtonSmall extends StatelessWidget {
                         // ignore: unnecessary_null_comparison
                         color: onPressed == null
                             // ignore: unrelated_type_equality_checks
-                            ? (AppModel().themeColor == darkTheme
-                                ? ColorPalette.dmTextButtonTextDisable
-                                : ColorPalette.lmTextButtonTextDisable)
+                            ? colorTextButtonDisable
                             // ignore: unrelated_type_equality_checks
-                            : (AppModel().themeColor == darkTheme
-                                ? ColorPalette.dmTextButtonText
-                                : ColorPalette.lmTextButtonText),
+                            : colorTextButton,
                       ),
               ),
           ],
