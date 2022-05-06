@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:places/data/dio_demo_connect.dart';
 import 'package:places/ui/res/color_palette.dart';
 import 'package:places/ui/res/img.dart';
 import 'package:places/ui/res/route_name.dart';
@@ -25,6 +26,8 @@ class SplashScreenState extends State<SplashScreen> {
     super.initState();
 
     debugPrint('Старт программы');
+
+    DioDemoConnect().getPost();
 
     _navigateToNextAsync();
 
