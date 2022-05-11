@@ -15,11 +15,24 @@ class Place {
   ///список фоток
   final List<String> urls;
 
+  //TODO исправить тип placeType со String на TypePlace
   ///тип места.
   final String placeType;
 
-  ///тип описание
+  /// Тип описание
   final String description;
+
+  /// Признак того что место добавлено в избранное
+  bool? isFavorites;
+
+  /// Дата когда хочу посетить место
+  DateTime? wantVisitDate;
+
+  /// Дата когда посетил
+  DateTime? visitedDate;
+
+  ///отображать в списке после поиска и фильтрации.
+  bool visibleFilter = false;
 
   ///Конструктор
   Place({

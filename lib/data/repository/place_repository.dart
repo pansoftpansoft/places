@@ -18,7 +18,7 @@ class PlaceRepository {
   Future<List<Place>> getPlace() async {
     return ((await _server.get(pathUrlListPlaces)).data as List)
         // ignore: avoid_annotating_with_dynamic
-        .map((dynamic e) => Place.fromJson(e as Map<String, dynamic>))
+        .map<Place>((dynamic e) => Place.fromJson(e as Map<String, dynamic>))
         .toList();
   }
 
