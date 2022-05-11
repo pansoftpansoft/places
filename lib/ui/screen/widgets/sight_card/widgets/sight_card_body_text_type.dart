@@ -18,7 +18,7 @@ class SightCardBodyTextType extends StatelessWidget {
       left: 16,
       top: 18,
       child: Text(
-        typePlaceString(_sight.type),
+       _sight.placeType,
         style: Theme.of(context).textTheme.headline5!.copyWith(
               color: const Color(0xFFFFFFFF),
             ),

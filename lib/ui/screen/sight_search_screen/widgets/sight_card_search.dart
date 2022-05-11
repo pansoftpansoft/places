@@ -52,7 +52,7 @@ class SightCardSearch extends StatelessWidget {
                   ),
                 ),
                 child: Image.network(
-                  sight.url,
+                  sight.urls.first,
                   fit: BoxFit.fill,
                 ),
               ),

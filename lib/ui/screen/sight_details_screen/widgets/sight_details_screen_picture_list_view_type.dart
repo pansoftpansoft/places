@@ -17,7 +17,7 @@ class SightDetailsScreenPictureListViewType extends StatelessWidget {
       child: Row(
         children: <Widget>[
           Text(
-            typePlaceString(_sight.type),
+            _sight.placeType,
             style: Theme.of(context).textTheme.headline5,
           ),
           const SizedBox(width: 16),

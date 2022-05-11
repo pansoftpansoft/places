@@ -36,12 +36,13 @@ class AddElevatedButton extends StatelessWidget {
   ///Обрабатываем кнопку "Создать"
   void _addSight(BuildContext context) {
     final sight = Sight(
+      1111111,
+      55.751426,
+      37.618879,
       'Ивановская площадь',
-      '55.751426',
-      '37.618879',
-      'https://static.mk.ru/upload/entities/2017/12/21/articles/facebookPicture/ce/31/98/e7/d15fd0053ec3372a03dc97795b74a33f.jpg',
+      ['https://static.mk.ru/upload/entities/2017/12/21/articles/facebookPicture/ce/31/98/e7/d15fd0053ec3372a03dc97795b74a33f.jpg'],
       details,
-      TypePlace.park,
+      TypePlace.park.toString(),
     );
     mocks.add(
       sight,

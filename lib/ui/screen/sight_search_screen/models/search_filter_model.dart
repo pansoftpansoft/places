@@ -114,13 +114,13 @@ class SearchFilterModel extends ChangeNotifier {
     debugPrint('mocks ${mocks.length}');
     for (final item in mocks) {
       item.visibleFilter = false;
-      if (double.tryParse(item.lat) != null &&
-          double.tryParse(item.lon) != null &&
+      if (item.lat != null &&
+          item.lon != null &&
           _arePointsNear(
-            double.parse(item.lat),
-            double.parse(item.lon),
+            item.lat,
+            item.lon,
           ) &&
-          SearchFilterModel.filterMap[item.type]!) {
+          SearchFilterModel.filterMap[item.placeType]!) {
         item.visibleFilter = true;
         countPlaceFiltered++;
       }

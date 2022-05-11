@@ -18,7 +18,7 @@ class SightCardBodyPicture extends StatelessWidget {
       width: double.infinity,
       height: heightImage,
       child: Image.network(
-        _sight.url,
+        _sight.urls.first,
         fit: BoxFit.fitWidth,
       ),
     );

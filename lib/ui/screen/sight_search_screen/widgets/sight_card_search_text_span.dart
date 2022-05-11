@@ -28,7 +28,7 @@ class SightCardSearchTextSpan extends StatelessWidget {
           ),
           const SizedBox(height: 8),
           Text(
-            typePlaceString(sight.type),
+            sight.placeType,
             textAlign: TextAlign.start,
             style: Theme.of(context).textTheme.subtitle2,
           ),
