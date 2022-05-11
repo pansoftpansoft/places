@@ -4,39 +4,39 @@ import 'package:places/data/model/place.dart';
 import 'package:places/data/repository/place_repository.dart';
 
 class PlaceInteractor {
-  final PlaceRepository placeRepository;
 
   /// Временный список хранения данных полученных из сети,
   /// пото хранить будем в базе данных
-  List<Place>? _placeFromNet;
+  static List<Place> placeFromNet = [];
 
-  PlaceInteractor(this.placeRepository);
+  static PlaceRepository? placeRepository;
+
 
   /// Получить список отфильтрованных мест
-  Future<List<Place>?> getPlaces({
+  static Future<List<Place>?> getPlaces({
     RangeValues? radius,
     List<String>? category,
   }) async {
-    _placeFromNet = await placeRepository.getPlace();
+    placeFromNet = await PlaceRepository.getPlace();
 
-    _placeFromNet = await getPlacesFiltered(
-      _placeFromNet!,
+    placeFromNet = await getPlacesFiltered(
+      placeFromNet,
       radius: radius,
       category: category,
     );
 
-    return _placeFromNet;
+    return placeFromNet;
   }
 
   /// Получить список отфильтрованных мест
-  Future<List<Place>> getPlacesFiltered(
+  static Future<List<Place>> getPlacesFiltered(
     List<Place> listPlace, {
     RangeValues? radius,
     List<String>? category,
   }) async {
     List<Place> listPlaceFiltered;
     //Проверка на пустой список
-    listPlaceFiltered = listPlace.isEmpty ? _placeFromNet! : listPlace;
+    listPlaceFiltered = listPlace.isEmpty ? placeFromNet : listPlace;
 
     //Фильтруем места по радиусу
     if (radius != null) {
@@ -48,22 +48,18 @@ class PlaceInteractor {
     }
 
     /// Запишем в локальную очередь
-    _placeFromNet = listPlaceFiltered;
+    placeFromNet = listPlaceFiltered;
 
     return listPlaceFiltered;
   }
 
-  Future<Place?> getPlaceDetails(Place place) async {
-    if (_placeFromNet != null) {
-      return placeRepository.getPlaceId(place);
-    }
-
-    return null;
+  static Future<Place?> getPlaceDetails(Place place) async {
+    return PlaceRepository.getPlaceId(place);
   }
 
   /// Получить список избранных мест, отсортированных по удаленности
   Future<List<Place>> getFavoritesPlaces() async {
-    return _placeFromNet!
+    return placeFromNet
         .where((element) => element.isFavorites ?? false)
         .toList()
       ..sort((a, b) => _distanceCalculate(a).compareTo(_distanceCalculate(b)));
@@ -71,29 +67,25 @@ class PlaceInteractor {
 
   /// Добавит место в избранные
   void addToFavorites(Place place) {
-    _placeFromNet?.forEach(
-      (element) {
+    for (final element in placeFromNet) {
         if (element.id == place.id) {
           element.isFavorites = true;
         }
-      },
-    );
+      }
   }
 
   /// Удалить место в избранные
   void removeFromFavorites(Place place) {
-    _placeFromNet?.forEach(
-      (element) {
+    for (final element in placeFromNet) {
         if (element.id == place.id) {
           element.isFavorites = false;
         }
-      },
-    );
+      }
   }
 
   /// Получить список мест которые уже посетили
   Future<List<Place>> getVisitPlaces() async {
-    return _placeFromNet!
+    return placeFromNet
         // ignore: avoid_bool_literals_in_conditional_expressions
         .where((element) => element.visitedDate == null ? false : true)
         .toList();
@@ -101,22 +93,20 @@ class PlaceInteractor {
 
   /// Добавить место в посещенные
   void addNewPlace(Place place) {
-    _placeFromNet?.forEach(
-      (element) {
-        if (element.id == place.id) {
-          element.visitedDate = DateTime.now();
-        }
-      },
-    );
+    for (final element in placeFromNet) {
+      if (element.id == place.id) {
+        element.visitedDate = DateTime.now();
+      }
+    }
   }
 
   /// Добавить новое место
-  void addToVisitingPlaces(Place place) {
-    placeRepository.postPlace(place);
+  static void addToVisitingPlaces(Place place) {
+    PlaceRepository.postPlace(place);
   }
 
   /// Фильтрация списка по  радиусу
-  List<Place> filterListPlacesRadius(
+  static List<Place> filterListPlacesRadius(
     List<Place> placeList,
     RangeValues radius,
   ) {
@@ -127,7 +117,7 @@ class PlaceInteractor {
   }
 
   /// Фильтрация списка по категории
-  List<Place> filterListPlacesCategory(
+  static List<Place> filterListPlacesCategory(
     List<Place> placeList,
     List<String> category,
   ) {
@@ -137,7 +127,7 @@ class PlaceInteractor {
     return listPlaceFiltered;
   }
 
-  bool _arePointsNear(Place place, RangeValues rangeValues) {
+  static bool _arePointsNear(Place place, RangeValues rangeValues) {
     //TODO Здесь необходимо получить свои координаты
     const centerPointLat = 55.753605;
     const centerPointLon = 37.619773;
@@ -152,7 +142,7 @@ class PlaceInteractor {
   }
 
   /// Дистанция до объекта
-  double _distanceCalculate(Place place) {
+  static double _distanceCalculate(Place place) {
     //TODO Здесь необходимо получить свои координаты
     const centerPointLat = 55.753605;
     const centerPointLon = 37.619773;

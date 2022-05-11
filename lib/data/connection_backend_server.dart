@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:places/ui/res/url.dart';
 
 class ConnectionBackendServer {
@@ -12,13 +13,42 @@ class ConnectionBackendServer {
 
   static final Dio _dio = Dio(_baseOptionsBackendServer);
 
-  Future<Response<dynamic>> get(String url) =>
-      _dio.get<dynamic>(url);
+  Future<Response<dynamic>> get(String url) {
+    initInterceptors();
+
+    return _dio.get<dynamic>(url);
+  }
 
   /// добавить новое место на сервер
-  Future<Response> post(String url, String json) =>
-      _dio.post<Future<Response>>(url, data: json);
+  Future<Response> post(String url, String json) {
+    //initInterceptors();
+
+    return _dio.post<Future<Response>>(url, data: json);
+  }
 
   /// удалить место на сервере
   Future<Response> delete(String url) => _dio.delete<Future<Response>>(url);
+
+
+  void initInterceptors() {
+    _dio.interceptors.add(
+      InterceptorsWrapper(
+        onRequest: (options, handler) {
+          debugPrint('onRequest ${options.data.toString()}');
+
+          return handler.next(options); //continue
+        },
+        onResponse: (response, handler) {
+          debugPrint('onResponse ${response.data.toString()}');
+
+          return handler.next(response); // continue
+        },
+        onError: (e, handler) {
+          debugPrint('onError ${e.toString()}');
+
+          return handler.next(e); //continue
+        },
+      ),
+    );
+  }
 }
