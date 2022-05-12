@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:places/domain/sight.dart';
+import 'package:places/data/model/place.dart';
 import 'package:places/ui/screen/sight_details_screen/widgets/add_to_favorites_button.dart';
 import 'package:places/ui/screen/sight_details_screen/widgets/build_route_button.dart';
 import 'package:places/ui/screen/sight_details_screen/widgets/schedule_button.dart';
@@ -7,7 +7,7 @@ import 'package:places/ui/screen/sight_details_screen/widgets/sight_details_scre
 import 'package:places/ui/screen/widgets/sized_box_24.dart';
 
 class SightDetailsScreenPictureListViewText extends StatelessWidget {
-  final Sight _sight;
+  final Place _sight;
 
   const SightDetailsScreenPictureListViewText(
     this._sight, {
@@ -26,7 +26,7 @@ class SightDetailsScreenPictureListViewText extends StatelessWidget {
         SightDetailsScreenPictureListViewType(_sight),
         const SizedBox24(),
         Text(
-          _sight.details,
+          _sight.description,
           style: Theme.of(context).textTheme.bodyText2,
         ),
         const SizedBox24(),

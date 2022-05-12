@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:places/domain/sight.dart';
+import 'package:places/data/model/place.dart';
 import 'package:places/ui/res/color_palette.dart';
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/res/svg_icons.dart';
@@ -11,7 +11,7 @@ import 'package:places/ui/screen/sight_details_screen/widgets/sight_details_scre
 ///Подробно о достопримечательности
 class SightDetailsScreen extends StatelessWidget {
   ///Экземпляр достопримечательности
-  final Sight? sight;
+  final Place? sight;
 
   ///Конструктор экрана подробности о достопримечательности
   const SightDetailsScreen({this.sight, final Key? key}) : super(key: key);
@@ -30,7 +30,7 @@ class SightDetailsScreen extends StatelessWidget {
             SightDetailsScreenPicture(sight: sight ?? ModalRoute
                 .of(context)!
                 .settings
-                .arguments as Sight),
+                .arguments as Place),
             const SightDetailsScreenDecorationContainer(),
             Positioned(
               right: 16,

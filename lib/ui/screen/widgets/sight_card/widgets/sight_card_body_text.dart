@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:places/domain/sight.dart';
+import 'package:places/data/model/place.dart';
 import 'package:places/ui/res/labels.dart';
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/screen/widgets/sight_card/widgets/sight_card_body_text_go_need.dart';
@@ -10,12 +10,12 @@ class SightCardBodyText extends StatelessWidget {
   final String goNeed;
   final String goal;
   final double heightImage;
-  final Sight _sight;
+  final Place _sight;
 
   const SightCardBodyText({
     Key? key,
     required this.heightImage,
-    required Sight sight,
+    required Place sight,
     required this.goNeed,
     required this.goal,
   })  : _sight = sight,

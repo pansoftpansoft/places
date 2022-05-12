@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:places/domain/sight.dart';
+import 'package:places/data/model/place.dart';
 import 'package:places/ui/res/route_name.dart';
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/screen/sight_search_screen/models/search_filter_model.dart';
@@ -11,7 +11,7 @@ class SightCardSearch extends StatelessWidget {
   static const double heightImage = 95;
 
   ///
-  final Sight sight;
+  final Place sight;
 
   ///
   final String goNeed;

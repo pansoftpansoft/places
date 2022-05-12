@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:places/domain/sight.dart';
+import 'package:places/data/model/place.dart';
 
 class SightCardBodyPicture extends StatelessWidget {
   final double heightImage;
-  final Sight _sight;
+  final Place _sight;
 
   const SightCardBodyPicture({
     Key? key,
     required this.heightImage,
-    required Sight sight,
+    required Place sight,
   })  : _sight = sight,
         super(key: key);
 

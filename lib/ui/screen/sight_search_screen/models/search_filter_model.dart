@@ -113,17 +113,15 @@ class SearchFilterModel extends ChangeNotifier {
     // для отображения на кнопке
     debugPrint('mocks ${mocks.length}');
     for (final item in mocks) {
-      item.visibleFilter = false;
-      if (item.lat != null &&
-          item.lon != null &&
-          _arePointsNear(
-            item.lat,
-            item.lon,
-          ) &&
-          SearchFilterModel.filterMap[item.placeType]!) {
+      //item.visibleFilter = false;
+      // if (_arePointsNear(
+      //       item.lat,
+      //       item.lon,
+      //     ) &&
+      //     SearchFilterModel.filterMap[item.placeType]!) {
         item.visibleFilter = true;
         countPlaceFiltered++;
-      }
+      // }
     }
     countPlace = countPlaceFiltered;
     _selectedRange = RangeValues(

@@ -1,8 +1,6 @@
-import 'package:places/type_place.dart';
-
 /// Класс места
-class Sight {
-  ///ид достопримечательности
+class Place111 {
+  /// Id достопримечательности
   final int id;
 
   /// Координаты места
@@ -14,14 +12,17 @@ class Sight {
   /// Название достопримечательности
   final String name;
 
-  /// Пути до фотографии в интернете
+  /// Пути до фотографиЙ в интернете
   final List<String> urls;
 
   /// Тип достопримечательности.
   final String placeType;
 
   /// Описание достопримечательности
-  final String details;
+  final String description;
+
+  /// Признак того что место добавлено в избранное
+  bool? isFavorites;
 
   /// Дата когда хочу посетить место
   DateTime? wantVisitDate;
@@ -32,18 +33,18 @@ class Sight {
   /// Отображать в списке после поиска и фильтрации.
   bool visibleFilter = false;
 
-  /// Фотограции места
-  List<String> photoPlace = <String>[];
+  // /// Фотограции места
+  // List<String> photoPlace = <String>[];
 
   ///
-  Sight(
+  Place111(
     this.id,
     this.lat,
     this.lon,
     this.name,
     this.urls,
     this.placeType,
-    this.details, {
+    this.description, {
     this.wantVisitDate,
     this.visitedDate,
   });

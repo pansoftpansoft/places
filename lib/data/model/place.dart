@@ -1,24 +1,21 @@
-
-
 /// Класс места
 class Place {
-  ///ид достопримечательности
+  /// Id достопримечательности
   final int id;
 
-  ///координаты места
+  /// Координаты места
   final double lat;
 
-  ///координаты места
+  /// Координаты места
   final double lon;
 
-  ///название достопримечательности
+  /// Название достопримечательности
   final String name;
 
-  ///список фоток
+  /// Пути до фотографиЙ в интернете
   final List<String> urls;
 
-  //TODO исправить тип placeType со String на TypePlace
-  ///тип места.
+  /// Тип достопримечательности.
   final String placeType;
 
   /// Тип описание
@@ -45,6 +42,8 @@ class Place {
     this.urls = const <String>[],
     required this.placeType,
     this.description = '',
+    this.wantVisitDate,
+    this.visitedDate,
   });
 
   /// парсинг из json

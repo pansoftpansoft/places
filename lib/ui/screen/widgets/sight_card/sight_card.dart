@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:places/domain/sight.dart';
+import 'package:places/data/model/place.dart';
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/screen/widgets/sight_card/widgets/sight_card_body.dart';
 
@@ -24,7 +24,7 @@ class SightCard extends StatelessWidget {
   final VoidCallback? wantToVisit;
 
   /// Место отображаемое в карточке
-  final Sight _sight;
+  final Place _sight;
 
   /// Конструктор
   const SightCard(

@@ -4,13 +4,11 @@ import 'package:places/data/model/place.dart';
 import 'package:places/data/repository/place_repository.dart';
 
 class PlaceInteractor {
-
   /// Временный список хранения данных полученных из сети,
   /// пото хранить будем в базе данных
   static List<Place> placeFromNet = [];
 
   static PlaceRepository? placeRepository;
-
 
   /// Получить список отфильтрованных мест
   static Future<List<Place>?> getPlaces({
@@ -26,6 +24,33 @@ class PlaceInteractor {
     );
 
     return placeFromNet;
+  }
+
+  /// Добавить новое место
+  static void addToVisitingPlaces(Place place) {
+    PlaceRepository.postPlace(place);
+  }
+
+  /// Фильтрация списка по  радиусу
+  static List<Place> filterListPlacesRadius(
+    List<Place> placeList,
+    RangeValues radius,
+  ) {
+    final listPlaceFiltered =
+        placeList.where((element) => _arePointsNear(element, radius)).toList();
+
+    return listPlaceFiltered;
+  }
+
+  /// Фильтрация списка по категории
+  static List<Place> filterListPlacesCategory(
+    List<Place> placeList,
+    List<String> category,
+  ) {
+    final listPlaceFiltered =
+        placeList.where((place) => category.contains(place.placeType)).toList();
+
+    return listPlaceFiltered;
   }
 
   /// Получить список отфильтрованных мест
@@ -68,19 +93,19 @@ class PlaceInteractor {
   /// Добавит место в избранные
   void addToFavorites(Place place) {
     for (final element in placeFromNet) {
-        if (element.id == place.id) {
-          element.isFavorites = true;
-        }
+      if (element.id == place.id) {
+        element.isFavorites = true;
       }
+    }
   }
 
   /// Удалить место в избранные
   void removeFromFavorites(Place place) {
     for (final element in placeFromNet) {
-        if (element.id == place.id) {
-          element.isFavorites = false;
-        }
+      if (element.id == place.id) {
+        element.isFavorites = false;
       }
+    }
   }
 
   /// Получить список мест которые уже посетили
@@ -98,33 +123,6 @@ class PlaceInteractor {
         element.visitedDate = DateTime.now();
       }
     }
-  }
-
-  /// Добавить новое место
-  static void addToVisitingPlaces(Place place) {
-    PlaceRepository.postPlace(place);
-  }
-
-  /// Фильтрация списка по  радиусу
-  static List<Place> filterListPlacesRadius(
-    List<Place> placeList,
-    RangeValues radius,
-  ) {
-    final listPlaceFiltered =
-        placeList.where((element) => _arePointsNear(element, radius)).toList();
-
-    return listPlaceFiltered;
-  }
-
-  /// Фильтрация списка по категории
-  static List<Place> filterListPlacesCategory(
-    List<Place> placeList,
-    List<String> category,
-  ) {
-    final listPlaceFiltered =
-        placeList.where((place) => category.contains(place.placeType)).toList();
-
-    return listPlaceFiltered;
   }
 
   static bool _arePointsNear(Place place, RangeValues rangeValues) {

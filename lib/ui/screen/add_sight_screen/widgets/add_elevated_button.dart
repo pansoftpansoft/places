@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:places/domain/sight.dart';
+import 'package:places/data/model/place.dart';
 import 'package:places/type_place.dart';
 import 'package:places/ui/res/labels.dart';
 import 'package:places/ui/screen/add_sight_screen/models/add_sight_model.dart';
@@ -35,14 +35,14 @@ class AddElevatedButton extends StatelessWidget {
 
   ///Обрабатываем кнопку "Создать"
   void _addSight(BuildContext context) {
-    final sight = Sight(
-      1111111,
-      55.751426,
-      37.618879,
-      'Ивановская площадь',
-      ['https://static.mk.ru/upload/entities/2017/12/21/articles/facebookPicture/ce/31/98/e7/d15fd0053ec3372a03dc97795b74a33f.jpg'],
-      details,
-      TypePlace.park.toString(),
+    final sight = Place(
+      id: 1111111,
+      lat: 55.751426,
+      lon: 37.618879,
+      name: 'Ивановская площадь',
+      urls: ['https://static.mk.ru/upload/entities/2017/12/21/articles/facebookPicture/ce/31/98/e7/d15fd0053ec3372a03dc97795b74a33f.jpg'],
+      description: details,
+      placeType: TypePlace.park.toString(),
     );
     mocks.add(
       sight,

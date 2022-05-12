@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:places/domain/sight.dart';
+import 'package:places/data/model/place.dart';
 import 'package:places/ui/res/color_palette.dart';
 import 'package:places/ui/screen/sight_details_screen/sight_details_screen.dart';
 
 class SightCardBodyRippleEffect extends StatelessWidget {
-  final Sight sight;
+  final Place sight;
 
   const SightCardBodyRippleEffect(this.sight, {Key? key}) : super(key: key);
 
@@ -30,7 +30,7 @@ class SightCardBodyRippleEffect extends StatelessWidget {
 
   Future<void> showDetailsScreen(
     final BuildContext context,
-    final Sight sight,
+    final Place sight,
   ) async =>
       showModalBottomSheet<Widget>(
         context: context,
