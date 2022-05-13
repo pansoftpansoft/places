@@ -1,19 +1,17 @@
 import 'package:flutter/material.dart';
 
-import 'package:places/type_place.dart';
-
 class PhotoGalleryPicture extends StatelessWidget {
-  final int index;
+  final String photoUrl;
 
   const PhotoGalleryPicture(
-    this.index, {
+    this.photoUrl, {
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Image.network(
-      tempPhotoPlace[index],
+      photoUrl,
       fit: BoxFit.cover,
       loadingBuilder: (
         final context,

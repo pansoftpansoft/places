@@ -11,10 +11,10 @@ import 'package:places/ui/screen/sight_details_screen/widgets/sight_details_scre
 ///Подробно о достопримечательности
 class SightDetailsScreen extends StatelessWidget {
   ///Экземпляр достопримечательности
-  final Place? sight;
+  final Place? place;
 
   ///Конструктор экрана подробности о достопримечательности
-  const SightDetailsScreen({this.sight, final Key? key}) : super(key: key);
+  const SightDetailsScreen( {this.place, final Key? key}) : super(key: key);
 
   @override
   Widget build(final BuildContext context) {
@@ -27,10 +27,7 @@ class SightDetailsScreen extends StatelessWidget {
         color: Theme.of(context).bottomNavigationBarTheme.backgroundColor,
         child: Stack(
           children: <Widget>[
-            SightDetailsScreenPicture(sight: sight ?? ModalRoute
-                .of(context)!
-                .settings
-                .arguments as Place),
+            SightDetailsScreenPicture(place!),
             const SightDetailsScreenDecorationContainer(),
             Positioned(
               right: 16,

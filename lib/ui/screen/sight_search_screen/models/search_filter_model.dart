@@ -1,7 +1,7 @@
 // ignore_for_file: unnecessary_getters_setters
 
 import 'dart:async';
-import 'dart:math';
+//import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:places/domain/db_provider.dart';
 import 'package:places/domain/history.dart';
@@ -295,17 +295,17 @@ class SearchFilterModel extends ChangeNotifier {
   }
 
   ///Проверка вхождения точки в радиус
-  bool _arePointsNear(final double checkPointLat, final double checkPointLon) {
-    const centerPointLat = 55.753605;
-    const centerPointLon = 37.619773;
-    const kyPoint = 40000000 / 360; //40000000 - длина окружности земли в метрах
-    final kxPoint = cos(pi * centerPointLat / 180.0) * kyPoint;
-    final dxPoint = (centerPointLon - checkPointLon).abs() * kxPoint;
-    final dyPoint = (centerPointLat - checkPointLat).abs() * kyPoint;
-
-    return sqrt(dxPoint * dxPoint + dyPoint * dyPoint) <=
-            SearchFilterModel.selectedRange.end &&
-        sqrt(dxPoint * dxPoint + dyPoint * dyPoint) >=
-            SearchFilterModel.selectedRange.start;
-  }
+  // bool _arePointsNear(final double checkPointLat, final double checkPointLon) {
+  //   const centerPointLat = 55.753605;
+  //   const centerPointLon = 37.619773;
+  //   const kyPoint = 40000000 / 360; //40000000 - длина окружности земли в метрах
+  //   final kxPoint = cos(pi * centerPointLat / 180.0) * kyPoint;
+  //   final dxPoint = (centerPointLon - checkPointLon).abs() * kxPoint;
+  //   final dyPoint = (centerPointLat - checkPointLat).abs() * kyPoint;
+  //
+  //   return sqrt(dxPoint * dxPoint + dyPoint * dyPoint) <=
+  //           SearchFilterModel.selectedRange.end &&
+  //       sqrt(dxPoint * dxPoint + dyPoint * dyPoint) >=
+  //           SearchFilterModel.selectedRange.start;
+  // }
 }

@@ -4,9 +4,9 @@ import 'package:places/ui/res/color_palette.dart';
 import 'package:places/ui/screen/sight_details_screen/sight_details_screen.dart';
 
 class SightCardBodyRippleEffect extends StatelessWidget {
-  final Place sight;
+  final Place place;
 
-  const SightCardBodyRippleEffect(this.sight, {Key? key}) : super(key: key);
+  const SightCardBodyRippleEffect(this.place, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,8 +18,8 @@ class SightCardBodyRippleEffect extends StatelessWidget {
           child: InkWell(
             splashColor: ColorPalette.whiteMain.withOpacity(0.4),
             onTap: () {
-              showDetailsScreen(context, sight);
-              debugPrint(sight.name);
+              showDetailsScreen(context, place);
+              debugPrint(place.name);
               debugPrint('Это кнопка "Вся карточка"');
             },
           ),
@@ -30,11 +30,11 @@ class SightCardBodyRippleEffect extends StatelessWidget {
 
   Future<void> showDetailsScreen(
     final BuildContext context,
-    final Place sight,
+    final Place place,
   ) async =>
       showModalBottomSheet<Widget>(
         context: context,
-        builder: (final _) => SightDetailsScreen(sight: sight),
+        builder: (final _) => SightDetailsScreen(place: place),
 
         isScrollControlled: true,
         isDismissible: true,

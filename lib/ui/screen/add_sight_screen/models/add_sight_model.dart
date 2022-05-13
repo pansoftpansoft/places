@@ -12,7 +12,8 @@ class AddSightModel extends ChangeNotifier {
   ///Добавляем фотографию
   void addPhoto(final String pathPhoto) {
     debugPrint('tempPhotoPlace.add');
-    tempPhotoPlace.add(pathPhoto);
+    //TODO сделать добавление фотографий
+    //tempPhotoPlace.add(pathPhoto);
     notifyListeners();
   }
 
@@ -22,15 +23,16 @@ class AddSightModel extends ChangeNotifier {
       return;
     } //Не удаляем кнопку добавить
 
-    if (tempPhotoPlace.length == 1) {
-      return;
-    } //Не удаляем кнопку добавить
-
-    if (index > tempPhotoPlace.length - 1) {
-      tempPhotoPlace.removeLast();
-    } else {
-      tempPhotoPlace.removeAt(index);
-    }
+    //TODO сделать удаление фотографий
+    // if (tempPhotoPlace.length == 1) {
+    //   return;
+    // } //Не удаляем кнопку добавить
+    //
+    // if (index > tempPhotoPlace.length - 1) {
+    //   tempPhotoPlace.removeLast();
+    // } else {
+    //   tempPhotoPlace.removeAt(index);
+    // }
     notifyListeners();
   }
 

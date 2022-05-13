@@ -1,6 +1,5 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:places/type_place.dart';
 
 ///Модель для SightDetails
 class SightDetailsModel extends ChangeNotifier {
@@ -8,14 +7,15 @@ class SightDetailsModel extends ChangeNotifier {
   static int index = 0;
 
   ///Всего отображаемых фотографий
-  static int countElements = tempPhotoPlace.length;
+  static int countElements = 1;
 
   ///Изменнение положения индикатора
   void changeScrollIndicator(
+    final int countPhoto,
     final int indexIndicator,
   ) {
     debugPrint('notifyListeners()');
-    countElements = tempPhotoPlace.length;
+    countElements = countPhoto;
     index = indexIndicator;
     notifyListeners();
   }

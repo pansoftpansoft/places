@@ -4,21 +4,20 @@ import 'package:places/ui/screen/sight_details_screen/widgets/sight_details_scre
 import 'package:places/ui/screen/sight_details_screen/widgets/sight_details_screen_picture_sliver_app_bar.dart';
 
 class SightDetailsScreenPicture extends StatelessWidget {
-  final Place _sight;
+  final Place place;
 
-  const SightDetailsScreenPicture({
+  const SightDetailsScreenPicture(
+    this.place, {
     Key? key,
-    required Place sight,
-  })  : _sight = sight,
-        super(key: key);
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return CustomScrollView(
       slivers: <Widget>[
-        const SightDetailsScreenPictureSliverAppBar(),
+        SightDetailsScreenPictureSliverAppBar(place),
         SliverFillRemaining(
-          child: SightDetailsScreenPictureListView(_sight),
+          child: SightDetailsScreenPictureListView(place),
         ),
       ],
     );
