@@ -17,6 +17,10 @@ class SightDetailsModel extends ChangeNotifier {
     debugPrint('notifyListeners()');
     countElements = countPhoto;
     index = indexIndicator;
+  }
+
+  void updateScrollIndicator(
+      ) {
     notifyListeners();
   }
 }

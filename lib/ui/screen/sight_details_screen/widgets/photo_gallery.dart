@@ -21,7 +21,6 @@ class PhotoGallery extends StatelessWidget {
 
   @override
   Widget build(final BuildContext context) {
-
     /// Длина списка с урлами фотографий
     final lengthListUrls = place.urls.length;
 
@@ -38,10 +37,12 @@ class PhotoGallery extends StatelessWidget {
           color: Colors.green,
           child: PageView.builder(
             onPageChanged: (final index) {
-              context.read<SightDetailsModel>().changeScrollIndicator(
-                    lengthListUrls,
-                    index,
-                  );
+              context.read<SightDetailsModel>()
+                ..changeScrollIndicator(
+                  lengthListUrls,
+                  index,
+                )
+                ..updateScrollIndicator();
             },
             itemCount: lengthListUrls,
             itemBuilder: (final context, final index) =>
