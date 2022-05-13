@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:places/data/model/place.dart';
+import 'package:places/type_place.dart';
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/screen/visiting_screen/widgets/app_bar_visiting.dart';
 import 'package:places/ui/screen/visiting_screen/widgets/tab1_widget.dart';
@@ -20,6 +22,20 @@ class VisitingScreenState extends State<VisitingScreen> {
   @override
   void initState() {
     super.initState();
+
+    debugPrint('VisitingScreen mocks = ${mocks.length.toString()}');
+
+    mocksWantVisit = mocks;
+    debugPrint('VisitingScreen mocksWantVisit = ${mocksWantVisit.length.toString()}');
+    //     .where(
+    //       (final element) {
+    //
+    //     debugPrint(element.isFavorites.toString());
+    //
+    //     return (element.isFavorites??false) == true && element.visitedDate == null;
+    //   },
+    // )
+    //     .toList();
   }
 
   @override

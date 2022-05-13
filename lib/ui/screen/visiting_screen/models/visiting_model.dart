@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:places/data/model/place.dart';
 import 'package:places/type_place.dart';
 
 ///Модель для Visiting
@@ -29,4 +30,17 @@ class VisitingModel extends ChangeNotifier {
     mocksWantVisit[sours].wantVisitDate = dateWantVisitNew;
     notifyListeners();
   }
+
+  ///Установка места признака что оно посещено
+  void setPlaceIsVisit(Place place) {
+
+    place.visitedDate=DateTime.now();
+
+    mocksVisited =
+    mocks.where((final element) => element.visitedDate != null).toList();
+
+    notifyListeners();
+  }
+
+
 }

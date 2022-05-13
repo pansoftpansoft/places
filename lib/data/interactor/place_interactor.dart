@@ -2,11 +2,12 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:places/data/model/place.dart';
 import 'package:places/data/repository/place_repository.dart';
+import 'package:places/type_place.dart';
 
 class PlaceInteractor {
   /// Временный список хранения данных полученных из сети,
   /// пото хранить будем в базе данных
-  static List<Place> placeFromNet = [];
+
 
   static PlaceRepository? placeRepository;
 
@@ -15,20 +16,26 @@ class PlaceInteractor {
     RangeValues? radius,
     List<String>? category,
   }) async {
-    placeFromNet = await PlaceRepository.getPlace();
+    mocks = await PlaceRepository.getPlace();
 
-    placeFromNet = await getPlacesFiltered(
-      placeFromNet,
+    mocks = await getPlacesFiltered(
+      mocks,
       radius: radius,
       category: category,
     );
 
-    return placeFromNet;
+    return mocks;
   }
 
-  /// Добавить новое место
+  /// Отметить место как посещенное
   static void addToVisitingPlaces(Place place) {
-    PlaceRepository.postPlace(place);
+    //PlaceRepository.postPlace(place);
+    for (final element in mocks) {
+      if (element.id == place.id) {
+        element.visitedDate = DateTime.now();
+      }
+    }
+
   }
 
   /// Фильтрация списка по  радиусу
@@ -61,7 +68,7 @@ class PlaceInteractor {
   }) async {
     List<Place> listPlaceFiltered;
     //Проверка на пустой список
-    listPlaceFiltered = listPlace.isEmpty ? placeFromNet : listPlace;
+    listPlaceFiltered = listPlace.isEmpty ? mocks : listPlace;
 
     //Фильтруем места по радиусу
     if (radius != null) {
@@ -73,7 +80,7 @@ class PlaceInteractor {
     }
 
     /// Запишем в локальную очередь
-    placeFromNet = listPlaceFiltered;
+    mocks = listPlaceFiltered;
 
     return listPlaceFiltered;
   }
@@ -82,26 +89,26 @@ class PlaceInteractor {
     return PlaceRepository.getPlaceId(place);
   }
 
-  /// Получить список избранных мест, отсортированных по удаленности
-  Future<List<Place>> getFavoritesPlaces() async {
-    return placeFromNet
-        .where((element) => element.isFavorites ?? false)
-        .toList()
-      ..sort((a, b) => _distanceCalculate(a).compareTo(_distanceCalculate(b)));
-  }
-
   /// Добавит место в избранные
-  void addToFavorites(Place place) {
-    for (final element in placeFromNet) {
+  static void addToFavorites(Place place) {
+    for (final element in mocks) {
       if (element.id == place.id) {
         element.isFavorites = true;
       }
     }
   }
 
+  /// Получить список избранных мест, отсортированных по удаленности
+  Future<List<Place>> getFavoritesPlaces() async {
+    return mocks
+        .where((element) => element.isFavorites ?? false)
+        .toList()
+      ..sort((a, b) => _distanceCalculate(a).compareTo(_distanceCalculate(b)));
+  }
+
   /// Удалить место в избранные
   void removeFromFavorites(Place place) {
-    for (final element in placeFromNet) {
+    for (final element in mocks) {
       if (element.id == place.id) {
         element.isFavorites = false;
       }
@@ -110,7 +117,7 @@ class PlaceInteractor {
 
   /// Получить список мест которые уже посетили
   Future<List<Place>> getVisitPlaces() async {
-    return placeFromNet
+    return mocks
         // ignore: avoid_bool_literals_in_conditional_expressions
         .where((element) => element.visitedDate == null ? false : true)
         .toList();
@@ -118,7 +125,7 @@ class PlaceInteractor {
 
   /// Добавить место в посещенные
   void addNewPlace(Place place) {
-    for (final element in placeFromNet) {
+    for (final element in mocks) {
       if (element.id == place.id) {
         element.visitedDate = DateTime.now();
       }

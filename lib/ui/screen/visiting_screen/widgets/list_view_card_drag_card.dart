@@ -14,6 +14,9 @@ class ListViewCardDragCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    debugPrint('index = $index');
+
     return Stack(
       children: [
         const BackgroundDismissible(),

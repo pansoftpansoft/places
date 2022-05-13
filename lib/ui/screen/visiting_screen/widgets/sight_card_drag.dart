@@ -27,10 +27,12 @@ class _SightCardDragState extends State<SightCardDrag> {
   @override
   Widget build(final BuildContext context) => SightCard(
         mocksWantVisit[widget.index],
-        goNeed: 'Запланировано на '
-            '${DateFormat('dd-MM-yyyy').format(
-          mocksWantVisit[widget.index].wantVisitDate!,
-        )}',
+        goNeed: mocksWantVisit[widget.index].wantVisitDate == null
+            ? 'Запланируйте дату для посещения'
+            : 'Запланировано на '
+                '${DateFormat('dd-MM-yyyy').format(
+                mocksWantVisit[widget.index].wantVisitDate!,
+              )}',
         iconDelete: true,
         //key: ValueKey(mocksWantVisit[index].name),
         actionOnDelete: () {

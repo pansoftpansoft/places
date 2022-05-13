@@ -7,10 +7,10 @@ import 'package:places/ui/screen/sight_details_screen/widgets/sight_details_scre
 import 'package:places/ui/screen/widgets/sized_box_24.dart';
 
 class SightDetailsScreenPictureListViewText extends StatelessWidget {
-  final Place _sight;
+  final Place _place;
 
   const SightDetailsScreenPictureListViewText(
-    this._sight, {
+    this._place, {
     Key? key,
   }) : super(key: key);
 
@@ -20,13 +20,13 @@ class SightDetailsScreenPictureListViewText extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Text(
-          _sight.name,
+          _place.name,
           style: Theme.of(context).textTheme.headline3,
         ),
-        SightDetailsScreenPictureListViewType(_sight),
+        SightDetailsScreenPictureListViewType(_place),
         const SizedBox24(),
         Text(
-          _sight.description,
+          _place.description,
           style: Theme.of(context).textTheme.bodyText2,
         ),
         const SizedBox24(),
@@ -34,15 +34,15 @@ class SightDetailsScreenPictureListViewText extends StatelessWidget {
           constraints: const BoxConstraints.tightFor(
             height: 48,
           ),
-          child: const BuildRouteButton(),
+          child: BuildRouteButton(_place),
         ),
         const SizedBox24(),
         const Divider(),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: const <Widget>[
-            ScheduleButton(),
-            AddToFavoritesButton(),
+          children: <Widget>[
+            const ScheduleButton(),
+            AddToFavoritesButton(_place),
           ],
         ),
       ],

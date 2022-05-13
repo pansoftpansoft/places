@@ -75,7 +75,7 @@ class SplashScreenState extends State<SplashScreen> {
 
     debugPrint(
       'PlaceInteractor количество записей'
-      ' ${PlaceInteractor.placeFromNet.length.toString()}',
+      ' ${mocks.length.toString()}',
     );
 
     await SearchFilterModel.getListHistory(); //Обновляем список при загрузке
