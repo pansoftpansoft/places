@@ -1,7 +1,12 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:places/data/connection_backend_server.dart';
 import 'package:places/data/model/place.dart';
 import 'package:places/ui/res/url_path.dart';
+
+int iii=0;
 
 class PlaceRepository {
   static final ConnectionBackendServer _server = ConnectionBackendServer();
@@ -23,11 +28,17 @@ class PlaceRepository {
   }
 
   /// Получить место по идентификатору
-  static Future<Place> getPlaceId(Place place) async {
-    return Place.fromJson(
-      await _server.get('$pathUrlListPlaces/${place.id.toString()}')
-          as Map<String, dynamic>,
-    );
+  static Future<Place> getPlaceId(int placeId) async {
+    String mapString;
+    iii++;
+    debugPrint(iii.toString());
+    final response = await _server.get('$pathUrlListPlaces/$placeId');
+
+    mapString = response.toString();
+
+    final mapFull = json.decode(mapString) as Map<String, dynamic>;
+
+    return Place.fromJson(mapFull);
   }
 
   /// Удалить место на сервере

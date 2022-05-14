@@ -1,20 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:places/data/model/place.dart';
 import 'package:places/ui/res/color_palette.dart';
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/res/svg_icons.dart';
 import 'package:places/ui/screen/sight_details_screen/models/sight_details_model.dart';
 import 'package:places/ui/screen/sight_details_screen/widgets/sight_details_screen_decoration_container.dart';
 import 'package:places/ui/screen/sight_details_screen/widgets/sight_details_screen_picture.dart';
+import 'package:provider/provider.dart';
 
-///Подробно о достопримечательности
+/// Подробно о достопримечательности
 class SightDetailsScreen extends StatelessWidget {
-  ///Экземпляр достопримечательности
-  final Place? place;
-
-  ///Конструктор экрана подробности о достопримечательности
-  const SightDetailsScreen( {this.place, final Key? key}) : super(key: key);
+  /// Конструктор экрана подробности о достопримечательности
+  const SightDetailsScreen({final Key? key}) : super(key: key);
 
   @override
   Widget build(final BuildContext context) {
@@ -27,7 +24,9 @@ class SightDetailsScreen extends StatelessWidget {
         color: Theme.of(context).bottomNavigationBarTheme.backgroundColor,
         child: Stack(
           children: <Widget>[
-            SightDetailsScreenPicture(place!),
+            SightDetailsScreenPicture(
+              context.read<SightDetailsModel>().placeDetails!,
+            ),
             const SightDetailsScreenDecorationContainer(),
             Positioned(
               right: 16,
@@ -50,7 +49,7 @@ class SightDetailsScreen extends StatelessWidget {
   }
 
   void _onPressed(BuildContext context) {
-    SightDetailsModel.index=0;
+    SightDetailsModel.index = 0;
     Navigator.of(context).pop();
   }
 

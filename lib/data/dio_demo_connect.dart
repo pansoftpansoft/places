@@ -19,7 +19,7 @@ class DioDemoConnect {
   }
 
   Future<Response<List<dynamic>?>> getPost() async {
-    initInterceptors();
+    //initInterceptors();
     final postResponse = await dio.get<List<dynamic>?>(jsonPlaceholderUsers);
     //debugPrint(postResponse.realUri.toString());
     //debugPrint(postResponse.statusCode.toString());

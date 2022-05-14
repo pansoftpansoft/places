@@ -1,13 +1,19 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:places/data/interactor/place_interactor.dart';
+import 'package:places/data/model/place.dart';
 
 ///Модель для SightDetails
+///
+
 class SightDetailsModel extends ChangeNotifier {
+  ///Всего отображаемых фотографий
+  static int countElements = 1;
+
   ///Индекс отображаемой фотографии
   static int index = 0;
 
-  ///Всего отображаемых фотографий
-  static int countElements = 1;
+  Place? placeDetails;
 
   ///Изменнение положения индикатора
   void changeScrollIndicator(
@@ -19,8 +25,11 @@ class SightDetailsModel extends ChangeNotifier {
     index = indexIndicator;
   }
 
-  void updateScrollIndicator(
-      ) {
+  void updateScrollIndicator() {
     notifyListeners();
+  }
+
+  Future<void> getPlace(int placeId) async {
+    placeDetails = await PlaceInteractor.getPlaceDetails(placeId);
   }
 }

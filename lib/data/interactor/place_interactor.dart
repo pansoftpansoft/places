@@ -85,8 +85,8 @@ class PlaceInteractor {
     return listPlaceFiltered;
   }
 
-  static Future<Place?> getPlaceDetails(Place place) async {
-    return PlaceRepository.getPlaceId(place);
+  static Future<Place?> getPlaceDetails(int placeId) async {
+    return PlaceRepository.getPlaceId(placeId);
   }
 
   /// Добавит место в избранные
