@@ -42,7 +42,7 @@ class PhotoGallery extends StatelessWidget {
                   lengthListUrls,
                   index,
                 )
-                ..updateScrollIndicator();
+                ..updateScreen();
             },
             itemCount: lengthListUrls,
             itemBuilder: (final context, final index) =>

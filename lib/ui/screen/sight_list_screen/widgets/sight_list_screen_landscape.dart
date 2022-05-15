@@ -31,8 +31,8 @@ class SightListScreenLandscape extends StatelessWidget {
                   final context,
                   final index,
                 ) =>
-                    SightCard(mocksSearch[index]),
-                childCount: mocksSearch.length,
+                    SightCard(mocksFiltered[index]),
+                childCount: mocksFiltered.length,
               ),
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,

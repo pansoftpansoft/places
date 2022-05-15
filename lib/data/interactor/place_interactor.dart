@@ -8,23 +8,23 @@ class PlaceInteractor {
   /// Временный список хранения данных полученных из сети,
   /// пото хранить будем в базе данных
 
-
   static PlaceRepository? placeRepository;
+
+  /// Получить список отфильтрованных мест
+  static Future<List<Place>?> getAllPlaces() async {
+    mocksFiltered = await PlaceRepository.getPlace();
+
+    return mocksFiltered;
+  }
 
   /// Получить список отфильтрованных мест
   static Future<List<Place>?> getPlaces({
     RangeValues? radius,
     List<String>? category,
   }) async {
-    mocks = await PlaceRepository.getPlace();
+    mocksFiltered = await PlaceRepository.postPlaceDto();
 
-    mocks = await getPlacesFiltered(
-      mocks,
-      radius: radius,
-      category: category,
-    );
-
-    return mocks;
+    return mocksFiltered;
   }
 
   /// Отметить место как посещенное
@@ -33,9 +33,15 @@ class PlaceInteractor {
     for (final element in mocks) {
       if (element.id == place.id) {
         element.visitedDate = DateTime.now();
+
+        /// Надо добавить в посещенные
+        mocksVisited.add(place);
+
+        /// Удалить из хочу посетить
+        mocksWantVisit
+            .removeWhere((final element) => element.name == place.name);
       }
     }
-
   }
 
   /// Фильтрация списка по  радиусу
@@ -94,25 +100,28 @@ class PlaceInteractor {
     for (final element in mocks) {
       if (element.id == place.id) {
         element.isFavorites = true;
+        mocksWantVisit.add(element);
+      }
+    }
+
+    for (final element in mocks) {
+      debugPrint(element.isFavorites.toString());
+    }
+  }
+
+  /// Удалить место в избранные
+  static void removeFromFavorites(Place place) {
+    for (final element in mocks) {
+      if (element.id == place.id) {
+        element.isFavorites = false;
       }
     }
   }
 
   /// Получить список избранных мест, отсортированных по удаленности
   Future<List<Place>> getFavoritesPlaces() async {
-    return mocks
-        .where((element) => element.isFavorites ?? false)
-        .toList()
+    return mocks.where((element) => element.isFavorites).toList()
       ..sort((a, b) => _distanceCalculate(a).compareTo(_distanceCalculate(b)));
-  }
-
-  /// Удалить место в избранные
-  void removeFromFavorites(Place place) {
-    for (final element in mocks) {
-      if (element.id == place.id) {
-        element.isFavorites = false;
-      }
-    }
   }
 
   /// Получить список мест которые уже посетили

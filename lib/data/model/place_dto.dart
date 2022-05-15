@@ -1,5 +1,5 @@
 /// Класс места
-class Place {
+class PlaceDto {
   /// Id достопримечательности
   final int id;
 
@@ -9,11 +9,11 @@ class Place {
   /// Координаты места
   final double lon;
 
+  /// Растояние до точки
+  final double distance;
+
   /// Название достопримечательности
   final String name;
-
-  /// Пути до фотографиЙ в интернете
-  final List<String> urls;
 
   /// Тип достопримечательности.
   final String placeType;
@@ -21,42 +21,34 @@ class Place {
   /// Тип описание
   final String description;
 
-  /// Признак того что место добавлено в избранное
-  bool isFavorites=false;
+  /// Пути до фотографиЙ в интернете
+  final List<String> urls;
 
-  /// Дата когда хочу посетить место
-  DateTime? wantVisitDate;
-
-  /// Дата когда посетил
-  DateTime? visitedDate;
-
-  ///отображать в списке после поиска и фильтрации.
-  bool visibleFilter = false;
-
-  ///Конструктор
-  Place({
+  /// Конструктор
+  PlaceDto({
     this.id = 0,
     this.lat = 0,
     this.lon = 0,
+    this.distance = 0,
     required this.name,
     this.urls = const <String>[],
     required this.placeType,
     this.description = '',
-    this.wantVisitDate,
-    this.visitedDate,
   });
 
-  /// парсинг из json
-  Place.fromJson(Map<String, dynamic> json)
-      : id = json['id'] as int,
+  /// Парсинг из json
+  PlaceDto.fromJson(
+    Map<String, dynamic> json,
+  )   : id = json['id'] as int,
         lat = json['lat'] as double,
         lon = json['lng'] as double,
+        distance = json['lng'] as double,
         name = json['name'] as String,
         urls = (json['urls'] as List<dynamic>).whereType<String>().toList(),
         placeType = json['placeType'] as String,
         description = json['description'] as String;
 
-  /// создание мапы для добавление в json
+  /// Создание мапы для добавление в json
   Map<String, dynamic> toJson() => <String, dynamic>{
         'id': id,
         'lat': lat,

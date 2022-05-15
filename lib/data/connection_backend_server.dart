@@ -19,16 +19,13 @@ class ConnectionBackendServer {
     return _dio.get<dynamic>(url);
   }
 
-  /// добавить новое место на сервер
-  Future<Response> post(String url, String json) {
-    //initInterceptors();
-
+  /// Добавить новое место на сервер
+  Future<Response> post(String url, dynamic json) {
     return _dio.post<Future<Response>>(url, data: json);
   }
 
-  /// удалить место на сервере
+  /// Удалить место на сервере
   Future<Response> delete(String url) => _dio.delete<Future<Response>>(url);
-
 
   void initInterceptors() {
     _dio.interceptors.add(

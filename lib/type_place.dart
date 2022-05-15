@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:places/data/model/place.dart';
 import 'package:places/domain/onboarding_page.dart';
 import 'package:places/ui/res/labels.dart';
@@ -47,7 +46,7 @@ enum ScreenEnum {
 }
 
 ///
-List<Place> mocksSearch = <Place>[];
+List<Place> mocksFiltered = <Place>[];
 List<Place> mocksSearchText = <Place>[];
 
 ///Тестовые данные
@@ -132,21 +131,13 @@ List<Place> mocks = <Place>[];
 // ),
 //];
 
-///
-List<Place> mocksWantVisit = mocks
-    .where(
-      (final element) {
 
-          debugPrint(element.isFavorites.toString());
 
-        return (element.isFavorites??false) == true && element.visitedDate == null;
-      },
-    )
-    .toList();
+List<Place> mocksWantVisit = [];
 
 ///
-List<Place> mocksVisited =
-    mocks.where((final element) => element.visitedDate != null).toList();
+List<Place> mocksVisited = [];
+   // mocks.where((final element) => element.visitedDate != null).toList();
 
 ///
 List<String> tempPhotoPlace = <String>[

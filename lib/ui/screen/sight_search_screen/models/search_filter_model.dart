@@ -141,7 +141,7 @@ class SearchFilterModel extends ChangeNotifier {
   /// И проверить на совподение со строкой поиска
   bool getFilteredList() {
     countPlace = _countPlace;
-    mocksSearch.clear();
+    mocksFiltered.clear();
     mocksSearchText.clear();
     if (_searchString.isNotEmpty) {
       for (final item in mocks) {
@@ -149,20 +149,20 @@ class SearchFilterModel extends ChangeNotifier {
         debugPrint(_searchString);
         if (item.visibleFilter) {
           if (item.name.toLowerCase().contains(_searchString.toLowerCase())) {
-            mocksSearch.add(item);
+            mocksFiltered.add(item);
           }
         }
       }
     } else {
-      //Если фильтр установлен показываем записи ограниченные фильтром
-      //без учета строки поиска, так как она пустая
+      // Если фильтр установлен показываем записи ограниченные фильтром
+      // без учета строки поиска, так как она пустая
       for (final item in mocks) {
         if (item.visibleFilter) {
-          mocksSearch.add(item);
+          mocksFiltered.add(item);
         }
       }
     }
-    debugPrint('200 mocksSearch ${mocksSearch.length.toString()}');
+    debugPrint('200 mocksSearch ${mocksFiltered.length.toString()}');
 
     return _errorTest;
   }
@@ -171,8 +171,8 @@ class SearchFilterModel extends ChangeNotifier {
     countPlace = _countPlace;
     mocksSearchText.clear();
     if (_searchString.isNotEmpty) {
-      debugPrint('900 mocksSearch ${mocksSearch.length.toString()}');
-      for (final item in mocksSearch) {
+      debugPrint('900 mocksSearch ${mocksFiltered.length.toString()}');
+      for (final item in mocksFiltered) {
         //фильтр установлен проверяем его и поиск по имени
         debugPrint(_searchString);
         if (item.visibleFilter) {
@@ -196,8 +196,8 @@ class SearchFilterModel extends ChangeNotifier {
     Timer(
       const Duration(seconds: 1),
       () {
-        debugPrint('300 mocksSearch ${mocksSearch.length.toString()}');
-        if (mocksSearch.isEmpty) {
+        debugPrint('300 mocksSearch ${mocksFiltered.length.toString()}');
+        if (mocksFiltered.isEmpty) {
           //ошибка выдаем экран сообщения
           debugPrint('Не найдено ни одного места');
           managerSelectionScreen(numberScreen: ScreenEnum.emptyScreen);

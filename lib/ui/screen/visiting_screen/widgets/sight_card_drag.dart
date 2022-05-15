@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:places/data/interactor/place_interactor.dart';
 import 'package:places/type_place.dart';
 import 'package:places/ui/screen/visiting_screen/models/visiting_model.dart';
 import 'package:places/ui/screen/widgets/sight_card/sight_card.dart';
@@ -80,9 +81,7 @@ class _SightCardDragState extends State<SightCardDrag> {
       );
 
   void _actionOnDelete(BuildContext context) {
-    context.read<VisitingModel>().deletePlaceWantVisit(
-          mocksWantVisit[widget.index].name,
-        );
+    PlaceInteractor.removeFromFavorites(mocksWantVisit[widget.index]);
   }
 
   void _actionOnSelectData(BuildContext context, DateTime dateTimeCupertino) {
@@ -99,13 +98,10 @@ class _SightCardDragState extends State<SightCardDrag> {
       builder: (context) => Container(
         height: 216,
         padding: const EdgeInsets.only(top: 6.0),
-        // The Bottom margin is provided to align the popup above the system navigation bar.
         margin: EdgeInsets.only(
           bottom: MediaQuery.of(context).viewInsets.bottom,
         ),
-        // Provide a background color for the popup.
         color: CupertinoColors.systemBackground.resolveFrom(context),
-        // Use a SafeArea widget to avoid system overlaps.
         child: SafeArea(
           top: false,
           child: child,

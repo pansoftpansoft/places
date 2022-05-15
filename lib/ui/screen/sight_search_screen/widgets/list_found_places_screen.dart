@@ -14,7 +14,7 @@ class ListFoundPlacesScreen extends StatelessWidget {
 
   @override
   Widget build(final BuildContext context) {
-    debugPrint('100 ListOfFoundPlacesScreen ${mocksSearch.length}');
+    debugPrint('100 ListOfFoundPlacesScreen ${mocksFiltered.length}');
 
     return Consumer<SearchFilterModel>(builder: (
       final context,

@@ -25,7 +25,7 @@ class SightDetailsModel extends ChangeNotifier {
     index = indexIndicator;
   }
 
-  void updateScrollIndicator() {
+  void updateScreen() {
     notifyListeners();
   }
 

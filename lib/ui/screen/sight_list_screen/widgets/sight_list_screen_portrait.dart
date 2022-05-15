@@ -34,8 +34,8 @@ class SightListScreenPortrait extends StatelessWidget {
                   final context,
                   final index,
                 ) =>
-                    SightCard(mocksSearch[index]),
-                childCount: mocksSearch.length,
+                    SightCard(mocksFiltered[index]),
+                childCount: mocksFiltered.length,
               ),
             ),
           ],
