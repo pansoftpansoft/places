@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:places/ui/res/url.dart';
 import 'package:places/ui/res/url_path.dart';
 
+import 'repository/place_repository.dart';
+
 final dio = Dio(baseOptions);
 
 BaseOptions baseOptions = BaseOptions(
-  baseUrl: urlTestServer,
+  baseUrl: urlServerBackend,
   connectTimeout: 5000,
   receiveTimeout: 5000,
   sendTimeout: 5000,
@@ -19,8 +21,29 @@ class DioDemoConnect {
   }
 
   Future<Response<List<dynamic>?>> getPost() async {
-    //initInterceptors();
-    final postResponse = await dio.get<List<dynamic>?>(jsonPlaceholderUsers);
+    initInterceptors();
+    final postResponse = await dio.get<List<dynamic>?>(pathUrlListPlaces);
+    //debugPrint(postResponse.realUri.toString());
+    //debugPrint(postResponse.statusCode.toString());
+    // if (postResponse.statusCode == 200) {
+    //   debugPrint(postResponse.data.toString());
+    // } else {
+    //   debugPrint(postResponse.statusCode.toString());
+    // }
+
+    return postResponse;
+  }
+
+  Future<Response<List<dynamic>?>> getPostDto() async {
+    initInterceptors();
+    final dynamic filter = PlaceRepository.createFilter();
+
+    debugPrint('filter = $filter');
+    final postResponse = await dio.post<List<dynamic>?>(
+      pathUrlFilteredPlaces,
+      data: filter,
+    );
+
     //debugPrint(postResponse.realUri.toString());
     //debugPrint(postResponse.statusCode.toString());
     // if (postResponse.statusCode == 200) {

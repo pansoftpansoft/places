@@ -4,6 +4,7 @@ import 'package:places/data/model/place.dart';
 import 'package:places/data/repository/place_repository.dart';
 import 'package:places/type_place.dart';
 
+/// Слой бизнес логики
 class PlaceInteractor {
   /// Временный список хранения данных полученных из сети,
   /// пото хранить будем в базе данных
@@ -12,7 +13,7 @@ class PlaceInteractor {
 
   /// Получить список отфильтрованных мест
   static Future<List<Place>?> getAllPlaces() async {
-    mocksFiltered = await PlaceRepository.getPlace();
+    mocksFiltered = await PlaceRepository.getAllPlace();
 
     return mocksFiltered;
   }
@@ -22,7 +23,8 @@ class PlaceInteractor {
     RangeValues? radius,
     List<String>? category,
   }) async {
-    mocksFiltered = await PlaceRepository.postPlaceDto();
+
+    mocksFiltered = await PlaceRepository.getPlaces(radius,category);
 
     return mocksFiltered;
   }
@@ -141,6 +143,7 @@ class PlaceInteractor {
     }
   }
 
+  /// Вхождение места в площаь между двумя радиусами
   static bool _arePointsNear(Place place, RangeValues rangeValues) {
     //TODO Здесь необходимо получить свои координаты
     const centerPointLat = 55.753605;
@@ -155,7 +158,7 @@ class PlaceInteractor {
         sqrt(dxPoint * dxPoint + dyPoint * dyPoint) >= rangeValues.start;
   }
 
-  /// Дистанция до объекта
+  /// Дистанция до объекта от точки
   static double _distanceCalculate(Place place) {
     //TODO Здесь необходимо получить свои координаты
     const centerPointLat = 55.753605;

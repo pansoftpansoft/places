@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:places/data/dio_demo_connect.dart';
 import 'package:places/data/interactor/place_interactor.dart';
 import 'package:places/data/model/place.dart';
 import 'package:places/type_place.dart';
@@ -29,7 +30,7 @@ class SplashScreenState extends State<SplashScreen> {
 
     debugPrint('Старт программы');
 
-    //DioDemoConnect().getPost();
+    //DioDemoConnect().getPostDto();
 
     _navigateToNextAsync();
 

@@ -14,3 +14,6 @@ const pathUrlDeletePlace = '/place';
 
 /// Путь для обновления данных места
 const pathUrlPutPlace = '/place';
+
+/// Путь для получения отфильтрованного списка
+const String pathUrlFilteredPlaces = '/filtered_places';

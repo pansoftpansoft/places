@@ -13,13 +13,14 @@ class ConnectionBackendServer {
 
   static final Dio _dio = Dio(_baseOptionsBackendServer);
 
+  /// Сделать запрос GET на сервер
   Future<Response<dynamic>> get(String url) {
     initInterceptors();
 
     return _dio.get<dynamic>(url);
   }
 
-  /// Добавить новое место на сервер
+  /// Сделать запрос POST на сервер
   Future<Response> post(String url, dynamic json) {
     return _dio.post<Future<Response>>(url, data: json);
   }

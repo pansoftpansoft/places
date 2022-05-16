@@ -21,8 +21,11 @@ class Place {
   /// Тип описание
   final String description;
 
+  /// Растояние до точки
+  final double? distance;
+
   /// Признак того что место добавлено в избранное
-  bool isFavorites=false;
+  bool isFavorites = false;
 
   /// Дата когда хочу посетить место
   DateTime? wantVisitDate;
@@ -44,6 +47,7 @@ class Place {
     this.description = '',
     this.wantVisitDate,
     this.visitedDate,
+    this.distance,
   });
 
   /// парсинг из json
@@ -54,7 +58,8 @@ class Place {
         name = json['name'] as String,
         urls = (json['urls'] as List<dynamic>).whereType<String>().toList(),
         placeType = json['placeType'] as String,
-        description = json['description'] as String;
+        description = json['description'] as String,
+        distance = json['distance'] as double;
 
   /// создание мапы для добавление в json
   Map<String, dynamic> toJson() => <String, dynamic>{

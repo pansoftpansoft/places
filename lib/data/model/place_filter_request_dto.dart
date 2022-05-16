@@ -1,19 +1,19 @@
 /// Класс места
 class PlaceFilterRequestDto {
   /// Координаты места
-  final double lat;
+  final double? lat;
 
   /// Координаты места
-  final double lon;
+  final double? lon;
 
   /// Растояние до точки
-  final double radius;
+  final double? radius;
 
   /// Список типов мест для фильтрации
-  final List<String> typeFilter;
+  final List<String>? typeFilter;
 
   /// Строка для фильтрации по названию
-  final String nameFilter;
+  final String? nameFilter;
 
   /// Конструктор
   PlaceFilterRequestDto({
@@ -35,11 +35,23 @@ class PlaceFilterRequestDto {
         nameFilter = json['nameFilter'] as String;
 
   /// создание мапы для добавление в json
-  Map<String, dynamic> toJson() => <String, dynamic>{
-        'lat': lat,
-        'lon': lon,
-        'radius': radius,
-        'typeFilter': typeFilter,
-        'nameFilter': nameFilter,
-      };
+  Map<String, dynamic> toJson() {
+    final returnMap = <String, dynamic>{};
+
+    if (lat != null && lon != null && radius != null) {
+      returnMap['lat'] = lat;
+      returnMap['lon'] = lon;
+      returnMap['radius'] = radius;
+    }
+
+    if (typeFilter != null) {
+      returnMap['typeFilter'] = typeFilter;
+    }
+
+    if (nameFilter != null) {
+      returnMap['nameFilter'] = nameFilter;
+    }
+
+    return returnMap;
+  }
 }
