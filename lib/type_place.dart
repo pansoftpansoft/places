@@ -165,3 +165,6 @@ List<OnboardingPage> mocksOnboardingScreen = <OnboardingPage>[
     SvgIcons.tutorialFrame3,
   ),
 ];
+
+
+//List<Place> mocks = <Place>[];

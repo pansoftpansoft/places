@@ -1,5 +1,7 @@
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:places/data/model/places_local_data.dart';
 import 'package:places/domain/history.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -25,7 +27,7 @@ class DBProvider {
 
   DBProvider._();
 
-  ///
+  /// Удалить поисковый запрос из истории поиска
   static Future<int> deleteHistory(final String historyText) async {
     _database = await database;
     final res = await _database!.delete(
@@ -42,33 +44,69 @@ class DBProvider {
     final documentsDirectory = await getApplicationDocumentsDirectory();
     final path = '${documentsDirectory.path}$_databaseName';
 
+    // var f = File(path);
+    // await f.delete();
+    // debugPrint('path = ${path}');
+
     return openDatabase(
       path,
       version: 1,
-      onOpen: (final db) {
+      onOpen: (final db) async {
         debugPrint('Открать базу данных');
       },
       onCreate: (
         final database,
         final version,
       ) async {
+        debugPrint('Создать базу данных');
         await database.execute(
           <String>[
             'CREATE TABLE history (',
             'history_text TEXT PRIMARY KEY NOT NULL UNIQUE,',
             "date_add TEXT DEFAULT (datetime('now', 'localtime'))",
-            ')',
+            ');',
+          ].join(),
+        );
+
+        await database.execute(
+          <String>[
+            'CREATE TABLE placesLocal (',
+            'id INTEGER  PRIMARY KEY NOT NULL UNIQUE,',
+            'isFavorites BOOLEAN,',
+            'wantVisitDate DATETIME,',
+            'visitedDate DATETIME',
+            ');',
+          ].join(),
+        );
+      },
+      onUpgrade: (final database, final oldVersion, final newVersion) async {
+        debugPrint('Обновить базу данных');
+        await database.execute(
+          <String>[
+            'CREATE TABLE history (',
+            'history_text TEXT PRIMARY KEY NOT NULL UNIQUE,',
+            "date_add TEXT DEFAULT (datetime('now', 'localtime'))",
+            ');',
+            'CREATE TABLE placesLocal (',
+            'id INTEGER  PRIMARY KEY NOT NULL UNIQUE,',
+            'isFavorites BOOLEAN,',
+            'wantVisitDate DATETIME,',
+            'visitedDate DATETIME',
+            ');',
           ].join(),
         );
       },
     );
   }
 
-  ///
+  /// Получить историю поиска из бызы данных
   Future<List<History>?> getListHistoryFromDb() async {
     _database = await database;
-    final res =
-        await _database!.query('history', orderBy: 'date_add desc', limit: 10);
+    final res = await _database!.query(
+      'history',
+      orderBy: 'date_add desc',
+      limit: 10,
+    );
 
     final list =
         res.isNotEmpty ? res.map(History.fromMap).toList() : <History>[];
@@ -76,7 +114,7 @@ class DBProvider {
     return list;
   }
 
-  ///
+  /// Добавить в историю поиска новый поисковый запрос
   Future<int> addHistory(final String historyText) async {
     if (historyText.isEmpty) {
       return 0;
@@ -93,6 +131,45 @@ class DBProvider {
   Future<int> clearHistory() async {
     _database = await database;
     final res = await _database!.delete('history');
+
+    return res;
+  }
+
+  /// Получить локальный данные из бызы данных
+  Future<List<PlacesLocalData>> getPlacesLocal() async {
+    _database = await database;
+    final res = await _database!.query(
+      'placesLocal',
+      orderBy: 'id',
+    );
+
+    final list = res.isNotEmpty
+        ? res.map(PlacesLocalData.fromSqlite).toList()
+        : <PlacesLocalData>[];
+
+    return list;
+  }
+
+  /// Добавить в историю поиска новый поисковый запрос
+  Future<int> addPlacesLocalData(
+    int id, {
+    bool isFavorites = false,
+    DateTime? wantVisitDate,
+    DateTime? visitedDate,
+  }) async {
+    if (id.isNaN) {
+      return 0;
+    }
+    _database = await database;
+    final newPlacesLocalData = PlacesLocalData(
+      id,
+      isFavorites: isFavorites,
+      wantVisitDate: wantVisitDate,
+      visitedDate: visitedDate,
+    );
+
+    final res =
+        await _database!.insert('placesLocal', newPlacesLocalData.toMap());
 
     return res;
   }

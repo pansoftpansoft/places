@@ -1,11 +1,13 @@
 import 'dart:convert';
 import 'package:dio/dio.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:places/data/connection_backend_server.dart';
 import 'package:places/data/model/place.dart';
 import 'package:places/data/model/place_dto.dart';
 import 'package:places/data/model/place_filter_request_dto.dart';
+import 'package:places/data/model/places_local_data.dart';
+import 'package:places/domain/db_provider.dart';
+
 import 'package:places/ui/res/url_path.dart';
 
 int iii = 0;
@@ -35,10 +37,56 @@ class PlaceRepository {
   }
 
   /// ---------------------------------------------------------------
-  /// Получаем список отфильтрованных мест мест
+  /// Получаем список отфильтрованных мест с сервера
   /// ---------------------------------------------------------------
-  //static Future<List<Place>> getPlaces(
   static Future<List<Place>> getPlaces(
+    RangeValues? radiusRange,
+    List<String>? category,
+  ) async {
+    final places = <Place>[];
+
+    final placesDto = await getPlacesDto(radiusRange, category);
+
+    final placesLocalData = await DBProvider.dbProvider.getPlacesLocal();
+
+    var isFavorites = false;
+
+    DateTime? wantVisitDate;
+    DateTime? visitedDate;
+
+    PlacesLocalData? placesLocalDataElement;
+
+    for (final placeDto in placesDto) {
+      if (placesLocalData.isNotEmpty) {
+        placesLocalDataElement =
+            placesLocalData.firstWhere((element) => element.id == placeDto.id);
+        isFavorites = placesLocalDataElement.isFavorites;
+        wantVisitDate = placesLocalDataElement.wantVisitDate;
+        visitedDate = placesLocalDataElement.visitedDate;
+      }
+
+      final place = Place(
+        id: placeDto.id,
+        lat: placeDto.lat,
+        lon: placeDto.lon,
+        name: placeDto.name,
+        urls: placeDto.urls,
+        placeType: placeDto.placeType,
+        description: placeDto.description,
+        isFavorites: isFavorites,
+        wantVisitDate: wantVisitDate,
+        visitedDate: visitedDate,
+      );
+      places.add(place);
+    }
+
+    return places;
+  }
+
+  /// ---------------------------------------------------------------
+  /// Получаем список отфильтрованных мест с сервера
+  /// ---------------------------------------------------------------
+  static Future<List<PlaceDto>> getPlacesDto(
     RangeValues? radiusRange,
     List<String>? category,
   ) async {
@@ -53,13 +101,15 @@ class PlaceRepository {
       filterJson,
     );
 
-    debugPrint('response = ${response.toString()}');
-    final places = (response as List)
+    final placesDto = (response.data as List)
         // ignore: avoid_annotating_with_dynamic
-        .map<Place>((dynamic e) => Place.fromJson(e as Map<String, dynamic>))
+        .map<PlaceDto>(
+          // ignore: avoid_annotating_with_dynamic
+          (dynamic e) => PlaceDto.fromJson(e as Map<String, dynamic>),
+        )
         .toList();
 
-    return places;
+    return placesDto;
   }
 
   /// ---------------------------------------------------------------

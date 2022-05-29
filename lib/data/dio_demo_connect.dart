@@ -21,7 +21,7 @@ class DioDemoConnect {
   }
 
   Future<Response<List<dynamic>?>> getPost() async {
-    initInterceptors();
+    //initInterceptors();
     final postResponse = await dio.get<List<dynamic>?>(pathUrlListPlaces);
     //debugPrint(postResponse.realUri.toString());
     //debugPrint(postResponse.statusCode.toString());
@@ -35,7 +35,7 @@ class DioDemoConnect {
   }
 
   Future<Response<List<dynamic>?>> getPostDto() async {
-    initInterceptors();
+    //initInterceptors();
     final dynamic filter = PlaceRepository.createFilter();
 
     debugPrint('filter = $filter');

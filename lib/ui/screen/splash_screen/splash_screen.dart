@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:places/data/dio_demo_connect.dart';
 import 'package:places/data/interactor/place_interactor.dart';
 import 'package:places/data/model/place.dart';
 import 'package:places/type_place.dart';
@@ -80,7 +79,7 @@ class SplashScreenState extends State<SplashScreen> {
     );
 
     await SearchFilterModel.getListHistory(); //Обновляем список при загрузке
-    /// Имитируем инициализацию, продолжительностью 2 секунды.
+    // Имитируем инициализацию, продолжительностью 2 секунды.
     // await Future.delayed(
     //   const Duration(seconds: 2),
     //   () {
@@ -101,7 +100,7 @@ class SplashScreenState extends State<SplashScreen> {
   /// Произошло завершение плучения дынных
   void finishGetNetData({required final bool isComplete}) {
     //Произыодим первую фильтрацию мест перед открытием экрана
-
+    debugPrint('value = 2');
     _isInitialized.complete(isComplete);
     debugPrint('finishGetNetData ${_isInitialized.isCompleted.toString()}');
     context.read<SearchFilterModel>()
@@ -110,13 +109,14 @@ class SplashScreenState extends State<SplashScreen> {
       ..getFilteredList();
   }
 
-  /// Логика перехода на следующий экран
+  // Логика перехода на следующий экран
   Future<bool> _navigateToNextAsync() async {
-    ///Запускаем получение данных из сети
+    //Запускаем получение данных из сети
 
     await getNetData().then(
       (value) => {
-        /// Завершение инициалзации
+        debugPrint('value = 1'),
+        // Завершение инициалзации
         finishGetNetData(isComplete: true),
         debugPrint('Переход на следующий экран ${RouteName.onboardingScreen}'),
         Navigator.pushReplacementNamed(

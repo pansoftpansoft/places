@@ -1,6 +1,7 @@
 // ignore_for_file: unnecessary_getters_setters
 
 import 'dart:async';
+
 //import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:places/domain/db_provider.dart';
@@ -119,8 +120,8 @@ class SearchFilterModel extends ChangeNotifier {
       //       item.lon,
       //     ) &&
       //     SearchFilterModel.filterMap[item.placeType]!) {
-        item.visibleFilter = true;
-        countPlaceFiltered++;
+      item.visibleFilter = true;
+      countPlaceFiltered++;
       // }
     }
     countPlace = countPlaceFiltered;
@@ -141,23 +142,13 @@ class SearchFilterModel extends ChangeNotifier {
   /// И проверить на совподение со строкой поиска
   bool getFilteredList() {
     countPlace = _countPlace;
-    mocksFiltered.clear();
+    //mocksFiltered.clear();
     mocksSearchText.clear();
     if (_searchString.isNotEmpty) {
       for (final item in mocks) {
         //фильтр установлен проверяем его и поиск по имени
         debugPrint(_searchString);
-        if (item.visibleFilter) {
-          if (item.name.toLowerCase().contains(_searchString.toLowerCase())) {
-            mocksFiltered.add(item);
-          }
-        }
-      }
-    } else {
-      // Если фильтр установлен показываем записи ограниченные фильтром
-      // без учета строки поиска, так как она пустая
-      for (final item in mocks) {
-        if (item.visibleFilter) {
+        if (item.name.toLowerCase().contains(_searchString.toLowerCase())) {
           mocksFiltered.add(item);
         }
       }
@@ -295,17 +286,17 @@ class SearchFilterModel extends ChangeNotifier {
   }
 
   ///Проверка вхождения точки в радиус
-  // bool _arePointsNear(final double checkPointLat, final double checkPointLon) {
-  //   const centerPointLat = 55.753605;
-  //   const centerPointLon = 37.619773;
-  //   const kyPoint = 40000000 / 360; //40000000 - длина окружности земли в метрах
-  //   final kxPoint = cos(pi * centerPointLat / 180.0) * kyPoint;
-  //   final dxPoint = (centerPointLon - checkPointLon).abs() * kxPoint;
-  //   final dyPoint = (centerPointLat - checkPointLat).abs() * kyPoint;
-  //
-  //   return sqrt(dxPoint * dxPoint + dyPoint * dyPoint) <=
-  //           SearchFilterModel.selectedRange.end &&
-  //       sqrt(dxPoint * dxPoint + dyPoint * dyPoint) >=
-  //           SearchFilterModel.selectedRange.start;
-  // }
+// bool _arePointsNear(final double checkPointLat, final double checkPointLon) {
+//   const centerPointLat = 55.753605;
+//   const centerPointLon = 37.619773;
+//   const kyPoint = 40000000 / 360; //40000000 - длина окружности земли в метрах
+//   final kxPoint = cos(pi * centerPointLat / 180.0) * kyPoint;
+//   final dxPoint = (centerPointLon - checkPointLon).abs() * kxPoint;
+//   final dyPoint = (centerPointLat - checkPointLat).abs() * kyPoint;
+//
+//   return sqrt(dxPoint * dxPoint + dyPoint * dyPoint) <=
+//           SearchFilterModel.selectedRange.end &&
+//       sqrt(dxPoint * dxPoint + dyPoint * dyPoint) >=
+//           SearchFilterModel.selectedRange.start;
+// }
 }

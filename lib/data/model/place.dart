@@ -25,7 +25,7 @@ class Place {
   final double? distance;
 
   /// Признак того что место добавлено в избранное
-  bool isFavorites = false;
+  bool isFavorites;
 
   /// Дата когда хочу посетить место
   DateTime? wantVisitDate;
@@ -45,6 +45,7 @@ class Place {
     this.urls = const <String>[],
     required this.placeType,
     this.description = '',
+    this.isFavorites = false,
     this.wantVisitDate,
     this.visitedDate,
     this.distance,
@@ -59,7 +60,8 @@ class Place {
         urls = (json['urls'] as List<dynamic>).whereType<String>().toList(),
         placeType = json['placeType'] as String,
         description = json['description'] as String,
-        distance = json['distance'] as double;
+        distance = json['distance'] != null ? json['distance'] as double? : null,
+        isFavorites = false;
 
   /// создание мапы для добавление в json
   Map<String, dynamic> toJson() => <String, dynamic>{
