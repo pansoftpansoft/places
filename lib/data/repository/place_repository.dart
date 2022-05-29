@@ -117,8 +117,8 @@ class PlaceRepository {
   /// ---------------------------------------------------------------
   static Future<Place> getPlaceId(int placeId) async {
     String mapString;
-    iii++;
-    debugPrint(iii.toString());
+
+    debugPrint('Получить место по иденитификатору placeId = ${placeId}');
     final response = await _server.get('$pathUrlListPlaces/$placeId');
 
     mapString = response.toString();

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:places/data/model/place.dart';
-import 'package:places/ui/res/route_name.dart';
 import 'package:places/ui/res/sizes.dart';
+import 'package:places/ui/screen/sight_details_screen/models/sight_details_model.dart';
+import 'package:places/ui/screen/sight_details_screen/sight_details_screen.dart';
 import 'package:places/ui/screen/sight_search_screen/models/search_filter_model.dart';
 import 'package:places/ui/screen/sight_search_screen/widgets/sight_card_search_text_span.dart';
+import 'package:provider/provider.dart';
 
 ///Карточка достопримечательностей из списка поиска
 class SightCardSearch extends StatelessWidget {
@@ -11,7 +13,7 @@ class SightCardSearch extends StatelessWidget {
   static const double heightImage = 95;
 
   ///
-  final Place sight;
+  final Place place;
 
   ///
   final String goNeed;
@@ -20,21 +22,17 @@ class SightCardSearch extends StatelessWidget {
   final String goal;
 
   ///
-  const SightCardSearch(this.sight, {
+  const SightCardSearch(
+    this.place, {
     final Key? key,
     this.goNeed = '',
     this.goal = '',
   }) : super(key: key);
 
   @override
-  Widget build(final BuildContext context) =>
-      InkWell(
+  Widget build(final BuildContext context) => InkWell(
         onTap: () {
-          Navigator.pushNamed(
-            context,
-            RouteName.sightDetailsScreen,
-            arguments: sight,
-          );
+          _onTap(context);
         },
         child: SizedBox(
           height: 78,
@@ -52,14 +50,26 @@ class SightCardSearch extends StatelessWidget {
                   ),
                 ),
                 child: Image.network(
-                  sight.urls.first,
+                  place.urls.first,
                   fit: BoxFit.fill,
                 ),
               ),
               const SizedBox(height: 0, width: 16),
-              SightCardSearchTextSpan(sight, SearchFilterModel.searchString),
+              SightCardSearchTextSpan(place, SearchFilterModel.searchString),
             ],
           ),
         ),
       );
+
+  Future<void> _onTap(BuildContext context) async {
+    await context.read<SightDetailsModel>().getPlace(place.id).then(
+          (value) => showModalBottomSheet<Widget>(
+            context: context,
+            builder: (final _) => const SightDetailsScreen(),
+            isScrollControlled: true,
+            isDismissible: true,
+            useRootNavigator: true,
+          ),
+        );
+  }
 }
