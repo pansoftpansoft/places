@@ -102,6 +102,15 @@ class PlaceInteractor {
     for (final element in mocks) {
       if (element.id == place.id) {
         element.isFavorites = true;
+
+        //TODO небходимо записать в локальную базу
+
+
+        //Todo проверит есть ли в фаворитах
+
+
+        //Todo проверит есть ли в фаворитах
+
         mocksWantVisit.add(element);
       }
     }

@@ -49,7 +49,7 @@ class PlaceRepository {
 
     final placesLocalData = await DBProvider.dbProvider.getPlacesLocal();
 
-    var isFavorites = false;
+    bool? isFavorites = false;
 
     DateTime? wantVisitDate;
     DateTime? visitedDate;
@@ -73,7 +73,7 @@ class PlaceRepository {
         urls: placeDto.urls,
         placeType: placeDto.placeType,
         description: placeDto.description,
-        isFavorites: isFavorites,
+        isFavorites: isFavorites?? false,
         wantVisitDate: wantVisitDate,
         visitedDate: visitedDate,
       );

@@ -4,7 +4,7 @@ class PlacesLocalData {
   final int id;
 
   /// Признак того что место добавлено в избранное
-  bool isFavorites;
+  bool? isFavorites;
 
   /// Дата когда хочу посетить место
   DateTime? wantVisitDate;

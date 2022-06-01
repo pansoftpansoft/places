@@ -135,7 +135,7 @@ class DBProvider {
     return res;
   }
 
-  /// Получить локальный данные из бызы данных
+  /// Получить список локальных данных из бызы данных
   Future<List<PlacesLocalData>> getPlacesLocal() async {
     _database = await database;
     final res = await _database!.query(
@@ -149,9 +149,24 @@ class DBProvider {
 
     return list;
   }
+  /// Получить список локальных данных из бызы данных
+  Future<List<PlacesLocalData>> getPlacesLocalId() async {
+    _database = await database;
+    final res = await _database!.query(
+      'placesLocal',
+      orderBy: 'id',
+    );
+
+    final list = res.isNotEmpty
+        ? res.map(PlacesLocalData.fromSqlite).toList()
+        : <PlacesLocalData>[];
+
+    return list;
+  }
+
 
   /// Добавить в историю поиска новый поисковый запрос
-  Future<int> addPlacesLocalData(
+  Future<int>insertPlacesLocalData(
     int id, {
     bool isFavorites = false,
     DateTime? wantVisitDate,
@@ -170,6 +185,34 @@ class DBProvider {
 
     final res =
         await _database!.insert('placesLocal', newPlacesLocalData.toMap());
+
+    return res;
+  }
+
+  /// Добавить в историю поиска новый поисковый запрос
+  Future<int> updatePlacesLocalData(
+      int id, {
+        bool? isFavorites,
+        DateTime? wantVisitDate,
+        DateTime? visitedDate,
+      }) async {
+    if (id.isNaN) {
+      return 0;
+    }
+
+
+
+
+    _database = await database;
+    final newPlacesLocalData = PlacesLocalData(
+      id,
+      isFavorites: isFavorites,
+      wantVisitDate: wantVisitDate,
+      visitedDate: visitedDate,
+    );
+
+    final res =
+    await _database!.update('placesLocal', newPlacesLocalData.toMap());
 
     return res;
   }
