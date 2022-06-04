@@ -1,21 +1,21 @@
 /// Класс места
 class PlacesLocalData {
   /// Id достопримечательности
-  final int id;
+  int id;
 
   /// Признак того что место добавлено в избранное
-  bool? isFavorites;
+  int? isFavorites;
 
   /// Дата когда хочу посетить место
-  DateTime? wantVisitDate;
+  int? wantVisitDate;
 
   /// Дата когда посетил
-  DateTime? visitedDate;
+  int? visitedDate;
 
   /// Конструктор класса PalacesLocalData
   PlacesLocalData(
     this.id, {
-    this.isFavorites = false,
+    this.isFavorites = 0,
     this.wantVisitDate,
     this.visitedDate,
   });
@@ -25,10 +25,29 @@ class PlacesLocalData {
   ) =>
       PlacesLocalData(
         localData['id'] as int,
-        isFavorites: localData['isFavorites'] as bool,
-        wantVisitDate: localData['wantVisitDate'] as DateTime,
-        visitedDate: localData['visitedDate'] as DateTime,
+        isFavorites: localData['isFavorites'] as int,
+        wantVisitDate: localData['wantVisitDate'] == null
+            ? 0
+            : localData['wantVisitDate'] as int,
+        visitedDate: localData['visitedDate'] == null
+            ? 0
+            : localData['wantVisitDate'] as int,
       );
+
+  // ignore: avoid_bool_literals_in_conditional_expressions
+  bool isFavoritesToBool() => isFavorites == 0 ? false : true;
+
+  DateTime? wantVisitDateToDatetime() => wantVisitDate == null
+      ? null
+      : DateTime.fromMillisecondsSinceEpoch(
+          wantVisitDate!,
+        );
+
+  DateTime? visitedDateToDatetime() => visitedDate == null
+      ? null
+      : DateTime.fromMillisecondsSinceEpoch(
+          visitedDate!,
+        );
 
   Map<String, Object?> toMap() => {
         'id': id,

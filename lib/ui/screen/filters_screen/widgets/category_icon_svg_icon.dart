@@ -64,7 +64,7 @@ class _CategoryIconSvgIconState extends State<CategoryIconSvgIcon> {
     FiltersScreen.setFilter(context);
 
     setState(() {
-      debugPrint('Обновить даные 11');
+      debugPrint('Обновить даные при нажатии на кнопку КАТЕГОРИЯ');
     });
 
     context.read<SearchFilterModel>().notifyListenersSearchScreen();

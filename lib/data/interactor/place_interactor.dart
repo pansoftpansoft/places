@@ -1,7 +1,9 @@
 import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:places/data/model/place.dart';
 import 'package:places/data/repository/place_repository.dart';
+import 'package:places/domain/db_provider.dart';
 import 'package:places/type_place.dart';
 
 /// Слой бизнес логики
@@ -23,8 +25,7 @@ class PlaceInteractor {
     RangeValues? radius,
     List<String>? category,
   }) async {
-
-    mocksFiltered = await PlaceRepository.getPlaces(radius,category);
+    mocksFiltered = await PlaceRepository.getPlaces(radius, category);
 
     return mocksFiltered;
   }
@@ -98,35 +99,51 @@ class PlaceInteractor {
   }
 
   /// Добавит место в избранные
-  static void addToFavorites(Place place) {
-    for (final element in mocks) {
-      if (element.id == place.id) {
-        element.isFavorites = true;
+  static Future<void> addToFavorites(Place place) async {
+    // Пробуем обновить место
 
-        //TODO небходимо записать в локальную базу
+    final countUpdate = await DBProvider.dbProvider.updatePlacesLocalData(
+      place,
+    );
+  debugPrint('countUpdate = ${countUpdate}');
 
-
-        //Todo проверит есть ли в фаворитах
-
-
-        //Todo проверит есть ли в фаворитах
-
-        mocksWantVisit.add(element);
-      }
+    // Если место не обновилось то добавляем локальные данные о нем
+    if (countUpdate == 0) {
+      final countInsert = await DBProvider.dbProvider.insertPlacesLocalData(
+        place,
+      );
+      debugPrint('countInsert = ${countInsert}');
     }
 
-    for (final element in mocks) {
+    debugPrint('place.isFavorites = ${place.isFavorites}');
+    if (place.isFavorites) {
+      mocksWantVisit.add(place);
+    } else {
+      mocksWantVisit.removeWhere((item) => item.id == place.id);
+    }
+
+    for (final element in mocksWantVisit) {
       debugPrint(element.isFavorites.toString());
     }
   }
 
   /// Удалить место в избранные
-  static void removeFromFavorites(Place place) {
-    for (final element in mocks) {
-      if (element.id == place.id) {
-        element.isFavorites = false;
-      }
+  static void removeFromFavorites(Place place) async {
+    final countInsert = await DBProvider.dbProvider.updatePlacesLocalData(
+      place,
+    );
+    debugPrint('place.isFavorites = ${place.isFavorites}');
+    if (place.isFavorites) {
+      mocksWantVisit.add(place);
+    } else {
+      mocksWantVisit.remove(place);
     }
+    // for (final element in mocks) {
+    //   if (element.id == place.id) {
+    //     element.isFavorites = false;
+    //
+    //   }
+    // }
   }
 
   /// Получить список избранных мест, отсортированных по удаленности

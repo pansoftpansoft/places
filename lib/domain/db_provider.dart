@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
+
 import 'package:path_provider/path_provider.dart';
+import 'package:places/data/model/place.dart';
 import 'package:places/data/model/places_local_data.dart';
 import 'package:places/domain/history.dart';
 import 'package:sqflite/sqflite.dart';
@@ -67,7 +70,6 @@ class DBProvider {
             ');',
           ].join(),
         );
-
         await database.execute(
           <String>[
             'CREATE TABLE placesLocal (',
@@ -87,6 +89,10 @@ class DBProvider {
             'history_text TEXT PRIMARY KEY NOT NULL UNIQUE,',
             "date_add TEXT DEFAULT (datetime('now', 'localtime'))",
             ');',
+          ].join(),
+        );
+        await database.execute(
+          <String>[
             'CREATE TABLE placesLocal (',
             'id INTEGER  PRIMARY KEY NOT NULL UNIQUE,',
             'isFavorites BOOLEAN,',
@@ -114,7 +120,7 @@ class DBProvider {
     return list;
   }
 
-  /// Добавить в историю поиска новый поисковый запрос
+  /// Добавить, в список историй поиска, новый поисковый запрос
   Future<int> addHistory(final String historyText) async {
     if (historyText.isEmpty) {
       return 0;
@@ -149,6 +155,27 @@ class DBProvider {
 
     return list;
   }
+
+  /// Получить локальных данных из бызы данных, для одного места
+  Future<PlacesLocalData?> getPlacesLocalDataId(int placeId) async {
+    _database = await database;
+    final res = await _database!.query(
+      'placesLocal',
+      orderBy: 'id',
+      where: 'id = ?',
+      whereArgs: [placeId],
+    );
+
+    final placesLocalData = PlacesLocalData(placeId);
+    if (res.isNotEmpty) {
+      placesLocalData.isFavorites = res.first['isFavorites'] as int;
+      placesLocalData.wantVisitDate = res.first['wantVisitDate'] as int?;
+      placesLocalData.visitedDate = res.first['visitedDate'] as int?;
+    }
+
+    return placesLocalData;
+  }
+
   /// Получить список локальных данных из бызы данных
   Future<List<PlacesLocalData>> getPlacesLocalId() async {
     _database = await database;
@@ -164,23 +191,18 @@ class DBProvider {
     return list;
   }
 
-
-  /// Добавить в историю поиска новый поисковый запрос
-  Future<int>insertPlacesLocalData(
-    int id, {
-    bool isFavorites = false,
-    DateTime? wantVisitDate,
-    DateTime? visitedDate,
-  }) async {
-    if (id.isNaN) {
+  /// Добавить в базу, данные о месте
+  Future<int> insertPlacesLocalData(Place place) async {
+    if (place.id.isNaN) {
       return 0;
     }
     _database = await database;
     final newPlacesLocalData = PlacesLocalData(
-      id,
-      isFavorites: isFavorites,
-      wantVisitDate: wantVisitDate,
-      visitedDate: visitedDate,
+      place.id,
+      isFavorites: place.isFavorites ? 1 : 0,
+      wantVisitDate:
+          place.wantVisitDate == null ? 0 : place.wantVisitDate as int,
+      visitedDate: place.visitedDate == null ? 0 : place.visitedDate as int,
     );
 
     final res =
@@ -189,30 +211,25 @@ class DBProvider {
     return res;
   }
 
-  /// Добавить в историю поиска новый поисковый запрос
-  Future<int> updatePlacesLocalData(
-      int id, {
-        bool? isFavorites,
-        DateTime? wantVisitDate,
-        DateTime? visitedDate,
-      }) async {
-    if (id.isNaN) {
+  /// ДИзменить в базе, данные о месте
+  Future<int> updatePlacesLocalData(Place place) async {
+    if (place.id.isNaN) {
       return 0;
     }
-
-
-
-
     _database = await database;
     final newPlacesLocalData = PlacesLocalData(
-      id,
-      isFavorites: isFavorites,
-      wantVisitDate: wantVisitDate,
-      visitedDate: visitedDate,
+      place.id,
+      isFavorites: place.isFavorites ? 1 : 0,
+      wantVisitDate: place.wantVisitDate == null
+          ? 0
+          : int.tryParse(place.wantVisitDate.toString()),
+      visitedDate: place.visitedDate == null
+          ? 0
+          : int.tryParse(place.visitedDate.toString()),
     );
 
     final res =
-    await _database!.update('placesLocal', newPlacesLocalData.toMap());
+        await _database!.update('placesLocal', newPlacesLocalData.toMap());
 
     return res;
   }

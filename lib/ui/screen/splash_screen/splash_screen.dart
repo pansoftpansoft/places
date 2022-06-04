@@ -109,7 +109,7 @@ class SplashScreenState extends State<SplashScreen> {
       ..getFilteredList();
   }
 
-  // Логика перехода на следующий экран
+  /// Логика перехода на следующий экран
   Future<bool> _navigateToNextAsync() async {
     //Запускаем получение данных из сети
 

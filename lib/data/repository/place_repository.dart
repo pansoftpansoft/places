@@ -5,7 +5,6 @@ import 'package:places/data/connection_backend_server.dart';
 import 'package:places/data/model/place.dart';
 import 'package:places/data/model/place_dto.dart';
 import 'package:places/data/model/place_filter_request_dto.dart';
-import 'package:places/data/model/places_local_data.dart';
 import 'package:places/domain/db_provider.dart';
 
 import 'package:places/ui/res/url_path.dart';
@@ -54,15 +53,23 @@ class PlaceRepository {
     DateTime? wantVisitDate;
     DateTime? visitedDate;
 
-    PlacesLocalData? placesLocalDataElement;
-
     for (final placeDto in placesDto) {
       if (placesLocalData.isNotEmpty) {
-        placesLocalDataElement =
-            placesLocalData.firstWhere((element) => element.id == placeDto.id);
-        isFavorites = placesLocalDataElement.isFavorites;
-        wantVisitDate = placesLocalDataElement.wantVisitDate;
-        visitedDate = placesLocalDataElement.visitedDate;
+        for (final placesLocalDataElement in placesLocalData) {
+          if (placesLocalDataElement.id == placeDto.id) {
+            debugPrint('placesLocalDataElement = ${placesLocalDataElement.id}');
+            isFavorites =
+                // ignore: avoid_bool_literals_in_conditional_expressions
+                placesLocalDataElement.isFavorites == 0 ? false : true;
+            wantVisitDate = placesLocalDataElement.wantVisitDate == null
+                ? null
+                : placesLocalDataElement.wantVisitDateToDatetime();
+
+            visitedDate = placesLocalDataElement.visitedDate == null
+                ? null
+                : placesLocalDataElement.visitedDateToDatetime();
+          }
+        }
       }
 
       final place = Place(
@@ -73,7 +80,7 @@ class PlaceRepository {
         urls: placeDto.urls,
         placeType: placeDto.placeType,
         description: placeDto.description,
-        isFavorites: isFavorites?? false,
+        isFavorites: isFavorites ?? false,
         wantVisitDate: wantVisitDate,
         visitedDate: visitedDate,
       );
@@ -118,14 +125,26 @@ class PlaceRepository {
   static Future<Place> getPlaceId(int placeId) async {
     String mapString;
 
-    debugPrint('Получить место по иденитификатору placeId = ${placeId}');
+    //debugPrint('Получить место по иденитификатору placeId = ${placeId}');
     final response = await _server.get('$pathUrlListPlaces/$placeId');
 
     mapString = response.toString();
 
     final mapFull = json.decode(mapString) as Map<String, dynamic>;
 
-    return Place.fromJson(mapFull);
+    //Добавим значения из локальной базы данных
+    final place = Place.fromJson(mapFull);
+
+    final placeLocalData = await DBProvider.dbProvider.getPlacesLocalDataId(
+      place.id,
+    );
+
+    if (placeLocalData != null) {
+      place.isFavorites = placeLocalData.isFavoritesToBool();
+      place.wantVisitDate = placeLocalData.wantVisitDateToDatetime();
+      place.visitedDate = placeLocalData.visitedDateToDatetime();
+    }
+    return place;
   }
 
   /// ---------------------------------------------------------------
