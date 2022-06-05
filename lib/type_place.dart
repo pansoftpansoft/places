@@ -45,11 +45,9 @@ enum ScreenEnum {
   cleanScreen,
 }
 
-///
-List<Place> mocksFiltered = <Place>[];
-List<Place> mocksSearchText = <Place>[];
 
-///Тестовые данные
+
+///Тестовые данные самая главная очередь
 List<Place> mocks = <Place>[];
 // Place(
 //   id:1,
@@ -131,13 +129,18 @@ List<Place> mocks = <Place>[];
 // ),
 //];
 
+// mocks.where((final element) => element.visitedDate != null).toList();
 
 
+
+/// Очередь для главного экрана
+List<Place> mocksFiltered = [];
+/// Списик для экрана Поиска по тексту
+List<Place> mocksSearchText = [];
+/// Список для экрана Хочу посетить
 List<Place> mocksWantVisit = [];
-
-///
+/// Список для экрана Посетил
 List<Place> mocksVisited = [];
-   // mocks.where((final element) => element.visitedDate != null).toList();
 
 ///
 List<String> tempPhotoPlace = <String>[
@@ -165,6 +168,5 @@ List<OnboardingPage> mocksOnboardingScreen = <OnboardingPage>[
     SvgIcons.tutorialFrame3,
   ),
 ];
-
 
 //List<Place> mocks = <Place>[];

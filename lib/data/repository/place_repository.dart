@@ -52,15 +52,13 @@ class PlaceRepository {
 
     DateTime? wantVisitDate;
     DateTime? visitedDate;
-
     for (final placeDto in placesDto) {
       if (placesLocalData.isNotEmpty) {
         for (final placesLocalDataElement in placesLocalData) {
           if (placesLocalDataElement.id == placeDto.id) {
-            debugPrint('placesLocalDataElement = ${placesLocalDataElement.id}');
             isFavorites =
                 // ignore: avoid_bool_literals_in_conditional_expressions
-                placesLocalDataElement.isFavorites == 0 ? false : true;
+                placesLocalDataElement.isFavorites == 1 ? true : false;
             wantVisitDate = placesLocalDataElement.wantVisitDate == null
                 ? null
                 : placesLocalDataElement.wantVisitDateToDatetime();
@@ -68,6 +66,10 @@ class PlaceRepository {
             visitedDate = placesLocalDataElement.visitedDate == null
                 ? null
                 : placesLocalDataElement.visitedDateToDatetime();
+          } else {
+            isFavorites = false;
+            wantVisitDate = null;
+            visitedDate = null;
           }
         }
       }
@@ -130,6 +132,8 @@ class PlaceRepository {
 
     mapString = response.toString();
 
+    debugPrint('mapString = ${mapString}');
+
     final mapFull = json.decode(mapString) as Map<String, dynamic>;
 
     //Добавим значения из локальной базы данных
@@ -140,6 +144,7 @@ class PlaceRepository {
     );
 
     if (placeLocalData != null) {
+      //place.id =  placeLocalData.id;
       place.isFavorites = placeLocalData.isFavoritesToBool();
       place.wantVisitDate = placeLocalData.wantVisitDateToDatetime();
       place.visitedDate = placeLocalData.visitedDateToDatetime();

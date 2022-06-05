@@ -98,52 +98,52 @@ class PlaceInteractor {
     return PlaceRepository.getPlaceId(placeId);
   }
 
-  /// Добавит место в избранные
-  static Future<void> addToFavorites(Place place) async {
+  /// Установка месту избранное или нет
+  static Future<void> setFavorites(Place place) async {
     // Пробуем обновить место
-
+    debugPrint('place id = ${place.id} isFavorites = ${place.isFavorites}');
     final countUpdate = await DBProvider.dbProvider.updatePlacesLocalData(
       place,
     );
-  debugPrint('countUpdate = ${countUpdate}');
 
     // Если место не обновилось то добавляем локальные данные о нем
     if (countUpdate == 0) {
       final countInsert = await DBProvider.dbProvider.insertPlacesLocalData(
         place,
       );
-      debugPrint('countInsert = ${countInsert}');
     }
 
-    debugPrint('place.isFavorites = ${place.isFavorites}');
     if (place.isFavorites) {
       mocksWantVisit.add(place);
     } else {
       mocksWantVisit.removeWhere((item) => item.id == place.id);
     }
 
+    updateList(place);
+
     for (final element in mocksWantVisit) {
       debugPrint(element.isFavorites.toString());
     }
   }
 
+  /// Обновить базовые списки экранов после редактирования карточки
+  static void updateList(Place place) {
+    mocks.where((element) => element.id == place.id).map((e) => place);
+    mocksFiltered.where((element) => element.id == place.id).map((e) => place);
+  }
+
+  /// Создать список для экрана Хочу посетить
+  static void getListMocksWantVisit() {
+    mocksWantVisit = mocks
+        .where(
+          (element) => element.isFavorites,
+        )
+        .toList();
+  }
+
   /// Удалить место в избранные
-  static void removeFromFavorites(Place place) async {
-    final countInsert = await DBProvider.dbProvider.updatePlacesLocalData(
-      place,
-    );
-    debugPrint('place.isFavorites = ${place.isFavorites}');
-    if (place.isFavorites) {
-      mocksWantVisit.add(place);
-    } else {
-      mocksWantVisit.remove(place);
-    }
-    // for (final element in mocks) {
-    //   if (element.id == place.id) {
-    //     element.isFavorites = false;
-    //
-    //   }
-    // }
+  static Future<void> removeFromFavorites(Place place) async {
+    await setFavorites(place);
   }
 
   /// Получить список избранных мест, отсортированных по удаленности

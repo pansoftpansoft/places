@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:places/data/interactor/place_interactor.dart';
 import 'package:places/data/model/place.dart';
-import 'package:places/type_place.dart';
 import 'package:places/ui/res/labels.dart';
 import 'package:places/ui/res/svg_icons.dart';
 import 'package:places/ui/screen/sight_details_screen/models/sight_details_model.dart';
-import 'package:places/ui/screen/visiting_screen/models/visiting_model.dart';
 import 'package:places/ui/screen/widgets/text_button_small.dart';
 import 'package:provider/provider.dart';
 
@@ -45,16 +43,14 @@ class AddToFavoritesButton extends StatelessWidget {
 
     if (place.isFavorites) {
       place.isFavorites = false;
-      PlaceInteractor.addToFavorites(place);
+      PlaceInteractor.setFavorites(place);
       debugPrint('Это кнопка "В избранное" remove');
-      mocks.map((e) => e.id == place.id?place:e);
-      mocksFiltered.map((e) => e.id == place.id?place:e);
+
     } else {
       place.isFavorites = true;
-      PlaceInteractor.addToFavorites(place);
+      PlaceInteractor.setFavorites(place);
       debugPrint('Это кнопка "В избранное" add');
-      mocks.map((e) => e.id == place.id?place:e);
-      mocksFiltered.map((e) => e.id == place.id?place:e);
+
     }
     context.read<SightDetailsModel>().updateScreen();
   }

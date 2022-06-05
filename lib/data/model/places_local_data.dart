@@ -35,7 +35,7 @@ class PlacesLocalData {
       );
 
   // ignore: avoid_bool_literals_in_conditional_expressions
-  bool isFavoritesToBool() => isFavorites == 0 ? false : true;
+  bool isFavoritesToBool() => isFavorites == 1 ? true : false;
 
   DateTime? wantVisitDateToDatetime() => wantVisitDate == null
       ? null

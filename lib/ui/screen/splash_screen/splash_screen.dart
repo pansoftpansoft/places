@@ -70,22 +70,24 @@ class SplashScreenState extends State<SplashScreen> {
   Future<void> getNetData() async {
     debugPrint('Запустилась GetNetData().');
 
-    //PlaceRepository.getPlace().then((value) => PlaceInteractor.getPlaces());
     mocks = await PlaceInteractor.getPlaces() as List<Place>;
+    PlaceInteractor.getListMocksWantVisit();
+
+    for (final item in mocks){
+      debugPrint('mocks isFavorites = ${item.isFavorites}');
+    }
 
     debugPrint(
       'PlaceInteractor количество записей'
       ' ${mocks.length.toString()}',
     );
 
-    await SearchFilterModel.getListHistory(); //Обновляем список при загрузке
-    // Имитируем инициализацию, продолжительностью 2 секунды.
-    // await Future.delayed(
-    //   const Duration(seconds: 2),
-    //   () {
-    //     debugPrint('Ждем две секунды!');
-    //   },
-    // );
+    debugPrint(
+      'PlaceInteractor количество записей mocksWantVisit'
+          ' ${mocksWantVisit.length.toString()}',
+    );
+
+    await SearchFilterModel.getListHistory();
     debugPrint('Завершилась GetNetData().');
   }
 
