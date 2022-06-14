@@ -1,18 +1,20 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:places/data/interactor/place_interactor.dart';
+import 'package:places/data/model/place.dart';
 import 'package:places/type_place.dart';
 
 ///Модель для Visiting
 class VisitingModel extends ChangeNotifier {
   ///Удаление из мест которые хотел посетить
-  void deletePlaceWantVisit(final String name) {
-    mocksWantVisit.removeWhere(( final element) => element.name == name);
+  Future<void> deletePlaceWantVisit(Place place) async {
+    await PlaceInteractor.setFavorites(place);
     notifyListeners();
   }
 
   ///Удаление из мест которые уже посетил
-  void deletePlaceVisited(final String name) {
-    mocksVisited.removeWhere((final element) => element.name == name);
+  Future<void> deletePlaceVisited(Place place) async {
+    await PlaceInteractor.updateStatusThePlaceVisited(place);
     notifyListeners();
   }
 
@@ -30,11 +32,8 @@ class VisitingModel extends ChangeNotifier {
     notifyListeners();
   }
 
-
-
   ///Установка места признака что оно посещено
   void updateScreen() {
     notifyListeners();
   }
-
 }

@@ -23,7 +23,7 @@ class ListViewTab2 extends StatelessWidget {
           //key: ValueKey(mocksVisited[index].name),
           actionOnDelete: () {
             context.read<VisitingModel>().deletePlaceVisited(
-                  mocksVisited[index].name,
+                  mocksVisited[index],
                 );
           },
         ),

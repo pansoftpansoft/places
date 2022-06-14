@@ -31,7 +31,7 @@ class PlacesLocalData {
             : localData['wantVisitDate'] as int,
         visitedDate: localData['visitedDate'] == null
             ? 0
-            : localData['wantVisitDate'] as int,
+            : localData['visitedDate'] as int,
       );
 
   // ignore: avoid_bool_literals_in_conditional_expressions

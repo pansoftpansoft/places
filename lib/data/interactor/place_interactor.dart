@@ -25,26 +25,12 @@ class PlaceInteractor {
     RangeValues? radius,
     List<String>? category,
   }) async {
-    mocksFiltered = await PlaceRepository.getPlaces(radius, category);
+    await PlaceRepository.getPlaces();
+
+    ///TODO
+    mocksFiltered = mocks; //await PlaceRepository.getPlaces(radius, category);
 
     return mocksFiltered;
-  }
-
-  /// Отметить место как посещенное
-  static void addToVisitingPlaces(Place place) {
-    //PlaceRepository.postPlace(place);
-    for (final element in mocks) {
-      if (element.id == place.id) {
-        element.visitedDate = DateTime.now();
-
-        /// Надо добавить в посещенные
-        mocksVisited.add(place);
-
-        /// Удалить из хочу посетить
-        mocksWantVisit
-            .removeWhere((final element) => element.name == place.name);
-      }
-    }
   }
 
   /// Фильтрация списка по  радиусу
@@ -101,49 +87,110 @@ class PlaceInteractor {
   /// Установка месту избранное или нет
   static Future<void> setFavorites(Place place) async {
     // Пробуем обновить место
-    debugPrint('place id = ${place.id} isFavorites = ${place.isFavorites}');
-    final countUpdate = await DBProvider.dbProvider.updatePlacesLocalData(
-      place,
+
+    if (place.isFavorites) {
+      place.isFavorites = false;
+      debugPrint('Это кнопка "В избранное" remove');
+    } else {
+      place.isFavorites = true;
+      debugPrint('Это кнопка "В избранное" add');
+    }
+
+    // проверяем есть токое место в лакальной базе, если нет добавляем.
+    final addInLocalDB = await DBProvider.dbProvider.checkPlacesInLocalDataId(
+      place.id,
     );
 
-    // Если место не обновилось то добавляем локальные данные о нем
-    if (countUpdate == 0) {
+    debugPrint('addInLocalDB = $addInLocalDB');
+
+    if (addInLocalDB) {
+      final countUpdate = await DBProvider.dbProvider.updatePlacesLocalData(
+        place,
+      );
+      debugPrint('countUpdate = $countUpdate');
+    } else {
       final countInsert = await DBProvider.dbProvider.insertPlacesLocalData(
         place,
       );
+      debugPrint('countInsert = $countInsert');
     }
 
-    if (place.isFavorites) {
-      mocksWantVisit.add(place);
-    } else {
-      mocksWantVisit.removeWhere((item) => item.id == place.id);
-    }
+    debugPrint('place id = ${place.id} isFavorites = ${place.isFavorites}');
 
-    updateList(place);
-
-    for (final element in mocksWantVisit) {
-      debugPrint(element.isFavorites.toString());
-    }
+    await updateAllList(place);
   }
 
-  /// Обновить базовые списки экранов после редактирования карточки
-  static void updateList(Place place) {
-    mocks.where((element) => element.id == place.id).map((e) => place);
-    mocksFiltered.where((element) => element.id == place.id).map((e) => place);
+  ///-----------------------------------------------
+  /// Отметить место как посещенное
+  static Future<void> addToVisitingPlaces(Place place) async {
+    await PlaceRepository.postPlace(place);
+    for (final element in mocks) {
+      if (element.id == place.id) {
+        element.visitedDate = DateTime.now();
+      }
+    }
+    await updateAllList(place);
+  }
+
+  ///-----------------------------------------------
+  /// Добавить место в посещенные
+  static Future<void> updateStatusThePlaceVisited(Place place) async {
+    place.visitedDate = place.visitedDate == null ? DateTime.now() : null;
+
+    // проверяем есть токое место в лакальной базе, если нет добавляем.
+    final addInLocalDB = await DBProvider.dbProvider.checkPlacesInLocalDataId(
+      place.id,
+    );
+
+    debugPrint('addInLocalDB = $addInLocalDB');
+
+    if (addInLocalDB) {
+      final countUpdate = await DBProvider.dbProvider.updatePlacesLocalData(
+        place,
+      );
+      debugPrint('countUpdate = $countUpdate');
+    } else {
+      final countInsert = await DBProvider.dbProvider.insertPlacesLocalData(
+        place,
+      );
+      debugPrint('countInsert = $countInsert');
+    }
+    // проверяем есть токое место в лакальной базе, если нет добавляем.
+    final addInLocalDB1 = await DBProvider.dbProvider.checkPlacesInLocalDataId(
+      place.id,
+    );
+    debugPrint('place id = ${place.id} isFavorites = ${place.visitedDate}');
+
+    await updateAllList(place);
+  }
+
+  static Future<void> updateAllList(Place place) async {
+    await createListMocksFromLocalDB();
+    updateListMocksFilteredFromLocalDB(place);
+    createListVisitedFromLocalDB();
+    createListWantVisitFromLocalDB();
+  }
+
+  static void createListVisitedFromLocalDB() {
+    mocksVisited =
+        mocks.where((element) => element.visitedDate != null).toList();
+  }
+
+  static Future<void> createListMocksFromLocalDB() async {
+    await PlaceRepository.createMocks();
   }
 
   /// Создать список для экрана Хочу посетить
-  static void getListMocksWantVisit() {
+  static void createListWantVisitFromLocalDB() {
     mocksWantVisit = mocks
-        .where(
-          (element) => element.isFavorites,
-        )
+        .where((element) => element.visitedDate == null && element.isFavorites)
         .toList();
+    debugPrint('mocksWantVisit = ${mocksWantVisit.length}');
+
   }
 
-  /// Удалить место в избранные
-  static Future<void> removeFromFavorites(Place place) async {
-    await setFavorites(place);
+  static void updateListMocksFilteredFromLocalDB(Place place) {
+    mocksFiltered.where((element) => element.id == place.id).map((e) => place);
   }
 
   /// Получить список избранных мест, отсортированных по удаленности
@@ -158,15 +205,6 @@ class PlaceInteractor {
         // ignore: avoid_bool_literals_in_conditional_expressions
         .where((element) => element.visitedDate == null ? false : true)
         .toList();
-  }
-
-  /// Добавить место в посещенные
-  void addNewPlace(Place place) {
-    for (final element in mocks) {
-      if (element.id == place.id) {
-        element.visitedDate = DateTime.now();
-      }
-    }
   }
 
   /// Вхождение места в площаь между двумя радиусами

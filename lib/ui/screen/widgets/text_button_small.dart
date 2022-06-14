@@ -26,9 +26,9 @@ class TextButtonSmall extends StatelessWidget {
 
   @override
   Widget build(final BuildContext context) {
-    debugPrint('Это кнопка "$title"; Виджет $TextButtonSmall $VoidCallback');
+    //debugPrint('Это кнопка "$title"; Виджет $TextButtonSmall $VoidCallback');
 
-    debugPrint('AppModel().themeColor ${AppModel().themeColor}');
+    //debugPrint('AppModel().themeColor ${AppModel().themeColor}');
 
     final colorTextButtonDisable = AppModel().themeColor == darkTheme
         ? ColorPalette.dmTextButtonTextDisable

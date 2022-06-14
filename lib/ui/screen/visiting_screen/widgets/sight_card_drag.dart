@@ -4,7 +4,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:places/data/interactor/place_interactor.dart';
+import 'package:places/data/model/place.dart';
 import 'package:places/type_place.dart';
+import 'package:places/ui/screen/sight_details_screen/models/sight_details_model.dart';
 import 'package:places/ui/screen/visiting_screen/models/visiting_model.dart';
 import 'package:places/ui/screen/widgets/sight_card/sight_card.dart';
 import 'package:provider/provider.dart';
@@ -37,7 +39,7 @@ class _SightCardDragState extends State<SightCardDrag> {
         iconDelete: true,
         //key: ValueKey(mocksWantVisit[index].name),
         actionOnDelete: () {
-          _actionOnDelete(context);
+          _actionOnDelete(context,widget.index);
         },
 
         /// Установка даты, когда хочу посетить
@@ -80,8 +82,21 @@ class _SightCardDragState extends State<SightCardDrag> {
         },
       );
 
-  void _actionOnDelete(BuildContext context) {
-    PlaceInteractor.removeFromFavorites(mocksWantVisit[widget.index]);
+
+
+  Future<void> updateContext(Place place, BuildContext context) async {
+    await PlaceInteractor.setFavorites(place);
+    debugPrint('Обновление контекстов при нажатии кнопки Добавить в фавориты');
+    // ignore: use_build_context_synchronously
+    context.read<SightDetailsModel>().updateScreen();
+    // ignore: use_build_context_synchronously
+    context.read<VisitingModel>().updateScreen();
+  }
+
+  void _actionOnDelete(BuildContext context, int index) {
+
+    // ignore: use_build_context_synchronously
+    updateContext(mocksWantVisit[index], context);
   }
 
   void _actionOnSelectData(BuildContext context, DateTime dateTimeCupertino) {

@@ -41,7 +41,7 @@ class ScrollIndicator extends StatelessWidget {
       Radius.circular(borderRadiusCard16),
     );
 
-    debugPrint('_index $index элементов $countElements');
+    //debugPrint('_index $index элементов $countElements');
     //Для первой позиции
     if (index == 0) {
       borderRadius = const BorderRadius.only(

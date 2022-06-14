@@ -25,15 +25,12 @@ class BuildRouteButton extends StatelessWidget {
         iconNamePrefix: Icons.gesture_outlined,
       );
 
-  void _onPress(BuildContext context) {
-    debugPrint('Это кнопка "Построить маршрут"');
+  void _onPress(BuildContext context) async {
     // так же эта кнопка переводит маршрут в посещенные
-
+    debugPrint('Это кнопка "Построить маршрут"');
+    await PlaceInteractor.updateStatusThePlaceVisited(_place);
+    // ignore: use_build_context_synchronously
     context.read<VisitingModel>().updateScreen();
-
-    PlaceInteractor.addToVisitingPlaces(_place);
-
-
     //Navigator.pushNamed(context, RouteName.mapScreen);
   }
 }

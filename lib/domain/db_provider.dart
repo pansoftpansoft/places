@@ -75,8 +75,8 @@ class DBProvider {
             'CREATE TABLE placesLocal (',
             'id INTEGER  PRIMARY KEY NOT NULL UNIQUE,',
             'isFavorites BOOLEAN,',
-            'wantVisitDate DATETIME,',
-            'visitedDate DATETIME',
+            'wantVisitDate INTEGER,',
+            'visitedDate INTEGER',
             ');',
           ].join(),
         );
@@ -96,8 +96,8 @@ class DBProvider {
             'CREATE TABLE placesLocal (',
             'id INTEGER  PRIMARY KEY NOT NULL UNIQUE,',
             'isFavorites BOOLEAN,',
-            'wantVisitDate DATETIME,',
-            'visitedDate DATETIME',
+            'wantVisitDate INTEGER,',
+            'visitedDate INTEGER',
             ');',
           ].join(),
         );
@@ -133,8 +133,9 @@ class DBProvider {
     return res;
   }
 
-  ///
-  Future<int> clearHistory() async {
+  ///-------------------------------------------------------
+  /// Удалить список слов истории поиска
+  Future<int> deleteTheListOfSearchHistoryWords() async {
     _database = await database;
     final res = await _database!.delete('history');
 
@@ -176,6 +177,18 @@ class DBProvider {
     return placesLocalData;
   }
 
+  Future<bool> checkPlacesInLocalDataId(int placeId) async {
+    _database = await database;
+    final res = await _database!.query(
+      'placesLocal',
+      orderBy: 'id',
+      where: 'id = ?',
+      whereArgs: [placeId],
+    );
+    debugPrint('res = ${res.toString()}');
+    return res.length > 0 ? true : false;
+  }
+
   /// Получить список локальных данных из бызы данных
   Future<List<PlacesLocalData>> getPlacesLocalId() async {
     _database = await database;
@@ -211,25 +224,34 @@ class DBProvider {
     return res;
   }
 
-  /// ДИзменить в базе, данные о месте
+  /// Дизменить в базе, данные о месте
   Future<int> updatePlacesLocalData(Place place) async {
     if (place.id.isNaN) {
       return 0;
     }
+
+    debugPrint('place.visitedDate.toString() = ${place.visitedDate}');
     _database = await database;
     final newPlacesLocalData = PlacesLocalData(
       place.id,
       isFavorites: place.isFavorites ? 1 : 0,
       wantVisitDate: place.wantVisitDate == null
-          ? 0
+          ? null
           : int.tryParse(place.wantVisitDate.toString()),
       visitedDate: place.visitedDate == null
-          ? 0
-          : int.tryParse(place.visitedDate.toString()),
+          ? null
+          : int.tryParse(place.visitedDate!.millisecondsSinceEpoch.toString()),
     );
 
-    final res =
-        await _database!.update('placesLocal', newPlacesLocalData.toMap());
+    debugPrint(
+        'newPlacesLocalData.visitedDate = ${newPlacesLocalData.visitedDate}');
+
+    final res = await _database!.update(
+      'placesLocal',
+      newPlacesLocalData.toMap(),
+      where: 'id = ?',
+      whereArgs: <int>[place.id],
+    );
 
     return res;
   }

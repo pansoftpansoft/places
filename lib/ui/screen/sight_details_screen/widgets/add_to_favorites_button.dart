@@ -4,11 +4,13 @@ import 'package:places/data/model/place.dart';
 import 'package:places/ui/res/labels.dart';
 import 'package:places/ui/res/svg_icons.dart';
 import 'package:places/ui/screen/sight_details_screen/models/sight_details_model.dart';
+import 'package:places/ui/screen/visiting_screen/models/visiting_model.dart';
 import 'package:places/ui/screen/widgets/text_button_small.dart';
 import 'package:provider/provider.dart';
 
 /// Кнопка 'В избранное'
 class AddToFavoritesButton extends StatelessWidget {
+
   final Place _place;
 
   /// Конструктор кнопки 'В избранное'
@@ -38,20 +40,28 @@ class AddToFavoritesButton extends StatelessWidget {
         ),
       );
 
-  void _onPressed(Place place, BuildContext context) {
-    debugPrint('place.isFavorites ${place.isFavorites.toString()}');
-
-    if (place.isFavorites) {
-      place.isFavorites = false;
-      PlaceInteractor.setFavorites(place);
-      debugPrint('Это кнопка "В избранное" remove');
-
-    } else {
-      place.isFavorites = true;
-      PlaceInteractor.setFavorites(place);
-      debugPrint('Это кнопка "В избранное" add');
-
-    }
+  Future<void> updateContext(Place place, BuildContext context) async {
+    await PlaceInteractor.setFavorites(place);
+    debugPrint('Обновление контекстов при нажатии кнопки Добавить в фавориты');
+    // ignore: use_build_context_synchronously
     context.read<SightDetailsModel>().updateScreen();
+    // ignore: use_build_context_synchronously
+    context.read<VisitingModel>().updateScreen();
+  }
+
+  void _onPressed(Place place, BuildContext context) {
+    debugPrint(
+      'place.isFavorites ${place.isFavorites.toString()} '
+      '${place.id}  ${place.visitedDate},',
+    );
+
+    updateContext( place,  context);
+
+    // for (final item in mocks){
+    //   debugPrint('place id = ${item.id}  '
+    //       'isFavorites  = ${item.isFavorites}  '
+    //       'wantVisitDate  = ${item.wantVisitDate}  '
+    //       'visitedDate  = ${item.visitedDate}');
+    // }
   }
 }

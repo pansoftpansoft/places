@@ -248,7 +248,7 @@ class SearchFilterModel extends ChangeNotifier {
 
   ///Очищаем список историй поиска
   Future<void> clearHistory() async {
-    await DBProvider.dbProvider.clearHistory();
+    await DBProvider.dbProvider.deleteTheListOfSearchHistoryWords();
     await getListHistory(); //Обновляем список после удаления всех имторий
   }
 
