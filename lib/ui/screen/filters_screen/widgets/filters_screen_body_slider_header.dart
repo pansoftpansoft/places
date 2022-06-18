@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:places/ui/res/labels.dart';
 import 'package:places/ui/res/sizes.dart';
+import 'package:places/ui/screen/filters_screen/model/filters_screen_model.dart';
 import 'package:places/ui/screen/sight_search_screen/models/search_filter_model.dart';
 import 'package:provider/provider.dart';
 
@@ -25,9 +26,9 @@ class FiltersScreenBodySliderHeader extends StatelessWidget {
             const Text(distance),
             Text(
               '$from  '
-              '${SearchFilterModel.selectedRange.start.round().toString()}'
+              '${FiltersScreenModel.selectedRange.start.round().toString()}'
               ' $toto '
-              '${SearchFilterModel.selectedRange.end.round().toString()}'
+              '${FiltersScreenModel.selectedRange.end.round().toString()}'
               '$meters',
             ),
           ],

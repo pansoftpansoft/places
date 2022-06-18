@@ -21,8 +21,12 @@ class ConnectionBackendServer {
   }
 
   /// Сделать запрос POST на сервер
-  Future<Response> post(String url, dynamic json) async {
-    return await _dio.post<dynamic>(url, data: json);
+  Future<Response> post(String url, String json) async {
+
+    final response = await _dio.post<dynamic>(url, data: json);
+    debugPrint('response = ${response.data.toString()}');
+
+    return response;
   }
 
   /// Удалить место на сервере

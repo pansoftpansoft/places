@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:places/type_place.dart';
+import 'package:places/ui/screen/filters_screen/model/filters_screen_model.dart';
 import 'package:places/ui/screen/filters_screen/widgets/bottom_sheet_button_show.dart';
 import 'package:places/ui/screen/filters_screen/widgets/filters_screen_body.dart';
 import 'package:places/ui/screen/filters_screen/widgets/title_filter.dart';
-import 'package:places/ui/screen/sight_search_screen/models/search_filter_model.dart';
 import 'package:provider/provider.dart';
 
 ///Экран фильтров
@@ -14,10 +13,10 @@ class FiltersScreen extends StatelessWidget {
   @override
   Widget build(final BuildContext context) {
 
-    //Сохраняем настройки фильтра на случай выхода бех применения фильтра
-    context.read<SearchFilterModel>().getFilterSettings();
+    //Сохраняем настройки фильтра на случай выхода без применения фильтра
+    context.read<FiltersScreenModel>().getFilterSettings();
 
-    context.read<SearchFilterModel>().setFilteredPlaces();
+    context.read<FiltersScreenModel>().setFilteredPlaces();
 
     return Scaffold(
       appBar: AppBar(
@@ -29,18 +28,18 @@ class FiltersScreen extends StatelessWidget {
     );
   }
 
-  ///Установка выделения нажатой кнопки фильтра
-  static void setButtonSelect(
-    final BuildContext context,
-    final TypePlace nameKey,
-  ) {
+  // ///Установка выделения нажатой кнопки фильтра
+  // static void setButtonSelect(
+  //   final BuildContext context,
+  //   final String nameKey,
+  // ) {
+  //
+  //   context.read<SearchFilterModel>().setTypePlaceSelected(nameKey);
+  //   setFilter(context);
+  // }
 
-    context.read<SearchFilterModel>().setTypePlaceSelected(nameKey);
-    setFilter(context);
-  }
-
-  ///Установка фильтра
-  static void setFilter(final BuildContext context) {
-    context.read<SearchFilterModel>().countFilteredPlacesSet();
-  }
+  // ///Установка фильтра
+  // static void setFilter(final BuildContext context) {
+  //   context.read<SearchFilterModel>().countFilteredPlacesSet();
+  // }
 }

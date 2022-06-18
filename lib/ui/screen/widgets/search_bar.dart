@@ -5,6 +5,7 @@ import 'package:places/ui/res/color_palette.dart';
 import 'package:places/ui/res/labels.dart';
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/res/svg_icons.dart';
+import 'package:places/ui/screen/filters_screen/model/filters_screen_model.dart';
 import 'package:places/ui/screen/sight_search_screen/models/search_filter_model.dart';
 import 'package:places/ui/screen/widgets/text_field_icon/text_field_icon.dart';
 import 'package:provider/provider.dart';
@@ -77,9 +78,8 @@ class SearchBar extends StatelessWidget {
             );
       }
     } else {
-      context.read<SearchFilterModel>()
-        ..setFilteredPlaces()
-        ..saveFilterSettings();
+      context.read<FiltersScreenModel>().setFilteredPlaces();
+      context.read<SearchFilterModel>().saveFilterSettings();
     }
   }
 
@@ -133,9 +133,9 @@ class SearchBar extends StatelessWidget {
         ..notifyListenersSearchScreen();
     } else {
       ///Чистим строку поиска
+      //context.read<FiltersScreenModel>().
       context.read<SearchFilterModel>()
         ..setSearchText('')
-        ..setFilteredPlaces()
         ..getFilteredList()
         ..managerSelectionScreen(numberScreen: ScreenEnum.listSearchWords)
         ..notifyListenersSearchScreen();

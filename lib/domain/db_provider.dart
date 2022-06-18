@@ -1,3 +1,5 @@
+// ignore_for_file: cascade_invocations
+
 import 'dart:io';
 
 import 'package:flutter/foundation.dart';
@@ -186,7 +188,8 @@ class DBProvider {
       whereArgs: [placeId],
     );
     debugPrint('res = ${res.toString()}');
-    return res.length > 0 ? true : false;
+
+    return res.isNotEmpty;
   }
 
   /// Получить список локальных данных из бызы данных
@@ -244,7 +247,8 @@ class DBProvider {
     );
 
     debugPrint(
-        'newPlacesLocalData.visitedDate = ${newPlacesLocalData.visitedDate}');
+      'newPlacesLocalData.visitedDate = ${newPlacesLocalData.visitedDate}',
+    );
 
     final res = await _database!.update(
       'placesLocal',

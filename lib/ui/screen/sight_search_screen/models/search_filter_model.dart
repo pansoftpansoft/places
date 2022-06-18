@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:places/domain/db_provider.dart';
 import 'package:places/domain/history.dart';
 import 'package:places/type_place.dart';
+import 'package:places/ui/screen/filters_screen/model/filters_screen_model.dart';
 
 ///Модель для поиска
 class SearchFilterModel extends ChangeNotifier {
@@ -20,11 +21,7 @@ class SearchFilterModel extends ChangeNotifier {
   static TextEditingController textEditingControllerFind =
       TextEditingController();
 
-  ///
-  static RangeValues _selectedRange = const RangeValues(100, 1000);
 
-  ///
-  static var _countPlace = 0;
 
   static String _searchString = '';
 
@@ -64,27 +61,11 @@ class SearchFilterModel extends ChangeNotifier {
   static String get searchString => _searchString;
 
   ///
-  static int get countPlace => _countPlace;
-
-  ///Количество интересных мест
-  static set countPlace(final int value) {
-    _countPlace = value;
-  }
-
-  ///
   static Map<TypePlace, bool> get filterMap => _filterMap;
 
   ///
   static set filterMap(final Map<TypePlace, bool> filterMapNew) {
     _filterMap = filterMapNew;
-  }
-
-  ///
-  static RangeValues get selectedRange => _selectedRange;
-
-  ///
-  static set selectedRange(final RangeValues value) {
-    _selectedRange = value;
   }
 
   ///
@@ -97,51 +78,9 @@ class SearchFilterModel extends ChangeNotifier {
     return listHistory.length;
   }
 
-  ///Взводим галочку на кнопке категорий
-  void setTypePlaceSelected(final TypePlace typePlace) {
-    if (_filterMap[typePlace]!) {
-      _filterMap[typePlace] = false;
-    } else {
-      _filterMap[typePlace] = true;
-    }
-  }
-
-  ///Подсчет отфильтрованных мест
-  ///Пометка мест что они попали в фильтр
-  void setFilteredPlaces() {
-    mocksSearchText.clear();
-    var countPlaceFiltered = 0; //Подсчет отфильтрованных мест,
-    // для отображения на кнопке
-    debugPrint('mocks ${mocks.length}');
-    for (final item in mocks) {
-      //item.visibleFilter = false;
-      // if (_arePointsNear(
-      //       item.lat,
-      //       item.lon,
-      //     ) &&
-      //     SearchFilterModel.filterMap[item.placeType]!) {
-      item.visibleFilter = true;
-      countPlaceFiltered++;
-      // }
-    }
-    countPlace = countPlaceFiltered;
-    _selectedRange = RangeValues(
-      SearchFilterModel.selectedRange.start,
-      SearchFilterModel.selectedRange.end,
-    );
-    debugPrint('countPlace $countPlace');
-  }
-
-  //Об
-  void countFilteredPlacesSet() {
-    setFilteredPlaces();
-    notifyListeners();
-  }
-
   /// Получить отфильтрованный список мест
   /// И проверить на совподение со строкой поиска
   bool getFilteredList() {
-    countPlace = _countPlace;
     //mocksFiltered.clear();
     mocksSearchText.clear();
     if (_searchString.isNotEmpty) {
@@ -159,7 +98,6 @@ class SearchFilterModel extends ChangeNotifier {
   }
 
   bool getSearchTextList() {
-    countPlace = _countPlace;
     mocksSearchText.clear();
     if (_searchString.isNotEmpty) {
       debugPrint('900 mocksSearch ${mocksFiltered.length.toString()}');
@@ -193,7 +131,7 @@ class SearchFilterModel extends ChangeNotifier {
           debugPrint('Не найдено ни одного места');
           managerSelectionScreen(numberScreen: ScreenEnum.emptyScreen);
         } else {
-          debugPrint('Найдено $countPlace места');
+          debugPrint('Найдено ${FiltersScreenModel.countPlace} места');
           managerSelectionScreen(
             numberScreen: ScreenEnum.listFoundPlacesScreen,
           );
@@ -229,13 +167,6 @@ class SearchFilterModel extends ChangeNotifier {
     setSearchText(searchString);
     //сохранить текст поиска
     DBProvider.dbProvider.addHistory(searchString);
-  }
-
-  ///Расставить сохраненные настройки фильтра
-  void getFilterSettings() {
-    for (final k in _filterMapOld.entries) {
-      _filterMap[k.key] = k.value;
-    }
   }
 
   ///Сохранить настройки фильтра

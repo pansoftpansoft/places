@@ -1,25 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:places/type_place.dart';
+import 'package:places/data/model/place_type.dart';
+import 'package:places/ui/screen/filters_screen/model/filters_screen_model.dart';
 import 'package:places/ui/screen/filters_screen/widgets/category_icon_svg_icon.dart';
-import 'package:places/ui/screen/sight_search_screen/models/search_filter_model.dart';
 import 'package:provider/provider.dart';
 
 ///Макет кнопки фильтра
 class CategoryIcon extends StatefulWidget {
-  ///
-  final String nameIcon;
+  final PlaceType placeType;
 
-  ///
-  final TypePlace nameKey;
-
-  ///
-  final String svgIcons;
-
-  ///
   const CategoryIcon(
-    final this.nameIcon,
-    final this.nameKey,
-    final this.svgIcons, {
+    this.placeType, {
     final Key? key,
   }) : super(key: key);
 
@@ -29,7 +19,7 @@ class CategoryIcon extends StatefulWidget {
 
 class _CategoryIconState extends State<CategoryIcon> {
   @override
-  Widget build(final BuildContext context) => Consumer<SearchFilterModel>(
+  Widget build(final BuildContext context) => Consumer<FiltersScreenModel>(
         builder: (
           final context,
           final cart,
@@ -39,17 +29,14 @@ class _CategoryIconState extends State<CategoryIcon> {
           children: <Widget>[
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
-              child: CategoryIconSvgIcon(
-                widget.nameIcon,
-                widget.nameKey,
-                widget.svgIcons,
+              child: CategoryIconSvgIcon(widget.placeType,
               ),
             ),
             const SizedBox(
               height: 12,
             ),
             Text(
-              widget.nameIcon,
+              widget.placeType.namePlaceTranslate,
               style: const TextStyle(
                 fontSize: 12,
               ),

@@ -1,19 +1,21 @@
+import 'dart:convert';
+
 /// Класс места
 class PlaceFilterRequestDto {
   /// Координаты места
-  final double? lat;
+  final num lat;
 
   /// Координаты места
-  final double? lon;
+  final num lon;
 
   /// Растояние до точки
-  final double? radius;
+  final num radius;
 
   /// Список типов мест для фильтрации
-  final List<String>? typeFilter;
+  final List<String> typeFilter;
 
   /// Строка для фильтрации по названию
-  final String? nameFilter;
+  final String nameFilter;
 
   /// Конструктор
   PlaceFilterRequestDto({
@@ -35,23 +37,29 @@ class PlaceFilterRequestDto {
         nameFilter = json['nameFilter'] as String;
 
   /// создание мапы для добавление в json
-  Map<String, dynamic> toJson() {
+  String toJson() {
     final returnMap = <String, dynamic>{};
 
-    if (lat != null && lon != null && radius != null) {
+    if (radius>0) {
       returnMap['lat'] = lat;
-      returnMap['lon'] = lon;
-      returnMap['radius'] = radius;
+      returnMap['lng'] = lon;
+      returnMap['radius'] = radius+0.1;
     }
 
-    if (typeFilter != null) {
+    if (typeFilter.isNotEmpty) {
       returnMap['typeFilter'] = typeFilter;
     }
+    // else{
+    //   returnMap['typeFilter'] = ['park','museum'];
+    // }
 
-    if (nameFilter != null) {
+    if (nameFilter.isNotEmpty) {
       returnMap['nameFilter'] = nameFilter;
     }
+    //  else{
+    // returnMap['nameFilter'] = 'па';
+    //  }
 
-    return returnMap;
+    return jsonEncode(returnMap);
   }
 }

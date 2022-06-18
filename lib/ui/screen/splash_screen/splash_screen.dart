@@ -6,6 +6,7 @@ import 'package:places/type_place.dart';
 import 'package:places/ui/res/color_palette.dart';
 import 'package:places/ui/res/img.dart';
 import 'package:places/ui/res/route_name.dart';
+import 'package:places/ui/screen/filters_screen/model/filters_screen_model.dart';
 import 'package:places/ui/screen/sight_search_screen/models/search_filter_model.dart';
 import 'package:provider/provider.dart';
 
@@ -78,7 +79,10 @@ class SplashScreenState extends State<SplashScreen> {
       debugPrint('place id = ${item.id}  '
           'isFavorites  = ${item.isFavorites}  '
           'wantVisitDate  = ${item.wantVisitDate}  '
-          'visitedDate  = ${item.visitedDate}');
+          'visitedDate  = ${item.visitedDate}  '
+          'lat  = ${item.lat}  '
+          'lon  = ${item.lon}  '
+          'placeType  = ${item.placeType}');
     }
 
     debugPrint(
@@ -109,9 +113,9 @@ class SplashScreenState extends State<SplashScreen> {
     debugPrint('value = 2');
     _isInitialized.complete(isComplete);
     debugPrint('finishGetNetData ${_isInitialized.isCompleted.toString()}');
+    context.read<FiltersScreenModel>().setFilteredPlaces();
     context.read<SearchFilterModel>()
       ..setSearchText('')
-      ..setFilteredPlaces()
       ..getFilteredList();
   }
 

@@ -1,3 +1,5 @@
+import 'package:places/ui/res/img.dart';
+
 /// Класс места
 class Place {
   /// Id достопримечательности
@@ -57,10 +59,13 @@ class Place {
         lat = json['lat'] as double,
         lon = json['lng'] as double,
         name = json['name'] as String,
-        urls = (json['urls'] as List<dynamic>).whereType<String>().toList(),
+        urls = (json['urls'] as List<dynamic>).isEmpty
+            ? [noPhoto]
+            : (json['urls'] as List<dynamic>).whereType<String>().toList(),
         placeType = json['placeType'] as String,
         description = json['description'] as String,
-        distance = json['distance'] != null ? json['distance'] as double? : null,
+        distance =
+            json['distance'] != null ? json['distance'] as double? : null,
         isFavorites = false;
 
   /// создание мапы для добавление в json

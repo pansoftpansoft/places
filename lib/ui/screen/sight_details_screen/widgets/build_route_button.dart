@@ -25,6 +25,7 @@ class BuildRouteButton extends StatelessWidget {
         iconNamePrefix: Icons.gesture_outlined,
       );
 
+  // ignore: avoid_void_async
   void _onPress(BuildContext context) async {
     // так же эта кнопка переводит маршрут в посещенные
     debugPrint('Это кнопка "Построить маршрут"');

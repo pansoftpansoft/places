@@ -2,7 +2,7 @@
 class SvgIcons {
   static const String catalog = 'res/icon/';
   static const String bucket = '${catalog}bucket.svg';
-  static const String cafe = '${catalog}cafe.svg';
+  //static const String cafe = '${catalog}cafe.svg';
   static const String calendar = '${catalog}calendar.svg';
   static const String camera = '${catalog}camera.svg';
   static const String card = '${catalog}card.svg';
@@ -22,15 +22,15 @@ class SvgIcons {
   static const String indicatorPoint = '${catalog}indicator_point.svg';
   static const String list = '${catalog}list.svg';
   static const String map = '${catalog}map.svg';
-  static const String museum = '${catalog}museum.svg';
+  //static const String museum = '${catalog}museum.svg';
   static const String onboardProgress1 = '${catalog}onboard_progress_1.svg';
   static const String onboardProgress2 = '${catalog}onboard_progress_2.svg';
   static const String onboardProgress3 = '${catalog}onboard_progress_3.svg';
-  static const String park = '${catalog}park.svg';
-  static const String particularPlace = '${catalog}particular_place.svg';
+  //static const String park = '${catalog}park.svg';
+  //static const String particularPlace = '${catalog}particular_place.svg';
   static const String photo = '${catalog}photo.svg';
   static const String plus = '${catalog}plus.svg';
-  static const String restaurant = '${catalog}restaurant.svg';
+  //static const String restaurant = '${catalog}restaurant.svg';
   static const String rectangle1303 = '${catalog}rectangle1303.svg';
   static const String search = '${catalog}search.svg';
   static const String schedule = '${catalog}schedule.svg';

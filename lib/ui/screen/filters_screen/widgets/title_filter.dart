@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:places/ui/res/color_palette.dart';
 import 'package:places/ui/res/labels.dart';
-import 'package:places/ui/screen/filters_screen/filters_screen.dart';
-import 'package:places/ui/screen/sight_search_screen/models/search_filter_model.dart';
-
+import 'package:places/ui/screen/filters_screen/model/filters_screen_model.dart';
+import 'package:provider/provider.dart';
 
 ///
 class TitleFilter extends StatelessWidget {
@@ -30,10 +29,9 @@ class TitleFilter extends StatelessWidget {
       );
 
   void _clearFilterValue(final BuildContext context) {
-    for (final item
-        in SearchFilterModel.filterMap.entries) {
-      SearchFilterModel.filterMap[item.key] = false;
+    for (final item in FiltersScreenModel.filterMap.entries) {
+      FiltersScreenModel.filterMap[item.key] = false;
     }
-    FiltersScreen.setFilter(context);
+    context.read<FiltersScreenModel>().notifyListenersFiltersScreen();
   }
 }

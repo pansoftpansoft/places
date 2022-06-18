@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:places/data/model/place.dart';
+import 'package:places/ui/res/img.dart';
 import 'package:places/ui/screen/sight_details_screen/models/sight_details_model.dart';
 import 'package:places/ui/screen/sight_details_screen/widgets/photo_gallery_picture.dart';
 import 'package:places/ui/screen/sight_details_screen/widgets/scroll_indicator.dart';
@@ -23,7 +24,6 @@ class PhotoGallery extends StatelessWidget {
   Widget build(final BuildContext context) {
     /// Длина списка с урлами фотографий
     final lengthListUrls = place.urls.length;
-
     context.read<SightDetailsModel>().changeScrollIndicator(
           lengthListUrls,
           _index,
@@ -35,19 +35,25 @@ class PhotoGallery extends StatelessWidget {
           height: 360,
           width: double.infinity,
           color: Colors.green,
-          child: PageView.builder(
-            onPageChanged: (final index) {
-              context.read<SightDetailsModel>()
-                ..changeScrollIndicator(
-                  lengthListUrls,
-                  index,
+          child: lengthListUrls == 1 && place.urls.first == noPhoto
+              ? Image.asset(
+                  noPhoto,
+                  height: 120,
+                  width: 122,
                 )
-                ..updateScreen();
-            },
-            itemCount: lengthListUrls,
-            itemBuilder: (final context, final index) =>
-                PhotoGalleryPicture(place.urls[index]),
-          ),
+              : PageView.builder(
+                  onPageChanged: (final index) {
+                    context.read<SightDetailsModel>()
+                      ..changeScrollIndicator(
+                        lengthListUrls,
+                        index,
+                      )
+                      ..updateScreen();
+                  },
+                  itemCount: lengthListUrls,
+                  itemBuilder: (final context, final index) =>
+                      PhotoGalleryPicture(place.urls[index]),
+                ),
         ),
         const Positioned(
           bottom: 0,

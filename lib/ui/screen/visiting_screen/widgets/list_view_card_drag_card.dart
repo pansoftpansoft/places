@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:places/data/model/place.dart';
 import 'package:places/type_place.dart';
 import 'package:places/ui/screen/visiting_screen/models/visiting_model.dart';
 import 'package:places/ui/screen/visiting_screen/widgets/background_dismissible.dart';

@@ -22,10 +22,13 @@ class PlaceInteractor {
 
   /// Получить список отфильтрованных мест
   static Future<List<Place>?> getPlaces({
-    RangeValues? radius,
+    RangeValues? radiusRange,
     List<String>? category,
   }) async {
-    await PlaceRepository.getPlaces();
+    await PlaceRepository.getPlaces(
+      radiusRange: radiusRange,
+      category: category,
+    );
 
     ///TODO
     mocksFiltered = mocks; //await PlaceRepository.getPlaces(radius, category);
@@ -156,9 +159,9 @@ class PlaceInteractor {
       debugPrint('countInsert = $countInsert');
     }
     // проверяем есть токое место в лакальной базе, если нет добавляем.
-    final addInLocalDB1 = await DBProvider.dbProvider.checkPlacesInLocalDataId(
-      place.id,
-    );
+    // final addInLocalDB1 = await DBProvider.dbProvider.checkPlacesInLocalDataId(
+    //   place.id,
+    // );
     debugPrint('place id = ${place.id} isFavorites = ${place.visitedDate}');
 
     await updateAllList(place);
@@ -186,7 +189,6 @@ class PlaceInteractor {
         .where((element) => element.visitedDate == null && element.isFavorites)
         .toList();
     debugPrint('mocksWantVisit = ${mocksWantVisit.length}');
-
   }
 
   static void updateListMocksFilteredFromLocalDB(Place place) {

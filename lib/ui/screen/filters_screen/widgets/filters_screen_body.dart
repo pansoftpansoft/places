@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:places/ui/screen/filters_screen/model/filters_screen_model.dart';
 import 'package:places/ui/screen/filters_screen/widgets/filters_screen_body_slider.dart';
 import 'package:places/ui/screen/filters_screen/widgets/filters_screen_body_slider_header.dart';
 import 'package:places/ui/screen/filters_screen/widgets/filters_screen_body_text_categories.dart';
 import 'package:places/ui/screen/filters_screen/widgets/grid_icon.dart';
-import 'package:places/ui/screen/sight_search_screen/models/search_filter_model.dart';
 import 'package:provider/provider.dart';
 
 class FiltersScreenBody extends StatelessWidget {
@@ -12,7 +12,7 @@ class FiltersScreenBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      child: Consumer<SearchFilterModel>(
+      child: Consumer<FiltersScreenModel>(
         builder: (
           final context,
           final cart,

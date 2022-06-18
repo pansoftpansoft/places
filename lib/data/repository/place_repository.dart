@@ -1,3 +1,5 @@
+// ignore_for_file: cascade_invocations
+
 import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -104,7 +106,7 @@ class PlaceRepository {
     List<String>? category,
   ) async {
     // Создаем фильтр
-    final dynamic filterJson = createFilter(
+    final String filterJson = createFilter(
       radiusRange: radiusRange,
       category: category,
     );
@@ -136,7 +138,7 @@ class PlaceRepository {
 
     mapString = response.toString();
 
-    debugPrint('mapString = ${mapString}');
+    debugPrint('mapString = $mapString');
 
     final mapFull = json.decode(mapString) as Map<String, dynamic>;
 
@@ -153,26 +155,28 @@ class PlaceRepository {
       place.wantVisitDate = placeLocalData.wantVisitDateToDatetime();
       place.visitedDate = placeLocalData.visitedDateToDatetime();
     }
+
     return place;
   }
 
   /// ---------------------------------------------------------------
   /// Создаем JSON фильтр
   /// ---------------------------------------------------------------
-  static dynamic createFilter({
+  static String createFilter({
     RangeValues? radiusRange,
     List<String>? category,
   }) {
+    debugPrint('category = ${category.toString()}');
     // Текущие координаты
-    const double? lat = null;
-    const double? lon = null;
-    final radius = radiusRange?.end;
-    //final radius = radiusRange == null ? 0.0 : radiusRange.end;
-    //final typeFilter = category ?? <String>[];
-    const List<String>? typeFilter = null;
-    const String? nameFilter = null;
+    const lat = 55.753605;
+    const lon = 37.619773;
+    //final radius = radiusRange?.end;
+    final radius = radiusRange == null ? 10000 : radiusRange.end;
+    final typeFilter = category ?? <String>[];
+    //const List<String>? typeFilter = null;
+    const nameFilter = '';
 
-    final dynamic filterJson = PlaceFilterRequestDto(
+    final filterJson = PlaceFilterRequestDto(
       // Текущее местоположение телефона
       lat: lat,
       lon: lon,
@@ -181,6 +185,8 @@ class PlaceRepository {
       typeFilter: typeFilter,
       nameFilter: nameFilter,
     ).toJson();
+
+    debugPrint('filterJson = ${filterJson.toString()}');
 
     return filterJson;
   }

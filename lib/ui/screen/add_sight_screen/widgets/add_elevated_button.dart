@@ -4,6 +4,7 @@ import 'package:places/type_place.dart';
 import 'package:places/ui/res/labels.dart';
 import 'package:places/ui/screen/add_sight_screen/models/add_sight_model.dart';
 import 'package:places/ui/screen/add_sight_screen/widgets/show_alert_add.dart';
+import 'package:places/ui/screen/filters_screen/model/filters_screen_model.dart';
 import 'package:places/ui/screen/sight_search_screen/models/search_filter_model.dart';
 import 'package:places/ui/screen/widgets/elevated_button_green_big.dart';
 import 'package:provider/provider.dart';
@@ -40,7 +41,9 @@ class AddElevatedButton extends StatelessWidget {
       lat: 55.751426,
       lon: 37.618879,
       name: 'Ивановская площадь',
-      urls: ['https://static.mk.ru/upload/entities/2017/12/21/articles/facebookPicture/ce/31/98/e7/d15fd0053ec3372a03dc97795b74a33f.jpg'],
+      urls: [
+        'https://static.mk.ru/upload/entities/2017/12/21/articles/facebookPicture/ce/31/98/e7/d15fd0053ec3372a03dc97795b74a33f.jpg',
+      ],
       description: details,
       placeType: TypePlace.park.toString(),
     );
@@ -60,9 +63,8 @@ class AddElevatedButton extends StatelessWidget {
   ///Обработка кнопки предупреждения что добавляется новое место или ошибка
   void _onPress(BuildContext context) {
     context.read<AddSightModel>().disableButton = null;
-    context.read<SearchFilterModel>()
-      ..setFilteredPlaces()
-      ..getFilteredList();
+    context.read<FiltersScreenModel>().setFilteredPlaces();
+    context.read<SearchFilterModel>().getFilteredList();
     Navigator.pushReplacementNamed(
       context,
       '/SightListScreen',
