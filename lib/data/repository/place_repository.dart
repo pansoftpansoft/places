@@ -15,6 +15,7 @@ import 'package:places/ui/res/url_path.dart';
 
 int iii = 0;
 
+///--------------------------------------------------------------
 /// Слой получения данных
 class PlaceRepository {
   static final ConnectionBackendServer _server = ConnectionBackendServer();
@@ -28,7 +29,7 @@ class PlaceRepository {
     );
   }
 
-  /// ---------------------------------------------------------------
+  ///--------------------------------------------------------------
   /// Получаем список всех мест
   static Future<List<Place>> getAllPlace() async {
     return ((await _server.get(pathUrlListPlaces)).data as List)
@@ -37,7 +38,7 @@ class PlaceRepository {
         .toList();
   }
 
-  /// ---------------------------------------------------------------
+  ///--------------------------------------------------------------
   /// Получаем список отфильтрованных мест с сервера
   static Future<void> getPlaces({
     RangeValues? radiusRange,
@@ -47,17 +48,19 @@ class PlaceRepository {
     await createMocks();
   }
 
-  ///---------------------------------------------------------------
+  ///--------------------------------------------------------------
   /// получить объедененный список DTO и LOCAL
   static Future<void> createMocks() async {
     final placesLocalData = await DBProvider.dbProvider.getPlacesLocal();
 
-    for (final item in placesLocalData){
-      debugPrint('placesLocalData = ${item.id}  ${item.isFavorites}  ${item.wantVisitDate} ${item.visitedDate}');
+    for (final item in placesLocalData) {
+      debugPrint(
+        'placesLocalData = ${item.id}  ${item.isFavorites}'
+        ' ${item.wantVisitDate} ${item.visitedDate}',
+      );
     }
     mocks.clear();
     bool? isFavorites = false;
-
 
     debugPrint('Теперь циклы');
     DateTime? wantVisitDate;
@@ -73,7 +76,7 @@ class PlaceRepository {
             isFavorites =
                 // ignore: avoid_bool_literals_in_conditional_expressions
                 placesLocalDataElement.isFavorites == 1 ? true : false;
-            wantVisitDate = placesLocalDataElement.wantVisitDate  == null
+            wantVisitDate = placesLocalDataElement.wantVisitDate == null
                 ? null
                 : placesLocalDataElement.wantVisitDateToDatetime();
 
@@ -100,7 +103,7 @@ class PlaceRepository {
     }
   }
 
-  /// ---------------------------------------------------------------
+  ///--------------------------------------------------------------
   /// Получаем список отфильтрованных мест с сервера
   static Future<List<PlaceDto>> getPlacesDto(
     RangeValues? radiusRange,
@@ -128,9 +131,8 @@ class PlaceRepository {
     return placesDto;
   }
 
-  /// ---------------------------------------------------------------
+  ///--------------------------------------------------------------
   /// Получить место по идентификатору
-  /// ---------------------------------------------------------------
   static Future<Place> getPlaceId(int placeId) async {
     String mapString;
 
@@ -160,8 +162,9 @@ class PlaceRepository {
     return place;
   }
 
+  ///--------------------------------------------------------------
   ///Получаем список настроик фильтра
-  static Future<List<Filter>> getListFilter() async {
+  static Future<List<Filter>> getListSettingsFilter() async {
     final listFilter = await DBProvider.dbProvider.getListFilterFromDb();
     for (final item in listFilter) {
       debugPrint(
@@ -172,9 +175,14 @@ class PlaceRepository {
     return listFilter;
   }
 
-  /// ---------------------------------------------------------------
+  ///--------------------------------------------------------------
+  ///Обновляем список настроик фильтра в базе данных
+  static Future<void> updateSettingsFilter(Filter filter) async {
+    await DBProvider.dbProvider.updateSettingsFilterInDb(filter);
+  }
+
+  ///--------------------------------------------------------------
   /// Создаем JSON фильтр
-  /// ---------------------------------------------------------------
   static String createFilter({
     RangeValues? radiusRange,
     List<String>? category,
@@ -204,7 +212,7 @@ class PlaceRepository {
     return filterJson;
   }
 
-  ///----------------------------------------------------------------
+  ///--------------------------------------------------------------
   /// Установить что место посетили
   static Future<void> updatePlaceLocalDB(Place place) async {
     debugPrint('place id = ${place.id}  '
@@ -249,15 +257,13 @@ class PlaceRepository {
   //   return place;
   // }
 
-  /// ---------------------------------------------------------------
+  ///--------------------------------------------------------------
   /// Удалить место на сервере
-  /// ---------------------------------------------------------------
   Future<Response> deletePlace(Place place) async {
     return _server.delete(
       '$pathUrlDeletePlace/${place.id.toString()}',
     );
   }
-
 
 // /// ---------------------------------------------------------------
 // /// Обновить данные о месте и олучить место по идентификатору

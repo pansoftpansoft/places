@@ -22,12 +22,19 @@ class PlaceInteractor {
   }
 
   /// Получить список отфильтрованных мест
-  static Future<List<Filter>?> getFilter() async {
-   final listFilter = await PlaceRepository.getListFilter();
+  static Future<List<Filter>?> getSettingsFilter() async {
+    final listFilter = await PlaceRepository.getListSettingsFilter();
 
-   return listFilter;
+    return listFilter;
   }
 
+  ///--------------------------------------------------------------
+  /// Обновить список настроик фильтра
+  static Future<void> updateListFilterSettings(List<Filter> listFilter) async {
+    for (final item in listFilter) {
+      await PlaceRepository.updateSettingsFilter(item);
+    }
+  }
 
   /// Получить список отфильтрованных мест
   static Future<List<Place>?> getPlaces({

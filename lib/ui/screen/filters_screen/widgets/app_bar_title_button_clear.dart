@@ -24,8 +24,8 @@ class AppBarTitleButtonClear extends StatelessWidget {
   }
 
   void _clearFilterValue(final BuildContext context) {
-    for (final item in FiltersScreenModel.filterMapNew.entries) {
-      FiltersScreenModel.filterMapNew[item.key] = false;
+    for (final item in FiltersScreenModel.filterMap.entries) {
+      FiltersScreenModel.filterMap[item.key] = false;
     }
     context.read<FiltersScreenModel>().notifyListenersFiltersScreen();
   }

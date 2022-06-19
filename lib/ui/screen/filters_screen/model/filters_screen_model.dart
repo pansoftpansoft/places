@@ -8,13 +8,12 @@ class FiltersScreenModel extends ChangeNotifier {
   static List<Filter> listFilter = <Filter>[];
 
   ///Мапа кнопок для фильтрации мест с изночальными значениями
-  static Map<String, bool> filterMapNew = <String, bool>{};
+  static Map<String, bool> filterMap = <String, bool>{};
 
   //Запоминаем старые значения
   //Если нажата кнопка Показать то переписываем значения
   //Если пользователь вернулся на предыдущий
   //экран то востановим текущие значения
-
 
   ///
   static int countPlace = 0;
@@ -24,10 +23,10 @@ class FiltersScreenModel extends ChangeNotifier {
 
   ///Расставить сохраненные настройки фильтра
   static Future<void> getFilterSettings() async {
-    final listFilter = await PlaceInteractor.getFilter();
-    filterMapNew.clear();
-    for (final item in listFilter!) {
-      filterMapNew[item.category] = item.categoryValue == 1;
+    listFilter = (await PlaceInteractor.getSettingsFilter())!;
+    filterMap.clear();
+    for (final item in listFilter) {
+      filterMap[item.category] = item.categoryValue == 1;
     }
   }
 
@@ -52,25 +51,24 @@ class FiltersScreenModel extends ChangeNotifier {
     countPlace = countPlaceFiltered;
   }
 
-
   ///Взводим галочку на кнопке категорий
   void setTypePlaceSelected(final String typePlace) {
-    if (filterMapNew[typePlace]!) {
-      filterMapNew[typePlace] = false;
+    if (filterMap[typePlace]!) {
+      filterMap[typePlace] = false;
     } else {
-      filterMapNew[typePlace] = true;
+      filterMap[typePlace] = true;
     }
-    for (final item in filterMapNew.values) {
+    for (final item in filterMap.values) {
       debugPrint('$typePlace = ${item.toString()}');
     }
-    debugPrint('$typePlace = ${filterMapNew[typePlace]}');
+    debugPrint('$typePlace = ${filterMap[typePlace]}');
   }
 
   /// TODO переделать на interactor
   void getDataFromRepository() {
     final listCategory = <String>[];
-    for (final item in filterMapNew.keys.toList()) {
-      if (filterMapNew[item] ?? false) {
+    for (final item in filterMap.keys.toList()) {
+      if (filterMap[item] ?? false) {
         listCategory.add(item);
       }
     }
@@ -78,19 +76,21 @@ class FiltersScreenModel extends ChangeNotifier {
     PlaceInteractor.getPlaces(
       category: listCategory.isEmpty ? null : listCategory,
     );
-    debugPrint(' = ${filterMapNew.length}  ${listCategory.length}');
+    debugPrint(' = ${filterMap.length}  ${listCategory.length}');
 
     return;
   }
 
-  void saveFilterSettings(){
-
+  Future<void> saveFilterSettings() async {
+    for (var item in listFilter) {
+      item.categoryValue = filterMap[item.category]! ? 1 : 0;
+    }
+    await PlaceInteractor.updateListFilterSettings(listFilter);
   }
 
   void notifyListenersFiltersScreen() {
     notifyListeners();
   }
-
 
   void countFilteredPlacesSet() {
     setFilteredPlaces();

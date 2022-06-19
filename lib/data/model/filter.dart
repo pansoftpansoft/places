@@ -1,7 +1,7 @@
 class Filter {
   final String category;
   final int orderCategory;
-  final int categoryValue;
+   int categoryValue;
 
 
   Filter(this.category, this.orderCategory, this.categoryValue,);

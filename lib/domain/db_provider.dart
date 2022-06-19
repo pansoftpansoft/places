@@ -86,6 +86,7 @@ class DBProvider {
     );
   }
 
+  ///--------------------------------------------------------------
   /// Получить историю поиска из бызы данных
   Future<List<History>?> getListHistoryFromDb() async {
     _database = await database;
@@ -101,19 +102,7 @@ class DBProvider {
     return list;
   }
 
-  /// Получить настройки фильтра из бызы данных
-  Future<List<Filter>> getListFilterFromDb() async {
-    _database = await database;
-    final res = await _database!.query(
-      'filter',
-      orderBy: 'orderCategory',
-    );
-
-    final list = res.isNotEmpty ? res.map(Filter.fromMap).toList() : <Filter>[];
-
-    return list;
-  }
-
+  ///--------------------------------------------------------------
   /// Добавить, в список историй поиска, новый поисковый запрос
   Future<int> addHistory(final String historyText) async {
     if (historyText.isEmpty) {
@@ -127,6 +116,33 @@ class DBProvider {
     return res;
   }
 
+  ///--------------------------------------------------------------
+  /// Получить настройки фильтра из бызы данных
+  Future<List<Filter>> getListFilterFromDb() async {
+    _database = await database;
+    final res = await _database!.query(
+      'filter',
+      orderBy: 'orderCategory',
+    );
+
+    final list = res.isNotEmpty ? res.map(Filter.fromMap).toList() : <Filter>[];
+
+    return list;
+  }
+
+  ///--------------------------------------------------------------
+  /// Соохранить настройки фильтра в базу
+  Future<void> updateSettingsFilterInDb(final Filter filter) async {
+    _database = await database;
+    final res = await _database!.update(
+      'filter',
+      filter.toMap(),
+      where: 'category=?',
+      whereArgs: [filter.category],
+    );
+  }
+
+  ///--------------------------------------------------------------
   /// Удалить список слов истории поиска
   Future<int> deleteTheListOfSearchHistoryWords() async {
     _database = await database;
@@ -135,6 +151,7 @@ class DBProvider {
     return res;
   }
 
+  ///--------------------------------------------------------------
   /// Получить список локальных данных из бызы данных
   Future<List<PlacesLocalData>> getPlacesLocal() async {
     _database = await database;
@@ -150,6 +167,7 @@ class DBProvider {
     return list;
   }
 
+  ///--------------------------------------------------------------
   /// Получить локальных данных из бызы данных, для одного места
   Future<PlacesLocalData?> getPlacesLocalDataId(int placeId) async {
     _database = await database;
@@ -170,6 +188,8 @@ class DBProvider {
     return placesLocalData;
   }
 
+  ///--------------------------------------------------------------
+  ///
   Future<bool> checkPlacesInLocalDataId(int placeId) async {
     _database = await database;
     final res = await _database!.query(
@@ -183,6 +203,7 @@ class DBProvider {
     return res.isNotEmpty;
   }
 
+  ///--------------------------------------------------------------
   /// Получить список локальных данных из бызы данных
   Future<List<PlacesLocalData>> getPlacesLocalId() async {
     _database = await database;
@@ -198,6 +219,7 @@ class DBProvider {
     return list;
   }
 
+  ///--------------------------------------------------------------
   /// Добавить в базу, данные о месте
   Future<int> insertPlacesLocalData(Place place) async {
     if (place.id.isNaN) {
@@ -218,6 +240,7 @@ class DBProvider {
     return res;
   }
 
+  ///--------------------------------------------------------------
   /// Дизменить в базе, данные о месте
   Future<int> updatePlacesLocalData(Place place) async {
     if (place.id.isNaN) {
