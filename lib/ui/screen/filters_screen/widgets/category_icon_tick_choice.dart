@@ -13,7 +13,7 @@ class CategoryIconTickChoice extends StatelessWidget {
     return Positioned(
       bottom: -4,
       right: -4,
-      child: FiltersScreenModel.filterMap[nameKey]!
+      child: FiltersScreenModel.filterMapNew[nameKey]!
           ? SvgPicture.asset(
               SvgIcons.tickChoice,
               height: 25,

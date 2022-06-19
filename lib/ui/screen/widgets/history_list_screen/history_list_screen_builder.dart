@@ -3,7 +3,7 @@ import 'package:places/type_place.dart';
 import 'package:places/ui/res/color_palette.dart';
 import 'package:places/ui/res/labels.dart';
 import 'package:places/ui/res/sizes.dart';
-import 'package:places/ui/screen/sight_search_screen/models/search_filter_model.dart';
+import 'package:places/ui/screen/sight_search_screen/models/search_screen_model.dart';
 import 'package:provider/provider.dart';
 
 import 'list_history.dart';
@@ -51,7 +51,7 @@ class HistoryListScreenBuilder extends StatelessWidget {
 
   ///Чистим всю историю и показываем пустой экран
   void _onPressed(BuildContext context) {
-    context.read<SearchFilterModel>()
+    context.read<SearchScreenModel>()
       ..setSearchText('')
       ..clearHistory()
       ..managerSelectionScreen(numberScreen: ScreenEnum.cleanScreen)

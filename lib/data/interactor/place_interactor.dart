@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:places/data/model/filter.dart';
 import 'package:places/data/model/place.dart';
 import 'package:places/data/repository/place_repository.dart';
 import 'package:places/domain/db_provider.dart';
@@ -19,6 +20,14 @@ class PlaceInteractor {
 
     return mocksFiltered;
   }
+
+  /// Получить список отфильтрованных мест
+  static Future<List<Filter>?> getFilter() async {
+   final listFilter = await PlaceRepository.getListFilter();
+
+   return listFilter;
+  }
+
 
   /// Получить список отфильтрованных мест
   static Future<List<Place>?> getPlaces({

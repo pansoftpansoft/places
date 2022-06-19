@@ -1,12 +1,14 @@
 // ignore_for_file: cascade_invocations
 
-import 'dart:io';
+//import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 
 import 'package:path_provider/path_provider.dart';
+import 'package:places/data/model/filter.dart';
 import 'package:places/data/model/place.dart';
 import 'package:places/data/model/places_local_data.dart';
+import 'package:places/domain/db_sql_string_ddl.dart';
 import 'package:places/domain/history.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -55,7 +57,7 @@ class DBProvider {
 
     return openDatabase(
       path,
-      version: 1,
+      version: 4,
       onOpen: (final db) async {
         debugPrint('Открать базу данных');
       },
@@ -64,45 +66,22 @@ class DBProvider {
         final version,
       ) async {
         debugPrint('Создать базу данных');
-        await database.execute(
-          <String>[
-            'CREATE TABLE history (',
-            'history_text TEXT PRIMARY KEY NOT NULL UNIQUE,',
-            "date_add TEXT DEFAULT (datetime('now', 'localtime'))",
-            ');',
-          ].join(),
-        );
-        await database.execute(
-          <String>[
-            'CREATE TABLE placesLocal (',
-            'id INTEGER  PRIMARY KEY NOT NULL UNIQUE,',
-            'isFavorites BOOLEAN,',
-            'wantVisitDate INTEGER,',
-            'visitedDate INTEGER',
-            ');',
-          ].join(),
-        );
+        await database.execute(DbSqlStringDdl.createTableHistory);
+        await database.execute(DbSqlStringDdl.createTablePlacesLocal);
+        await database.execute(DbSqlStringDdl.createTableFilter);
       },
       onUpgrade: (final database, final oldVersion, final newVersion) async {
         debugPrint('Обновить базу данных');
-        await database.execute(
-          <String>[
-            'CREATE TABLE history (',
-            'history_text TEXT PRIMARY KEY NOT NULL UNIQUE,',
-            "date_add TEXT DEFAULT (datetime('now', 'localtime'))",
-            ');',
-          ].join(),
-        );
-        await database.execute(
-          <String>[
-            'CREATE TABLE placesLocal (',
-            'id INTEGER  PRIMARY KEY NOT NULL UNIQUE,',
-            'isFavorites BOOLEAN,',
-            'wantVisitDate INTEGER,',
-            'visitedDate INTEGER',
-            ');',
-          ].join(),
-        );
+        await database.execute(DbSqlStringDdl.dropTableHistory);
+        await database.execute(DbSqlStringDdl.createTableHistory);
+        await database.execute(DbSqlStringDdl.dropTablePlacesLocal);
+        await database.execute(DbSqlStringDdl.createTablePlacesLocal);
+        await database.execute(DbSqlStringDdl.dropTableFilter);
+        await database.execute(DbSqlStringDdl.createTableFilter);
+
+        for (final item in DbSqlStringDdl.insertValueFilter.keys.toList()) {
+          await database.execute(DbSqlStringDdl.insertValueFilter[item]!);
+        }
       },
     );
   }
@@ -122,6 +101,19 @@ class DBProvider {
     return list;
   }
 
+  /// Получить настройки фильтра из бызы данных
+  Future<List<Filter>> getListFilterFromDb() async {
+    _database = await database;
+    final res = await _database!.query(
+      'filter',
+      orderBy: 'orderCategory',
+    );
+
+    final list = res.isNotEmpty ? res.map(Filter.fromMap).toList() : <Filter>[];
+
+    return list;
+  }
+
   /// Добавить, в список историй поиска, новый поисковый запрос
   Future<int> addHistory(final String historyText) async {
     if (historyText.isEmpty) {
@@ -135,7 +127,6 @@ class DBProvider {
     return res;
   }
 
-  ///-------------------------------------------------------
   /// Удалить список слов истории поиска
   Future<int> deleteTheListOfSearchHistoryWords() async {
     _database = await database;

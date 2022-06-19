@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:places/ui/screen/filters_screen/model/filters_screen_model.dart';
+import 'package:places/ui/screen/filters_screen/widgets/app_bar_title.dart';
 import 'package:places/ui/screen/filters_screen/widgets/bottom_sheet_button_show.dart';
 import 'package:places/ui/screen/filters_screen/widgets/filters_screen_body.dart';
-import 'package:places/ui/screen/filters_screen/widgets/title_filter.dart';
 import 'package:provider/provider.dart';
 
 ///Экран фильтров
@@ -13,15 +13,13 @@ class FiltersScreen extends StatelessWidget {
   @override
   Widget build(final BuildContext context) {
 
-    //Сохраняем настройки фильтра на случай выхода без применения фильтра
-    context.read<FiltersScreenModel>().getFilterSettings();
-
     context.read<FiltersScreenModel>().setFilteredPlaces();
 
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         centerTitle: false,
-        title: const TitleFilter(),
+        title: const AppBarTitle(),
       ),
       bottomSheet: const BottomSheetButtonShow(),
       body: const FiltersScreenBody(),

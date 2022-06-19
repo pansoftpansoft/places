@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:places/ui/screen/models/app_model.dart';
+import 'package:places/data/model/app_model.dart';
 
 ///Небольшая кнопка с кавадратными углами
 class TextButtonGreenText extends StatelessWidget {

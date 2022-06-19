@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:places/type_place.dart';
 import 'package:places/ui/screen/sight_list_screen/widgets/sticky_header.dart';
-import 'package:places/ui/screen/sight_search_screen/models/search_filter_model.dart';
+import 'package:places/ui/screen/sight_search_screen/models/search_screen_model.dart';
 import 'package:places/ui/screen/widgets/sight_card/sight_card.dart';
 import 'package:provider/provider.dart';
 
@@ -12,7 +12,7 @@ class SightListScreenLandscape extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<SearchFilterModel>(builder: (
+    return Consumer<SearchScreenModel>(builder: (
       final context,
       final cart,
       final child,

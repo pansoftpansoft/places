@@ -7,7 +7,7 @@ import 'package:places/ui/res/color_palette.dart';
 import 'package:places/ui/res/img.dart';
 import 'package:places/ui/res/route_name.dart';
 import 'package:places/ui/screen/filters_screen/model/filters_screen_model.dart';
-import 'package:places/ui/screen/sight_search_screen/models/search_filter_model.dart';
+import 'package:places/ui/screen/sight_search_screen/models/search_screen_model.dart';
 import 'package:provider/provider.dart';
 
 /// Экран затавка при загрузке приложения
@@ -95,7 +95,8 @@ class SplashScreenState extends State<SplashScreen> {
           ' ${mocksWantVisit.length.toString()}',
     );
 
-    await SearchFilterModel.getListHistory();
+    await SearchScreenModel.getListHistory();
+    await FiltersScreenModel.getFilterSettings();
     debugPrint('Завершилась GetNetData().');
   }
 
@@ -114,7 +115,7 @@ class SplashScreenState extends State<SplashScreen> {
     _isInitialized.complete(isComplete);
     debugPrint('finishGetNetData ${_isInitialized.isCompleted.toString()}');
     context.read<FiltersScreenModel>().setFilteredPlaces();
-    context.read<SearchFilterModel>()
+    context.read<SearchScreenModel>()
       ..setSearchText('')
       ..getFilteredList();
   }

@@ -3,7 +3,7 @@ import 'package:places/data/model/place.dart';
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/screen/sight_details_screen/models/sight_details_model.dart';
 import 'package:places/ui/screen/sight_details_screen/sight_details_screen.dart';
-import 'package:places/ui/screen/sight_search_screen/models/search_filter_model.dart';
+import 'package:places/ui/screen/sight_search_screen/models/search_screen_model.dart';
 import 'package:places/ui/screen/sight_search_screen/widgets/sight_card_search_text_span.dart';
 import 'package:provider/provider.dart';
 
@@ -55,7 +55,7 @@ class SightCardSearch extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 0, width: 16),
-              SightCardSearchTextSpan(place, SearchFilterModel.searchString),
+              SightCardSearchTextSpan(place, SearchScreenModel.searchString),
             ],
           ),
         ),

@@ -1,5 +1,5 @@
 import 'package:places/ui/res/svg_icons.dart';
-import '../../ui/screen/models/app_model.dart';
+import 'app_model.dart';
 
 class PlaceType {
   final String namePlaceDB;

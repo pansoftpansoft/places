@@ -1,31 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:places/data/interactor/place_interactor.dart';
+import 'package:places/data/model/filter.dart';
 import 'package:places/type_place.dart';
 
 class FiltersScreenModel extends ChangeNotifier {
+  ///Список истории поисковых запросов
+  static List<Filter> listFilter = <Filter>[];
+
   ///Мапа кнопок для фильтрации мест с изночальными значениями
-  static final Map<String, bool> _filterMap = <String, bool>{
-    'hotel': true,
-    'restaurant': true,
-    'particularPlace': true,
-    'park': true,
-    'museum': true,
-    'cafe': true,
-  };
+  static Map<String, bool> filterMapNew = <String, bool>{};
 
   //Запоминаем старые значения
   //Если нажата кнопка Показать то переписываем значения
   //Если пользователь вернулся на предыдущий
   //экран то востановим текущие значения
 
-  static final Map<String, bool> _filterMapOld = <String, bool>{
-    'hotel': true,
-    'restaurant': true,
-    'particularPlace': true,
-    'park': true,
-    'museum': true,
-    'cafe': true,
-  };
 
   ///
   static int countPlace = 0;
@@ -33,8 +22,14 @@ class FiltersScreenModel extends ChangeNotifier {
   ///
   static RangeValues selectedRange = const RangeValues(100, 1000);
 
-  ///
-  static Map<String, bool> get filterMap => _filterMap;
+  ///Расставить сохраненные настройки фильтра
+  static Future<void> getFilterSettings() async {
+    final listFilter = await PlaceInteractor.getFilter();
+    filterMapNew.clear();
+    for (final item in listFilter!) {
+      filterMapNew[item.category] = item.categoryValue == 1;
+    }
+  }
 
   ///Подсчет отфильтрованных мест
   ///Пометка мест что они попали в фильтр
@@ -57,23 +52,25 @@ class FiltersScreenModel extends ChangeNotifier {
     countPlace = countPlaceFiltered;
   }
 
+
   ///Взводим галочку на кнопке категорий
   void setTypePlaceSelected(final String typePlace) {
-    if (_filterMap[typePlace]!) {
-      _filterMap[typePlace] = false;
+    if (filterMapNew[typePlace]!) {
+      filterMapNew[typePlace] = false;
     } else {
-      _filterMap[typePlace] = true;
+      filterMapNew[typePlace] = true;
     }
-    for (final item in _filterMap.values) {
+    for (final item in filterMapNew.values) {
       debugPrint('$typePlace = ${item.toString()}');
     }
-    debugPrint('$typePlace = ${_filterMap[typePlace]}');
+    debugPrint('$typePlace = ${filterMapNew[typePlace]}');
   }
 
+  /// TODO переделать на interactor
   void getDataFromRepository() {
     final listCategory = <String>[];
-    for (final item in _filterMap.keys.toList()) {
-      if (_filterMap[item] == true) {
+    for (final item in filterMapNew.keys.toList()) {
+      if (filterMapNew[item] ?? false) {
         listCategory.add(item);
       }
     }
@@ -81,21 +78,19 @@ class FiltersScreenModel extends ChangeNotifier {
     PlaceInteractor.getPlaces(
       category: listCategory.isEmpty ? null : listCategory,
     );
-    debugPrint(' = ${_filterMap.length}  ${listCategory.length}');
+    debugPrint(' = ${filterMapNew.length}  ${listCategory.length}');
 
     return;
+  }
+
+  void saveFilterSettings(){
+
   }
 
   void notifyListenersFiltersScreen() {
     notifyListeners();
   }
 
-  ///Расставить сохраненные настройки фильтра
-  void getFilterSettings() {
-    for (final k in _filterMapOld.entries) {
-      _filterMap[k.key] = k.value;
-    }
-  }
 
   void countFilteredPlacesSet() {
     setFilteredPlaces();

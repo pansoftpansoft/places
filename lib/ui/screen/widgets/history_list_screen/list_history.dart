@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:places/ui/screen/sight_search_screen/models/search_filter_model.dart';
+import 'package:places/ui/screen/sight_search_screen/models/search_screen_model.dart';
 import 'package:places/ui/screen/widgets/history_list_screen/list_history_item_builder.dart';
 import 'package:provider/provider.dart';
 
@@ -11,14 +11,14 @@ class ListHistory extends StatelessWidget {
   }) : super(key: key);
 
   @override
-  Widget build(final BuildContext context) => Consumer<SearchFilterModel>(
+  Widget build(final BuildContext context) => Consumer<SearchScreenModel>(
         builder: (
           final context,
           final cart,
           final child,
         ) =>
             ListView.separated(
-          itemCount: SearchFilterModel.listHistory.length,
+          itemCount: SearchScreenModel.listHistory.length,
           shrinkWrap: true,
           itemBuilder: (final context, final index) => ListHistoryItemBuilder(
             index,

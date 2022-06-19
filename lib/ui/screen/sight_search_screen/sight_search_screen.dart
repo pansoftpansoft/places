@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:places/ui/res/sizes.dart';
-import 'package:places/ui/screen/sight_search_screen/models/search_filter_model.dart';
+import 'package:places/ui/screen/sight_search_screen/models/search_screen_model.dart';
 
 import 'package:places/ui/screen/widgets/bottom_navigation/bottom_navigation.dart';
 import 'package:places/ui/screen/widgets/search_bar.dart';
@@ -55,7 +55,7 @@ class SightSearchScreenState extends State<SightSearchScreen> {
                   children: <Widget>[
                     SearchBar(
                       textEditingController:
-                          SearchFilterModel.textEditingControllerFind,
+                          SearchScreenModel.textEditingControllerFind,
                       autofocus: true,
                       focusNode: FocusNode(),
                     ),

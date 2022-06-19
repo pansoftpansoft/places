@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:places/data/connection_backend_server.dart';
+import 'package:places/data/model/filter.dart';
 import 'package:places/data/model/place.dart';
 import 'package:places/data/model/place_dto.dart';
 import 'package:places/data/model/place_filter_request_dto.dart';
@@ -106,7 +107,7 @@ class PlaceRepository {
     List<String>? category,
   ) async {
     // Создаем фильтр
-    final String filterJson = createFilter(
+    final filterJson = createFilter(
       radiusRange: radiusRange,
       category: category,
     );
@@ -159,6 +160,18 @@ class PlaceRepository {
     return place;
   }
 
+  ///Получаем список настроик фильтра
+  static Future<List<Filter>> getListFilter() async {
+    final listFilter = await DBProvider.dbProvider.getListFilterFromDb();
+    for (final item in listFilter) {
+      debugPrint(
+        'item = ${item.category} ${item.orderCategory} ${item.categoryValue}',
+      );
+    }
+
+    return listFilter;
+  }
+
   /// ---------------------------------------------------------------
   /// Создаем JSON фильтр
   /// ---------------------------------------------------------------
@@ -186,7 +199,7 @@ class PlaceRepository {
       nameFilter: nameFilter,
     ).toJson();
 
-    debugPrint('filterJson = ${filterJson.toString()}');
+    debugPrint('filterJson = $filterJson');
 
     return filterJson;
   }
@@ -204,6 +217,38 @@ class PlaceRepository {
     debugPrint('updatePlaceLocalDB количество обновленных мест = $countUpdate');
   }
 
+  // /// ---------------------------------------------------------------
+  // /// Получить место по идентификатору
+  // /// ---------------------------------------------------------------
+  // static Future<Place> getPlaceId(int placeId) async {
+  //   String mapString;
+  //
+  //   //debugPrint('Получить место по иденитификатору placeId = ${placeId}');
+  //   final response = await _server.get('$pathUrlListPlaces/$placeId');
+  //
+  //   mapString = response.toString();
+  //
+  //   debugPrint('mapString = $mapString');
+  //
+  //   final mapFull = json.decode(mapString) as Map<String, dynamic>;
+  //
+  //   //Добавим значения из локальной базы данных
+  //   final place = Place.fromJson(mapFull);
+  //
+  //   final placeLocalData = await DBProvider.dbProvider.getPlacesLocalDataId(
+  //     place.id,
+  //   );
+  //
+  //   if (placeLocalData != null) {
+  //     //place.id =  placeLocalData.id;
+  //     place.isFavorites = placeLocalData.isFavoritesToBool();
+  //     place.wantVisitDate = placeLocalData.wantVisitDateToDatetime();
+  //     place.visitedDate = placeLocalData.visitedDateToDatetime();
+  //   }
+  //
+  //   return place;
+  // }
+
   /// ---------------------------------------------------------------
   /// Удалить место на сервере
   /// ---------------------------------------------------------------
@@ -212,6 +257,7 @@ class PlaceRepository {
       '$pathUrlDeletePlace/${place.id.toString()}',
     );
   }
+
 
 // /// ---------------------------------------------------------------
 // /// Обновить данные о месте и олучить место по идентификатору

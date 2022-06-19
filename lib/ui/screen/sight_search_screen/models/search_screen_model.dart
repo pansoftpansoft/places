@@ -10,9 +10,10 @@ import 'package:places/type_place.dart';
 import 'package:places/ui/screen/filters_screen/model/filters_screen_model.dart';
 
 ///Модель для поиска
-class SearchFilterModel extends ChangeNotifier {
+class SearchScreenModel extends ChangeNotifier {
   ///Список истории поисковых запросов
   static List<History> listHistory = <History>[];
+
 
   ///
   static ScreenEnum? selectedScreen;
@@ -21,55 +22,14 @@ class SearchFilterModel extends ChangeNotifier {
   static TextEditingController textEditingControllerFind =
       TextEditingController();
 
-
-
   static String _searchString = '';
 
-  ///Мапа кнопок для фильтрации мест с изночальными значениями
-  static Map<TypePlace, bool> _filterMap = <TypePlace, bool>{
-    TypePlace.hotel: true,
-    TypePlace.restaurant: true,
-    TypePlace.particularPlace: true,
-    TypePlace.park: true,
-    TypePlace.museum: true,
-    TypePlace.cafe: true,
-  };
-
-  //Запоминаем старые значения
-  //Если нажата кнопка Показать то переписываем значения
-  //Если пользователь вернулся на предыдущий
-  //экран то востановим текущие значения
-
-  static Map<TypePlace, bool> _filterMapOld = <TypePlace, bool>{
-    TypePlace.hotel: true,
-    TypePlace.restaurant: true,
-    TypePlace.particularPlace: true,
-    TypePlace.park: true,
-    TypePlace.museum: true,
-    TypePlace.cafe: true,
-  };
 
   final bool _errorTest = false;
 
-  static Map<TypePlace, bool> get filterMapOld => _filterMapOld;
 
-  static set filterMapOld(Map<TypePlace, bool> value) {
-    _filterMapOld = value;
-  } // Тестовая переменная для проверки экрана Ошибка.
-  // false - нет ошибок, true - есть ошибка
 
   static String get searchString => _searchString;
-
-  ///
-  static Map<TypePlace, bool> get filterMap => _filterMap;
-
-  ///
-  static set filterMap(final Map<TypePlace, bool> filterMapNew) {
-    _filterMap = filterMapNew;
-  }
-
-  ///
-  static bool getTypePlaceValue() => _filterMap[TypePlace] == null;
 
   ///Получаем список историй поиска
   static Future<int> getListHistory() async {
@@ -77,6 +37,7 @@ class SearchFilterModel extends ChangeNotifier {
 
     return listHistory.length;
   }
+
 
   /// Получить отфильтрованный список мест
   /// И проверить на совподение со строкой поиска
@@ -147,11 +108,11 @@ class SearchFilterModel extends ChangeNotifier {
     mocksSearchText.clear();
     if (searchString == '') {
       _searchString = '';
-      SearchFilterModel.textEditingControllerFind.clear();
+      SearchScreenModel.textEditingControllerFind.clear();
     } else {
       _searchString = searchString;
 
-      SearchFilterModel.textEditingControllerFind.value = TextEditingValue(
+      SearchScreenModel.textEditingControllerFind.value = TextEditingValue(
         text: searchString,
         selection: TextSelection.fromPosition(
           TextPosition(offset: searchString.length),
@@ -169,13 +130,7 @@ class SearchFilterModel extends ChangeNotifier {
     DBProvider.dbProvider.addHistory(searchString);
   }
 
-  ///Сохранить настройки фильтра
-  void saveFilterSettings() {
-    _filterMapOld.clear();
-    for (final k in _filterMap.entries) {
-      _filterMapOld[k.key] = k.value;
-    }
-  }
+
 
   ///Очищаем список историй поиска
   Future<void> clearHistory() async {
