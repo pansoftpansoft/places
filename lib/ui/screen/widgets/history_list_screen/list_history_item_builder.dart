@@ -13,14 +13,11 @@ class ListHistoryItemBuilder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () {
-        _onDeleteWord(index, context);
-      },
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          InkWell(
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: <Widget>[
+        Expanded(
+          child: InkWell(
             onTap: () {
               _onSelectWord(index, context);
             },
@@ -32,21 +29,27 @@ class ListHistoryItemBuilder extends StatelessWidget {
                   .copyWith(color: ColorPalette.lmFontSubtitle2),
             ),
           ),
-          const SizedBox(
-            height: 50,
-          ),
-          InkWell(
+        ),
+        const SizedBox(
+          height: 50,
+        ),
+        SizedBox(
+          height: 24,
+          width: 50,
+          child: InkWell(
+            splashColor: Colors.blue,
             onTap: () {
               _onDeleteWord(index, context);
             },
             child: SvgPicture.asset(
               SvgIcons.delete,
               height: 24,
+              width: 24,
               color: ColorPalette.lmFontSubtitle2,
             ),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 

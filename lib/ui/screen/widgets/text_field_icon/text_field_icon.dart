@@ -137,11 +137,11 @@ class _TextFieldIconState extends State<TextFieldIcon> {
 
   bool _filled = true;
 
-@override
+  @override
   //void dispose() {
-   //_textEditingController.dispose();
-   //_focusNode.dispose();
-   // super.dispose();
+  //_textEditingController.dispose();
+  //_focusNode.dispose();
+  // super.dispose();
   //}
 
   @override
@@ -164,30 +164,30 @@ class _TextFieldIconState extends State<TextFieldIcon> {
 
   @override
   Widget build(final BuildContext context) => TextField(
-    cursorColor: widget.cursorColor,
-    maxLines: widget.maxLines,
-    controller: _textEditingController,
-    focusNode: _focusNode,
-    keyboardType: _keyboardType,
-    autofocus: widget.autofocus,
-    textInputAction: TextInputAction.go,
-    decoration: buildInputDecoration(),
-    style: Theme.of(context).textTheme.subtitle1!.copyWith(
-      fontWeight: FontWeight.w400,
-    ),
-    textAlignVertical: TextAlignVertical.center,
-    onSubmitted: (final value) {
-      if (widget.actionOnSubmitted != null) {
-        widget.actionOnSubmitted!(value);
-      }
-    },
-    inputFormatters: widget.inputFormatters,
-    onChanged: (final value) {
-      if (widget.onChanged != null) {
-        widget.onChanged!(value);
-      }
-    },
-  );
+        cursorColor: widget.cursorColor,
+        maxLines: widget.maxLines,
+        controller: _textEditingController,
+        focusNode: _focusNode,
+        keyboardType: _keyboardType,
+        autofocus: widget.autofocus,
+        textInputAction: TextInputAction.go,
+        decoration: buildInputDecoration(),
+        style: Theme.of(context).textTheme.subtitle1!.copyWith(
+              fontWeight: FontWeight.w400,
+            ),
+        textAlignVertical: TextAlignVertical.center,
+        onSubmitted: (final value) {
+          if (widget.actionOnSubmitted != null) {
+            widget.actionOnSubmitted!(value);
+          }
+        },
+        inputFormatters: widget.inputFormatters,
+        onChanged: (final value) {
+          if (widget.onChanged != null) {
+            widget.onChanged!(value);
+          }
+        },
+      );
 
   void focusNodeAddListener() {
     _focusNode.addListener(
@@ -218,12 +218,6 @@ class _TextFieldIconState extends State<TextFieldIcon> {
         if (widget.textEditingControllerFunction != null) {
           widget.textEditingControllerFunction!(_textEditingController);
         }
-        final text = _textEditingController.value as String;
-        if (_textEditingController.text.isEmpty & text.isEmpty) {
-          setState(() {
-            suffixIconVisibleForText = false;
-          });
-        }
         if (_textEditingController.text.length == 1) {
           setState(() {
             suffixIconVisibleForText = true;
@@ -233,38 +227,44 @@ class _TextFieldIconState extends State<TextFieldIcon> {
     );
   }
 
-
   InputDecoration buildInputDecoration() {
+    debugPrint(
+      '_textEditingController.value = '
+      '${_textEditingController.value.toString()}',
+    );
+    debugPrint('_textEditingController.text = ${_textEditingController.text}');
+    final text = _textEditingController.value.text;
+    suffixIconVisibleForText =
+        !(_textEditingController.text.isEmpty & text.isEmpty);
     debugPrint('suffixIconVisibleForText = $suffixIconVisibleForText');
 
     return InputDecoration(
-        labelText: widget.labelText,
-        floatingLabelBehavior: FloatingLabelBehavior.never,
-        suffixIcon: suffixIconVisibleForText
-            ? IconSuffixForText(widget)
-            : IconSuffix(widget),
-        prefixIcon: widget.svgIconPrefix == null? null: IconPrefix(widget),
-        contentPadding: const EdgeInsets.fromLTRB(8, 8,8, 8),
-        filled: _filled,
-        fillColor: widget.fillColor,
-        enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(
-            color: widget.borderColor,
-          ),
-          borderRadius: BorderRadius.all(
-            Radius.circular(widget.borderRadius),
-          ),
+      labelText: widget.labelText,
+      floatingLabelBehavior: FloatingLabelBehavior.never,
+      suffixIcon: suffixIconVisibleForText
+          ? IconSuffixForText(widget)
+          : IconSuffix(widget),
+      prefixIcon: widget.svgIconPrefix == null ? null : IconPrefix(widget),
+      contentPadding: const EdgeInsets.fromLTRB(8, 8, 8, 8),
+      filled: _filled,
+      fillColor: widget.fillColor,
+      enabledBorder: OutlineInputBorder(
+        borderSide: BorderSide(
+          color: widget.borderColor,
         ),
-        focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(
-            width: 2,
-            color: widget.borderColor,
-          ),
-          borderRadius: BorderRadius.all(
-            Radius.circular(widget.borderRadius),
-          ),
+        borderRadius: BorderRadius.all(
+          Radius.circular(widget.borderRadius),
         ),
-      );
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderSide: BorderSide(
+          width: 2,
+          color: widget.borderColor,
+        ),
+        borderRadius: BorderRadius.all(
+          Radius.circular(widget.borderRadius),
+        ),
+      ),
+    );
   }
-
 }
