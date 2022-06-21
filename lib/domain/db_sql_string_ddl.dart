@@ -16,19 +16,38 @@ class DbSqlStringDdl {
       ');';
 
   static String dropTableFilter = 'DROP TABLE IF EXISTS filter;';
-  static String createTableFilter = 'CREATE TABLE filter ('
+  static String dropTableFilterCategory =
+      'DROP TABLE IF EXISTS FilterCategory;';
+  static String createTableFilterCategory = 'CREATE TABLE FilterCategory ('
       'category STRING  PRIMARY KEY UNIQUE NOT NULL, '
       'orderCategory INTEGER ,'
       'categoryValue INTEGER NOT NULL DEFAULT (1)'
       ');';
 
-  static Map<String, String> insertValueFilter = {
-    'hotel': 'INSERT INTO [filter] (category, orderCategory) VALUES ("hotel",0);',
-    'restaurant': 'INSERT INTO [filter] (category, orderCategory) VALUES ("restaurant",1);',
+  static Map<String, String> insertValueFilterCategory = {
+    'hotel':
+        'INSERT INTO [FilterCategory] (category, orderCategory) VALUES ("hotel",0);',
+    'restaurant':
+        'INSERT INTO [FilterCategory] (category, orderCategory) VALUES ("restaurant",1);',
     'particularPlace':
-        'INSERT INTO [filter] (category, orderCategory) VALUES ("particularPlace",2);',
-    'park': 'INSERT INTO [filter] (category, orderCategory) VALUES ("park",3);',
-    'museum': 'INSERT INTO [filter] (category, orderCategory) VALUES ("museum",4);',
-    'cafe': 'INSERT INTO [filter] (category, orderCategory) VALUES ("cafe",5);',
+        'INSERT INTO [FilterCategory] (category, orderCategory) VALUES ("particularPlace",2);',
+    'park':
+        'INSERT INTO [FilterCategory] (category, orderCategory) VALUES ("park",3);',
+    'museum':
+        'INSERT INTO [FilterCategory] (category, orderCategory) VALUES ("museum",4);',
+    'cafe':
+        'INSERT INTO [FilterCategory] (category, orderCategory) VALUES ("cafe",5);',
+  };
+
+  static String dropTableFilterDistance =
+      'DROP TABLE IF EXISTS FilterDistance;';
+  static String createTableFilterDistance = 'CREATE TABLE FilterDistance ('
+      'distanceCode INTEGER PRIMARY KEY UNIQUE NOT NULL DEFAULT (1), '
+      'distanceStart STRING DEFAULT (100), '
+      'distanceEnd STRING DEFAULT (1000)'
+      ');';
+
+  static Map<int, String> insertValueFilterDistance = {
+    1: 'INSERT INTO [FilterDistance] (distanceCode) VALUES (1);',
   };
 }

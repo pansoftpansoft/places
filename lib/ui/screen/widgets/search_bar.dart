@@ -78,7 +78,7 @@ class SearchBar extends StatelessWidget {
             );
       }
     } else {
-      context.read<FiltersScreenModel>().setFilteredPlaces();
+      context.read<FiltersScreenModel>().getDataFromRepository();
     }
   }
 

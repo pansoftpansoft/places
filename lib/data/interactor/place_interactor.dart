@@ -1,7 +1,8 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:places/data/model/filter.dart';
+import 'package:places/data/model/filter_category.dart';
+import 'package:places/data/model/filter_distance.dart';
 import 'package:places/data/model/place.dart';
 import 'package:places/data/repository/place_repository.dart';
 import 'package:places/domain/db_provider.dart';
@@ -21,18 +22,33 @@ class PlaceInteractor {
     return mocksFiltered;
   }
 
-  /// Получить список отфильтрованных мест
-  static Future<List<Filter>?> getSettingsFilter() async {
-    final listFilter = await PlaceRepository.getListSettingsFilter();
+  /// Получить настройки фильтра категории
+  static Future<List<FilterCategory>?> getSettingsFilterCategory() async {
+    final listFilter = await PlaceRepository.getListFilterCategory();
+
+    return listFilter;
+  }
+
+  /// Получить настройки фильтра дистанции до места
+  static Future<List<FilterDistance>?> getSettingsFilterDistance() async {
+    final listFilter = await PlaceRepository.getListFilterDistance();
 
     return listFilter;
   }
 
   ///--------------------------------------------------------------
   /// Обновить список настроик фильтра
-  static Future<void> updateListFilterSettings(List<Filter> listFilter) async {
+  static Future<void> updateListFilterCategory(List<FilterCategory> listFilter) async {
     for (final item in listFilter) {
-      await PlaceRepository.updateSettingsFilter(item);
+      await PlaceRepository.updateFilterCategory(item);
+    }
+  }
+
+  ///--------------------------------------------------------------
+  /// Обновить список настроик фильтра
+  static Future<void> updateListFilterDistance(List<FilterDistance> listFilter) async {
+    for (final item in listFilter) {
+      await PlaceRepository.updateFilterDistance(item);
     }
   }
 

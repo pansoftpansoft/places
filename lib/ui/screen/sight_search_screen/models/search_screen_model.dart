@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:places/domain/db_provider.dart';
 import 'package:places/domain/history.dart';
 import 'package:places/type_place.dart';
-import 'package:places/ui/screen/filters_screen/model/filters_screen_model.dart';
 
 ///Модель для поиска
 class SearchScreenModel extends ChangeNotifier {
@@ -92,7 +91,7 @@ class SearchScreenModel extends ChangeNotifier {
           debugPrint('Не найдено ни одного места');
           managerSelectionScreen(numberScreen: ScreenEnum.emptyScreen);
         } else {
-          debugPrint('Найдено ${FiltersScreenModel.countPlace} места');
+          debugPrint('Найдено ${mocks.length} места');
           managerSelectionScreen(
             numberScreen: ScreenEnum.listFoundPlacesScreen,
           );

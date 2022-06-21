@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:places/type_place.dart';
 import 'package:places/ui/res/sizes.dart';
+import 'package:places/ui/screen/filters_screen/model/filters_screen_model.dart';
 import 'package:places/ui/screen/sight_list_screen/widgets/sticky_header.dart';
-import 'package:places/ui/screen/sight_search_screen/models/search_screen_model.dart';
 import 'package:places/ui/screen/widgets/sight_card/sight_card.dart';
 import 'package:provider/provider.dart';
 
@@ -13,7 +13,7 @@ class SightListScreenPortrait extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<SearchScreenModel>(builder: (
+    return Consumer<FiltersScreenModel>(builder: (
       final context,
       final cart,
       final child,
@@ -35,7 +35,7 @@ class SightListScreenPortrait extends StatelessWidget {
                   final index,
                 ) =>
                     SightCard(mocksFiltered[index]),
-                childCount: mocksFiltered.length-1,
+                childCount: mocksFiltered.length,
               ),
             ),
           ],

@@ -114,10 +114,7 @@ class SplashScreenState extends State<SplashScreen> {
     debugPrint('value = 2');
     _isInitialized.complete(isComplete);
     debugPrint('finishGetNetData ${_isInitialized.isCompleted.toString()}');
-    context.read<FiltersScreenModel>().setFilteredPlaces();
-    context.read<SearchScreenModel>()
-      ..setSearchText('')
-      ..getFilteredList();
+    context.read<FiltersScreenModel>().getDataFromRepository();
   }
 
   /// Логика перехода на следующий экран

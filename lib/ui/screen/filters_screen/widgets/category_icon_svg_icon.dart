@@ -52,15 +52,7 @@ class _CategoryIconSvgIconState extends State<CategoryIconSvgIcon> {
     context.read<FiltersScreenModel>().setTypePlaceSelected(
           widget.placeType.namePlaceDB,
         );
-
-    context.read<FiltersScreenModel>().notifyListenersFiltersScreen();
-    context.read<FiltersScreenModel>().getDataFromRepository();
-
-
-    // FiltersScreen.setButtonSelect(context, widget.placeType.namePlaceDB);
-    // setState(() {
-    //   debugPrint('Обновить даные при нажатии на кнопку КАТЕГОРИЯ');
-    // });
-    // context.read<SearchFilterModel>().notifyListenersSearchScreen();
+    context.read<FiltersScreenModel>().getDataFromRepository().then((value) =>
+        context.read<FiltersScreenModel>().notifyListenersFiltersScreen());
   }
 }

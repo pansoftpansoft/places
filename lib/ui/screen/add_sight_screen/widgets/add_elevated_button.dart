@@ -4,8 +4,6 @@ import 'package:places/type_place.dart';
 import 'package:places/ui/res/labels.dart';
 import 'package:places/ui/screen/add_sight_screen/models/add_sight_model.dart';
 import 'package:places/ui/screen/add_sight_screen/widgets/show_alert_add.dart';
-import 'package:places/ui/screen/filters_screen/model/filters_screen_model.dart';
-import 'package:places/ui/screen/sight_search_screen/models/search_screen_model.dart';
 import 'package:places/ui/screen/widgets/elevated_button_green_big.dart';
 import 'package:provider/provider.dart';
 
@@ -63,8 +61,6 @@ class AddElevatedButton extends StatelessWidget {
   ///Обработка кнопки предупреждения что добавляется новое место или ошибка
   void _onPress(BuildContext context) {
     context.read<AddSightModel>().disableButton = null;
-    context.read<FiltersScreenModel>().setFilteredPlaces();
-    context.read<SearchScreenModel>().getFilteredList();
     Navigator.pushReplacementNamed(
       context,
       '/SightListScreen',

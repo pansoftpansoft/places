@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:places/ui/res/color_palette.dart';
 import 'package:places/ui/screen/filters_screen/model/filters_screen_model.dart';
-
+import 'package:provider/provider.dart';
 
 class FiltersScreenBodySlider extends StatefulWidget {
   const FiltersScreenBodySlider({Key? key}) : super(key: key);
@@ -25,14 +25,17 @@ class _FiltersScreenBodySliderState extends State<FiltersScreenBodySlider> {
       child: RangeSlider(
         min: 100,
         max: 10000,
-        values: FiltersScreenModel.selectedRange,
+        values: FiltersScreenModel.rangeDistance,
         onChanged: (final newRange) {
           //Без определения этого свойства, бегунки не активны
           _onChange(context, newRange);
         },
+        onChangeEnd: (final newRange) {
+          _onChangeEnd(context, newRange);
+        },
         labels: RangeLabels(
-          FiltersScreenModel.selectedRange.start.round().toString(),
-          FiltersScreenModel.selectedRange.end.round().toString(),
+          FiltersScreenModel.rangeDistance.start.round().toString(),
+          FiltersScreenModel.rangeDistance.end.round().toString(),
         ),
       ),
     );
@@ -40,7 +43,16 @@ class _FiltersScreenBodySliderState extends State<FiltersScreenBodySlider> {
 
   void _onChange(BuildContext context, RangeValues newRange) {
     setState(() {
-      FiltersScreenModel.selectedRange = newRange;
+      debugPrint('newRange = ${newRange.end}');
+      FiltersScreenModel.rangeDistance = newRange;
+      context.read<FiltersScreenModel>().notifyListenersFiltersScreen();
     });
+  }
+
+  void _onChangeEnd(BuildContext context, RangeValues newRange) {
+    debugPrint('_onChangeEnd newRange = ${newRange.end}');
+
+    context.read<FiltersScreenModel>().getDataFromRepository().then((value) =>
+        context.read<FiltersScreenModel>().notifyListenersFiltersScreen());
   }
 }

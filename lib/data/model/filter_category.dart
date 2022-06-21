@@ -1,15 +1,14 @@
-class Filter {
+class FilterCategory {
   final String category;
   final int orderCategory;
-   int categoryValue;
+  int categoryValue;
 
+  FilterCategory(this.category, this.orderCategory, this.categoryValue,);
 
-  Filter(this.category, this.orderCategory, this.categoryValue,);
-
-  factory Filter.fromMap(
+  factory FilterCategory.fromMap(
     final Map<String, dynamic> mapFilter,
   ) =>
-      Filter(
+      FilterCategory(
         mapFilter['category'] as String,
         mapFilter['orderCategory'] as int,
         mapFilter['categoryValue'] as int,
@@ -19,6 +18,5 @@ class Filter {
         'category': category,
         'orderCategory': orderCategory,
         'categoryValue': categoryValue,
-
       };
 }

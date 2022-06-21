@@ -1,11 +1,15 @@
+// ignore_for_file: prefer_final_in_for_each
+
 import 'package:flutter/material.dart';
 import 'package:places/data/interactor/place_interactor.dart';
-import 'package:places/data/model/filter.dart';
+import 'package:places/data/model/filter_category.dart';
+import 'package:places/data/model/filter_distance.dart';
 import 'package:places/type_place.dart';
 
 class FiltersScreenModel extends ChangeNotifier {
   ///Список истории поисковых запросов
-  static List<Filter> listFilter = <Filter>[];
+  static List<FilterCategory> listFilterCategory = <FilterCategory>[];
+  static List<FilterDistance> listFilterDistance = <FilterDistance>[];
 
   ///Мапа кнопок для фильтрации мест с изночальными значениями
   static Map<String, bool> filterMap = <String, bool>{};
@@ -16,39 +20,20 @@ class FiltersScreenModel extends ChangeNotifier {
   //экран то востановим текущие значения
 
   ///
-  static int countPlace = 0;
-
-  ///
-  static RangeValues selectedRange = const RangeValues(100, 1000);
+  static RangeValues rangeDistance = const RangeValues(100, 1000);
 
   ///Расставить сохраненные настройки фильтра
   static Future<void> getFilterSettings() async {
-    listFilter = (await PlaceInteractor.getSettingsFilter())!;
+    listFilterCategory = (await PlaceInteractor.getSettingsFilterCategory())!;
     filterMap.clear();
-    for (final item in listFilter) {
+    for (final item in listFilterCategory) {
       filterMap[item.category] = item.categoryValue == 1;
     }
-  }
 
-  ///Подсчет отфильтрованных мест
-  ///Пометка мест что они попали в фильтр
-  void setFilteredPlaces() {
-    mocksSearchText.clear();
-    var countPlaceFiltered = 0; //Подсчет отфильтрованных мест,
-    // для отображения на кнопке
-    debugPrint('mocks ${mocks.length}');
-    for (final item in mocks) {
-      //item.visibleFilter = false;
-      // if (_arePointsNear(
-      //       item.lat,
-      //       item.lon,
-      //     ) &&
-      //     SearchFilterModel.filterMap[item.placeType]!) {
-      item.visibleFilter = true;
-      countPlaceFiltered++;
-      // }
+    listFilterDistance = (await PlaceInteractor.getSettingsFilterDistance())!;
+    for (final item in listFilterDistance) {
+      rangeDistance = RangeValues(item.distanceStart, item.distanceEnd);
     }
-    countPlace = countPlaceFiltered;
   }
 
   ///Взводим галочку на кнопке категорий
@@ -64,8 +49,10 @@ class FiltersScreenModel extends ChangeNotifier {
     debugPrint('$typePlace = ${filterMap[typePlace]}');
   }
 
-  /// TODO переделать на interactor
-  void getDataFromRepository() {
+  Future<void> restoreFilterSettings() => getFilterSettings();
+
+  Future<void> getDataFromRepository() async {
+    mocksSearchText.clear();
     final listCategory = <String>[];
     for (final item in filterMap.keys.toList()) {
       if (filterMap[item] ?? false) {
@@ -73,19 +60,29 @@ class FiltersScreenModel extends ChangeNotifier {
       }
     }
 
-    PlaceInteractor.getPlaces(
+    await PlaceInteractor.getPlaces(
+      radiusRange: rangeDistance,
       category: listCategory.isEmpty ? null : listCategory,
     );
-    debugPrint(' = ${filterMap.length}  ${listCategory.length}');
+
+    debugPrint(' countPlace 3  = ${mocks.length}');
 
     return;
   }
 
   Future<void> saveFilterSettings() async {
-    for (var item in listFilter) {
+    // Сохраняем категории
+    for (var item in listFilterCategory) {
       item.categoryValue = filterMap[item.category]! ? 1 : 0;
     }
-    await PlaceInteractor.updateListFilterSettings(listFilter);
+    await PlaceInteractor.updateListFilterCategory(listFilterCategory);
+    // Сохраняем дистанцию
+
+    for (var item in listFilterDistance) {
+      item.distanceStart = rangeDistance.start;
+      item.distanceEnd = rangeDistance.end;
+    }
+    await PlaceInteractor.updateListFilterDistance(listFilterDistance);
   }
 
   void notifyListenersFiltersScreen() {
@@ -93,7 +90,6 @@ class FiltersScreenModel extends ChangeNotifier {
   }
 
   void countFilteredPlacesSet() {
-    setFilteredPlaces();
     notifyListeners();
   }
 }

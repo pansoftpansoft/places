@@ -4,7 +4,8 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:places/data/connection_backend_server.dart';
-import 'package:places/data/model/filter.dart';
+import 'package:places/data/model/filter_category.dart';
+import 'package:places/data/model/filter_distance.dart';
 import 'package:places/data/model/place.dart';
 import 'package:places/data/model/place_dto.dart';
 import 'package:places/data/model/place_filter_request_dto.dart';
@@ -164,8 +165,8 @@ class PlaceRepository {
 
   ///--------------------------------------------------------------
   ///Получаем список настроик фильтра
-  static Future<List<Filter>> getListSettingsFilter() async {
-    final listFilter = await DBProvider.dbProvider.getListFilterFromDb();
+  static Future<List<FilterCategory>> getListFilterCategory() async {
+    final listFilter = await DBProvider.dbProvider.getListFilterCategoryFromDb();
     for (final item in listFilter) {
       debugPrint(
         'item = ${item.category} ${item.orderCategory} ${item.categoryValue}',
@@ -176,9 +177,28 @@ class PlaceRepository {
   }
 
   ///--------------------------------------------------------------
+  ///Получаем список настроик фильтра
+  static Future<List<FilterDistance>> getListFilterDistance() async {
+    final listFilter = await DBProvider.dbProvider.getListFilterDistanceFromDb();
+    for (final item in listFilter) {
+      debugPrint(
+        'item = ${item.distanceCode} ${item.distanceStart} ${item.distanceEnd}',
+      );
+    }
+
+    return listFilter;
+  }
+
+  ///--------------------------------------------------------------
   ///Обновляем список настроик фильтра в базе данных
-  static Future<void> updateSettingsFilter(Filter filter) async {
-    await DBProvider.dbProvider.updateSettingsFilterInDb(filter);
+  static Future<void> updateFilterCategory(FilterCategory filter) async {
+    await DBProvider.dbProvider.updateSettingsFilterCategoryInDb(filter);
+  }
+
+  ///--------------------------------------------------------------
+  ///Обновляем список настроик фильтра в базе данных
+  static Future<void> updateFilterDistance(FilterDistance filter) async {
+    await DBProvider.dbProvider.updateSettingsFilterDistanceInDb(filter);
   }
 
   ///--------------------------------------------------------------
@@ -201,7 +221,6 @@ class PlaceRepository {
       // Текущее местоположение телефона
       lat: lat,
       lon: lon,
-
       radius: radius,
       typeFilter: typeFilter,
       nameFilter: nameFilter,

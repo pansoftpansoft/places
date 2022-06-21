@@ -5,7 +5,8 @@
 import 'package:flutter/foundation.dart';
 
 import 'package:path_provider/path_provider.dart';
-import 'package:places/data/model/filter.dart';
+import 'package:places/data/model/filter_category.dart';
+import 'package:places/data/model/filter_distance.dart';
 import 'package:places/data/model/place.dart';
 import 'package:places/data/model/places_local_data.dart';
 import 'package:places/domain/db_sql_string_ddl.dart';
@@ -57,7 +58,7 @@ class DBProvider {
 
     return openDatabase(
       path,
-      version: 4,
+      version: 8,
       onOpen: (final db) async {
         debugPrint('Открать базу данных');
       },
@@ -66,24 +67,36 @@ class DBProvider {
         final version,
       ) async {
         debugPrint('Создать базу данных');
-        await database.execute(DbSqlStringDdl.createTableHistory);
-        await database.execute(DbSqlStringDdl.createTablePlacesLocal);
-        await database.execute(DbSqlStringDdl.createTableFilter);
+        await onCreate(database);
       },
       onUpgrade: (final database, final oldVersion, final newVersion) async {
         debugPrint('Обновить базу данных');
-        await database.execute(DbSqlStringDdl.dropTableHistory);
-        await database.execute(DbSqlStringDdl.createTableHistory);
-        await database.execute(DbSqlStringDdl.dropTablePlacesLocal);
-        await database.execute(DbSqlStringDdl.createTablePlacesLocal);
-        await database.execute(DbSqlStringDdl.dropTableFilter);
-        await database.execute(DbSqlStringDdl.createTableFilter);
-
-        for (final item in DbSqlStringDdl.insertValueFilter.keys.toList()) {
-          await database.execute(DbSqlStringDdl.insertValueFilter[item]!);
-        }
+        await onCreate(database);
       },
     );
+  }
+
+  static Future<void> onCreate(Database database) async {
+    await database.execute(DbSqlStringDdl.dropTableHistory);
+    await database.execute(DbSqlStringDdl.createTableHistory);
+
+    await database.execute(DbSqlStringDdl.dropTablePlacesLocal);
+    await database.execute(DbSqlStringDdl.createTablePlacesLocal);
+
+    await database.execute(DbSqlStringDdl.dropTableFilter);
+    await database.execute(DbSqlStringDdl.dropTableFilterCategory);
+    await database.execute(DbSqlStringDdl.createTableFilterCategory);
+
+    await database.execute(DbSqlStringDdl.dropTableFilterDistance);
+    await database.execute(DbSqlStringDdl.createTableFilterDistance);
+
+    // Заполняем начальными данными фильтр категорий
+    for (final item in DbSqlStringDdl.insertValueFilterCategory.keys.toList()) {
+      await database.execute(DbSqlStringDdl.insertValueFilterCategory[item]!);
+    }
+    // Заполняем начальными данными фильтр растоияния
+
+    await database.execute(DbSqlStringDdl.insertValueFilterDistance[1]!);
   }
 
   ///--------------------------------------------------------------
@@ -117,28 +130,63 @@ class DBProvider {
   }
 
   ///--------------------------------------------------------------
-  /// Получить настройки фильтра из бызы данных
-  Future<List<Filter>> getListFilterFromDb() async {
+  /// Получить настройки фильтра категории из бызы данных
+  Future<List<FilterCategory>> getListFilterCategoryFromDb() async {
     _database = await database;
     final res = await _database!.query(
-      'filter',
+      'FilterCategory',
       orderBy: 'orderCategory',
     );
 
-    final list = res.isNotEmpty ? res.map(Filter.fromMap).toList() : <Filter>[];
+    final list = res.isNotEmpty
+        ? res.map(FilterCategory.fromMap).toList()
+        : <FilterCategory>[];
 
     return list;
   }
 
   ///--------------------------------------------------------------
-  /// Соохранить настройки фильтра в базу
-  Future<void> updateSettingsFilterInDb(final Filter filter) async {
+  /// Соохранить настройки фильтра категории в базу
+  Future<void> updateSettingsFilterCategoryInDb(
+    final FilterCategory filter,
+  ) async {
     _database = await database;
     final res = await _database!.update(
-      'filter',
+      'FilterCategory',
       filter.toMap(),
       where: 'category=?',
       whereArgs: [filter.category],
+    );
+  }
+
+  ///--------------------------------------------------------------
+  /// Получить настройки фильтра растояния из бызы данных
+  Future<List<FilterDistance>> getListFilterDistanceFromDb() async {
+    _database = await database;
+    final res = await _database!.query(
+      'FilterDistance',
+    );
+
+    debugPrint('res = ${res.toString()}');
+    final list = res.isNotEmpty
+        ? res.map(FilterDistance.fromMap).toList()
+        : <FilterDistance>[];
+
+    return list;
+  }
+
+  ///--------------------------------------------------------------
+  /// Соохранить настройки фильтра растояния в базу
+  Future<void> updateSettingsFilterDistanceInDb(
+    final FilterDistance filter,
+  ) async {
+    debugPrint('filter.toMap() = ${filter.toMap().toString()}');
+    _database = await database;
+    final res = await _database!.update(
+      'FilterDistance',
+      filter.toMap(),
+      where: 'distanceCode=?',
+      whereArgs: [1],
     );
   }
 
