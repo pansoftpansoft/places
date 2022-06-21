@@ -60,12 +60,12 @@ class FiltersScreenModel extends ChangeNotifier {
       }
     }
 
-    await PlaceInteractor.getPlaces(
+    mocksFiltered = (await PlaceInteractor.getPlacesInteractor(
       radiusRange: rangeDistance,
       category: listCategory.isEmpty ? null : listCategory,
-    );
+    ))!;
 
-    debugPrint(' countPlace 3  = ${mocks.length}');
+    debugPrint(' countPlace 3  = ${mocksFiltered.length}');
 
     return;
   }

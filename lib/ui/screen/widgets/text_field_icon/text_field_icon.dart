@@ -218,7 +218,8 @@ class _TextFieldIconState extends State<TextFieldIcon> {
         if (widget.textEditingControllerFunction != null) {
           widget.textEditingControllerFunction!(_textEditingController);
         }
-        if (_textEditingController.text.isEmpty) {
+        final text = _textEditingController.value as String;
+        if (_textEditingController.text.isEmpty & text.isEmpty) {
           setState(() {
             suffixIconVisibleForText = false;
           });
@@ -234,6 +235,8 @@ class _TextFieldIconState extends State<TextFieldIcon> {
 
 
   InputDecoration buildInputDecoration() {
+    debugPrint('suffixIconVisibleForText = $suffixIconVisibleForText');
+
     return InputDecoration(
         labelText: widget.labelText,
         floatingLabelBehavior: FloatingLabelBehavior.never,

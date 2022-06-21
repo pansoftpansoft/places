@@ -2,8 +2,8 @@
 
 import 'dart:async';
 
-//import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:places/data/interactor/place_interactor.dart';
 import 'package:places/domain/db_provider.dart';
 import 'package:places/domain/history.dart';
 import 'package:places/type_place.dart';
@@ -12,7 +12,6 @@ import 'package:places/type_place.dart';
 class SearchScreenModel extends ChangeNotifier {
   ///Список истории поисковых запросов
   static List<History> listHistory = <History>[];
-
 
   ///
   static ScreenEnum? selectedScreen;
@@ -23,10 +22,7 @@ class SearchScreenModel extends ChangeNotifier {
 
   static String _searchString = '';
 
-
   final bool _errorTest = false;
-
-
 
   static String get searchString => _searchString;
 
@@ -36,7 +32,6 @@ class SearchScreenModel extends ChangeNotifier {
 
     return listHistory.length;
   }
-
 
   /// Получить отфильтрованный список мест
   /// И проверить на совподение со строкой поиска
@@ -57,24 +52,36 @@ class SearchScreenModel extends ChangeNotifier {
     return _errorTest;
   }
 
-  bool getSearchTextList() {
+  // bool getSearchTextList() {
+  //   mocksSearchText.clear();
+  //   if (_searchString.isNotEmpty) {
+  //     debugPrint('900 mocksSearch ${mocksFiltered.length.toString()}');
+  //     for (final item in mocksFiltered) {
+  //       //фильтр установлен проверяем его и поиск по имени
+  //       debugPrint(_searchString);
+  //       if (item.visibleFilter) {
+  //         if (item.name
+  //             .toLowerCase()
+  //             .contains(_searchString.trimRight().toLowerCase())) {
+  //           mocksSearchText.add(item);
+  //         }
+  //       }
+  //     }
+  //   }
+  //
+  //   return _errorTest;
+  // }
+
+  Future<void> getListSearchText() async {
     mocksSearchText.clear();
     if (_searchString.isNotEmpty) {
-      debugPrint('900 mocksSearch ${mocksFiltered.length.toString()}');
-      for (final item in mocksFiltered) {
-        //фильтр установлен проверяем его и поиск по имени
-        debugPrint(_searchString);
-        if (item.visibleFilter) {
-          if (item.name
-              .toLowerCase()
-              .contains(_searchString.trimRight().toLowerCase())) {
-            mocksSearchText.add(item);
-          }
-        }
-      }
+      mocksSearchText = (await PlaceInteractor.getPlacesInteractor(
+        searchString: _searchString,
+      ))!;
     }
+    debugPrint(' countPlace 3  = ${mocksSearchText.length}');
 
-    return _errorTest;
+    return;
   }
 
   ///Сообщить всем что список мест изменился
@@ -85,13 +92,13 @@ class SearchScreenModel extends ChangeNotifier {
     Timer(
       const Duration(seconds: 1),
       () {
-        debugPrint('300 mocksSearch ${mocksFiltered.length.toString()}');
-        if (mocksFiltered.isEmpty) {
+        debugPrint('300 mocksSearch ${mocksSearchText.length.toString()}');
+        if (mocksSearchText.isEmpty) {
           //ошибка выдаем экран сообщения
           debugPrint('Не найдено ни одного места');
           managerSelectionScreen(numberScreen: ScreenEnum.emptyScreen);
         } else {
-          debugPrint('Найдено ${mocks.length} места');
+          debugPrint('Найдено ${mocksSearchText.length} места');
           managerSelectionScreen(
             numberScreen: ScreenEnum.listFoundPlacesScreen,
           );
@@ -128,8 +135,6 @@ class SearchScreenModel extends ChangeNotifier {
     //сохранить текст поиска
     DBProvider.dbProvider.addHistory(searchString);
   }
-
-
 
   ///Очищаем список историй поиска
   Future<void> clearHistory() async {

@@ -87,7 +87,7 @@ class ListHistoryItemBuilder extends StatelessWidget {
       ..setSearchText(
         SearchScreenModel.listHistory[index].historyText,
       )
-      ..getSearchTextList()
+      ..getListSearchText()
       ..managerSelectionScreen(numberScreen: ScreenEnum.listFoundPlacesScreen)
       ..changeSearch();
   }

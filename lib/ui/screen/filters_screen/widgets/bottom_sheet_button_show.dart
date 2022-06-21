@@ -27,8 +27,8 @@ class BottomSheetButtonShow extends StatelessWidget {
         child: ConstrainedBox(
           constraints: const BoxConstraints.tightFor(height: heightSizeBox48),
           child: ElevatedButtonGreenBig(
-            title: '$show (${mocks.length})',
-            onPressed: mocks.isNotEmpty
+            title: '$show (${mocksFiltered.length})',
+            onPressed: mocksFiltered.isNotEmpty
                 ? () {
                     _onPressed(context);
                   }

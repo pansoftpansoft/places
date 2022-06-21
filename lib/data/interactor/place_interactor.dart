@@ -53,31 +53,32 @@ class PlaceInteractor {
   }
 
   /// Получить список отфильтрованных мест
-  static Future<List<Place>?> getPlaces({
+  static Future<List<Place>?> getPlacesInteractor({
     RangeValues? radiusRange,
     List<String>? category,
+    String? searchString,
   }) async {
-    await PlaceRepository.getPlaces(
+
+
+    final mocksFromRepository = await PlaceRepository.getPlacesRepository(
       radiusRange: radiusRange,
       category: category,
+      searchString: searchString,
     );
 
-    ///TODO
-    mocksFiltered = mocks; //await PlaceRepository.getPlaces(radius, category);
-
-    return mocksFiltered;
+    return mocksFromRepository;
   }
 
-  /// Фильтрация списка по  радиусу
-  static List<Place> filterListPlacesRadius(
-    List<Place> placeList,
-    RangeValues radius,
-  ) {
-    final listPlaceFiltered =
-        placeList.where((element) => _arePointsNear(element, radius)).toList();
-
-    return listPlaceFiltered;
-  }
+  // /// Фильтрация списка по  радиусу
+  // static List<Place> filterListPlacesRadius(
+  //   List<Place> placeList,
+  //   RangeValues radius,
+  // ) {
+  //   final listPlaceFiltered =
+  //       placeList.where((element) => _arePointsNear(element, radius)).toList();
+  //
+  //   return listPlaceFiltered;
+  // }
 
   /// Фильтрация списка по категории
   static List<Place> filterListPlacesCategory(
@@ -90,30 +91,30 @@ class PlaceInteractor {
     return listPlaceFiltered;
   }
 
-  /// Получить список отфильтрованных мест
-  static Future<List<Place>> getPlacesFiltered(
-    List<Place> listPlace, {
-    RangeValues? radius,
-    List<String>? category,
-  }) async {
-    List<Place> listPlaceFiltered;
-    //Проверка на пустой список
-    listPlaceFiltered = listPlace.isEmpty ? mocks : listPlace;
-
-    //Фильтруем места по радиусу
-    if (radius != null) {
-      listPlaceFiltered = filterListPlacesRadius(listPlace, radius);
-    }
-    //Фильтруем места по категории
-    if (category != null) {
-      listPlaceFiltered = filterListPlacesCategory(listPlaceFiltered, category);
-    }
-
-    /// Запишем в локальную очередь
-    mocks = listPlaceFiltered;
-
-    return listPlaceFiltered;
-  }
+  // /// Получить список отфильтрованных мест
+  // static Future<List<Place>> getPlacesFiltered(
+  //   List<Place> listPlace, {
+  //   RangeValues? radius,
+  //   List<String>? category,
+  // }) async {
+  //   List<Place> listPlaceFiltered;
+  //   //Проверка на пустой список
+  //   listPlaceFiltered = listPlace.isEmpty ? mocks : listPlace;
+  //
+  //   //Фильтруем места по радиусу
+  //   if (radius != null) {
+  //     listPlaceFiltered = filterListPlacesRadius(listPlace, radius);
+  //   }
+  //   //Фильтруем места по категории
+  //   if (category != null) {
+  //     listPlaceFiltered = filterListPlacesCategory(listPlaceFiltered, category);
+  //   }
+  //
+  //   /// Запишем в локальную очередь
+  //   mocks = listPlaceFiltered;
+  //
+  //   return listPlaceFiltered;
+  // }
 
   static Future<Place?> getPlaceDetails(int placeId) async {
     return PlaceRepository.getPlaceId(placeId);
@@ -241,20 +242,19 @@ class PlaceInteractor {
         .toList();
   }
 
-  /// Вхождение места в площаь между двумя радиусами
-  static bool _arePointsNear(Place place, RangeValues rangeValues) {
-    //TODO Здесь необходимо получить свои координаты
-    const centerPointLat = 55.753605;
-    const centerPointLon = 37.619773;
-
-    const kyPoint = 40000000 / 360; //40000000 - длина окружности земли в метрах
-    final kxPoint = cos(pi * centerPointLat / 180.0) * kyPoint;
-    final dxPoint = (centerPointLon - place.lon).abs() * kxPoint;
-    final dyPoint = (centerPointLat - place.lat).abs() * kyPoint;
-
-    return sqrt(dxPoint * dxPoint + dyPoint * dyPoint) <= rangeValues.end &&
-        sqrt(dxPoint * dxPoint + dyPoint * dyPoint) >= rangeValues.start;
-  }
+  // /// Вхождение места в площаь между двумя радиусами
+  // static bool _arePointsNear(Place place, RangeValues rangeValues) {
+  //   const centerPointLat = 55.753605;
+  //   const centerPointLon = 37.619773;
+  //
+  //   const kyPoint = 40000000 / 360; //40000000 - длина окружности земли в метрах
+  //   final kxPoint = cos(pi * centerPointLat / 180.0) * kyPoint;
+  //   final dxPoint = (centerPointLon - place.lon).abs() * kxPoint;
+  //   final dyPoint = (centerPointLat - place.lat).abs() * kyPoint;
+  //
+  //   return sqrt(dxPoint * dxPoint + dyPoint * dyPoint) <= rangeValues.end &&
+  //       sqrt(dxPoint * dxPoint + dyPoint * dyPoint) >= rangeValues.start;
+  // }
 
   /// Дистанция до объекта от точки
   static double _distanceCalculate(Place place) {

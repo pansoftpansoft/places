@@ -99,7 +99,7 @@ class SearchBar extends StatelessWidget {
     } else {
       context.read<SearchScreenModel>()
         ..setSearchText(value)
-        ..getSearchTextList()
+        ..getListSearchText()
         ..managerSelectionScreen(numberScreen: ScreenEnum.listFoundPlacesScreen)
         ..changeSearch();
     }
@@ -113,7 +113,7 @@ class SearchBar extends StatelessWidget {
       debugPrint('Обработка пробела в строке поиска');
       context.read<SearchScreenModel>()
         ..setSearchText(value)
-        ..getSearchTextList()
+        ..getListSearchText()
         ..managerSelectionScreen(numberScreen: ScreenEnum.listFoundPlacesScreen)
         ..notifyListenersSearchScreen();
     }

@@ -41,17 +41,23 @@ class PlaceRepository {
 
   ///--------------------------------------------------------------
   /// Получаем список отфильтрованных мест с сервера
-  static Future<void> getPlaces({
+  static Future<List<Place>> getPlacesRepository({
     RangeValues? radiusRange,
     List<String>? category,
+    String? searchString,
   }) async {
-    placesDto = await getPlacesDto(radiusRange, category);
-    await createMocks();
+    var repositoryMocks= <Place>[];
+    placesDto = await getPlacesDto(radiusRange, category, searchString);
+    repositoryMocks= await createMocks();
+
+    return repositoryMocks;
   }
 
   ///--------------------------------------------------------------
   /// получить объедененный список DTO и LOCAL
-  static Future<void> createMocks() async {
+  static Future<List<Place>> createMocks() async {
+    final repositoryMocks= <Place>[];
+
     final placesLocalData = await DBProvider.dbProvider.getPlacesLocal();
 
     for (final item in placesLocalData) {
@@ -60,7 +66,7 @@ class PlaceRepository {
         ' ${item.wantVisitDate} ${item.visitedDate}',
       );
     }
-    mocks.clear();
+
     bool? isFavorites = false;
 
     debugPrint('Теперь циклы');
@@ -100,8 +106,10 @@ class PlaceRepository {
         wantVisitDate: wantVisitDate,
         visitedDate: visitedDate,
       );
-      mocks.add(place);
+      repositoryMocks.add(place);
     }
+
+    return repositoryMocks;
   }
 
   ///--------------------------------------------------------------
@@ -109,11 +117,13 @@ class PlaceRepository {
   static Future<List<PlaceDto>> getPlacesDto(
     RangeValues? radiusRange,
     List<String>? category,
+    String? searchString,
   ) async {
     // Создаем фильтр
     final filterJson = createFilter(
       radiusRange: radiusRange,
       category: category,
+      searchString: searchString,
     );
 
     final response = await _server.post(
@@ -166,7 +176,8 @@ class PlaceRepository {
   ///--------------------------------------------------------------
   ///Получаем список настроик фильтра
   static Future<List<FilterCategory>> getListFilterCategory() async {
-    final listFilter = await DBProvider.dbProvider.getListFilterCategoryFromDb();
+    final listFilter =
+        await DBProvider.dbProvider.getListFilterCategoryFromDb();
     for (final item in listFilter) {
       debugPrint(
         'item = ${item.category} ${item.orderCategory} ${item.categoryValue}',
@@ -179,7 +190,8 @@ class PlaceRepository {
   ///--------------------------------------------------------------
   ///Получаем список настроик фильтра
   static Future<List<FilterDistance>> getListFilterDistance() async {
-    final listFilter = await DBProvider.dbProvider.getListFilterDistanceFromDb();
+    final listFilter =
+        await DBProvider.dbProvider.getListFilterDistanceFromDb();
     for (final item in listFilter) {
       debugPrint(
         'item = ${item.distanceCode} ${item.distanceStart} ${item.distanceEnd}',
@@ -206,16 +218,14 @@ class PlaceRepository {
   static String createFilter({
     RangeValues? radiusRange,
     List<String>? category,
+    String? searchString,
   }) {
     debugPrint('category = ${category.toString()}');
     // Текущие координаты
     const lat = 55.753605;
     const lon = 37.619773;
-    //final radius = radiusRange?.end;
     final radius = radiusRange == null ? 10000 : radiusRange.end;
     final typeFilter = category ?? <String>[];
-    //const List<String>? typeFilter = null;
-    const nameFilter = '';
 
     final filterJson = PlaceFilterRequestDto(
       // Текущее местоположение телефона
@@ -223,7 +233,7 @@ class PlaceRepository {
       lon: lon,
       radius: radius,
       typeFilter: typeFilter,
-      nameFilter: nameFilter,
+      nameFilter: searchString,
     ).toJson();
 
     debugPrint('filterJson = $filterJson');

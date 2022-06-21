@@ -71,11 +71,11 @@ class SplashScreenState extends State<SplashScreen> {
   Future<void> getNetData() async {
     debugPrint('Запустилась GetNetData().');
 
-    await PlaceInteractor.getPlaces() as List<Place>;
+    mocksFiltered = await PlaceInteractor.getPlacesInteractor() as List<Place>;
     PlaceInteractor.createListWantVisitFromLocalDB();
     PlaceInteractor.createListVisitedFromLocalDB();
 
-    for (final item in mocks){
+    for (final item in mocksFiltered){
       debugPrint('place id = ${item.id}  '
           'isFavorites  = ${item.isFavorites}  '
           'wantVisitDate  = ${item.wantVisitDate}  '
@@ -87,7 +87,7 @@ class SplashScreenState extends State<SplashScreen> {
 
     debugPrint(
       'PlaceInteractor количество записей'
-      ' ${mocks.length.toString()}',
+      ' ${mocksFiltered.length.toString()}',
     );
 
     debugPrint(

@@ -15,7 +15,7 @@ class PlaceFilterRequestDto {
   final List<String> typeFilter;
 
   /// Строка для фильтрации по названию
-  final String nameFilter;
+  final String? nameFilter;
 
   /// Конструктор
   PlaceFilterRequestDto({
@@ -23,7 +23,7 @@ class PlaceFilterRequestDto {
     this.lon = 0,
     this.radius = 0,
     this.typeFilter = const <String>[],
-    this.nameFilter = '',
+    this.nameFilter,
   });
 
   /// Парсинг из json
@@ -49,16 +49,11 @@ class PlaceFilterRequestDto {
     if (typeFilter.isNotEmpty) {
       returnMap['typeFilter'] = typeFilter;
     }
-    // else{
-    //   returnMap['typeFilter'] = ['park','museum'];
-    // }
 
-    if (nameFilter.isNotEmpty) {
+    if ((nameFilter??'').isNotEmpty) {
       returnMap['nameFilter'] = nameFilter;
     }
-    //  else{
-    // returnMap['nameFilter'] = 'па';
-    //  }
+
 
     return jsonEncode(returnMap);
   }
