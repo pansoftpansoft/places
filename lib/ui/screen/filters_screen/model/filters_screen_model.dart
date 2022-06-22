@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_final_in_for_each
 
 import 'package:flutter/material.dart';
+import 'package:places/data/interactor/filter_interactor.dart';
 import 'package:places/data/interactor/place_interactor.dart';
 import 'package:places/data/model/filter_category.dart';
 import 'package:places/data/model/filter_distance.dart';
@@ -24,13 +25,13 @@ class FiltersScreenModel extends ChangeNotifier {
 
   ///Расставить сохраненные настройки фильтра
   static Future<void> getFilterSettings() async {
-    listFilterCategory = (await PlaceInteractor.getSettingsFilterCategory())!;
+    listFilterCategory = (await FilterInteractor.getSettingsFilterCategory())!;
     filterMap.clear();
     for (final item in listFilterCategory) {
       filterMap[item.category] = item.categoryValue == 1;
     }
 
-    listFilterDistance = (await PlaceInteractor.getSettingsFilterDistance())!;
+    listFilterDistance = (await FilterInteractor.getSettingsFilterDistance())!;
     for (final item in listFilterDistance) {
       rangeDistance = RangeValues(item.distanceStart, item.distanceEnd);
     }
@@ -43,10 +44,10 @@ class FiltersScreenModel extends ChangeNotifier {
     } else {
       filterMap[typePlace] = true;
     }
-    for (final item in filterMap.values) {
-      debugPrint('$typePlace = ${item.toString()}');
-    }
-    debugPrint('$typePlace = ${filterMap[typePlace]}');
+    // for (final item in filterMap.values) {
+    //   debugPrint('$typePlace = ${item.toString()}');
+    // }
+    // debugPrint('$typePlace = ${filterMap[typePlace]}');
   }
 
   Future<void> restoreFilterSettings() => getFilterSettings();
@@ -75,14 +76,14 @@ class FiltersScreenModel extends ChangeNotifier {
     for (var item in listFilterCategory) {
       item.categoryValue = filterMap[item.category]! ? 1 : 0;
     }
-    await PlaceInteractor.updateListFilterCategory(listFilterCategory);
+    await FilterInteractor.updateListFilterCategory(listFilterCategory);
     // Сохраняем дистанцию
 
     for (var item in listFilterDistance) {
       item.distanceStart = rangeDistance.start;
       item.distanceEnd = rangeDistance.end;
     }
-    await PlaceInteractor.updateListFilterDistance(listFilterDistance);
+    await FilterInteractor.updateListFilterDistance(listFilterDistance);
   }
 
   void notifyListenersFiltersScreen() {

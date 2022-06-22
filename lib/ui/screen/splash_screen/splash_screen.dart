@@ -74,15 +74,15 @@ class SplashScreenState extends State<SplashScreen> {
     mocksFiltered = await PlaceInteractor.getPlacesInteractor() as List<Place>;
     await PlaceInteractor.getListWantVisitAndVisited();
 
-    for (final item in mocksFiltered) {
-      debugPrint('place id = ${item.id}  '
-          'isFavorites  = ${item.isFavorites}  '
-          'wantVisitDate  = ${item.wantVisitDate}  '
-          'visitedDate  = ${item.visitedDate}  '
-          'lat  = ${item.lat}  '
-          'lon  = ${item.lon}  '
-          'placeType  = ${item.placeType}');
-    }
+    // for (final item in mocksFiltered) {
+    //   debugPrint('place id = ${item.id}  '
+    //       'isFavorites  = ${item.isFavorites}  '
+    //       'wantVisitDate  = ${item.wantVisitDate}  '
+    //       'visitedDate  = ${item.visitedDate}  '
+    //       'lat  = ${item.lat}  '
+    //       'lon  = ${item.lon}  '
+    //       'placeType  = ${item.placeType}');
+    // }
 
     debugPrint(
       'PlaceInteractor количество записей'

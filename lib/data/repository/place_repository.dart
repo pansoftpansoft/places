@@ -4,8 +4,6 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:places/data/connection_backend_server.dart';
-import 'package:places/data/model/filter_category.dart';
-import 'package:places/data/model/filter_distance.dart';
 import 'package:places/data/model/place.dart';
 import 'package:places/data/model/place_dto.dart';
 import 'package:places/data/model/place_filter_request_dto.dart';
@@ -79,9 +77,9 @@ class PlaceRepository {
   static Future<List<Place>> getPlacesWantVisit(
     List<Place> listAllPlaces,
   ) async {
-    for (final item in listAllPlaces) {
-      debugPrint('listAllPlaces = ${item.id} ${item.isFavorites}');
-    }
+    // for (final item in listAllPlaces) {
+    //   debugPrint('listAllPlaces = ${item.id} ${item.isFavorites}');
+    // }
     final returnListWantVisit = listAllPlaces
         .where((element) => element.visitedDate == null && element.isFavorites)
         .toList();
@@ -103,12 +101,12 @@ class PlaceRepository {
 
     final placesLocalData = await DBProvider.dbProvider.getPlacesLocal();
 
-    for (final item in placesLocalData) {
-      debugPrint(
-        'placesLocalData = ${item.id}  ${item.isFavorites}'
-        ' ${item.wantVisitDate} ${item.visitedDate}',
-      );
-    }
+    // for (final item in placesLocalData) {
+    //   debugPrint(
+    //     'placesLocalData = ${item.id}  ${item.isFavorites}'
+    //     ' ${item.wantVisitDate} ${item.visitedDate}',
+    //   );
+    // }
 
     bool? isFavorites = false;
 
@@ -217,46 +215,6 @@ class PlaceRepository {
   }
 
   ///--------------------------------------------------------------
-  ///Получаем список настроек фильтра категорий
-  static Future<List<FilterCategory>> getListFilterCategory() async {
-    final listFilter =
-        await DBProvider.dbProvider.getListFilterCategoryFromDb();
-    for (final item in listFilter) {
-      debugPrint(
-        'item = ${item.category} ${item.orderCategory} ${item.categoryValue}',
-      );
-    }
-
-    return listFilter;
-  }
-
-  ///--------------------------------------------------------------
-  ///Получаем список настроек фильтра дистанции
-  static Future<List<FilterDistance>> getListFilterDistance() async {
-    final listFilter =
-        await DBProvider.dbProvider.getListFilterDistanceFromDb();
-    for (final item in listFilter) {
-      debugPrint(
-        'item = ${item.distanceCode} ${item.distanceStart} ${item.distanceEnd}',
-      );
-    }
-
-    return listFilter;
-  }
-
-  ///--------------------------------------------------------------
-  ///Обновляем список настроек фильтра категорий в базе данных
-  static Future<void> updateFilterCategory(FilterCategory filter) async {
-    await DBProvider.dbProvider.updateSettingsFilterCategoryInDb(filter);
-  }
-
-  ///--------------------------------------------------------------
-  ///Обновляем список настроек фильтра в базе данных
-  static Future<void> updateFilterDistance(FilterDistance filter) async {
-    await DBProvider.dbProvider.updateSettingsFilterDistanceInDb(filter);
-  }
-
-  ///--------------------------------------------------------------
   /// Создаем JSON фильтр
   static String createFilter({
     RangeValues? radiusRange,
@@ -304,13 +262,4 @@ class PlaceRepository {
       '$pathUrlDeletePlace/${place.id.toString()}',
     );
   }
-
-// /// ---------------------------------------------------------------
-// /// Обновить данные о месте и олучить место по идентификатору
-// Future<Place> putPlace(Place place) async {
-//   return Place.fromJson(
-//     await _server.get('$pathUrlPutPlace/${place.id.toString()}')
-//         as Map<String, dynamic>,
-//   );
-// }
 }

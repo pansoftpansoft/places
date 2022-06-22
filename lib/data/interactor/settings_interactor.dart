@@ -11,7 +11,7 @@ class SettingsInteractor {
 
     for (final item in listFilter) {
       if (item.settingsName == settingName) {
-        debugPrint('SettingsApp.toMap() = ${item.settingsValue}');
+        // debugPrint('SettingsApp.toMap() = ${item.settingsValue}');
         settingListValue = item.settingsValue == '0' ? lightTheme : darkTheme;
       }
     }
