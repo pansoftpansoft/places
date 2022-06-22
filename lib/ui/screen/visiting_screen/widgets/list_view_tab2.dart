@@ -18,8 +18,10 @@ class ListViewTab2 extends StatelessWidget {
         itemBuilder: (final context, final index) => SightCard(
           mocksVisited[index],
           iconDelete: true,
-          goal: 'Цель достигнута'
-              ' ${DateFormat.yMMMd().format(mocksVisited[index].visitedDate!)}',
+          goal: mocksVisited[index].visitedDate == null
+              ? ''
+              : 'Цель достигнута'
+                  ' ${DateFormat.yMMMd().format(mocksVisited[index].visitedDate!)}',
           //key: ValueKey(mocksVisited[index].name),
           actionOnDelete: () {
             context.read<VisitingModel>().deletePlaceVisited(

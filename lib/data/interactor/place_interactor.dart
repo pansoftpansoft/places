@@ -69,17 +69,6 @@ class PlaceInteractor {
     return mocksFromRepository;
   }
 
-  // /// Фильтрация списка по  радиусу
-  // static List<Place> filterListPlacesRadius(
-  //   List<Place> placeList,
-  //   RangeValues radius,
-  // ) {
-  //   final listPlaceFiltered =
-  //       placeList.where((element) => _arePointsNear(element, radius)).toList();
-  //
-  //   return listPlaceFiltered;
-  // }
-
   /// Фильтрация списка по категории
   static List<Place> filterListPlacesCategory(
     List<Place> placeList,
@@ -90,31 +79,6 @@ class PlaceInteractor {
 
     return listPlaceFiltered;
   }
-
-  // /// Получить список отфильтрованных мест
-  // static Future<List<Place>> getPlacesFiltered(
-  //   List<Place> listPlace, {
-  //   RangeValues? radius,
-  //   List<String>? category,
-  // }) async {
-  //   List<Place> listPlaceFiltered;
-  //   //Проверка на пустой список
-  //   listPlaceFiltered = listPlace.isEmpty ? mocks : listPlace;
-  //
-  //   //Фильтруем места по радиусу
-  //   if (radius != null) {
-  //     listPlaceFiltered = filterListPlacesRadius(listPlace, radius);
-  //   }
-  //   //Фильтруем места по категории
-  //   if (category != null) {
-  //     listPlaceFiltered = filterListPlacesCategory(listPlaceFiltered, category);
-  //   }
-  //
-  //   /// Запишем в локальную очередь
-  //   mocks = listPlaceFiltered;
-  //
-  //   return listPlaceFiltered;
-  // }
 
   static Future<Place?> getPlaceDetails(int placeId) async {
     return PlaceRepository.getPlaceId(placeId);
@@ -153,7 +117,7 @@ class PlaceInteractor {
 
     debugPrint('place id = ${place.id} isFavorites = ${place.isFavorites}');
 
-    await updateAllList(place);
+    await getListWantVisitAndVisited();
   }
 
   ///-----------------------------------------------
@@ -165,12 +129,12 @@ class PlaceInteractor {
         element.visitedDate = DateTime.now();
       }
     }
-    await updateAllList(place);
+    await getListWantVisitAndVisited();
   }
 
   ///-----------------------------------------------
   /// Добавить место в посещенные
-  static Future<void> updateStatusThePlaceVisited(Place place) async {
+  static Future<void> setStatusPlaceVisited(Place place) async {
     place.visitedDate = place.visitedDate == null ? DateTime.now() : null;
 
     // проверяем есть токое место в лакальной базе, если нет добавляем.
@@ -197,36 +161,18 @@ class PlaceInteractor {
     // );
     debugPrint('place id = ${place.id} isFavorites = ${place.visitedDate}');
 
-    await updateAllList(place);
+    await getListWantVisitAndVisited();
   }
 
-  static Future<void> updateAllList(Place place) async {
-    await createListMocksFromLocalDB();
-    updateListMocksFilteredFromLocalDB(place);
-    createListVisitedFromLocalDB();
-    createListWantVisitFromLocalDB();
-  }
-
-  static void createListVisitedFromLocalDB() {
-    mocksVisited =
-        mocks.where((element) => element.visitedDate != null).toList();
-  }
-
-  static Future<void> createListMocksFromLocalDB() async {
-    await PlaceRepository.createMocks();
-  }
-
-  /// Создать список для экрана Хочу посетить
-  static void createListWantVisitFromLocalDB() {
-    mocksWantVisit = mocks
-        .where((element) => element.visitedDate == null && element.isFavorites)
-        .toList();
+  static Future<void> getListWantVisitAndVisited() async {
+    final listAllPlace = await PlaceRepository.getAllPlace();
+    debugPrint('listAllPlace = ${listAllPlace.length}');
+    mocksWantVisit = await PlaceRepository.getPlacesWantVisit(listAllPlace);
     debugPrint('mocksWantVisit = ${mocksWantVisit.length}');
+
+    mocksVisited = await PlaceRepository.getPlacesVisited(listAllPlace);
   }
 
-  static void updateListMocksFilteredFromLocalDB(Place place) {
-    mocksFiltered.where((element) => element.id == place.id).map((e) => place);
-  }
 
   /// Получить список избранных мест, отсортированных по удаленности
   Future<List<Place>> getFavoritesPlaces() async {
@@ -234,27 +180,6 @@ class PlaceInteractor {
       ..sort((a, b) => _distanceCalculate(a).compareTo(_distanceCalculate(b)));
   }
 
-  /// Получить список мест которые уже посетили
-  Future<List<Place>> getVisitPlaces() async {
-    return mocks
-        // ignore: avoid_bool_literals_in_conditional_expressions
-        .where((element) => element.visitedDate == null ? false : true)
-        .toList();
-  }
-
-  // /// Вхождение места в площаь между двумя радиусами
-  // static bool _arePointsNear(Place place, RangeValues rangeValues) {
-  //   const centerPointLat = 55.753605;
-  //   const centerPointLon = 37.619773;
-  //
-  //   const kyPoint = 40000000 / 360; //40000000 - длина окружности земли в метрах
-  //   final kxPoint = cos(pi * centerPointLat / 180.0) * kyPoint;
-  //   final dxPoint = (centerPointLon - place.lon).abs() * kxPoint;
-  //   final dyPoint = (centerPointLat - place.lat).abs() * kyPoint;
-  //
-  //   return sqrt(dxPoint * dxPoint + dyPoint * dyPoint) <= rangeValues.end &&
-  //       sqrt(dxPoint * dxPoint + dyPoint * dyPoint) >= rangeValues.start;
-  // }
 
   /// Дистанция до объекта от точки
   static double _distanceCalculate(Place place) {

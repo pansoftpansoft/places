@@ -142,8 +142,10 @@ List<Place> mocksSearchText = [];
 List<Place> mocksWantVisit = [];
 /// Список для экрана Посетил
 List<Place> mocksVisited = [];
-/// Список данных полученных с сервера
-List<PlaceDto> placesDto = [];
+/// Список данных полученных с сервера с применением фильтра
+List<PlaceDto> placesDtoFilter = [];
+/// Список всех данных полученных с сервера
+List<PlaceDto> placesDtoAll = [];
 
 ///
 List<String> tempPhotoPlace = <String>[

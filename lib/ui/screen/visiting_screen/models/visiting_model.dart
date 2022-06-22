@@ -14,7 +14,7 @@ class VisitingModel extends ChangeNotifier {
 
   ///Удаление из мест которые уже посетил
   Future<void> deletePlaceVisited(Place place) async {
-    await PlaceInteractor.updateStatusThePlaceVisited(place);
+    await PlaceInteractor.setStatusPlaceVisited(place);
     notifyListeners();
   }
 

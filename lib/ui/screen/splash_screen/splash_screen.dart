@@ -72,8 +72,8 @@ class SplashScreenState extends State<SplashScreen> {
     debugPrint('Запустилась GetNetData().');
 
     mocksFiltered = await PlaceInteractor.getPlacesInteractor() as List<Place>;
-    PlaceInteractor.createListWantVisitFromLocalDB();
-    PlaceInteractor.createListVisitedFromLocalDB();
+    await PlaceInteractor.getListWantVisitAndVisited();
+
 
     for (final item in mocksFiltered){
       debugPrint('place id = ${item.id}  '

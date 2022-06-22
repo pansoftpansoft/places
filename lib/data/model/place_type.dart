@@ -4,8 +4,8 @@ import 'app_model.dart';
 class PlaceType {
   final String namePlaceDB;
 
-  int index=-1;
-  String svgIcons='';
+  int index = -1;
+  String svgIcons = '';
   String namePlaceTranslate = '';
 
   Map<String, List<String>> dictionaryPlaceType = {
@@ -28,11 +28,14 @@ class PlaceType {
 
   PlaceType(this.namePlaceDB) {
     namePlaceTranslate =
-        (dictionaryPlaceType[namePlaceDB] as List<String>)[AppModel.language];
+        (dictionaryPlaceType[namePlaceDB] ?? ['', '', ''])[AppModel.language];
 
     index = dictionaryPlaceType.keys.toList().indexOf(namePlaceDB);
 
     svgIcons = '${SvgIcons.catalog}'
-        '${(iconDictionaryPlaceType[namePlaceDB] as List<String>)[AppModel.isThemeColor ? 0 : 1]}';
+        '${(iconDictionaryPlaceType[namePlaceDB] ?? [
+              'particular_place.svg',
+              'particular_place.svg',
+            ] as List<String>)[AppModel.isThemeColor ? 0 : 1]}';
   }
 }

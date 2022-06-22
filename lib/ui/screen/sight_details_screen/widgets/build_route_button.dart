@@ -29,7 +29,7 @@ class BuildRouteButton extends StatelessWidget {
   void _onPress(BuildContext context) async {
     // так же эта кнопка переводит маршрут в посещенные
     debugPrint('Это кнопка "Построить маршрут"');
-    await PlaceInteractor.updateStatusThePlaceVisited(_place);
+    await PlaceInteractor.setStatusPlaceVisited(_place);
     // ignore: use_build_context_synchronously
     context.read<VisitingModel>().updateScreen();
     //Navigator.pushNamed(context, RouteName.mapScreen);

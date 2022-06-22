@@ -33,10 +33,33 @@ class PlaceRepository {
   ///--------------------------------------------------------------
   /// Получаем список всех мест
   static Future<List<Place>> getAllPlace() async {
-    return ((await _server.get(pathUrlListPlaces)).data as List)
-        // ignore: avoid_annotating_with_dynamic
+    final placesLocalData = await DBProvider.dbProvider.getPlacesLocal();
+    final listPlaceAll = ((await _server.get(pathUrlListPlaces)).data as List)
+    // ignore: avoid_annotating_with_dynamic
         .map<Place>((dynamic e) => Place.fromJson(e as Map<String, dynamic>))
         .toList();
+
+    for (final placeOne in listPlaceAll) {
+      if (placesLocalData.isNotEmpty) {
+        for (final placesLocalDataElement in placesLocalData) {
+          if (placesLocalDataElement.id == placeOne.id) {
+            placeOne.isFavorites =
+            // ignore: avoid_bool_literals_in_conditional_expressions
+            placesLocalDataElement.isFavorites == 1 ? true : false;
+            placeOne.wantVisitDate = placesLocalDataElement.wantVisitDate == null
+                ? null
+                : placesLocalDataElement.wantVisitDateToDatetime();
+
+            debugPrint('placesLocalDataElement.visitedDate = ${placesLocalDataElement.visitedDate}');
+            placeOne.visitedDate = placesLocalDataElement.visitedDate == 0
+                ? null
+                : placesLocalDataElement.visitedDateToDatetime();
+          }
+        }
+      }
+    }
+
+    return listPlaceAll;
   }
 
   ///--------------------------------------------------------------
@@ -46,17 +69,38 @@ class PlaceRepository {
     List<String>? category,
     String? searchString,
   }) async {
-    var repositoryMocks= <Place>[];
-    placesDto = await getPlacesDto(radiusRange, category, searchString);
-    repositoryMocks= await createMocks();
+    var repositoryMocks = <Place>[];
+    placesDtoFilter = await getPlacesDto(radiusRange, category, searchString);
+    repositoryMocks = await createMocks(placesDtoFilter);
 
     return repositoryMocks;
   }
 
+  static Future<List<Place>> getPlacesWantVisit(
+    List<Place> listAllPlaces,
+  ) async {
+
+    for (final item in listAllPlaces){
+      debugPrint('listAllPlaces = ${item.id} ${item.isFavorites}');
+    }
+    final returnListWantVisit = listAllPlaces
+        .where((element) => element.visitedDate == null && element.isFavorites)
+        .toList();
+
+    return returnListWantVisit;
+  }
+
+  static Future<List<Place>> getPlacesVisited(List<Place> listAllPlaces) async {
+    final returnListVisited =
+        listAllPlaces.where((element) => element.visitedDate != null).toList();
+
+    return returnListVisited;
+  }
+
   ///--------------------------------------------------------------
   /// получить объедененный список DTO и LOCAL
-  static Future<List<Place>> createMocks() async {
-    final repositoryMocks= <Place>[];
+  static Future<List<Place>> createMocks(List<PlaceDto> placesDto) async {
+    final repositoryMocks = <Place>[];
 
     final placesLocalData = await DBProvider.dbProvider.getPlacesLocal();
 
@@ -72,7 +116,7 @@ class PlaceRepository {
     debugPrint('Теперь циклы');
     DateTime? wantVisitDate;
     DateTime? visitedDate;
-    debugPrint('placesDto = ${placesDto.length}');
+    debugPrint('placesDto = ${placesDtoFilter.length}');
     for (final placeDto in placesDto) {
       isFavorites = false;
       wantVisitDate = null;
