@@ -22,7 +22,7 @@ class TextButtonGreenText extends StatelessWidget {
 
   @override
   Widget build(final BuildContext context) {
-    debugPrint('AppModel().themeColor ${AppModel().themeColor}');
+    debugPrint('AppModel().themeColor ${AppModel.isThemeColor}');
 
     return TextButton(
       style: Theme.of(context).textButtonTheme.style?.copyWith(

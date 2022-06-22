@@ -4,7 +4,7 @@ class FilterCategory {
   int categoryValue;
 
   FilterCategory(this.category, this.orderCategory, this.categoryValue,);
-
+//filter_interactor
   factory FilterCategory.fromMap(
     final Map<String, dynamic> mapFilter,
   ) =>

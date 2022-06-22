@@ -50,4 +50,15 @@ class DbSqlStringDdl {
   static Map<int, String> insertValueFilterDistance = {
     1: 'INSERT INTO [FilterDistance] (distanceCode) VALUES (1);',
   };
+
+  static String dropTableSettingsApp = 'DROP TABLE IF EXISTS SettingsApp;';
+  static String createTableSettingsApp = 'CREATE TABLE SettingsApp ('
+      'settingsName STRING PRIMARY KEY UNIQUE NOT NULL , '
+      'settingsValue STRING NOT NULL '
+      ');';
+
+  static Map<String, String> insertValueSettingsApp = {
+    'SettingTheme': 'INSERT INTO [SettingsApp] '
+        '(settingsName,settingsValue) VALUES ("themes","0");',
+  };
 }

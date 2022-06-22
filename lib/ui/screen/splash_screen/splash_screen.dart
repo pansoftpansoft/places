@@ -74,8 +74,7 @@ class SplashScreenState extends State<SplashScreen> {
     mocksFiltered = await PlaceInteractor.getPlacesInteractor() as List<Place>;
     await PlaceInteractor.getListWantVisitAndVisited();
 
-
-    for (final item in mocksFiltered){
+    for (final item in mocksFiltered) {
       debugPrint('place id = ${item.id}  '
           'isFavorites  = ${item.isFavorites}  '
           'wantVisitDate  = ${item.wantVisitDate}  '
@@ -92,7 +91,7 @@ class SplashScreenState extends State<SplashScreen> {
 
     debugPrint(
       'PlaceInteractor количество записей mocksWantVisit'
-          ' ${mocksWantVisit.length.toString()}',
+      ' ${mocksWantVisit.length.toString()}',
     );
 
     await SearchScreenModel.getListHistory();

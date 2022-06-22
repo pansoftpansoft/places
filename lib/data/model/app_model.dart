@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:places/data/interactor/settings_interactor.dart';
+import 'package:places/main.dart';
 import 'package:places/ui/res/themes.dart';
 
 ///Модель для ChangeNotifierProvider
 class AppModel extends ChangeNotifier {
   static int language = 1;
-  static bool _themeColor = false;
 
-  ThemeData get themeColor => _themeColor ? darkTheme : lightTheme;
-
-  static bool get isThemeColor => _themeColor;
+  static bool get isThemeColor => themeColor == darkTheme;
 
   void changeTheme() {
-    _themeColor = !_themeColor;
+    themeColor = themeColor == lightTheme ? darkTheme : lightTheme;
+    SettingsInteractor.updateSettingsThemeColor(themeColor);
     notifyListeners();
   }
 }

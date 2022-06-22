@@ -9,6 +9,7 @@ import 'package:places/data/model/filter_category.dart';
 import 'package:places/data/model/filter_distance.dart';
 import 'package:places/data/model/place.dart';
 import 'package:places/data/model/places_local_data.dart';
+import 'package:places/data/model/settings_app.dart';
 import 'package:places/domain/db_sql_string_ddl.dart';
 import 'package:places/domain/history.dart';
 import 'package:sqflite/sqflite.dart';
@@ -58,7 +59,7 @@ class DBProvider {
 
     return openDatabase(
       path,
-      version: 8,
+      version: 10,
       onOpen: (final db) async {
         debugPrint('Открать базу данных');
       },
@@ -90,6 +91,9 @@ class DBProvider {
     await database.execute(DbSqlStringDdl.dropTableFilterDistance);
     await database.execute(DbSqlStringDdl.createTableFilterDistance);
 
+    await database.execute(DbSqlStringDdl.dropTableSettingsApp);
+    await database.execute(DbSqlStringDdl.createTableSettingsApp);
+
     // Заполняем начальными данными фильтр категорий
     for (final item in DbSqlStringDdl.insertValueFilterCategory.keys.toList()) {
       await database.execute(DbSqlStringDdl.insertValueFilterCategory[item]!);
@@ -97,6 +101,9 @@ class DBProvider {
     // Заполняем начальными данными фильтр растоияния
 
     await database.execute(DbSqlStringDdl.insertValueFilterDistance[1]!);
+    // Заполняем начальными данными настройки app
+    await database
+        .execute(DbSqlStringDdl.insertValueSettingsApp['SettingTheme']!);
   }
 
   ///--------------------------------------------------------------
@@ -175,6 +182,19 @@ class DBProvider {
     return list;
   }
 
+  Future<List<SettingsApp>> getListSettingsAppFromDb() async {
+    _database = await database;
+    final res = await _database!.query(
+      'SettingsApp',
+    );
+    debugPrint('res = ${res.toString()}');
+    final list = res.isNotEmpty
+        ? res.map(SettingsApp.fromMap).toList()
+        : <SettingsApp>[];
+
+    return list;
+  }
+
   ///--------------------------------------------------------------
   /// Соохранить настройки фильтра растояния в базу
   Future<void> updateSettingsFilterDistanceInDb(
@@ -187,6 +207,19 @@ class DBProvider {
       filter.toMap(),
       where: 'distanceCode=?',
       whereArgs: [1],
+    );
+  }
+
+  Future<void> updateSettingsThemeColorInDb(
+    final String settingsApp,
+  ) async {
+    debugPrint('SettingsApp.toMap() = $settingsApp');
+    _database = await database;
+    final res = await _database!.update(
+      'SettingsApp',
+      {'settingsName': 'themes', 'settingsValue': settingsApp},
+      where: 'settingsName=?',
+      whereArgs: ['themes'],
     );
   }
 

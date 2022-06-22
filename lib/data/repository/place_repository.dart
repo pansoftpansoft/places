@@ -11,10 +11,7 @@ import 'package:places/data/model/place_dto.dart';
 import 'package:places/data/model/place_filter_request_dto.dart';
 import 'package:places/domain/db_provider.dart';
 import 'package:places/type_place.dart';
-
 import 'package:places/ui/res/url_path.dart';
-
-int iii = 0;
 
 ///--------------------------------------------------------------
 /// Слой получения данных
@@ -35,7 +32,7 @@ class PlaceRepository {
   static Future<List<Place>> getAllPlace() async {
     final placesLocalData = await DBProvider.dbProvider.getPlacesLocal();
     final listPlaceAll = ((await _server.get(pathUrlListPlaces)).data as List)
-    // ignore: avoid_annotating_with_dynamic
+        // ignore: avoid_annotating_with_dynamic
         .map<Place>((dynamic e) => Place.fromJson(e as Map<String, dynamic>))
         .toList();
 
@@ -44,13 +41,16 @@ class PlaceRepository {
         for (final placesLocalDataElement in placesLocalData) {
           if (placesLocalDataElement.id == placeOne.id) {
             placeOne.isFavorites =
-            // ignore: avoid_bool_literals_in_conditional_expressions
-            placesLocalDataElement.isFavorites == 1 ? true : false;
-            placeOne.wantVisitDate = placesLocalDataElement.wantVisitDate == null
-                ? null
-                : placesLocalDataElement.wantVisitDateToDatetime();
+                // ignore: avoid_bool_literals_in_conditional_expressions
+                placesLocalDataElement.isFavorites == 1 ? true : false;
+            placeOne.wantVisitDate =
+                placesLocalDataElement.wantVisitDate == null
+                    ? null
+                    : placesLocalDataElement.wantVisitDateToDatetime();
 
-            debugPrint('placesLocalDataElement.visitedDate = ${placesLocalDataElement.visitedDate}');
+            debugPrint(
+              'placesLocalDataElement.visitedDate = ${placesLocalDataElement.visitedDate}',
+            );
             placeOne.visitedDate = placesLocalDataElement.visitedDate == 0
                 ? null
                 : placesLocalDataElement.visitedDateToDatetime();
@@ -79,8 +79,7 @@ class PlaceRepository {
   static Future<List<Place>> getPlacesWantVisit(
     List<Place> listAllPlaces,
   ) async {
-
-    for (final item in listAllPlaces){
+    for (final item in listAllPlaces) {
       debugPrint('listAllPlaces = ${item.id} ${item.isFavorites}');
     }
     final returnListWantVisit = listAllPlaces
@@ -218,7 +217,7 @@ class PlaceRepository {
   }
 
   ///--------------------------------------------------------------
-  ///Получаем список настроик фильтра
+  ///Получаем список настроек фильтра категорий
   static Future<List<FilterCategory>> getListFilterCategory() async {
     final listFilter =
         await DBProvider.dbProvider.getListFilterCategoryFromDb();
@@ -232,7 +231,7 @@ class PlaceRepository {
   }
 
   ///--------------------------------------------------------------
-  ///Получаем список настроик фильтра
+  ///Получаем список настроек фильтра дистанции
   static Future<List<FilterDistance>> getListFilterDistance() async {
     final listFilter =
         await DBProvider.dbProvider.getListFilterDistanceFromDb();
@@ -246,13 +245,13 @@ class PlaceRepository {
   }
 
   ///--------------------------------------------------------------
-  ///Обновляем список настроик фильтра в базе данных
+  ///Обновляем список настроек фильтра категорий в базе данных
   static Future<void> updateFilterCategory(FilterCategory filter) async {
     await DBProvider.dbProvider.updateSettingsFilterCategoryInDb(filter);
   }
 
   ///--------------------------------------------------------------
-  ///Обновляем список настроик фильтра в базе данных
+  ///Обновляем список настроек фильтра в базе данных
   static Future<void> updateFilterDistance(FilterDistance filter) async {
     await DBProvider.dbProvider.updateSettingsFilterDistanceInDb(filter);
   }
@@ -297,38 +296,6 @@ class PlaceRepository {
     );
     debugPrint('updatePlaceLocalDB количество обновленных мест = $countUpdate');
   }
-
-  // /// ---------------------------------------------------------------
-  // /// Получить место по идентификатору
-  // /// ---------------------------------------------------------------
-  // static Future<Place> getPlaceId(int placeId) async {
-  //   String mapString;
-  //
-  //   //debugPrint('Получить место по иденитификатору placeId = ${placeId}');
-  //   final response = await _server.get('$pathUrlListPlaces/$placeId');
-  //
-  //   mapString = response.toString();
-  //
-  //   debugPrint('mapString = $mapString');
-  //
-  //   final mapFull = json.decode(mapString) as Map<String, dynamic>;
-  //
-  //   //Добавим значения из локальной базы данных
-  //   final place = Place.fromJson(mapFull);
-  //
-  //   final placeLocalData = await DBProvider.dbProvider.getPlacesLocalDataId(
-  //     place.id,
-  //   );
-  //
-  //   if (placeLocalData != null) {
-  //     //place.id =  placeLocalData.id;
-  //     place.isFavorites = placeLocalData.isFavoritesToBool();
-  //     place.wantVisitDate = placeLocalData.wantVisitDateToDatetime();
-  //     place.visitedDate = placeLocalData.visitedDateToDatetime();
-  //   }
-  //
-  //   return place;
-  // }
 
   ///--------------------------------------------------------------
   /// Удалить место на сервере

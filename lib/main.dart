@@ -1,18 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:places/data/interactor/settings_interactor.dart';
 import 'package:places/data/model/app_model.dart';
 import 'package:places/ui/res/multi_providers.dart';
 import 'package:places/ui/res/route_map.dart';
 import 'package:places/ui/res/route_name.dart';
+import 'package:places/ui/res/themes.dart';
 import 'package:provider/provider.dart';
 
-void main() {
+ThemeData themeColor = lightTheme;
+
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent, // transparent status bar
     ),
   );
+  themeColor = await SettingsInteractor.getSettingsTheme('themes');
 
   runApp(
     MultiProvider(
@@ -33,7 +38,7 @@ class Main extends StatelessWidget {
   Widget build(final BuildContext context) => MaterialApp(
         //theme: themeActual,
         theme: context.select<AppModel, ThemeData>(
-          (final a) => a.themeColor,
+          (final a) => themeColor,
         ),
         title: 'Задача  8.2',
         routes: mapRoutes,

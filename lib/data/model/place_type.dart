@@ -1,4 +1,6 @@
+import 'package:places/main.dart';
 import 'package:places/ui/res/svg_icons.dart';
+import '../../ui/res/themes.dart';
 import 'app_model.dart';
 
 class PlaceType {
@@ -36,6 +38,6 @@ class PlaceType {
         '${(iconDictionaryPlaceType[namePlaceDB] ?? [
               'particular_place.svg',
               'particular_place.svg',
-            ] as List<String>)[AppModel.isThemeColor ? 0 : 1]}';
+            ] as List<String>)[themeColor == darkTheme ?  1: 0]}';
   }
 }

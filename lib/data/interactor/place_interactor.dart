@@ -15,12 +15,12 @@ class PlaceInteractor {
 
   static PlaceRepository? placeRepository;
 
-  /// Получить список отфильтрованных мест
-  static Future<List<Place>?> getAllPlaces() async {
-    mocksFiltered = await PlaceRepository.getAllPlace();
-
-    return mocksFiltered;
-  }
+  // /// Получить список отфильтрованных мест
+  // static Future<List<Place>?> getAllPlaces() async {
+  //   mocksFiltered = await PlaceRepository.getAllPlace();
+  //
+  //   return mocksFiltered;
+  // }
 
   /// Получить настройки фильтра категории
   static Future<List<FilterCategory>?> getSettingsFilterCategory() async {
@@ -37,29 +37,30 @@ class PlaceInteractor {
   }
 
   ///--------------------------------------------------------------
-  /// Обновить список настроик фильтра
-  static Future<void> updateListFilterCategory(List<FilterCategory> listFilter) async {
+  /// Обновить список настроек фильтра
+  static Future<void> updateListFilterCategory(
+      List<FilterCategory> listFilter,) async {
     for (final item in listFilter) {
       await PlaceRepository.updateFilterCategory(item);
     }
   }
 
   ///--------------------------------------------------------------
-  /// Обновить список настроик фильтра
-  static Future<void> updateListFilterDistance(List<FilterDistance> listFilter) async {
+  /// Обновить список настроек фильтра дистанции
+  static Future<void> updateListFilterDistance(
+      List<FilterDistance> listFilter,) async {
     for (final item in listFilter) {
       await PlaceRepository.updateFilterDistance(item);
     }
   }
 
+  ///--------------------------------------------------------------
   /// Получить список отфильтрованных мест
   static Future<List<Place>?> getPlacesInteractor({
     RangeValues? radiusRange,
     List<String>? category,
     String? searchString,
   }) async {
-
-
     final mocksFromRepository = await PlaceRepository.getPlacesRepository(
       radiusRange: radiusRange,
       category: category,
@@ -173,13 +174,11 @@ class PlaceInteractor {
     mocksVisited = await PlaceRepository.getPlacesVisited(listAllPlace);
   }
 
-
   /// Получить список избранных мест, отсортированных по удаленности
   Future<List<Place>> getFavoritesPlaces() async {
     return mocks.where((element) => element.isFavorites).toList()
       ..sort((a, b) => _distanceCalculate(a).compareTo(_distanceCalculate(b)));
   }
-
 
   /// Дистанция до объекта от точки
   static double _distanceCalculate(Place place) {
