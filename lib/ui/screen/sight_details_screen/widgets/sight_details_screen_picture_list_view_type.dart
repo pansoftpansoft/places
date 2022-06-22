@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:places/data/model/place.dart';
+import 'package:places/data/model/place_type.dart';
 
 class SightDetailsScreenPictureListViewType extends StatelessWidget {
   final Place _sight;
@@ -16,7 +17,7 @@ class SightDetailsScreenPictureListViewType extends StatelessWidget {
       child: Row(
         children: <Widget>[
           Text(
-            _sight.placeType,
+            PlaceType(_sight.placeType).namePlaceTranslate,
             style: Theme.of(context).textTheme.headline5,
           ),
           const SizedBox(width: 16),
