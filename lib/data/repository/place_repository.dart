@@ -74,6 +74,13 @@ class PlaceRepository {
     return repositoryMocks;
   }
 
+  static Future<List<Place>> updateMocksFiltered() async {
+    var repositoryMocks = <Place>[];
+    repositoryMocks = await createMocks(placesDtoFilter);
+
+    return repositoryMocks;
+  }
+
   static Future<List<Place>> getPlacesWantVisit(
     List<Place> listAllPlaces,
   ) async {
@@ -101,12 +108,12 @@ class PlaceRepository {
 
     final placesLocalData = await DBProvider.dbProvider.getPlacesLocal();
 
-    // for (final item in placesLocalData) {
-    //   debugPrint(
-    //     'placesLocalData = ${item.id}  ${item.isFavorites}'
-    //     ' ${item.wantVisitDate} ${item.visitedDate}',
-    //   );
-    // }
+    for (final item in placesLocalData) {
+      debugPrint(
+        'placesLocalData = ${item.id}  ${item.isFavorites}'
+        ' ${item.wantVisitDate} ${item.visitedDate}',
+      );
+    }
 
     bool? isFavorites = false;
 
@@ -121,9 +128,7 @@ class PlaceRepository {
       if (placesLocalData.isNotEmpty) {
         for (final placesLocalDataElement in placesLocalData) {
           if (placesLocalDataElement.id == placeDto.id) {
-            isFavorites =
-                // ignore: avoid_bool_literals_in_conditional_expressions
-                placesLocalDataElement.isFavorites == 1 ? true : false;
+            isFavorites = placesLocalDataElement.isFavorites == 1;
             wantVisitDate = placesLocalDataElement.wantVisitDate == null
                 ? null
                 : placesLocalDataElement.wantVisitDateToDatetime();

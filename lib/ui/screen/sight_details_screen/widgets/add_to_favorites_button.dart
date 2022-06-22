@@ -3,6 +3,7 @@ import 'package:places/data/interactor/place_interactor.dart';
 import 'package:places/data/model/place.dart';
 import 'package:places/ui/res/labels.dart';
 import 'package:places/ui/res/svg_icons.dart';
+import 'package:places/ui/screen/filters_screen/model/filters_screen_model.dart';
 import 'package:places/ui/screen/sight_details_screen/models/sight_details_model.dart';
 import 'package:places/ui/screen/visiting_screen/models/visiting_model.dart';
 import 'package:places/ui/screen/widgets/text_button_small.dart';
@@ -40,13 +41,13 @@ class AddToFavoritesButton extends StatelessWidget {
         ),
       );
 
-  Future<void> updateContext(Place place, BuildContext context) async {
-    await PlaceInteractor.setFavorites(place);
-    debugPrint('Обновление контекстов при нажатии кнопки Добавить в фавориты');
-    // ignore: use_build_context_synchronously
-    context.read<SightDetailsModel>().updateScreen();
-    // ignore: use_build_context_synchronously
-    context.read<VisitingModel>().updateScreen();
+  void updateContext(Place place, BuildContext context) {
+     PlaceInteractor.setFavorites(place).then((value) {
+       debugPrint('Обновление контекстов при нажатии кнопки Добавить в фавориты');
+       context.read<SightDetailsModel>().updateScreen();
+       context.read<VisitingModel>().updateScreen();
+       context.read<FiltersScreenModel>().notifyListenersFiltersScreen();
+     });
   }
 
   void _onPressed(Place place, BuildContext context) {

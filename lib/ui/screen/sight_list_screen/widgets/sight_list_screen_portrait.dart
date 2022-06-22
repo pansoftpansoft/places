@@ -33,8 +33,11 @@ class SightListScreenPortrait extends StatelessWidget {
                 (
                   final context,
                   final index,
-                ) =>
-                    SightCard(mocksFiltered[index]),
+                ) {
+                  debugPrint(' mocksFiltered[$index].isFavorites = ${mocksFiltered[index].isFavorites}');
+
+                  return SightCard(mocksFiltered[index]);
+                },
                 childCount: mocksFiltered.length,
               ),
             ),

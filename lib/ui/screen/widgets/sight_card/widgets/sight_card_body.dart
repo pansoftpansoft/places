@@ -60,6 +60,7 @@ class SightCardBody extends StatelessWidget {
         SightCardBodyIconGoal(goal: goal),
         //Кнопка добавить в избранное или удалить
         SightCardBodyIconDelete(
+          _sight,
           iconDelete: iconDelete,
           actionOnDelete: actionOnDelete,
         ),

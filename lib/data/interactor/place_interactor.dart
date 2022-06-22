@@ -59,7 +59,9 @@ class PlaceInteractor {
 
     debugPrint('place id = ${place.id} isFavorites = ${place.isFavorites}');
 
+    mocksFiltered = await PlaceRepository.updateMocksFiltered();
     await getListWantVisitAndVisited();
+
   }
 
   ///-----------------------------------------------
