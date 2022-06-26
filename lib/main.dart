@@ -13,9 +13,11 @@ ThemeData themeColor = lightTheme;
 ApiClient serverSqlite = ApiClient();
 
 void main() async {
-  themeColor = await SettingsInteractor.getSettingsTheme('themes');
 
   WidgetsFlutterBinding.ensureInitialized();
+
+  themeColor = await SettingsInteractor.getSettingsTheme('themes');
+
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent, // transparent status bar

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:places/ui/res/color_palette.dart';
 import 'package:places/ui/screen/widgets/text_field_icon/icon_prefix.dart';
 import 'package:places/ui/screen/widgets/text_field_icon/icon_suffix.dart';
 import 'package:places/ui/screen/widgets/text_field_icon/icon_suffix_for_text.dart';
@@ -75,9 +74,6 @@ class TextFieldIcon extends StatefulWidget {
   final String? labelText;
 
   ///
-  final Color borderColor;
-
-  ///
   final Color? fillColor;
 
   ///
@@ -115,7 +111,6 @@ class TextFieldIcon extends StatefulWidget {
     this.inputFormatters,
     this.textAlignVertical = TextAlignVertical.center,
     this.labelText,
-    this.borderColor = ColorPalette.greenColor,
     this.fillColor,
     this.onTap,
     this.onChanged,
@@ -136,13 +131,6 @@ class _TextFieldIconState extends State<TextFieldIcon> {
   TextInputType? _keyboardType;
 
   bool _filled = true;
-
-  @override
-  //void dispose() {
-  //_textEditingController.dispose();
-  //_focusNode.dispose();
-  // super.dispose();
-  //}
 
   @override
   void initState() {
@@ -248,23 +236,6 @@ class _TextFieldIconState extends State<TextFieldIcon> {
       contentPadding: const EdgeInsets.fromLTRB(8, 8, 8, 8),
       filled: _filled,
       fillColor: widget.fillColor,
-      enabledBorder: OutlineInputBorder(
-        borderSide: BorderSide(
-          color: widget.borderColor,
-        ),
-        borderRadius: BorderRadius.all(
-          Radius.circular(widget.borderRadius),
-        ),
-      ),
-      focusedBorder: OutlineInputBorder(
-        borderSide: BorderSide(
-          width: 2,
-          color: widget.borderColor,
-        ),
-        borderRadius: BorderRadius.all(
-          Radius.circular(widget.borderRadius),
-        ),
-      ),
     );
   }
 }

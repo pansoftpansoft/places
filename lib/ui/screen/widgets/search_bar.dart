@@ -53,7 +53,7 @@ class SearchBar extends StatelessWidget {
             },
             svgIconPrefix: SvgIcons.search,
             svgIconPrefixColor: ColorPalette.textInTextField,
-            borderColor: Colors.transparent,
+            //borderColor: Colors.transparent,
             fillColor: ColorPalette.filledTextField,
             actionOnSubmitted: (final value) {
               _actionOnSubmitted(value, context);

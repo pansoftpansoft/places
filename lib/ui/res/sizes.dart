@@ -1,3 +1,5 @@
+import 'package:flutter/cupertino.dart';
+
 /// Константы основных размеров
 /// Высота текстового поля Поиск
 const double heightTextFieldSearch = 40;
@@ -20,6 +22,9 @@ const double borderRadiusTapBar = 50;
 
 /// радиус скруглаения углов для Card
 const double borderRadiusCard8 = 8;
+
+/// радиус скруглаения углов для Card
+const Radius borderRadiusTextField = Radius.circular(8);
 
 /// радиус скруглаения углов для Card
 const double opacityText = 0.56;

@@ -4,7 +4,6 @@ import 'package:places/data/repository/settings_repository.dart';
 import '../../ui/res/themes.dart';
 
 class SettingsInteractor {
-  /// Получить настройки фильтра дистанции до места
   static Future<ThemeData> getSettingsTheme(String settingName) async {
     final listFilter = await SettingsRepository.getListSettingsApp();
     var settingListValue = lightTheme;
