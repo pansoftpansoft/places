@@ -30,8 +30,6 @@ class SplashScreenState extends State<SplashScreen> {
 
     debugPrint('Старт программы');
 
-    //DioDemoConnect().getPostDto();
-
     _navigateToNextAsync();
 
     debugPrint('Стоп программы');
@@ -110,7 +108,6 @@ class SplashScreenState extends State<SplashScreen> {
   /// Произошло завершение плучения дынных
   void finishGetNetData({required final bool isComplete}) {
     //Произыодим первую фильтрацию мест перед открытием экрана
-    debugPrint('value = 2');
     _isInitialized.complete(isComplete);
     debugPrint('finishGetNetData ${_isInitialized.isCompleted.toString()}');
     context.read<FiltersScreenModel>().getDataFromRepository();

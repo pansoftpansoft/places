@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:places/data/connection_backend_server.dart';
+import 'package:places/data/api/api_client.dart';
 import 'package:places/data/interactor/settings_interactor.dart';
 import 'package:places/data/model/app_model.dart';
 import 'package:places/ui/res/multi_providers.dart';
@@ -10,7 +10,7 @@ import 'package:places/ui/res/themes.dart';
 import 'package:provider/provider.dart';
 
 ThemeData themeColor = lightTheme;
-ConnectionBackendServer serverSqlite = ConnectionBackendServer();
+ApiClient serverSqlite = ApiClient();
 
 void main() async {
   themeColor = await SettingsInteractor.getSettingsTheme('themes');

@@ -1,8 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:places/ui/res/url.dart';
+import 'package:places/data/api/api_urls.dart';
 
-class ConnectionBackendServer {
+
+class ApiClient {
   /// Статическая настройка сервера
   static final BaseOptions _baseOptionsBackendServer = BaseOptions(
     baseUrl: urlServerBackend,

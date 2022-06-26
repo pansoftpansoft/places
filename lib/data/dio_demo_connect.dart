@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:places/ui/res/url.dart';
-import 'package:places/ui/res/url_path.dart';
+import 'package:places/data/api/api_urls.dart';
+
 
 
 final dio = Dio(baseOptions);

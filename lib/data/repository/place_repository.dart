@@ -4,13 +4,13 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:places/data/api/api_urls.dart';
 import 'package:places/data/model/place.dart';
 import 'package:places/data/model/place_dto.dart';
 import 'package:places/data/model/place_filter_request_dto.dart';
 import 'package:places/domain/db_provider.dart';
 import 'package:places/main.dart';
 import 'package:places/type_place.dart';
-import 'package:places/ui/res/url_path.dart';
 
 ///--------------------------------------------------------------
 /// Слой получения данных
