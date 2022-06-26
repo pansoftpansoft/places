@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:places/ui/screen/sight_search_screen/models/search_screen_model.dart';
+import 'package:places/ui/screen/search_places_screen/models/search_screen_model.dart';
 import 'package:places/ui/screen/widgets/history_list_screen/list_history_item_builder.dart';
 import 'package:provider/provider.dart';
 

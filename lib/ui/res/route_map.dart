@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:places/ui/res/route_name.dart';
-import 'package:places/ui/screen/add_sight_screen/add_place_screen.dart';
+import 'package:places/ui/screen/add_place_screen/add_place_screen.dart';
+import 'package:places/ui/screen/details_place_screen/details_place_screen.dart';
 import 'package:places/ui/screen/filters_screen/filters_screen.dart';
+import 'package:places/ui/screen/list_places_screen/list_places_screen.dart';
 import 'package:places/ui/screen/map_screen/map_screen.dart';
 import 'package:places/ui/screen/onboarding_screen/onboarding_screen.dart';
+import 'package:places/ui/screen/search_places_screen/search_places_screen.dart';
 import 'package:places/ui/screen/select_category/select_category.dart';
 import 'package:places/ui/screen/settings_screen/settings_screen.dart';
-import 'package:places/ui/screen/sight_details_screen/details_place_screen.dart';
-import 'package:places/ui/screen/sight_list_screen/list_places_screen.dart';
-import 'package:places/ui/screen/sight_search_screen/search_places_screen.dart';
 import 'package:places/ui/screen/splash_screen/splash_screen.dart';
 import 'package:places/ui/screen/visiting_screen/visiting_screen.dart';
 

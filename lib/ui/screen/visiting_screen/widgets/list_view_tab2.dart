@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:places/type_place.dart';
 import 'package:places/ui/screen/visiting_screen/models/visiting_model.dart';
-import 'package:places/ui/screen/widgets/sight_card/card_place.dart';
+import 'package:places/ui/screen/widgets/card_place/card_place.dart';
 import 'package:provider/provider.dart';
 
 ///

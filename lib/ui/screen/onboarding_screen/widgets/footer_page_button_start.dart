@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:places/ui/res/labels.dart';
+import 'package:places/ui/res/route_name.dart';
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/screen/onboarding_screen/model/onboarding_screen_model.dart';
 import 'package:places/ui/screen/widgets/elevated_button_green_big.dart';
@@ -43,7 +44,7 @@ class FooterPageButtonStart extends StatelessWidget {
     } else {
       Navigator.pushReplacementNamed(
         context,
-        '/SightListScreen',
+        RouteName.listPlacesScreen,
       );
     }
   }

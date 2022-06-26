@@ -6,7 +6,7 @@ import 'package:places/ui/res/labels.dart';
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/res/svg_icons.dart';
 import 'package:places/ui/screen/filters_screen/model/filters_screen_model.dart';
-import 'package:places/ui/screen/sight_search_screen/models/search_screen_model.dart';
+import 'package:places/ui/screen/search_places_screen/models/search_screen_model.dart';
 import 'package:places/ui/screen/widgets/text_field_icon/text_field_icon.dart';
 import 'package:provider/provider.dart';
 

@@ -35,9 +35,9 @@ class PlaceType {
     index = dictionaryPlaceType.keys.toList().indexOf(namePlaceDB);
 
     svgIcons = '${SvgIcons.catalog}'
-        '${(iconDictionaryPlaceType[namePlaceDB] ?? [
+        '${(iconDictionaryPlaceType[namePlaceDB] ?? <String>[
               'particular_place.svg',
               'particular_place.svg',
-            ] as List<String>)[themeColor == darkTheme ?  1: 0]}';
+            ])[themeColor == darkTheme ?  1: 0]}';
   }
 }

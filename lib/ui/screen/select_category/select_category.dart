@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:places/type_place.dart';
-import 'package:places/ui/screen/add_sight_screen/models/add_place_model.dart';
+import 'package:places/ui/screen/add_place_screen/models/add_place_model.dart';
 import 'package:places/ui/screen/select_category/widgets/select_category_app_bar.dart';
 import 'package:places/ui/screen/select_category/widgets/select_category_bottom_sheet.dart';
 import 'package:places/ui/screen/select_category/widgets/select_category_list.dart';

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:places/ui/res/labels.dart';
-import 'package:places/ui/screen/add_sight_screen/models/add_place_model.dart';
+import 'package:places/ui/screen/add_place_screen/models/add_place_model.dart';
 import 'package:places/ui/screen/widgets/elevated_button_green_big.dart';
 import 'package:provider/provider.dart';
 
