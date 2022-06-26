@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:places/data/model/app_model.dart';
-import 'package:places/ui/screen/add_sight_screen/models/add_sight_model.dart';
+import 'package:places/ui/screen/add_sight_screen/models/add_place_model.dart';
 import 'package:places/ui/screen/filters_screen/model/filters_screen_model.dart';
 import 'package:places/ui/screen/onboarding_screen/model/onboarding_screen_model.dart';
-import 'package:places/ui/screen/sight_details_screen/models/sight_details_model.dart';
-import 'package:places/ui/screen/sight_list_screen/models/sight_list_screen_model.dart';
+import 'package:places/ui/screen/sight_details_screen/models/details_place_model.dart';
+import 'package:places/ui/screen/sight_list_screen/models/list_places_screen_model.dart';
 import 'package:places/ui/screen/sight_search_screen/models/search_screen_model.dart';
 import 'package:places/ui/screen/visiting_screen/models/visiting_model.dart';
 import 'package:provider/provider.dart';
@@ -21,14 +21,14 @@ List<ChangeNotifierProvider<ChangeNotifier>> listMultiProviders =
   ChangeNotifierProvider<VisitingModel>(
     create: (final context) => VisitingModel(),
   ),
-  ChangeNotifierProvider<AddSightModel>(
-    create: (final context) => AddSightModel(),
+  ChangeNotifierProvider<AddPlaceModel>(
+    create: (final context) => AddPlaceModel(),
   ),
-  ChangeNotifierProvider<SightDetailsModel>(
-    create: (final context) => SightDetailsModel(),
+  ChangeNotifierProvider<DetailsPlaceModel>(
+    create: (final context) => DetailsPlaceModel(),
   ),
-  ChangeNotifierProvider<SightListScreenModel>(
-    create: (final context) => SightListScreenModel(),
+  ChangeNotifierProvider<ListPlacesScreenModel>(
+    create: (final context) => ListPlacesScreenModel(),
   ),
   ChangeNotifierProvider<OnboardingScreenModel>(
     create: (final context) => OnboardingScreenModel(),

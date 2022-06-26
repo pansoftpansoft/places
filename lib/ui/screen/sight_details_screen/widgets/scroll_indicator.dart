@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:places/ui/res/sizes.dart';
-import 'package:places/ui/screen/sight_details_screen/models/sight_details_model.dart';
+import 'package:places/ui/screen/sight_details_screen/models/details_place_model.dart';
 import 'package:provider/provider.dart';
 
 ///Индикатор прокрутки фотографий
@@ -11,25 +11,25 @@ class ScrollIndicator extends StatelessWidget {
   }) : super(key: key);
 
   @override
-  Widget build(final BuildContext context) => Consumer<SightDetailsModel>(
+  Widget build(final BuildContext context) => Consumer<DetailsPlaceModel>(
         builder: (
           final context,
-          final sightDetailsModel,
+          final detailsPlaceModel,
           final child,
         ) => Container(
             margin: EdgeInsets.only(
               left: (MediaQuery.of(context).size.width /
-                      SightDetailsModel.countElements) *
-                  SightDetailsModel.index,
+                      DetailsPlaceModel.countElements) *
+                  DetailsPlaceModel.index,
             ),
             height: 8,
             width: MediaQuery.of(context).size.width /
-                SightDetailsModel.countElements,
+                DetailsPlaceModel.countElements,
             decoration: BoxDecoration(
               color: Theme.of(context).indicatorColor,
               borderRadius: buildBorderRadius(
-                SightDetailsModel.index,
-                SightDetailsModel.countElements,
+                DetailsPlaceModel.index,
+                DetailsPlaceModel.countElements,
               ),
             ),
           ),

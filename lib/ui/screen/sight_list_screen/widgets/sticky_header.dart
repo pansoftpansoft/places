@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:places/ui/screen/sight_list_screen/widgets/app_bar_sight_list_screen.dart';
+import 'package:places/ui/screen/sight_list_screen/widgets/list_places_screen_app_bar.dart';
 
 ///Упрваления AppBarSightListScreen при прокрутке списка
 class StickyHeader extends SliverPersistentHeaderDelegate {
@@ -19,7 +19,7 @@ class StickyHeader extends SliverPersistentHeaderDelegate {
   ) {
     _shrink = shrinkOffset < 60;
 
-    return AppBarSightListScreen(shrink: _shrink);
+    return ListPlacesScreenAppBar(shrink: _shrink);
   }
 
   @override

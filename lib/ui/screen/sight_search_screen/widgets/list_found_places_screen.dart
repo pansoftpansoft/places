@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:places/type_place.dart';
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/screen/sight_search_screen/models/search_screen_model.dart';
-import 'package:places/ui/screen/sight_search_screen/widgets/sight_card_search.dart';
+import 'package:places/ui/screen/sight_search_screen/widgets/search_card_place.dart';
 import 'package:provider/provider.dart';
 
 ///Список найденых мест
@@ -25,7 +25,7 @@ class ListFoundPlacesScreen extends StatelessWidget {
         itemCount: mocksSearchText.length,
         shrinkWrap: true,
         itemBuilder: (final context, final index) =>
-            SightCardSearch(mocksSearchText[index]),
+            SearchCardPlace(mocksSearchText[index]),
         separatorBuilder: (
           final context,
           final index,

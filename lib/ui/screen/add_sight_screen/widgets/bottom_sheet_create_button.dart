@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:places/ui/res/sizes.dart';
-import 'package:places/ui/screen/add_sight_screen/widgets/add_elevated_button.dart';
+import 'package:places/ui/screen/add_sight_screen/widgets/button_create.dart';
 
 ///Кнопка "Создать новаое место"
 class BottomSheetCreateButton extends StatelessWidget {
@@ -20,7 +20,7 @@ class BottomSheetCreateButton extends StatelessWidget {
           ),
           child: ConstrainedBox(
             constraints: const BoxConstraints.tightFor(height: 48),
-            child: const AddElevatedButton(),
+            child: const ButtonCreate(),
           ),
         ),
       );

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:places/ui/res/sizes.dart';
-import 'package:places/ui/screen/add_sight_screen/models/add_sight_model.dart';
+import 'package:places/ui/screen/add_sight_screen/models/add_place_model.dart';
 import 'package:places/ui/screen/add_sight_screen/widgets/list_view_builder.dart';
 import 'package:places/ui/screen/widgets/sized_box_12.dart';
 import 'package:provider/provider.dart';
@@ -25,7 +25,7 @@ class _ListViewPhotoAddState extends State<ListViewPhotoAdd> {
             width: double.infinity,
             child: Row(
               children: [
-                Consumer<AddSightModel>(
+                Consumer<AddPlaceModel>(
                   builder: (
                     final context,
                     final sight,

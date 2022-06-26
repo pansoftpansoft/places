@@ -33,7 +33,7 @@ class FloatingButton extends StatelessWidget {
           ),
           label: Text(newPlace.toUpperCase()),
           onPressed: () {
-            Navigator.pushNamed(context, RouteName.addSightScreen);
+            Navigator.pushNamed(context, RouteName.addPlaceScreen);
           },
         ),
       );

@@ -4,7 +4,7 @@ import 'package:places/data/model/place.dart';
 import 'package:places/ui/res/labels.dart';
 import 'package:places/ui/res/svg_icons.dart';
 import 'package:places/ui/screen/filters_screen/model/filters_screen_model.dart';
-import 'package:places/ui/screen/sight_details_screen/models/sight_details_model.dart';
+import 'package:places/ui/screen/sight_details_screen/models/details_place_model.dart';
 import 'package:places/ui/screen/visiting_screen/models/visiting_model.dart';
 import 'package:places/ui/screen/widgets/text_button_small.dart';
 import 'package:provider/provider.dart';
@@ -21,10 +21,10 @@ class AddToFavoritesButton extends StatelessWidget {
   }) : super(key: key);
 
   @override
-  Widget build(final BuildContext context) => Consumer<SightDetailsModel>(
+  Widget build(final BuildContext context) => Consumer<DetailsPlaceModel>(
         builder: (
           final context,
-          final sightDetailsModel,
+          final detailsPlaceModel,
           final child,
         ) =>
             TextButtonSmall(
@@ -44,7 +44,7 @@ class AddToFavoritesButton extends StatelessWidget {
   void updateContext(Place place, BuildContext context) {
      PlaceInteractor.setFavorites(place).then((value) {
        debugPrint('Обновление контекстов при нажатии кнопки Добавить в фавориты');
-       context.read<SightDetailsModel>().updateScreen();
+       context.read<DetailsPlaceModel>().updateScreen();
        context.read<VisitingModel>().updateScreen();
        context.read<FiltersScreenModel>().notifyListenersFiltersScreen();
      });
