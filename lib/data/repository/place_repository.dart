@@ -1,25 +1,24 @@
 // ignore_for_file: cascade_invocations
 
 import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:places/data/connection_backend_server.dart';
 import 'package:places/data/model/place.dart';
 import 'package:places/data/model/place_dto.dart';
 import 'package:places/data/model/place_filter_request_dto.dart';
 import 'package:places/domain/db_provider.dart';
+import 'package:places/main.dart';
 import 'package:places/type_place.dart';
 import 'package:places/ui/res/url_path.dart';
 
 ///--------------------------------------------------------------
 /// Слой получения данных
 class PlaceRepository {
-  static final ConnectionBackendServer _server = ConnectionBackendServer();
-
   /// ---------------------------------------------------------------
   /// Создать новое место на сервере
   static Future<Response> postPlace(Place place) async {
-    return _server.post(
+    return serverSqlite.post(
       pathUrlCreatePlace,
       place.toJson().toString(),
     );
@@ -29,7 +28,8 @@ class PlaceRepository {
   /// Получаем список всех мест
   static Future<List<Place>> getAllPlace() async {
     final placesLocalData = await DBProvider.dbProvider.getPlacesLocal();
-    final listPlaceAll = ((await _server.get(pathUrlListPlaces)).data as List)
+    final listPlaceAll = ((await serverSqlite.get(pathUrlListPlaces)).data
+            as List)
         // ignore: avoid_annotating_with_dynamic
         .map<Place>((dynamic e) => Place.fromJson(e as Map<String, dynamic>))
         .toList();
@@ -172,7 +172,7 @@ class PlaceRepository {
       searchString: searchString,
     );
 
-    final response = await _server.post(
+    final response = await serverSqlite.post(
       pathUrlFilteredPlaces,
       filterJson,
     );
@@ -194,7 +194,7 @@ class PlaceRepository {
     String mapString;
 
     //debugPrint('Получить место по иденитификатору placeId = ${placeId}');
-    final response = await _server.get('$pathUrlListPlaces/$placeId');
+    final response = await serverSqlite.get('$pathUrlListPlaces/$placeId');
 
     mapString = response.toString();
 
@@ -263,7 +263,7 @@ class PlaceRepository {
   ///--------------------------------------------------------------
   /// Удалить место на сервере
   Future<Response> deletePlace(Place place) async {
-    return _server.delete(
+    return serverSqlite.delete(
       '$pathUrlDeletePlace/${place.id.toString()}',
     );
   }
