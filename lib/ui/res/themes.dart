@@ -281,4 +281,19 @@ final ThemeData darkTheme = ThemeData(
       ),
     ),
   ),
+  inputDecorationTheme: const InputDecorationTheme(
+    enabledBorder: OutlineInputBorder(
+      borderSide: BorderSide(
+        color: ColorPalette.greenColor,
+      ),
+      borderRadius: BorderRadius.all(borderRadiusTextField),
+    ),
+    focusedBorder: OutlineInputBorder(
+      borderSide: BorderSide(
+        width: 2,
+        color: ColorPalette.greenColor,
+      ),
+      borderRadius: BorderRadius.all(borderRadiusTextField),
+    ),
+  ),
 );
