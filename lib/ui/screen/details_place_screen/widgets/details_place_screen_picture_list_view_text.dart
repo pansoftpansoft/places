@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:places/data/model/place.dart';
+import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/screen/details_place_screen/widgets/add_to_favorites_button.dart';
 import 'package:places/ui/screen/details_place_screen/widgets/build_route_button.dart';
 import 'package:places/ui/screen/details_place_screen/widgets/details_place_screen_picture_list_view_type.dart';
@@ -38,12 +39,15 @@ class DetailsPlaceScreenPictureListViewText extends StatelessWidget {
         ),
         const SizedBox24(),
         const Divider(),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            const ScheduleButton(),
-            AddToFavoritesButton(_place),
-          ],
+        SizedBox(
+          height: heightSizeBox48,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              const ScheduleButton(),
+              AddToFavoritesButton(_place),
+            ],
+          ),
         ),
       ],
     );

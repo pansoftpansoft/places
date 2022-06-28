@@ -21,6 +21,7 @@ class SvgIcons {
   static const String indicatorLine = '${catalog}indicator_line.svg';
   static const String indicatorPoint = '${catalog}indicator_point.svg';
   static const String list = '${catalog}list.svg';
+  static const String loaderSmall = '${catalog}loader_small.svg';
   static const String map = '${catalog}map.svg';
   //static const String museum = '${catalog}museum.svg';
   static const String onboardProgress1 = '${catalog}onboard_progress_1.svg';

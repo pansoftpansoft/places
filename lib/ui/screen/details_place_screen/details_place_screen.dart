@@ -15,34 +15,42 @@ class DetailsPlaceScreen extends StatelessWidget {
 
   @override
   Widget build(final BuildContext context) {
-    return ClipRRect(
-      borderRadius: const BorderRadius.vertical(
-        top: Radius.circular(borderRadiusCard16),
-      ),
-      child: Container(
-        height: 650,
-        color: Theme.of(context).bottomNavigationBarTheme.backgroundColor,
-        child: Stack(
-          children: <Widget>[
-            DetailsPlaceScreenPicture(
-              context.read<DetailsPlaceModel>().detailsPlace!,
-            ),
-            const DetailsPlaceScreenDecorationContainer(),
-            Positioned(
-              right: 16,
-              top: 16,
-              child: ElevatedButton(
-                onPressed: () {
-                  _onPressed(context);
-                },
-                style: _buttonStyle(),
-                child: SvgPicture.asset(
-                  SvgIcons.delete,
-                  color: ColorPalette.whiteMain,
+    return WillPopScope(
+      onWillPop: () async {
+        DetailsPlaceModel.index = 0;
+        DetailsPlaceModel.closeStream();
+
+        return true;
+      },
+      child: ClipRRect(
+        borderRadius: const BorderRadius.vertical(
+          top: Radius.circular(borderRadiusCard16),
+        ),
+        child: Container(
+          height: 650,
+          color: Theme.of(context).bottomNavigationBarTheme.backgroundColor,
+          child: Stack(
+            children: <Widget>[
+              DetailsPlaceScreenPicture(
+                context.read<DetailsPlaceModel>().detailsPlace!,
+              ),
+              const DetailsPlaceScreenDecorationContainer(),
+              Positioned(
+                right: 16,
+                top: 16,
+                child: ElevatedButton(
+                  onPressed: () {
+                    _onPressed(context);
+                  },
+                  style: _buttonStyle(),
+                  child: SvgPicture.asset(
+                    SvgIcons.delete,
+                    color: ColorPalette.whiteMain,
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -50,6 +58,7 @@ class DetailsPlaceScreen extends StatelessWidget {
 
   void _onPressed(BuildContext context) {
     DetailsPlaceModel.index = 0;
+    DetailsPlaceModel.closeStream();
     Navigator.of(context).pop();
   }
 
