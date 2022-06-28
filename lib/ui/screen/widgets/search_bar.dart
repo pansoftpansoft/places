@@ -5,7 +5,8 @@ import 'package:places/ui/res/color_palette.dart';
 import 'package:places/ui/res/labels.dart';
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/res/svg_icons.dart';
-import 'package:places/ui/screen/sight_search_screen/models/search_filter_model.dart';
+import 'package:places/ui/screen/filters_screen/model/filters_screen_model.dart';
+import 'package:places/ui/screen/search_places_screen/models/search_screen_model.dart';
 import 'package:places/ui/screen/widgets/text_field_icon/text_field_icon.dart';
 import 'package:provider/provider.dart';
 
@@ -29,7 +30,7 @@ class SearchBar extends StatelessWidget {
 
   @override
   Widget build(final BuildContext context) =>
-      Consumer<SearchFilterModel>(builder: (
+      Consumer<SearchScreenModel>(builder: (
         final context,
         final cart,
         final child,
@@ -52,7 +53,7 @@ class SearchBar extends StatelessWidget {
             },
             svgIconPrefix: SvgIcons.search,
             svgIconPrefixColor: ColorPalette.textInTextField,
-            borderColor: Colors.transparent,
+            //borderColor: Colors.transparent,
             fillColor: ColorPalette.filledTextField,
             actionOnSubmitted: (final value) {
               _actionOnSubmitted(value, context);
@@ -72,14 +73,12 @@ class SearchBar extends StatelessWidget {
       if (textEditingController.text
               .substring(textEditingController.text.length - 1) ==
           ' ') {
-        context.read<SearchFilterModel>().setSearchText(
+        context.read<SearchScreenModel>().setSearchText(
               textEditingController.text,
             );
       }
     } else {
-      context.read<SearchFilterModel>()
-        ..setFilteredPlaces()
-        ..saveFilterSettings();
+      context.read<FiltersScreenModel>().getDataFromRepository();
     }
   }
 
@@ -90,17 +89,17 @@ class SearchBar extends StatelessWidget {
     //Записали новое слово поиска в базу
     DBProvider.dbProvider.addHistory(value);
     //Обновляем список при загрузке
-    SearchFilterModel.getListHistory();
+    SearchScreenModel.getListHistory();
     //Подготовка Отображаем найденые места
     debugPrint('value = $value');
     if (value.isEmpty) {
-      context.read<SearchFilterModel>()
+      context.read<SearchScreenModel>()
         ..managerSelectionScreen(numberScreen: ScreenEnum.cleanScreen)
         ..notifyListenersSearchScreen();
     } else {
-      context.read<SearchFilterModel>()
+      context.read<SearchScreenModel>()
         ..setSearchText(value)
-        ..getSearchTextList()
+        ..getListSearchText()
         ..managerSelectionScreen(numberScreen: ScreenEnum.listFoundPlacesScreen)
         ..changeSearch();
     }
@@ -112,9 +111,9 @@ class SearchBar extends StatelessWidget {
   ) {
     if (value[value.length - 1] == ' ') {
       debugPrint('Обработка пробела в строке поиска');
-      context.read<SearchFilterModel>()
+      context.read<SearchScreenModel>()
         ..setSearchText(value)
-        ..getSearchTextList()
+        ..getListSearchText()
         ..managerSelectionScreen(numberScreen: ScreenEnum.listFoundPlacesScreen)
         ..notifyListenersSearchScreen();
     }
@@ -125,17 +124,17 @@ class SearchBar extends StatelessWidget {
   ) {
     textEditingController!.clear();
 
-    if (SearchFilterModel.listHistory.isEmpty) {
+    if (SearchScreenModel.listHistory.isEmpty) {
       ///Чистим строку поиска
-      context.read<SearchFilterModel>()
+      context.read<SearchScreenModel>()
         ..setSearchText('')
         ..managerSelectionScreen(numberScreen: ScreenEnum.cleanScreen)
         ..notifyListenersSearchScreen();
     } else {
       ///Чистим строку поиска
-      context.read<SearchFilterModel>()
+      //context.read<FiltersScreenModel>().
+      context.read<SearchScreenModel>()
         ..setSearchText('')
-        ..setFilteredPlaces()
         ..getFilteredList()
         ..managerSelectionScreen(numberScreen: ScreenEnum.listSearchWords)
         ..notifyListenersSearchScreen();

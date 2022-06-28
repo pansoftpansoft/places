@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:places/type_place.dart';
-import 'package:places/ui/res/labels.dart';
+import 'package:places/data/model/place_type.dart';
 import 'package:places/ui/res/sizes.dart';
-import 'package:places/ui/res/svg_icons.dart';
 import 'package:places/ui/screen/filters_screen/widgets/category_icon.dart';
 
 ///Область расположения кнопок
@@ -16,36 +14,24 @@ class GridIcon extends StatelessWidget {
   Widget build(final BuildContext context) {
     final height = MediaQuery.of(context).size.height;
 
-    const typePlaceList = <Widget>[
+    final typePlaceList = <Widget>[
       CategoryIcon(
-        hotel,
-        TypePlace.hotel,
-        SvgIcons.hotel,
+        PlaceType('hotel'),
       ),
       CategoryIcon(
-        restaurant,
-        TypePlace.restaurant,
-        SvgIcons.restaurant,
+        PlaceType('restaurant'),
       ),
       CategoryIcon(
-        particularPlace,
-        TypePlace.particularPlace,
-        SvgIcons.particularPlace,
+        PlaceType('particularPlace'),
       ),
       CategoryIcon(
-        park,
-        TypePlace.park,
-        SvgIcons.park,
+        PlaceType('park'),
       ),
       CategoryIcon(
-        museum,
-        TypePlace.museum,
-        SvgIcons.museum,
+        PlaceType('museum'),
       ),
       CategoryIcon(
-        cafe,
-        TypePlace.cafe,
-        SvgIcons.cafe,
+        PlaceType('cafe'),
       ),
     ];
 

@@ -10,6 +10,7 @@ environment:
 
 dependencies:
   cupertino_icons: ^1.0.2
+  dio: ^4.0.6
   flutter:
     sdk: flutter
   flutter_svg: ^0.22.0
@@ -18,6 +19,7 @@ dependencies:
   provider: ^5.0.0
   sqflite: any
   surf_lint_rules: ^1.5.0
+
 
 dev_dependencies:
   dart_code_metrics: ^4.6.0

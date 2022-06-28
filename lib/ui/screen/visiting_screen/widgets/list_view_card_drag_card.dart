@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:places/type_place.dart';
 import 'package:places/ui/screen/visiting_screen/models/visiting_model.dart';
 import 'package:places/ui/screen/visiting_screen/widgets/background_dismissible.dart';
-import 'package:places/ui/screen/visiting_screen/widgets/sight_card_drag.dart';
+import 'package:places/ui/screen/visiting_screen/widgets/card_place_drag.dart';
 import 'package:provider/provider.dart';
-
 
 //Карточка отображения места в "Избранное"
 class ListViewCardDragCard extends StatelessWidget {
@@ -22,7 +21,7 @@ class ListViewCardDragCard extends StatelessWidget {
             _onDismissed(context);
           },
           key: UniqueKey(),
-          child: SightCardDrag(index),
+          child: CardPlaceDrag(index),
         ),
       ],
     );
@@ -30,7 +29,7 @@ class ListViewCardDragCard extends StatelessWidget {
 
   void _onDismissed(BuildContext context) {
     context.read<VisitingModel>().deletePlaceWantVisit(
-      mocksWantVisit[index].name,
-    );
+          mocksWantVisit[index],
+        );
   }
 }

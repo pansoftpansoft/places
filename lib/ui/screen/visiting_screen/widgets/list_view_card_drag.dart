@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:places/ui/screen/visiting_screen/models/visiting_model.dart';
+import 'package:places/ui/screen/visiting_screen/widgets/card_place_drag.dart';
 import 'package:places/ui/screen/visiting_screen/widgets/list_view_card_drag_card.dart';
-import 'package:places/ui/screen/visiting_screen/widgets/sight_card_drag.dart';
 import 'package:provider/provider.dart';
 
 ///
@@ -29,11 +29,11 @@ class ListViewCardDrag extends StatelessWidget {
           data: index,
           feedback: SizedBox(
             width: 250,
-            child: SightCardDrag(index),
+            child: CardPlaceDrag(index),
           ),
           childWhenDragging: Opacity(
             opacity: 0.2,
-            child: SightCardDrag(index),
+            child: CardPlaceDrag(index),
           ),
           child: ListViewCardDragCard(index),
         ),

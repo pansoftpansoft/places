@@ -1,7 +1,8 @@
 import 'package:places/type_place.dart';
 
 ///Текстовые константы
-const String addToFavorites = 'В избранное';
+const String addToFavoritesString = 'В избранное';
+const String alreadyInFavoritesString = 'Уже в избранном';
 const String addPlacesYouFoundYourself = 'Добавляй места,\nкоторые нашёл сам';
 const String buildRoute = 'ПОСТРОИТЬ МАРШРУТ';
 const String buildRouteAndRoad = 'Построй маршрут\nи отправляйся в путь';

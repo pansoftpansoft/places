@@ -5,7 +5,7 @@ import 'package:places/ui/res/color_palette.dart';
 import 'package:places/ui/res/labels.dart';
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/res/svg_icons.dart';
-import 'package:places/ui/screen/sight_search_screen/models/search_filter_model.dart';
+import 'package:places/ui/screen/search_places_screen/models/search_screen_model.dart';
 import 'package:provider/provider.dart';
 
 import '../../res/route_name.dart';
@@ -80,25 +80,25 @@ class SearchBarFirst extends StatelessWidget {
     BuildContext context,
   ) {
     ///Чистим строку поиска
-    SearchFilterModel.textEditingControllerFind.clear();
+    SearchScreenModel.textEditingControllerFind.clear();
     Navigator.pushNamed(context, RouteName.filtersScreen);
   }
 
   void _go(BuildContext context) {
-    debugPrint('Хочу перейти на поиск ${RouteName.sightSearchScreen}');
+    debugPrint('Хочу перейти на поиск ${RouteName.searchPlacesScreen}');
 
-    if (SearchFilterModel.listHistory.isEmpty) {
+    if (SearchScreenModel.listHistory.isEmpty) {
       ///Чистим строку поиска
-      context.read<SearchFilterModel>()
+      context.read<SearchScreenModel>()
         ..setSearchText('')
         ..managerSelectionScreen(numberScreen: ScreenEnum.cleanScreen);
     } else {
       ///Чистим строку поиска
-      context.read<SearchFilterModel>()
+      context.read<SearchScreenModel>()
         ..setSearchText('')
         ..managerSelectionScreen(numberScreen: ScreenEnum.listSearchWords);
     }
 
-    Navigator.pushNamed(context, RouteName.sightSearchScreen);
+    Navigator.pushNamed(context, RouteName.searchPlacesScreen);
   }
 }

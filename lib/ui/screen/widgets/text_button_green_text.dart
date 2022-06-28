@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:places/ui/screen/models/app_model.dart';
+import 'package:places/data/model/app_model.dart';
 
 ///Небольшая кнопка с кавадратными углами
 class TextButtonGreenText extends StatelessWidget {
@@ -22,7 +22,7 @@ class TextButtonGreenText extends StatelessWidget {
 
   @override
   Widget build(final BuildContext context) {
-    debugPrint('AppModel().themeColor ${AppModel().themeColor}');
+    debugPrint('AppModel().themeColor ${AppModel.isThemeColor}');
 
     return TextButton(
       style: Theme.of(context).textButtonTheme.style?.copyWith(

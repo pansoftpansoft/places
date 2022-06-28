@@ -1,28 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:places/type_place.dart';
+import 'package:places/data/model/place_type.dart';
 import 'package:places/ui/res/color_palette.dart';
-import 'package:places/ui/screen/filters_screen/filters_screen.dart';
+import 'package:places/ui/screen/filters_screen/model/filters_screen_model.dart';
 import 'package:places/ui/screen/filters_screen/widgets/category_icon_tick_choice.dart';
-import 'package:places/ui/screen/sight_search_screen/models/search_filter_model.dart';
 import 'package:provider/provider.dart';
 
 class CategoryIconSvgIcon extends StatefulWidget {
   ///
-  final String nameIcon;
-
-  ///
-  final TypePlace nameKey;
-
-  ///
-  final String svgIcons;
-
-  ///
+  final PlaceType placeType;
 
   const CategoryIconSvgIcon(
-    this.nameIcon,
-    this.nameKey,
-    this.svgIcons, {
+    this.placeType, {
     Key? key,
   }) : super(key: key);
 
@@ -41,13 +30,13 @@ class _CategoryIconSvgIconState extends State<CategoryIconSvgIcon> {
             iconSize: 53,
             onPressed: _onPressed,
             icon: SvgPicture.asset(
-              widget.svgIcons,
+              widget.placeType.svgIcons,
               height: 40,
               color: ColorPalette.greenColor,
             ),
           ),
         ),
-        CategoryIconTickChoice(widget.nameKey),
+        CategoryIconTickChoice(widget.placeType.namePlaceDB),
       ],
     );
   }
@@ -60,13 +49,10 @@ class _CategoryIconSvgIconState extends State<CategoryIconSvgIcon> {
   }
 
   void _onPressed() {
-    FiltersScreen.setButtonSelect(context, widget.nameKey);
-    FiltersScreen.setFilter(context);
-
-    setState(() {
-      debugPrint('Обновить даные 11');
-    });
-
-    context.read<SearchFilterModel>().notifyListenersSearchScreen();
+    context.read<FiltersScreenModel>().setTypePlaceSelected(
+          widget.placeType.namePlaceDB,
+        );
+    context.read<FiltersScreenModel>().getDataFromRepository().then((value) =>
+        context.read<FiltersScreenModel>().notifyListenersFiltersScreen());
   }
 }

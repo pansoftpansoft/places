@@ -1,7 +1,7 @@
 /// Клас с названиями маршрутов
 class RouteName {
   /// Константа с именем экрана
-  static const String addSightScreen = '/AddSightScreen';
+  static const String addPlaceScreen = '/AddPlaceScreen';
 
   /// Константа с именем экрана
   static const String filtersScreen = '/FiltersScreen';
@@ -19,13 +19,13 @@ class RouteName {
   static const String settingsScreen = '/SettingsScreen';
 
   /// Константа с именем экрана
-  static const String sightDetailsScreen = '/SightDetailsScreen';
+  static const String detailsPlaceScreen = '/DetailsPlaceScreen';
 
   /// Константа с именем экрана
-  static const String sightListScreen = '/SightListScreen';
+  static const String listPlacesScreen = '/ListPlacesScreen';
 
   /// Константа с именем экрана
-  static const String sightSearchScreen = '/SightSearchScreen';
+  static const String searchPlacesScreen = '/SearchPlacesScreen';
 
   /// Константа с именем экрана
   static const String splashScreen = '/SplashScreen';

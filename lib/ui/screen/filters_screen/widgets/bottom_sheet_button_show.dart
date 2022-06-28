@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:places/type_place.dart';
 import 'package:places/ui/res/labels.dart';
 import 'package:places/ui/res/sizes.dart';
-import 'package:places/ui/screen/'
-    'sight_search_screen/models/search_filter_model.dart';
+import 'package:places/ui/screen/filters_screen/model/filters_screen_model.dart';
 import 'package:places/ui/screen/widgets/elevated_button_green_big.dart';
 import 'package:provider/provider.dart';
 
@@ -14,7 +13,7 @@ class BottomSheetButtonShow extends StatelessWidget {
 
   @override
   Widget build(final BuildContext context) {
-    return Consumer<SearchFilterModel>(
+    return Consumer<FiltersScreenModel>(
       builder: (
         final context,
         final cart,
@@ -28,8 +27,8 @@ class BottomSheetButtonShow extends StatelessWidget {
         child: ConstrainedBox(
           constraints: const BoxConstraints.tightFor(height: heightSizeBox48),
           child: ElevatedButtonGreenBig(
-            title: '$show (${SearchFilterModel.countPlace})',
-            onPressed: SearchFilterModel.countPlace != 0
+            title: '$show (${mocksFiltered.length})',
+            onPressed: mocksFiltered.isNotEmpty
                 ? () {
                     _onPressed(context);
                   }
@@ -41,14 +40,7 @@ class BottomSheetButtonShow extends StatelessWidget {
   }
 
   void _onPressed(BuildContext context) {
-    context.read<SearchFilterModel>()
-      ..setSearchText('')
-      ..saveFilterSettings()
-      ..setFilteredPlaces()
-      ..getFilteredList()
-      ..managerSelectionScreen(numberScreen: ScreenEnum.listFoundPlacesScreen)
-      ..countFilteredPlacesSet();
-
+    context.read<FiltersScreenModel>().saveFilterSettings();
     Navigator.pop(context);
   }
 }

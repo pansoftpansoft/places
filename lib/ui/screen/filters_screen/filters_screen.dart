@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:places/type_place.dart';
+import 'package:places/ui/screen/filters_screen/model/filters_screen_model.dart';
+import 'package:places/ui/screen/filters_screen/widgets/app_bar_title.dart';
 import 'package:places/ui/screen/filters_screen/widgets/bottom_sheet_button_show.dart';
 import 'package:places/ui/screen/filters_screen/widgets/filters_screen_body.dart';
-import 'package:places/ui/screen/filters_screen/widgets/title_filter.dart';
-import 'package:places/ui/screen/sight_search_screen/models/search_filter_model.dart';
 import 'package:provider/provider.dart';
 
 ///Экран фильтров
@@ -13,34 +12,16 @@ class FiltersScreen extends StatelessWidget {
 
   @override
   Widget build(final BuildContext context) {
-
-    //Сохраняем настройки фильтра на случай выхода бех применения фильтра
-    context.read<SearchFilterModel>().getFilterSettings();
-
-    context.read<SearchFilterModel>().setFilteredPlaces();
+    context.read<FiltersScreenModel>().getDataFromRepository();
 
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         centerTitle: false,
-        title: const TitleFilter(),
+        title: const AppBarTitle(),
       ),
       bottomSheet: const BottomSheetButtonShow(),
       body: const FiltersScreenBody(),
     );
-  }
-
-  ///Установка выделения нажатой кнопки фильтра
-  static void setButtonSelect(
-    final BuildContext context,
-    final TypePlace nameKey,
-  ) {
-
-    context.read<SearchFilterModel>().setTypePlaceSelected(nameKey);
-    setFilter(context);
-  }
-
-  ///Установка фильтра
-  static void setFilter(final BuildContext context) {
-    context.read<SearchFilterModel>().countFilteredPlacesSet();
   }
 }

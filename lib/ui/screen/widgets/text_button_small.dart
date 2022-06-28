@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:places/data/model/app_model.dart';
 import 'package:places/ui/res/color_palette.dart';
-import 'package:places/ui/screen/models/app_model.dart';
 
-import '../../res/themes.dart';
 
 ///Небольшая кнопка с кавадратными углами
 class TextButtonSmall extends StatelessWidget {
@@ -26,15 +25,15 @@ class TextButtonSmall extends StatelessWidget {
 
   @override
   Widget build(final BuildContext context) {
-    debugPrint('Это кнопка "$title"; Виджет $TextButtonSmall $VoidCallback');
+    //debugPrint('Это кнопка "$title"; Виджет $TextButtonSmall $VoidCallback');
 
-    debugPrint('AppModel().themeColor ${AppModel().themeColor}');
+    //debugPrint('AppModel().themeColor ${AppModel().themeColor}');
 
-    final colorTextButtonDisable = AppModel().themeColor == darkTheme
+    final colorTextButtonDisable = AppModel.isThemeColor
         ? ColorPalette.dmTextButtonTextDisable
         : ColorPalette.lmTextButtonTextDisable;
 
-    final colorTextButton = AppModel().themeColor == darkTheme
+    final colorTextButton = AppModel.isThemeColor
         ? ColorPalette.dmTextButtonText
         : ColorPalette.lmTextButtonText;
 

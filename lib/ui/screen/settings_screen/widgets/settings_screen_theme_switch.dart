@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:places/data/model/app_model.dart';
 import 'package:places/ui/res/labels.dart';
-import 'package:places/ui/screen/models/app_model.dart';
 import 'package:provider/provider.dart';
 
 class SettingsScreenThemeSwitch extends StatelessWidget {

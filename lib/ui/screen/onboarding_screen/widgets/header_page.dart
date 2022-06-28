@@ -33,7 +33,7 @@ class HeaderPage extends StatelessWidget {
                   } else {
                     Navigator.pushReplacementNamed(
                       context,
-                      RouteName.sightListScreen,
+                      RouteName.listPlacesScreen,
                     );
                   }
                 },

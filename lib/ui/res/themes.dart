@@ -6,7 +6,6 @@ import 'package:places/ui/res/text_themas.dart';
 
 ///Светлая тема
 final ThemeData lightTheme = ThemeData(
-
   primaryColor: ColorPalette.lmPrimaryColor,
   backgroundColor: ColorPalette.lmPrimaryColor,
   scaffoldBackgroundColor: ColorPalette.lmPrimaryColor,
@@ -58,12 +57,11 @@ final ThemeData lightTheme = ThemeData(
         IconThemeData(color: ColorPalette.lmBasicColor, size: 30),
   ),
 
-
   ///TextButtonTheme
   textButtonTheme: TextButtonThemeData(
     style: ButtonStyle(
       foregroundColor: MaterialStateProperty.resolveWith<Color?>(
-            (states) {
+        (states) {
           if (states.contains(MaterialState.disabled)) {
             return ColorPalette.lmTextButtonTextDisable;
           }
@@ -74,12 +72,7 @@ final ThemeData lightTheme = ThemeData(
       padding: MaterialStateProperty.all(EdgeInsets.zero),
       elevation: MaterialStateProperty.all(0),
       backgroundColor: MaterialStateProperty.resolveWith<Color?>(
-            (states) {
-          debugPrint(
-            'states.contains(MaterialState.disabled = '
-                '${states.contains(MaterialState.disabled)}',
-          );
-
+        (states) {
           if (states.contains(MaterialState.disabled)) {
             return ColorPalette.lmTextButtonBackgroundDisable;
           }
@@ -127,6 +120,22 @@ final ThemeData lightTheme = ThemeData(
           borderRadius: BorderRadius.all(Radius.circular(borderRadiusCard16)),
         ),
       ),
+    ),
+  ),
+
+  inputDecorationTheme: const InputDecorationTheme(
+    enabledBorder: OutlineInputBorder(
+      borderSide: BorderSide(
+        color: ColorPalette.greenColor,
+      ),
+      borderRadius: BorderRadius.all(borderRadiusTextField),
+    ),
+    focusedBorder: OutlineInputBorder(
+      borderSide: BorderSide(
+        width: 2,
+        color: ColorPalette.greenColor,
+      ),
+      borderRadius: BorderRadius.all(borderRadiusTextField),
     ),
   ),
 );
@@ -193,11 +202,10 @@ final ThemeData darkTheme = ThemeData(
   * textButtonTheme
   */
 
-
   textButtonTheme: TextButtonThemeData(
     style: ButtonStyle(
       foregroundColor: MaterialStateProperty.resolveWith<Color?>(
-            (states) {
+        (states) {
           if (states.contains(MaterialState.disabled)) {
             return ColorPalette.dmTextButtonTextDisable;
           }
@@ -208,10 +216,10 @@ final ThemeData darkTheme = ThemeData(
       padding: MaterialStateProperty.all(EdgeInsets.zero),
       elevation: MaterialStateProperty.all(0),
       backgroundColor: MaterialStateProperty.resolveWith<Color?>(
-            (states) {
+        (states) {
           debugPrint(
             'states.contains(MaterialState.disabled = '
-                '${states.contains(MaterialState.disabled)}',
+            '${states.contains(MaterialState.disabled)}',
           );
 
           if (states.contains(MaterialState.disabled)) {
@@ -224,7 +232,6 @@ final ThemeData darkTheme = ThemeData(
     ),
   ),
 
-
   /*
   * iconTheme
   */
@@ -235,8 +242,6 @@ final ThemeData darkTheme = ThemeData(
   /*
   * textTheme
   */
-
-
 
   textTheme: dmTextTheme,
   indicatorColor: ColorPalette.dmBasicColor,
@@ -274,6 +279,21 @@ final ThemeData darkTheme = ThemeData(
           borderRadius: BorderRadius.all(Radius.circular(borderRadiusCard16)),
         ),
       ),
+    ),
+  ),
+  inputDecorationTheme: const InputDecorationTheme(
+    enabledBorder: OutlineInputBorder(
+      borderSide: BorderSide(
+        color: ColorPalette.greenColor,
+      ),
+      borderRadius: BorderRadius.all(borderRadiusTextField),
+    ),
+    focusedBorder: OutlineInputBorder(
+      borderSide: BorderSide(
+        width: 2,
+        color: ColorPalette.greenColor,
+      ),
+      borderRadius: BorderRadius.all(borderRadiusTextField),
     ),
   ),
 );

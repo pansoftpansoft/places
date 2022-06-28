@@ -77,7 +77,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
         case 0:
           Navigator.pushReplacementNamed(
             context,
-            RouteName.sightListScreen,
+            RouteName.listPlacesScreen,
           );
           break;
         case 1:
