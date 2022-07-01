@@ -4,7 +4,7 @@ import 'package:places/ui/screen/list_places_screen/widgets/list_places_screen_a
 ///Упрваления ListPlacesScreenAppBar при прокрутке списка
 class StickyHeader extends SliverPersistentHeaderDelegate {
   @override
-  double get maxExtent => 220;
+  double get maxExtent => 230;
 
   @override
   double get minExtent => 140;

@@ -5,6 +5,7 @@ import 'package:places/data/interactor/filter_interactor.dart';
 import 'package:places/data/interactor/place_interactor.dart';
 import 'package:places/data/model/filter_category.dart';
 import 'package:places/data/model/filter_distance.dart';
+import 'package:places/data/model/place.dart';
 import 'package:places/type_place.dart';
 
 class FiltersScreenModel extends ChangeNotifier {
@@ -22,6 +23,7 @@ class FiltersScreenModel extends ChangeNotifier {
 
   ///
   static RangeValues rangeDistance = const RangeValues(100, 1000);
+  static List<String> listCategory = <String>[];
 
   ///Расставить сохраненные настройки фильтра
   static Future<void> getFilterSettings() async {
@@ -29,6 +31,13 @@ class FiltersScreenModel extends ChangeNotifier {
     filterMap.clear();
     for (final item in listFilterCategory) {
       filterMap[item.category] = item.categoryValue == 1;
+    }
+
+    listCategory = <String>[];
+    for (final item in filterMap.keys.toList()) {
+      if (filterMap[item] ?? false) {
+        listCategory.add(item);
+      }
     }
 
     listFilterDistance = (await FilterInteractor.getSettingsFilterDistance())!;
@@ -44,27 +53,23 @@ class FiltersScreenModel extends ChangeNotifier {
     } else {
       filterMap[typePlace] = true;
     }
-    // for (final item in filterMap.values) {
-    //   debugPrint('$typePlace = ${item.toString()}');
-    // }
-    // debugPrint('$typePlace = ${filterMap[typePlace]}');
   }
 
   Future<void> restoreFilterSettings() => getFilterSettings();
 
   Future<void> getDataFromRepository() async {
     mocksSearchText.clear();
-    final listCategory = <String>[];
+    listCategory = <String>[];
     for (final item in filterMap.keys.toList()) {
       if (filterMap[item] ?? false) {
         listCategory.add(item);
       }
     }
 
-    mocksFiltered = (await PlaceInteractor.getPlacesInteractor(
+    mocksFiltered = await PlaceInteractor.getPlacesInteractor(
       radiusRange: rangeDistance,
       category: listCategory.isEmpty ? null : listCategory,
-    ))!;
+    ) as List<Place>;
 
     debugPrint(' countPlace 3  = ${mocksFiltered.length}');
 

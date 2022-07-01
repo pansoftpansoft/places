@@ -11,6 +11,9 @@ import 'package:places/data/model/place_filter_request_dto.dart';
 import 'package:places/domain/db_provider.dart';
 import 'package:places/main.dart';
 import 'package:places/type_place.dart';
+import 'package:places/ui/screen/list_places_screen/models/list_places_screen_model.dart';
+
+final repositoryMocks = <Place>[];
 
 ///--------------------------------------------------------------
 /// Слой получения данных
@@ -67,16 +70,15 @@ class PlaceRepository {
     List<String>? category,
     String? searchString,
   }) async {
-    var repositoryMocks = <Place>[];
     placesDtoFilter = await getPlacesDto(radiusRange, category, searchString);
-    repositoryMocks = await createMocks(placesDtoFilter);
+    await createMocks(placesDtoFilter);
+    debugPrint('repositoryMocks.length = ${repositoryMocks.length}');
 
     return repositoryMocks;
   }
 
-  static Future<List<Place>> updateMocksFiltered() async {
-    var repositoryMocks = <Place>[];
-    repositoryMocks = await createMocks(placesDtoFilter);
+  static Future<List<Place>?> updateMocksFiltered() async {
+    await createMocks(placesDtoFilter);
 
     return repositoryMocks;
   }
@@ -84,9 +86,6 @@ class PlaceRepository {
   static Future<List<Place>> getPlacesWantVisit(
     List<Place> listAllPlaces,
   ) async {
-    // for (final item in listAllPlaces) {
-    //   debugPrint('listAllPlaces = ${item.id} ${item.isFavorites}');
-    // }
     final returnListWantVisit = listAllPlaces
         .where((element) => element.visitedDate == null && element.isFavorites)
         .toList();
@@ -103,20 +102,10 @@ class PlaceRepository {
 
   ///--------------------------------------------------------------
   /// получить объедененный список DTO и LOCAL
-  static Future<List<Place>> createMocks(List<PlaceDto> placesDto) async {
-    final repositoryMocks = <Place>[];
-
+  static Future<Stream<Place>> createMocks(List<PlaceDto> placesDto) async {
+    repositoryMocks.clear();
     final placesLocalData = await DBProvider.dbProvider.getPlacesLocal();
-
-    for (final item in placesLocalData) {
-      debugPrint(
-        'placesLocalData = ${item.id}  ${item.isFavorites}'
-        ' ${item.wantVisitDate} ${item.visitedDate}',
-      );
-    }
-
     bool? isFavorites = false;
-
     debugPrint('Теперь циклы');
     DateTime? wantVisitDate;
     DateTime? visitedDate;
@@ -139,7 +128,6 @@ class PlaceRepository {
           }
         }
       }
-
       final place = Place(
         id: placeDto.id,
         lat: placeDto.lat,
@@ -153,9 +141,13 @@ class PlaceRepository {
         visitedDate: visitedDate,
       );
       repositoryMocks.add(place);
+      debugPrint('place.name = ${place.name}');
+      ListPlacesScreenModel.streamControllerListPlace.sink.add(
+        place,
+      );
     }
 
-    return repositoryMocks;
+    return ListPlacesScreenModel.streamControllerListPlace.stream;
   }
 
   ///--------------------------------------------------------------

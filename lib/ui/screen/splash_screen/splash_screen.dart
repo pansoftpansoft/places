@@ -1,14 +1,10 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:places/data/interactor/place_interactor.dart';
-import 'package:places/data/model/place.dart';
-import 'package:places/type_place.dart';
 import 'package:places/ui/res/color_palette.dart';
 import 'package:places/ui/res/img.dart';
 import 'package:places/ui/res/route_name.dart';
 import 'package:places/ui/screen/filters_screen/model/filters_screen_model.dart';
 import 'package:places/ui/screen/search_places_screen/models/search_screen_model.dart';
-import 'package:provider/provider.dart';
 
 /// Экран затавка при загрузке приложения
 class SplashScreen extends StatefulWidget {
@@ -69,31 +65,9 @@ class SplashScreenState extends State<SplashScreen> {
   Future<void> getNetData() async {
     debugPrint('Запустилась GetNetData().');
 
-    mocksFiltered = await PlaceInteractor.getPlacesInteractor() as List<Place>;
-    await PlaceInteractor.getListWantVisitAndVisited();
-
-    // for (final item in mocksFiltered) {
-    //   debugPrint('place id = ${item.id}  '
-    //       'isFavorites  = ${item.isFavorites}  '
-    //       'wantVisitDate  = ${item.wantVisitDate}  '
-    //       'visitedDate  = ${item.visitedDate}  '
-    //       'lat  = ${item.lat}  '
-    //       'lon  = ${item.lon}  '
-    //       'placeType  = ${item.placeType}');
-    // }
-
-    debugPrint(
-      'PlaceInteractor количество записей'
-      ' ${mocksFiltered.length.toString()}',
-    );
-
-    debugPrint(
-      'PlaceInteractor количество записей mocksWantVisit'
-      ' ${mocksWantVisit.length.toString()}',
-    );
-
     await SearchScreenModel.getListHistory();
     await FiltersScreenModel.getFilterSettings();
+
     debugPrint('Завершилась GetNetData().');
   }
 
@@ -110,7 +84,6 @@ class SplashScreenState extends State<SplashScreen> {
     //Произыодим первую фильтрацию мест перед открытием экрана
     _isInitialized.complete(isComplete);
     debugPrint('finishGetNetData ${_isInitialized.isCompleted.toString()}');
-    context.read<FiltersScreenModel>().getDataFromRepository();
   }
 
   /// Логика перехода на следующий экран

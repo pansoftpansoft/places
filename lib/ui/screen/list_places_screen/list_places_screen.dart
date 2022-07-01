@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:places/data/interactor/place_interactor.dart';
+import 'package:places/ui/screen/filters_screen/model/filters_screen_model.dart';
+import 'package:places/ui/screen/list_places_screen/models/list_places_screen_model.dart';
 import 'package:places/ui/screen/list_places_screen/widgets/floating_button.dart';
 import 'package:places/ui/screen/list_places_screen/widgets/list_places_screen_landscape.dart';
 import 'package:places/ui/screen/list_places_screen/widgets/list_places_screen_portrait.dart';
@@ -16,7 +19,13 @@ class ListPlacesScreen extends StatefulWidget {
 ///
 class ListPlacesScreenState extends State<ListPlacesScreen> {
   @override
-  Widget build(final BuildContext context) => OrientationBuilder(
+  void initState() {
+    super.initState();
+    load();
+  }
+
+  @override
+  Widget build(BuildContext context) => OrientationBuilder(
         builder: (
           context,
           orientation,
@@ -36,4 +45,21 @@ class ListPlacesScreenState extends State<ListPlacesScreen> {
           );
         },
       );
+
+  @override
+  void dispose() {
+    ListPlacesScreenModel.closeStream();
+    super.dispose();
+  }
+}
+
+Future<void> load() async {
+  ListPlacesScreenModel.openStream();
+  await PlaceInteractor.getPlacesInteractor(
+    radiusRange: FiltersScreenModel.rangeDistance,
+    category: FiltersScreenModel.listCategory.isEmpty
+        ? null
+        : FiltersScreenModel.listCategory,
+  );
+  await PlaceInteractor.getListWantVisitAndVisited();
 }
