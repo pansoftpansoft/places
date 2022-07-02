@@ -19,7 +19,6 @@ const double borderRadiusCard12 = 12;
 /// радиус скруглаения углов для TapBar
 const double borderRadiusTapBar = 50;
 
-
 /// радиус скруглаения углов для Card
 const double borderRadiusCard8 = 8;
 
@@ -38,6 +37,9 @@ const double iconSize20 = 20;
 /// размер иконки
 const double iconSize50 = 50;
 
+/// размер иконки
+const double iconSize29 = 29;
+
 ///
 const double heightSizeBox32 = 32;
 const double heightSizeBox12 = 12;
@@ -52,7 +54,6 @@ const int maxLines2 = 2;
 const double padding10 = 10;
 const double height95 = 94;
 const double heightBottomSheetOnboarding = 105;
-
 
 // Размеры экранов
 /// Минимальная высота экрана до которого,

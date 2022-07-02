@@ -52,26 +52,6 @@ class SearchScreenModel extends ChangeNotifier {
     return _errorTest;
   }
 
-  // bool getSearchTextList() {
-  //   mocksSearchText.clear();
-  //   if (_searchString.isNotEmpty) {
-  //     debugPrint('900 mocksSearch ${mocksFiltered.length.toString()}');
-  //     for (final item in mocksFiltered) {
-  //       //фильтр установлен проверяем его и поиск по имени
-  //       debugPrint(_searchString);
-  //       if (item.visibleFilter) {
-  //         if (item.name
-  //             .toLowerCase()
-  //             .contains(_searchString.trimRight().toLowerCase())) {
-  //           mocksSearchText.add(item);
-  //         }
-  //       }
-  //     }
-  //   }
-  //
-  //   return _errorTest;
-  // }
-
   Future<void> getListSearchText() async {
     mocksSearchText.clear();
     if (_searchString.isNotEmpty) {
@@ -79,7 +59,7 @@ class SearchScreenModel extends ChangeNotifier {
         searchString: _searchString,
       ))!;
     }
-    debugPrint(' countPlace 3  = ${mocksSearchText.length}');
+    debugPrint(' countPlace 4  = ${mocksSearchText.length}');
 
     return;
   }

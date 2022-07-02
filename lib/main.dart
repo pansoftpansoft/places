@@ -12,11 +12,10 @@ import 'package:provider/provider.dart';
 ThemeData themeColor = lightTheme;
 ApiClient serverSqlite = ApiClient();
 
-void main() async {
-
+void main() {
   WidgetsFlutterBinding.ensureInitialized();
 
-  themeColor = await SettingsInteractor.getSettingsTheme('themes');
+  loadSettings();
 
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
@@ -49,4 +48,10 @@ class Main extends StatelessWidget {
         routes: mapRoutes,
         initialRoute: RouteName.splashScreen,
       );
+}
+
+Future<void> loadSettings() async {
+  themeColor = await SettingsInteractor.getSettingsTheme('themes');
+
+  return;
 }

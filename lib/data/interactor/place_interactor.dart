@@ -13,13 +13,16 @@ class PlaceInteractor {
     List<String>? category,
     String? searchString,
   }) async {
+    debugPrint('Старт getPlacesInteractor');
     final mocksFromRepository = await PlaceRepository.getPlacesRepository(
       radiusRange: radiusRange,
       category: category,
       searchString: searchString,
     );
+    mocksFiltered = mocksFromRepository;
+    debugPrint('Загрузку mocksFiltered завершене = ${mocksFiltered.length}');
 
-    return mocksFromRepository;
+    return mocksFiltered;
   }
 
   static Future<Place?> getPlaceDetails(int placeId) async {
@@ -59,9 +62,8 @@ class PlaceInteractor {
 
     debugPrint('place id = ${place.id} isFavorites = ${place.isFavorites}');
 
-    mocksFiltered = await PlaceRepository.updateMocksFiltered();
+    mocksFiltered = (await PlaceRepository.updateMocksFiltered())!;
     await getListWantVisitAndVisited();
-
   }
 
   ///-----------------------------------------------

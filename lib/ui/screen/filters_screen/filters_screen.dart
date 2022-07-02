@@ -12,7 +12,7 @@ class FiltersScreen extends StatelessWidget {
 
   @override
   Widget build(final BuildContext context) {
-    context.read<FiltersScreenModel>().getDataFromRepository();
+    loadSettings(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -24,4 +24,8 @@ class FiltersScreen extends StatelessWidget {
       body: const FiltersScreenBody(),
     );
   }
+}
+
+Future<void> loadSettings(BuildContext context) async {
+  await context.read<FiltersScreenModel>().getDataFromRepository();
 }
