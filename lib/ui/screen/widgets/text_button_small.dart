@@ -3,7 +3,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:places/data/model/app_model.dart';
 import 'package:places/ui/res/color_palette.dart';
 
-
 ///Небольшая кнопка с кавадратными углами
 class TextButtonSmall extends StatelessWidget {
   final String title;
