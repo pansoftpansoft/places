@@ -10,7 +10,7 @@ import 'package:places/ui/res/themes.dart';
 import 'package:provider/provider.dart';
 
 ThemeData themeColor = lightTheme;
-ApiClient serverSqlite = ApiClient();
+ApiClient apiClient = ApiClient();
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
