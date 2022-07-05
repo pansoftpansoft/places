@@ -11,6 +11,7 @@ import 'package:provider/provider.dart';
 
 ThemeData themeColor = lightTheme;
 ApiClient apiClient = ApiClient();
+final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -40,18 +41,19 @@ class Main extends StatelessWidget {
 
   @override
   Widget build(final BuildContext context) => MaterialApp(
-        //theme: themeActual,
         theme: context.select<AppModel, ThemeData>(
           (final a) => themeColor,
         ),
         title: 'Задача  8.2',
         routes: mapRoutes,
         initialRoute: RouteName.splashScreen,
+        navigatorKey: navigatorKey,
       );
 }
 
 Future<void> loadSettings() async {
   themeColor = await SettingsInteractor.getSettingsTheme('themes');
+  await SettingsInteractor.updateSettingsThemeColor(themeColor);
 
   return;
 }

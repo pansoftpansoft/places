@@ -1,4 +1,6 @@
 import 'package:dio/dio.dart';
+import 'package:places/main.dart';
+import 'package:places/ui/res/route_name.dart';
 
 class NetworkException implements Exception {
   final String urlString;
@@ -15,5 +17,9 @@ class NetworkException implements Exception {
   String toString() {
     return 'В запросе $urlString возникла ошибка:'
         '${codeError == null ? '' : ' $codeError'} $textError';
+  }
+
+  static void showErrorScreen() {
+    navigatorKey.currentState!.pushReplacementNamed(RouteName.errorScreen);
   }
 }

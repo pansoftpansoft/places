@@ -22,7 +22,7 @@ class AlertDialogOkButton extends StatelessWidget {
             height: heightAlertDialog,
           ),
           child: ElevatedButtonGreenBig(
-            title: okTexe.toUpperCase(),
+            title: okText.toUpperCase(),
             onPressed: () {
               Navigator.pop(context);
             },

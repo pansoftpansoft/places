@@ -10,6 +10,7 @@ class SvgIcons {
   static const String clearWhite = '${catalog}clear_white.svg';
   static const String delete = '${catalog}delete.svg';
   static const String ellipse109 = '${catalog}ellipse109.svg';
+  static const String errorIcon = '${catalog}error.svg';
   static const String filter = '${catalog}filter.svg';
   static const String fail = '${catalog}fail.svg';
   static const String gogo = '${catalog}go.svg';

@@ -32,4 +32,7 @@ class RouteName {
 
   /// Константа с именем экрана
   static const String visitingScreen = '/VisitingScreen';
+
+  /// Константа с именем экрана
+  static const String errorScreen = '/ErrorScreen';
 }

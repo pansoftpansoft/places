@@ -25,12 +25,13 @@ const String delete = 'Удалить';
 const String description = 'ОПИСАНИЕ';
 const String distance = 'Расстояние';
 const String emptyList = 'Пусто';
+const String errorText = 'Ошибка';
 const String fail = 'Файл';
 const String from = 'от';
 const String iWantToVisit = 'Хочу посетить';
 const String hotel = 'Отель';
 const String onStart = 'На старт';
-const String okTexe = 'Ок';
+const String okText = 'Ок';
 const String particularPlace = 'Особое место';
 const String park = 'Парк';
 const String photo = 'Фотография';
@@ -60,6 +61,7 @@ const String shareMostInterestingOnes =
 const String shortDescription = 'краткое описание';
 const String show = 'ПОКАЗАТЬ';
 const String skip = 'Пропустить';
+const String somethingWentWrong = 'Что то пошло не так\nпопробуйте позже.';
 const String toto = 'до';
 const String tryAgain = 'Попробуйте еще раз!';
 const String tryChangingTheSearchParameter =
@@ -70,7 +72,6 @@ const String insertText = 'Введите текст для начала пои�
 const String youLooking = 'ВЫ ИСКАЛИ';
 const String watchTutorial = 'Смотреть туториал';
 const String welcomeToTheTravelGuide = 'Добро пожаловать\nв Путеводитель';
-
 
 const details = '''
                         Ивановская площадь — площадь в Московском Кремле,
@@ -85,7 +86,6 @@ const details = '''
                         стороны площади занимали дворы удельных князей 
                         Московского дома. 
                     ''';
-
 
 String typePlaceString(final TypePlace enumString) {
   switch (enumString) {

@@ -28,6 +28,7 @@ class PlaceRepository {
         place.toJson().toString(),
       );
     } on DioError catch (e) {
+      NetworkException.showErrorScreen();
       throw NetworkException(e);
     }
   }
@@ -68,6 +69,7 @@ class PlaceRepository {
 
       return listPlaceAll;
     } on DioError catch (e) {
+      NetworkException.showErrorScreen();
       throw NetworkException(e);
     }
   }
@@ -189,6 +191,7 @@ class PlaceRepository {
 
       return placesDto;
     } on DioError catch (e) {
+      NetworkException.showErrorScreen();
       throw NetworkException(e);
     }
   }
@@ -224,6 +227,7 @@ class PlaceRepository {
 
       return place;
     } on DioError catch (e) {
+      NetworkException.showErrorScreen();
       throw NetworkException(e);
     }
   }
@@ -277,6 +281,7 @@ class PlaceRepository {
         '$pathUrlDeletePlace/${place.id.toString()}',
       );
     } on DioError catch (e) {
+      NetworkException.showErrorScreen();
       throw NetworkException(e);
     }
   }
