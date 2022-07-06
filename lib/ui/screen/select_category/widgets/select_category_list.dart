@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:places/type_place.dart';
 import 'package:places/ui/res/sizes.dart';
-import 'package:places/data/interactor/add_place_model.dart';
+import 'package:places/data/interactor/add_place_interactor.dart';
 import 'package:places/ui/screen/select_category/widgets/select_element_list.dart';
 import 'package:provider/provider.dart';
 
@@ -20,7 +20,7 @@ class SelectCategoryList extends StatelessWidget {
           horizontal: paddingPage,
           vertical: 24,
         ),
-        child: Consumer<AddPlaceModel>(
+        child: Consumer<AddPlaceInteractor>(
           builder: (
             final context,
             final place,
@@ -34,7 +34,7 @@ class SelectCategoryList extends StatelessWidget {
                 SelectElementList(
                   TypePlace.values.toList()[iTypePlace],
                   typePlaceSelected:
-                      context.read<AddPlaceModel>().selectTypePlace,
+                      context.read<AddPlaceInteractor>().selectTypePlace,
                 ),
                 const Divider(),
               ],

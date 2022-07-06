@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:places/ui/res/labels.dart';
-import 'package:places/data/interactor/add_place_model.dart';
+import 'package:places/data/interactor/add_place_interactor.dart';
 import 'package:places/ui/screen/widgets/elevated_button_green_big.dart';
 import 'package:provider/provider.dart';
 
@@ -11,7 +11,7 @@ class SelectCategoryBottomSheetBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return ConstrainedBox(
       constraints: const BoxConstraints.tightFor(height: 48),
-      child: Consumer<AddPlaceModel>(
+      child: Consumer<AddPlaceInteractor>(
         builder: (
           final context,
           final place,
@@ -19,7 +19,7 @@ class SelectCategoryBottomSheetBody extends StatelessWidget {
         ) =>
             ElevatedButtonGreenBig(
           title: save,
-          onPressed: context.read<AddPlaceModel>().selectTypePlace != null
+          onPressed: context.read<AddPlaceInteractor>().selectTypePlace != null
               ? () {
                   _onPressed(context);
                 }
@@ -30,7 +30,7 @@ class SelectCategoryBottomSheetBody extends StatelessWidget {
   }
 
   void _onPressed(final BuildContext context) {
-    if (context.read<AddPlaceModel>().selectTypePlace != null) {
+    if (context.read<AddPlaceInteractor>().selectTypePlace != null) {
       _navigator(context);
     }
   }
@@ -38,7 +38,7 @@ class SelectCategoryBottomSheetBody extends StatelessWidget {
   void _navigator(final BuildContext context) {
     Navigator.pop(
       context,
-      context.read<AddPlaceModel>().selectTypePlace,
+      context.read<AddPlaceInteractor>().selectTypePlace,
     );
   }
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:places/ui/res/sizes.dart';
-import 'package:places/data/interactor/add_place_model.dart';
+import 'package:places/data/interactor/add_place_interactor.dart';
 import 'package:places/ui/screen/add_place_screen/widgets/full_photo_body.dart';
 import 'package:provider/provider.dart';
 
@@ -34,6 +34,6 @@ class _FullPhotoState extends State<FullPhoto> {
       );
 
   void _onTap(final BuildContext context, int index) {
-    context.read<AddPlaceModel>().deletePhoto(index);
+    context.read<AddPlaceInteractor>().deletePhoto(index);
   }
 }

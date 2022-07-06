@@ -80,6 +80,7 @@ class _CardPlaceDragState extends State<CardPlaceDrag> {
             mode: CupertinoDatePickerMode.date,
             use24hFormat: true,
             onDateTimeChanged: (newDate) {
+              // ignore: parameter_assignments
               dateTimeCupertino = newDate;
             },
           ),
