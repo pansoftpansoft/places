@@ -10,7 +10,8 @@ import 'package:places/ui/res/themes.dart';
 import 'package:provider/provider.dart';
 
 ThemeData themeColor = lightTheme;
-ApiClient serverSqlite = ApiClient();
+ApiClient apiClient = ApiClient();
+
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -40,7 +41,6 @@ class Main extends StatelessWidget {
 
   @override
   Widget build(final BuildContext context) => MaterialApp(
-        //theme: themeActual,
         theme: context.select<AppModel, ThemeData>(
           (final a) => themeColor,
         ),
@@ -52,6 +52,7 @@ class Main extends StatelessWidget {
 
 Future<void> loadSettings() async {
   themeColor = await SettingsInteractor.getSettingsTheme('themes');
+  await SettingsInteractor.updateSettingsThemeColor(themeColor);
 
   return;
 }

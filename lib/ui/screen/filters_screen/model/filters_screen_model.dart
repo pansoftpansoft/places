@@ -85,8 +85,9 @@ class FiltersScreenModel extends ChangeNotifier {
     // Сохраняем дистанцию
 
     for (var item in listFilterDistance) {
-      item.distanceStart = rangeDistance.start;
-      item.distanceEnd = rangeDistance.end;
+      item
+        ..distanceStart = rangeDistance.start
+        ..distanceEnd = rangeDistance.end;
     }
     await FilterInteractor.updateListFilterDistance(listFilterDistance);
   }

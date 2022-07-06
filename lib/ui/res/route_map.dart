@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:places/ui/res/route_name.dart';
 import 'package:places/ui/screen/add_place_screen/add_place_screen.dart';
 import 'package:places/ui/screen/details_place_screen/details_place_screen.dart';
+
 import 'package:places/ui/screen/filters_screen/filters_screen.dart';
 import 'package:places/ui/screen/list_places_screen/list_places_screen.dart';
 import 'package:places/ui/screen/map_screen/map_screen.dart';

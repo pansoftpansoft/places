@@ -5,6 +5,7 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:places/data/api/api_urls.dart';
+import 'package:places/data/api/network_exception.dart';
 import 'package:places/data/model/place.dart';
 import 'package:places/data/model/place_dto.dart';
 import 'package:places/data/model/place_filter_request_dto.dart';
@@ -21,46 +22,58 @@ class PlaceRepository {
   /// ---------------------------------------------------------------
   /// Создать новое место на сервере
   static Future<Response> postPlace(Place place) async {
-    return serverSqlite.post(
-      pathUrlCreatePlace,
-      place.toJson().toString(),
-    );
+    try {
+      return apiClient.post(
+        pathUrlCreatePlace,
+        place.toJson().toString(),
+      );
+    } on DioError catch (e) {
+      ListPlacesScreenModel.streamControllerListPlace
+          .addError(NetworkException);
+      throw NetworkException(e);
+    }
   }
 
   ///--------------------------------------------------------------
   /// Получаем список всех мест
   static Future<List<Place>> getAllPlace() async {
-    final placesLocalData = await DBProvider.dbProvider.getPlacesLocal();
-    final listPlaceAll = ((await serverSqlite.get(pathUrlListPlaces)).data
-            as List)
-        // ignore: avoid_annotating_with_dynamic
-        .map<Place>((dynamic e) => Place.fromJson(e as Map<String, dynamic>))
-        .toList();
+    try {
+      final placesLocalData = await DBProvider.dbProvider.getPlacesLocal();
+      final listPlaceAll = ((await apiClient.get(pathUrlListPlaces)).data
+              as List)
+          // ignore: avoid_annotating_with_dynamic
+          .map<Place>((dynamic e) => Place.fromJson(e as Map<String, dynamic>))
+          .toList();
 
-    for (final placeOne in listPlaceAll) {
-      if (placesLocalData.isNotEmpty) {
-        for (final placesLocalDataElement in placesLocalData) {
-          if (placesLocalDataElement.id == placeOne.id) {
-            placeOne.isFavorites =
-                // ignore: avoid_bool_literals_in_conditional_expressions
-                placesLocalDataElement.isFavorites == 1 ? true : false;
-            placeOne.wantVisitDate =
-                placesLocalDataElement.wantVisitDate == null
-                    ? null
-                    : placesLocalDataElement.wantVisitDateToDatetime();
+      for (final placeOne in listPlaceAll) {
+        if (placesLocalData.isNotEmpty) {
+          for (final placesLocalDataElement in placesLocalData) {
+            if (placesLocalDataElement.id == placeOne.id) {
+              placeOne.isFavorites =
+                  // ignore: avoid_bool_literals_in_conditional_expressions
+                  placesLocalDataElement.isFavorites == 1 ? true : false;
+              placeOne.wantVisitDate =
+                  placesLocalDataElement.wantVisitDate == null
+                      ? null
+                      : placesLocalDataElement.wantVisitDateToDatetime();
 
-            debugPrint(
-              'placesLocalDataElement.visitedDate = ${placesLocalDataElement.visitedDate}',
-            );
-            placeOne.visitedDate = placesLocalDataElement.visitedDate == 0
-                ? null
-                : placesLocalDataElement.visitedDateToDatetime();
+              debugPrint(
+                'placesLocalDataElement.visitedDate = ${placesLocalDataElement.visitedDate}',
+              );
+              placeOne.visitedDate = placesLocalDataElement.visitedDate == 0
+                  ? null
+                  : placesLocalDataElement.visitedDateToDatetime();
+            }
           }
         }
       }
-    }
 
-    return listPlaceAll;
+      return listPlaceAll;
+    } on DioError catch (e) {
+      ListPlacesScreenModel.streamControllerListPlace
+          .addError(NetworkException);
+      throw NetworkException(e);
+    }
   }
 
   ///--------------------------------------------------------------
@@ -157,58 +170,70 @@ class PlaceRepository {
     List<String>? category,
     String? searchString,
   ) async {
-    // Создаем фильтр
-    final filterJson = createFilter(
-      radiusRange: radiusRange,
-      category: category,
-      searchString: searchString,
-    );
+    try {
+      // Создаем фильтр
+      final filterJson = createFilter(
+        radiusRange: radiusRange,
+        category: category,
+        searchString: searchString,
+      );
 
-    final response = await serverSqlite.post(
-      pathUrlFilteredPlaces,
-      filterJson,
-    );
+      final response = await apiClient.post(
+        pathUrlFilteredPlaces,
+        filterJson,
+      );
 
-    final placesDto = (response.data as List)
-        // ignore: avoid_annotating_with_dynamic
-        .map<PlaceDto>(
+      final placesDto = (response.data as List)
           // ignore: avoid_annotating_with_dynamic
-          (dynamic e) => PlaceDto.fromJson(e as Map<String, dynamic>),
-        )
-        .toList();
+          .map<PlaceDto>(
+            // ignore: avoid_annotating_with_dynamic
+            (dynamic e) => PlaceDto.fromJson(e as Map<String, dynamic>),
+          )
+          .toList();
 
-    return placesDto;
+      return placesDto;
+    } on DioError catch (e) {
+      ListPlacesScreenModel.streamControllerListPlace
+          .addError(NetworkException);
+      throw NetworkException(e);
+    }
   }
 
   ///--------------------------------------------------------------
   /// Получить место по идентификатору
   static Future<Place> getPlaceId(int placeId) async {
-    String mapString;
+    try {
+      String mapString;
 
-    //debugPrint('Получить место по иденитификатору placeId = ${placeId}');
-    final response = await serverSqlite.get('$pathUrlListPlaces/$placeId');
+      //debugPrint('Получить место по иденитификатору placeId = ${placeId}');
+      final response = await apiClient.get('$pathUrlListPlaces/$placeId');
 
-    mapString = response.toString();
+      mapString = response.toString();
 
-    debugPrint('mapString = $mapString');
+      debugPrint('mapString = $mapString');
 
-    final mapFull = json.decode(mapString) as Map<String, dynamic>;
+      final mapFull = json.decode(mapString) as Map<String, dynamic>;
 
-    //Добавим значения из локальной базы данных
-    final place = Place.fromJson(mapFull);
+      //Добавим значения из локальной базы данных
+      final place = Place.fromJson(mapFull);
 
-    final placeLocalData = await DBProvider.dbProvider.getPlacesLocalDataId(
-      place.id,
-    );
+      final placeLocalData = await DBProvider.dbProvider.getPlacesLocalDataId(
+        place.id,
+      );
 
-    if (placeLocalData != null) {
-      //place.id =  placeLocalData.id;
-      place.isFavorites = placeLocalData.isFavoritesToBool();
-      place.wantVisitDate = placeLocalData.wantVisitDateToDatetime();
-      place.visitedDate = placeLocalData.visitedDateToDatetime();
+      if (placeLocalData != null) {
+        //place.id =  placeLocalData.id;
+        place.isFavorites = placeLocalData.isFavoritesToBool();
+        place.wantVisitDate = placeLocalData.wantVisitDateToDatetime();
+        place.visitedDate = placeLocalData.visitedDateToDatetime();
+      }
+
+      return place;
+    } on DioError catch (e) {
+      ListPlacesScreenModel.streamControllerListPlace
+          .addError(NetworkException);
+      throw NetworkException(e);
     }
-
-    return place;
   }
 
   ///--------------------------------------------------------------
@@ -255,8 +280,14 @@ class PlaceRepository {
   ///--------------------------------------------------------------
   /// Удалить место на сервере
   Future<Response> deletePlace(Place place) async {
-    return serverSqlite.delete(
-      '$pathUrlDeletePlace/${place.id.toString()}',
-    );
+    try {
+      return apiClient.delete(
+        '$pathUrlDeletePlace/${place.id.toString()}',
+      );
+    } on DioError catch (e) {
+      ListPlacesScreenModel.streamControllerListPlace
+          .addError(NetworkException);
+      throw NetworkException(e);
+    }
   }
 }
