@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:places/data/interactor/place_interactor.dart';
-import 'package:places/ui/screen/filters_screen/model/filters_screen_model.dart';
 import 'package:places/ui/screen/list_places_screen/models/list_places_screen_model.dart';
 import 'package:places/ui/screen/list_places_screen/widgets/floating_button.dart';
 import 'package:places/ui/screen/list_places_screen/widgets/list_places_screen_landscape.dart';
 import 'package:places/ui/screen/list_places_screen/widgets/list_places_screen_portrait.dart';
 import 'package:places/ui/screen/widgets/bottom_navigation/bottom_navigation.dart';
+import 'package:provider/provider.dart';
 
 ///Список достопримечательностей
 class ListPlacesScreen extends StatefulWidget {
@@ -21,7 +20,7 @@ class ListPlacesScreenState extends State<ListPlacesScreen> {
   @override
   void initState() {
     super.initState();
-    load();
+    context.read<ListPlacesScreenModel>().load();
   }
 
   @override
@@ -48,18 +47,7 @@ class ListPlacesScreenState extends State<ListPlacesScreen> {
 
   @override
   void dispose() {
-    ListPlacesScreenModel.closeStream();
+    context.read<ListPlacesScreenModel>().closeStream();
     super.dispose();
   }
-}
-
-Future<void> load() async {
-  ListPlacesScreenModel.openStream();
-  await PlaceInteractor.getPlacesInteractor(
-    radiusRange: FiltersScreenModel.rangeDistance,
-    category: FiltersScreenModel.listCategory.isEmpty
-        ? null
-        : FiltersScreenModel.listCategory,
-  );
-  await PlaceInteractor.getListWantVisitAndVisited();
 }

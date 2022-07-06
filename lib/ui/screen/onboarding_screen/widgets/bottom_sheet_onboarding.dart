@@ -14,7 +14,8 @@ class BottomSheetOnboarding extends StatelessWidget {
   @override
   Widget build(final BuildContext context) {
     debugPrint(
-      '${OnboardingScreenModel.numberPage} ${OnboardingScreenModel.fileName}',
+      '${OnboardingScreenModel.numberPage} '
+      '${context.read<OnboardingScreenModel>().fileName}',
     );
 
     return Consumer<OnboardingScreenModel>(

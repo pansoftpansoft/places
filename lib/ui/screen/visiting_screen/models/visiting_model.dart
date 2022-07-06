@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:places/data/interactor/place_interactor.dart';
@@ -6,15 +8,24 @@ import 'package:places/type_place.dart';
 
 ///Модель для Visiting
 class VisitingModel extends ChangeNotifier {
+  PlaceInteractor placeInteractor = PlaceInteractor();
+
   ///Удаление из мест которые хотел посетить
-  Future<void> deletePlaceWantVisit(Place place) async {
-    await PlaceInteractor.setFavorites(place);
+  Future<void> deletePlaceWantVisit(
+    Place place,
+    StreamController<Place> streamControllerListPlace,
+  ) async {
+    await placeInteractor.setFavorites(place, streamControllerListPlace);
     notifyListeners();
   }
 
   ///Удаление из мест которые уже посетил
-  Future<void> deletePlaceVisited(Place place) async {
-    await PlaceInteractor.setStatusPlaceVisited(place);
+  Future<void> deletePlaceVisited(
+    Place place,
+    StreamController<Place> streamControllerListPlace,
+  ) async {
+    await placeInteractor.setStatusPlaceVisited(
+        place, streamControllerListPlace,);
     notifyListeners();
   }
 

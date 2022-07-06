@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:places/data/model/place.dart';
 import 'package:places/data/repository/place_repository.dart';
@@ -6,18 +8,21 @@ import 'package:places/type_place.dart';
 
 /// Слой бизнес логики
 class PlaceInteractor {
+  PlaceRepository placeRepository = PlaceRepository();
+
   ///--------------------------------------------------------------
   /// Получить список отфильтрованных мест
-  static Future<List<Place>?> getPlacesInteractor({
+  Future<List<Place>?> getPlacesInteractor({
     RangeValues? radiusRange,
     List<String>? category,
     String? searchString,
+    required StreamController<Place> streamControllerListPlace,
   }) async {
-    debugPrint('Старт getPlacesInteractor');
-    final mocksFromRepository = await PlaceRepository.getPlacesRepository(
+    final mocksFromRepository = await placeRepository.getPlacesRepository(
       radiusRange: radiusRange,
       category: category,
       searchString: searchString,
+      streamControllerListPlace: streamControllerListPlace,
     );
     mocksFiltered = mocksFromRepository;
     debugPrint('Загрузку mocksFiltered завершене = ${mocksFiltered.length}');
@@ -25,12 +30,18 @@ class PlaceInteractor {
     return mocksFiltered;
   }
 
-  static Future<Place?> getPlaceDetails(int placeId) async {
-    return PlaceRepository.getPlaceId(placeId);
+  Future<Place?> getPlaceDetails(
+    int placeId,
+    StreamController<Place> streamControllerListPlace,
+  ) async {
+    return placeRepository.getPlaceId(placeId, streamControllerListPlace);
   }
 
   /// Установка месту избранное или нет
-  static Future<void> setFavorites(Place place) async {
+  Future<void> setFavorites(
+    Place place,
+    StreamController<Place> streamControllerListPlace,
+  ) async {
     // Пробуем обновить место
 
     if (place.isFavorites) {
@@ -62,25 +73,17 @@ class PlaceInteractor {
 
     debugPrint('place id = ${place.id} isFavorites = ${place.isFavorites}');
 
-    mocksFiltered = (await PlaceRepository.updateMocksFiltered())!;
-    await getListWantVisitAndVisited();
-  }
-
-  ///-----------------------------------------------
-  /// Отметить место как посещенное
-  static Future<void> addToVisitingPlaces(Place place) async {
-    await PlaceRepository.postPlace(place);
-    for (final element in mocks) {
-      if (element.id == place.id) {
-        element.visitedDate = DateTime.now();
-      }
-    }
-    await getListWantVisitAndVisited();
+    mocksFiltered =
+        (await placeRepository.updateMocksFiltered(streamControllerListPlace))!;
+    await getListWantVisitAndVisited(streamControllerListPlace);
   }
 
   ///-----------------------------------------------
   /// Добавить место в посещенные
-  static Future<void> setStatusPlaceVisited(Place place) async {
+  Future<void> setStatusPlaceVisited(
+    Place place,
+    StreamController<Place> streamControllerListPlace,
+  ) async {
     place.visitedDate = place.visitedDate == null ? DateTime.now() : null;
 
     // проверяем есть токое место в лакальной базе, если нет добавляем.
@@ -103,15 +106,33 @@ class PlaceInteractor {
     }
     debugPrint('place id = ${place.id} isFavorites = ${place.visitedDate}');
 
-    await getListWantVisitAndVisited();
+    await getListWantVisitAndVisited(streamControllerListPlace);
   }
 
-  static Future<void> getListWantVisitAndVisited() async {
-    final listAllPlace = await PlaceRepository.getAllPlace();
+  Future<void> getListWantVisitAndVisited(
+    StreamController<Place> streamControllerListPlace,
+  ) async {
+    final listAllPlace =
+        await placeRepository.getAllPlace(streamControllerListPlace);
     debugPrint('listAllPlace = ${listAllPlace.length}');
-    mocksWantVisit = await PlaceRepository.getPlacesWantVisit(listAllPlace);
+    mocksWantVisit = await placeRepository.getPlacesWantVisit(listAllPlace);
     debugPrint('mocksWantVisit = ${mocksWantVisit.length}');
 
-    mocksVisited = await PlaceRepository.getPlacesVisited(listAllPlace);
+    mocksVisited = await placeRepository.getPlacesVisited(listAllPlace);
+  }
+
+  ///-----------------------------------------------
+  /// Отметить место как посещенное
+  Future<void> addToVisitingPlaces(
+    Place place,
+    StreamController<Place> streamControllerListPlace,
+  ) async {
+    await placeRepository.postPlace(place, streamControllerListPlace);
+    for (final element in mocks) {
+      if (element.id == place.id) {
+        element.visitedDate = DateTime.now();
+      }
+    }
+    await getListWantVisitAndVisited(streamControllerListPlace);
   }
 }

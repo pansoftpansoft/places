@@ -17,8 +17,8 @@ class DetailsPlaceScreen extends StatelessWidget {
   Widget build(final BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        DetailsPlaceModel.index = 0;
-        DetailsPlaceModel.closeStream();
+        context.read<DetailsPlaceModel>().index = 0;
+        context.read<DetailsPlaceModel>().closeStream();
 
         return true;
       },
@@ -57,8 +57,8 @@ class DetailsPlaceScreen extends StatelessWidget {
   }
 
   void _onPressed(BuildContext context) {
-    DetailsPlaceModel.index = 0;
-    DetailsPlaceModel.closeStream();
+    context.read<DetailsPlaceModel>().index = 0;
+    context.read<DetailsPlaceModel>().closeStream();
     Navigator.of(context).pop();
   }
 

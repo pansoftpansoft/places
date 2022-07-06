@@ -19,17 +19,17 @@ class ScrollIndicator extends StatelessWidget {
         ) => Container(
             margin: EdgeInsets.only(
               left: (MediaQuery.of(context).size.width /
-                      DetailsPlaceModel.countElements) *
-                  DetailsPlaceModel.index,
+                  context.read<DetailsPlaceModel>().countElements) *
+                  context.read<DetailsPlaceModel>().index,
             ),
             height: 8,
             width: MediaQuery.of(context).size.width /
-                DetailsPlaceModel.countElements,
+                context.read<DetailsPlaceModel>().countElements,
             decoration: BoxDecoration(
               color: Theme.of(context).indicatorColor,
               borderRadius: buildBorderRadius(
-                DetailsPlaceModel.index,
-                DetailsPlaceModel.countElements,
+                context.read<DetailsPlaceModel>().index,
+                context.read<DetailsPlaceModel>().countElements,
               ),
             ),
           ),

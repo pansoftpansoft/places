@@ -3,6 +3,7 @@ import 'package:places/data/model/place.dart';
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/screen/details_place_screen/details_place_screen.dart';
 import 'package:places/ui/screen/details_place_screen/models/details_place_model.dart';
+import 'package:places/ui/screen/list_places_screen/models/list_places_screen_model.dart';
 import 'package:places/ui/screen/search_places_screen/models/search_screen_model.dart';
 import 'package:places/ui/screen/search_places_screen/widgets/search_card_place_text_span.dart';
 import 'package:provider/provider.dart';
@@ -55,14 +56,14 @@ class SearchCardPlace extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 0, width: 16),
-              SearchCardPlaceTextSpan(place, SearchScreenModel.searchString),
+              SearchCardPlaceTextSpan(place, context.read<SearchScreenModel>().searchString),
             ],
           ),
         ),
       );
 
   Future<void> _onTap(BuildContext context) async {
-    await context.read<DetailsPlaceModel>().getPlace(place.id).then(
+    await context.read<DetailsPlaceModel>().getPlace(place.id, context.read<ListPlacesScreenModel>().streamControllerListPlace).then(
           (value) => showModalBottomSheet<Widget>(
             context: context,
             builder: (final _) => const DetailsPlaceScreen(),

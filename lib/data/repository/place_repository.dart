@@ -1,5 +1,6 @@
 // ignore_for_file: cascade_invocations
 
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
@@ -12,7 +13,6 @@ import 'package:places/data/model/place_filter_request_dto.dart';
 import 'package:places/domain/db_provider.dart';
 import 'package:places/main.dart';
 import 'package:places/type_place.dart';
-import 'package:places/ui/screen/list_places_screen/models/list_places_screen_model.dart';
 
 final repositoryMocks = <Place>[];
 
@@ -21,22 +21,26 @@ final repositoryMocks = <Place>[];
 class PlaceRepository {
   /// ---------------------------------------------------------------
   /// Создать новое место на сервере
-  static Future<Response> postPlace(Place place) async {
+  Future<Response> postPlace(
+    Place place,
+    StreamController<Place> streamControllerListPlace,
+  ) async {
     try {
       return apiClient.post(
         pathUrlCreatePlace,
         place.toJson().toString(),
       );
     } on DioError catch (e) {
-      ListPlacesScreenModel.streamControllerListPlace
-          .addError(NetworkException);
+      streamControllerListPlace.addError(NetworkException);
       throw NetworkException(e);
     }
   }
 
   ///--------------------------------------------------------------
   /// Получаем список всех мест
-  static Future<List<Place>> getAllPlace() async {
+  Future<List<Place>> getAllPlace(
+    StreamController<Place> streamControllerListPlace,
+  ) async {
     try {
       final placesLocalData = await DBProvider.dbProvider.getPlacesLocal();
       final listPlaceAll = ((await apiClient.get(pathUrlListPlaces)).data
@@ -70,33 +74,40 @@ class PlaceRepository {
 
       return listPlaceAll;
     } on DioError catch (e) {
-      ListPlacesScreenModel.streamControllerListPlace
-          .addError(NetworkException);
+      streamControllerListPlace.addError(NetworkException);
       throw NetworkException(e);
     }
   }
 
   ///--------------------------------------------------------------
   /// Получаем список отфильтрованных мест с сервера
-  static Future<List<Place>> getPlacesRepository({
+  Future<List<Place>> getPlacesRepository({
     RangeValues? radiusRange,
     List<String>? category,
     String? searchString,
+    required StreamController<Place> streamControllerListPlace,
   }) async {
-    placesDtoFilter = await getPlacesDto(radiusRange, category, searchString);
-    await createMocks(placesDtoFilter);
+    placesDtoFilter = await getPlacesDto(
+      radiusRange,
+      category,
+      searchString,
+      streamControllerListPlace,
+    );
+    await createMocks(placesDtoFilter, streamControllerListPlace);
     debugPrint('repositoryMocks.length = ${repositoryMocks.length}');
 
     return repositoryMocks;
   }
 
-  static Future<List<Place>?> updateMocksFiltered() async {
-    await createMocks(placesDtoFilter);
+  Future<List<Place>?> updateMocksFiltered(
+    StreamController<Place> streamControllerListPlace,
+  ) async {
+    await createMocks(placesDtoFilter, streamControllerListPlace);
 
     return repositoryMocks;
   }
 
-  static Future<List<Place>> getPlacesWantVisit(
+  Future<List<Place>> getPlacesWantVisit(
     List<Place> listAllPlaces,
   ) async {
     final returnListWantVisit = listAllPlaces
@@ -106,7 +117,7 @@ class PlaceRepository {
     return returnListWantVisit;
   }
 
-  static Future<List<Place>> getPlacesVisited(List<Place> listAllPlaces) async {
+  Future<List<Place>> getPlacesVisited(List<Place> listAllPlaces) async {
     final returnListVisited =
         listAllPlaces.where((element) => element.visitedDate != null).toList();
 
@@ -115,7 +126,10 @@ class PlaceRepository {
 
   ///--------------------------------------------------------------
   /// получить объедененный список DTO и LOCAL
-  static Future<Stream<Place>> createMocks(List<PlaceDto> placesDto) async {
+  Future<Stream<Place>> createMocks(
+    List<PlaceDto> placesDto,
+    StreamController<Place> streamControllerListPlace,
+  ) async {
     repositoryMocks.clear();
     final placesLocalData = await DBProvider.dbProvider.getPlacesLocal();
     bool? isFavorites = false;
@@ -155,20 +169,21 @@ class PlaceRepository {
       );
       repositoryMocks.add(place);
       debugPrint('place.name = ${place.name}');
-      ListPlacesScreenModel.streamControllerListPlace.sink.add(
+      streamControllerListPlace.sink.add(
         place,
       );
     }
 
-    return ListPlacesScreenModel.streamControllerListPlace.stream;
+    return streamControllerListPlace.stream;
   }
 
   ///--------------------------------------------------------------
   /// Получаем список отфильтрованных мест с сервера
-  static Future<List<PlaceDto>> getPlacesDto(
+  Future<List<PlaceDto>> getPlacesDto(
     RangeValues? radiusRange,
     List<String>? category,
     String? searchString,
+    StreamController<Place> streamControllerListPlace,
   ) async {
     try {
       // Создаем фильтр
@@ -193,15 +208,17 @@ class PlaceRepository {
 
       return placesDto;
     } on DioError catch (e) {
-      ListPlacesScreenModel.streamControllerListPlace
-          .addError(NetworkException);
+      streamControllerListPlace.addError(NetworkException);
       throw NetworkException(e);
     }
   }
 
   ///--------------------------------------------------------------
   /// Получить место по идентификатору
-  static Future<Place> getPlaceId(int placeId) async {
+  Future<Place> getPlaceId(
+    int placeId,
+    StreamController<Place> streamControllerListPlace,
+  ) async {
     try {
       String mapString;
 
@@ -230,15 +247,14 @@ class PlaceRepository {
 
       return place;
     } on DioError catch (e) {
-      ListPlacesScreenModel.streamControllerListPlace
-          .addError(NetworkException);
+      streamControllerListPlace.addError(NetworkException);
       throw NetworkException(e);
     }
   }
 
   ///--------------------------------------------------------------
   /// Создаем JSON фильтр
-  static String createFilter({
+  String createFilter({
     RangeValues? radiusRange,
     List<String>? category,
     String? searchString,
@@ -266,7 +282,7 @@ class PlaceRepository {
 
   ///--------------------------------------------------------------
   /// Установить что место посетили
-  static Future<void> updatePlaceLocalDB(Place place) async {
+  Future<void> updatePlaceLocalDB(Place place) async {
     debugPrint('place id = ${place.id}  '
         'isFavorites  = ${place.isFavorites}  '
         'wantVisitDate  = ${place.wantVisitDate}  '
@@ -279,14 +295,16 @@ class PlaceRepository {
 
   ///--------------------------------------------------------------
   /// Удалить место на сервере
-  Future<Response> deletePlace(Place place) async {
+  Future<Response> deletePlace(
+    Place place,
+    StreamController<Place> streamControllerListPlace,
+  ) async {
     try {
       return apiClient.delete(
         '$pathUrlDeletePlace/${place.id.toString()}',
       );
     } on DioError catch (e) {
-      ListPlacesScreenModel.streamControllerListPlace
-          .addError(NetworkException);
+      streamControllerListPlace.addError(NetworkException);
       throw NetworkException(e);
     }
   }

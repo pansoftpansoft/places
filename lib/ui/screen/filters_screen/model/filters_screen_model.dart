@@ -1,5 +1,7 @@
 // ignore_for_file: prefer_final_in_for_each
 
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:places/data/interactor/filter_interactor.dart';
 import 'package:places/data/interactor/place_interactor.dart';
@@ -24,6 +26,8 @@ class FiltersScreenModel extends ChangeNotifier {
   ///
   static RangeValues rangeDistance = const RangeValues(100, 1000);
   static List<String> listCategory = <String>[];
+
+  PlaceInteractor placeInteractor = PlaceInteractor();
 
   ///Расставить сохраненные настройки фильтра
   static Future<void> getFilterSettings() async {
@@ -57,7 +61,9 @@ class FiltersScreenModel extends ChangeNotifier {
 
   Future<void> restoreFilterSettings() => getFilterSettings();
 
-  Future<void> getDataFromRepository() async {
+  Future<void> getDataFromRepository(
+    StreamController<Place> streamControllerListPlace,
+  ) async {
     mocksSearchText.clear();
     listCategory = <String>[];
     for (final item in filterMap.keys.toList()) {
@@ -66,9 +72,10 @@ class FiltersScreenModel extends ChangeNotifier {
       }
     }
 
-    mocksFiltered = await PlaceInteractor.getPlacesInteractor(
+    mocksFiltered = await placeInteractor.getPlacesInteractor(
       radiusRange: rangeDistance,
       category: listCategory.isEmpty ? null : listCategory,
+      streamControllerListPlace: streamControllerListPlace,
     ) as List<Place>;
 
     debugPrint(' countPlace 3  = ${mocksFiltered.length}');

@@ -24,7 +24,7 @@ class SearchPlacesScreenBodySwitch extends StatelessWidget {
         final card,
         final child,
       ) {
-        switch (SearchScreenModel.selectedScreen) {
+        switch (context.read<SearchScreenModel>().selectedScreen) {
           case ScreenEnum.loadScreen:
             return const LoadScreen();
           case ScreenEnum.emptyScreen:

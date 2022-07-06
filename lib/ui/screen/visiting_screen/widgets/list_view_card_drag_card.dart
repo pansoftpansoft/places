@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:places/type_place.dart';
+import 'package:places/ui/screen/list_places_screen/models/list_places_screen_model.dart';
 import 'package:places/ui/screen/visiting_screen/models/visiting_model.dart';
 import 'package:places/ui/screen/visiting_screen/widgets/background_dismissible.dart';
 import 'package:places/ui/screen/visiting_screen/widgets/card_place_drag.dart';
@@ -30,6 +31,7 @@ class ListViewCardDragCard extends StatelessWidget {
   void _onDismissed(BuildContext context) {
     context.read<VisitingModel>().deletePlaceWantVisit(
           mocksWantVisit[index],
+          context.read<ListPlacesScreenModel>().streamControllerListPlace,
         );
   }
 }

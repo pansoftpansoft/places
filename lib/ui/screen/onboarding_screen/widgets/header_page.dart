@@ -28,7 +28,9 @@ class HeaderPage extends StatelessWidget {
               child: TextButtonGreenText(
                 title: skip,
                 onPressed: () {
-                  if (OnboardingScreenModel.callingFromSettings) {
+                  if (context
+                      .read<OnboardingScreenModel>()
+                      .callingFromSettings) {
                     Navigator.pop(context);
                   } else {
                     Navigator.pushReplacementNamed(

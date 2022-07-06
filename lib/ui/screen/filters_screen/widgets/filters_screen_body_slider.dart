@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:places/ui/res/color_palette.dart';
 import 'package:places/ui/screen/filters_screen/model/filters_screen_model.dart';
+import 'package:places/ui/screen/list_places_screen/models/list_places_screen_model.dart';
 import 'package:provider/provider.dart';
 
 class FiltersScreenBodySlider extends StatefulWidget {
@@ -52,7 +53,12 @@ class _FiltersScreenBodySliderState extends State<FiltersScreenBodySlider> {
   void _onChangeEnd(BuildContext context, RangeValues newRange) {
     debugPrint('_onChangeEnd newRange = ${newRange.end}');
 
-    context.read<FiltersScreenModel>().getDataFromRepository().then((value) =>
-        context.read<FiltersScreenModel>().notifyListenersFiltersScreen());
+    context
+        .read<FiltersScreenModel>()
+        .getDataFromRepository(
+          context.read<ListPlacesScreenModel>().streamControllerListPlace,
+        )
+        .then((value) =>
+            context.read<FiltersScreenModel>().notifyListenersFiltersScreen());
   }
 }

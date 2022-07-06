@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:places/data/model/app_model.dart';
-import 'package:places/ui/screen/add_place_screen/models/add_place_model.dart';
+import 'package:places/data/interactor/add_place_model.dart';
 import 'package:places/ui/screen/details_place_screen/models/details_place_model.dart';
 import 'package:places/ui/screen/filters_screen/model/filters_screen_model.dart';
 import 'package:places/ui/screen/list_places_screen/models/list_places_screen_model.dart';

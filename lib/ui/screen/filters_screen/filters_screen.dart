@@ -3,6 +3,7 @@ import 'package:places/ui/screen/filters_screen/model/filters_screen_model.dart'
 import 'package:places/ui/screen/filters_screen/widgets/app_bar_title.dart';
 import 'package:places/ui/screen/filters_screen/widgets/bottom_sheet_button_show.dart';
 import 'package:places/ui/screen/filters_screen/widgets/filters_screen_body.dart';
+import 'package:places/ui/screen/list_places_screen/models/list_places_screen_model.dart';
 import 'package:provider/provider.dart';
 
 ///Экран фильтров
@@ -27,5 +28,5 @@ class FiltersScreen extends StatelessWidget {
 }
 
 Future<void> loadSettings(BuildContext context) async {
-  await context.read<FiltersScreenModel>().getDataFromRepository();
+  await context.read<FiltersScreenModel>().getDataFromRepository(context.read<ListPlacesScreenModel>().streamControllerListPlace);
 }

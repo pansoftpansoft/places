@@ -16,20 +16,20 @@ class OnboardingScreen extends StatelessWidget {
   @override
   Widget build(final BuildContext context) {
     // Проверяем онбординг был вызван из Settings
-    OnboardingScreenModel.callingFromSettings = (ModalRoute.of(context)
+    context.read<OnboardingScreenModel>().callingFromSettings = (ModalRoute.of(context)
         ?.settings
         .arguments as Map)['callingFromSettings'] as bool;
 
     // Устанавливаем начальные значения
-    OnboardingScreenModel.onPageChanged(0);
+    context.read<OnboardingScreenModel>().onPageChanged(0);
 
     // Подписываемся на pageControllerOnboardingScreen
-    OnboardingScreenModel.pageControllerOnboardingScreen.addListener(() {
-      if (OnboardingScreenModel.pageControllerOnboardingScreen.page!
+    context.read<OnboardingScreenModel>().pageControllerOnboardingScreen.addListener(() {
+      if (context.read<OnboardingScreenModel>().pageControllerOnboardingScreen.page!
               .roundToDouble() ==
-          OnboardingScreenModel.pageControllerOnboardingScreen.page) {
-        OnboardingScreenModel.onPageChanged(
-          OnboardingScreenModel.pageControllerOnboardingScreen.page,
+          context.read<OnboardingScreenModel>().pageControllerOnboardingScreen.page) {
+        context.read<OnboardingScreenModel>().onPageChanged(
+          context.read<OnboardingScreenModel>().pageControllerOnboardingScreen.page,
         );
         context.read<OnboardingScreenModel>().notify();
       }

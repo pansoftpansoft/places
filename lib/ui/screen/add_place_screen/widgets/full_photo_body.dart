@@ -3,7 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:places/ui/res/color_palette.dart';
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/res/svg_icons.dart';
-import 'package:places/ui/screen/add_place_screen/models/add_place_model.dart';
+import 'package:places/data/interactor/add_place_model.dart';
 import 'package:provider/provider.dart';
 
 class FullPhotoBody extends StatelessWidget {

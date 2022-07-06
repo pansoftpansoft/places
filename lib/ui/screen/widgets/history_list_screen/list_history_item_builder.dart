@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:places/type_place.dart';
 import 'package:places/ui/res/color_palette.dart';
 import 'package:places/ui/res/svg_icons.dart';
+import 'package:places/ui/screen/list_places_screen/models/list_places_screen_model.dart';
 import 'package:places/ui/screen/search_places_screen/models/search_screen_model.dart';
 import 'package:provider/provider.dart';
 
@@ -90,7 +91,9 @@ class ListHistoryItemBuilder extends StatelessWidget {
       ..setSearchText(
         SearchScreenModel.listHistory[index].historyText,
       )
-      ..getListSearchText()
+      ..getListSearchText(
+        context.read<ListPlacesScreenModel>().streamControllerListPlace,
+      )
       ..managerSelectionScreen(numberScreen: ScreenEnum.listFoundPlacesScreen)
       ..changeSearch();
   }

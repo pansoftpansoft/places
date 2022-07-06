@@ -24,7 +24,7 @@ class ListPlacesScreenPortrait extends StatelessWidget {
       final child,
     ) {
       return StreamBuilder<Place>(
-        stream: ListPlacesScreenModel.streamControllerListPlace.stream,
+        stream: context.read<ListPlacesScreenModel>().streamControllerListPlace.stream,
         builder: (context, snapshot) {
           return Padding(
             padding: const EdgeInsets.symmetric(

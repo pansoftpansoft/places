@@ -4,6 +4,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:places/data/interactor/place_interactor.dart';
+import 'package:places/data/model/place.dart';
 import 'package:places/domain/db_provider.dart';
 import 'package:places/domain/history.dart';
 import 'package:places/type_place.dart';
@@ -13,18 +14,20 @@ class SearchScreenModel extends ChangeNotifier {
   ///Список истории поисковых запросов
   static List<History> listHistory = <History>[];
 
-  ///
-  static ScreenEnum? selectedScreen;
-
   ///Контроллер поля поиска
   static TextEditingController textEditingControllerFind =
       TextEditingController();
 
-  static String _searchString = '';
-
+  ///
   final bool _errorTest = false;
 
-  static String get searchString => _searchString;
+  PlaceInteractor placeInteractor = PlaceInteractor();
+
+  ScreenEnum? selectedScreen;
+
+  String get searchString => _searchString;
+
+  String _searchString = '';
 
   ///Получаем список историй поиска
   static Future<int> getListHistory() async {
@@ -52,10 +55,12 @@ class SearchScreenModel extends ChangeNotifier {
     return _errorTest;
   }
 
-  Future<void> getListSearchText() async {
+  Future<void> getListSearchText(
+      StreamController<Place> streamControllerListPlace,) async {
     mocksSearchText.clear();
     if (_searchString.isNotEmpty) {
-      mocksSearchText = (await PlaceInteractor.getPlacesInteractor(
+      mocksSearchText = (await placeInteractor.getPlacesInteractor(
+        streamControllerListPlace: streamControllerListPlace,
         searchString: _searchString,
       ))!;
     }

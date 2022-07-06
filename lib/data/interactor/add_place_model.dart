@@ -10,9 +10,11 @@ class AddPlaceModel extends ChangeNotifier {
   String? disableButton;
 
   ///Добавляем фотографию
-  void addPhoto(final String pathPhoto) {
-    debugPrint('tempPhotoPlace.add');
-    //TODO сделать добавление фотографий
+  void addPhoto(
+    final String pathPhoto,
+  ) {
+    debugPrint('tempPhotoPlace.add $pathPhoto');
+
     //tempPhotoPlace.add(pathPhoto);
     notifyListeners();
   }
@@ -23,7 +25,6 @@ class AddPlaceModel extends ChangeNotifier {
       return;
     } //Не удаляем кнопку добавить
 
-    //TODO сделать удаление фотографий
     // if (tempPhotoPlace.length == 1) {
     //   return;
     // } //Не удаляем кнопку добавить

@@ -4,6 +4,7 @@ import 'package:places/ui/res/route_name.dart';
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/screen/onboarding_screen/model/onboarding_screen_model.dart';
 import 'package:places/ui/screen/widgets/elevated_button_green_big.dart';
+import 'package:provider/provider.dart';
 
 class FooterPageButtonStart extends StatelessWidget {
   static const double heightFooterPage = 48;
@@ -39,7 +40,7 @@ class FooterPageButtonStart extends StatelessWidget {
   }
 
   void _onPressed(BuildContext context) {
-    if (OnboardingScreenModel.callingFromSettings) {
+    if (context.read<OnboardingScreenModel>().callingFromSettings) {
       Navigator.pop(context);
     } else {
       Navigator.pushReplacementNamed(

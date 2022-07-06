@@ -3,7 +3,7 @@ import 'package:places/data/model/place.dart';
 import 'package:places/type_place.dart';
 import 'package:places/ui/res/labels.dart';
 import 'package:places/ui/res/route_name.dart';
-import 'package:places/ui/screen/add_place_screen/models/add_place_model.dart';
+import 'package:places/data/interactor/add_place_model.dart';
 import 'package:places/ui/screen/add_place_screen/widgets/show_alert_add.dart';
 import 'package:places/ui/screen/widgets/elevated_button_green_big.dart';
 import 'package:provider/provider.dart';

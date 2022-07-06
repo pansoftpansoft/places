@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:places/type_place.dart';
+import 'package:places/ui/screen/list_places_screen/models/list_places_screen_model.dart';
 import 'package:places/ui/screen/visiting_screen/models/visiting_model.dart';
 import 'package:places/ui/screen/widgets/card_place/card_place.dart';
 import 'package:provider/provider.dart';
@@ -26,6 +27,9 @@ class ListViewTab2 extends StatelessWidget {
           actionOnDelete: () {
             context.read<VisitingModel>().deletePlaceVisited(
                   mocksVisited[index],
+                  context
+                      .read<ListPlacesScreenModel>()
+                      .streamControllerListPlace,
                 );
           },
         ),

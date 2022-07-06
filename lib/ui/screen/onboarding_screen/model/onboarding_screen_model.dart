@@ -10,13 +10,13 @@ class OnboardingScreenModel extends ChangeNotifier {
 
   /// Вызов OnboardingScreen из мену Setting
   /// что бы вернутся в Setting
-  static bool callingFromSettings = false;
+  bool callingFromSettings = false;
 
-  static PageController pageControllerOnboardingScreen = PageController();
+  PageController pageControllerOnboardingScreen = PageController();
 
-  static String fileName = '';
+  String fileName = '';
 
-  static void onPageChanged(
+  void onPageChanged(
     double? page,
   ) {
     numberPage = page!;
