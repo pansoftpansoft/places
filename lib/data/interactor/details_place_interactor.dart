@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:places/data/interactor/filters_screen_interactor.dart';
 import 'package:places/data/interactor/list_places_screen_model.dart';
 import 'package:places/data/interactor/place_interactor.dart';
-import 'package:places/data/interactor/visiting_model.dart';
+import 'package:places/data/interactor/visiting_interactor.dart';
 import 'package:places/data/model/place.dart';
 import 'package:places/ui/res/svg_icons.dart';
 import 'package:provider/provider.dart';
@@ -54,7 +54,7 @@ class DetailsPlaceInteractor extends ChangeNotifier {
       debugPrint(
         'Обновление контекстов при нажатии кнопки Добавить в фавориты',
       );
-      context.read<VisitingModel>().updateScreen();
+      context.read<VisitingInteractor>().updateScreen();
       context.read<FiltersScreenInteractor>().notifyListenersFiltersScreen();
     });
   }

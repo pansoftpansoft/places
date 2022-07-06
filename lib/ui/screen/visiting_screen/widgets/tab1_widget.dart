@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:places/data/interactor/visiting_model.dart';
+import 'package:places/data/interactor/visiting_interactor.dart';
 import 'package:places/type_place.dart';
 import 'package:places/ui/screen/visiting_screen/widgets/list_view_card_drag.dart';
 import 'package:places/ui/screen/visiting_screen/widgets/tab1_widget_empty_list.dart';
@@ -14,7 +14,7 @@ class Tab1Widget extends StatelessWidget {
   }) : super(key: key);
 
   @override
-  Widget build(final BuildContext context) => Consumer<VisitingModel>(
+  Widget build(final BuildContext context) => Consumer<VisitingInteractor>(
         builder: (
           final context,
           final cart,

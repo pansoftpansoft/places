@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:places/data/interactor/list_places_screen_model.dart';
 import 'package:places/data/interactor/place_interactor.dart';
-import 'package:places/data/interactor/visiting_model.dart';
+import 'package:places/data/interactor/visiting_interactor.dart';
 import 'package:places/data/model/place.dart';
 import 'package:places/ui/res/labels.dart';
 import 'package:places/ui/screen/widgets/elevated_button_green_big.dart';
@@ -33,7 +33,7 @@ class BuildRouteButton extends StatelessWidget {
     await context.read<PlaceInteractor>().setStatusPlaceVisited(_place,
     context.read<ListPlacesScreenModel>().streamControllerListPlace,);
     // ignore: use_build_context_synchronously
-    context.read<VisitingModel>().updateScreen();
+    context.read<VisitingInteractor>().updateScreen();
     //Navigator.pushNamed(context, RouteName.mapScreen);
   }
 }

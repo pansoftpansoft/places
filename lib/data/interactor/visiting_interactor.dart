@@ -7,7 +7,7 @@ import 'package:places/data/model/place.dart';
 import 'package:places/type_place.dart';
 
 ///Модель для Visiting
-class VisitingModel extends ChangeNotifier {
+class VisitingInteractor extends ChangeNotifier {
   PlaceInteractor placeInteractor = PlaceInteractor();
 
   ///Удаление из мест которые хотел посетить

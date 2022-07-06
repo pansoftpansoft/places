@@ -6,7 +6,7 @@ import 'package:intl/intl.dart';
 import 'package:places/data/interactor/details_place_interactor.dart';
 import 'package:places/data/interactor/list_places_screen_model.dart';
 import 'package:places/data/interactor/place_interactor.dart';
-import 'package:places/data/interactor/visiting_model.dart';
+import 'package:places/data/interactor/visiting_interactor.dart';
 import 'package:places/data/model/place.dart';
 import 'package:places/type_place.dart';
 import 'package:places/ui/screen/widgets/card_place/card_place.dart';
@@ -100,7 +100,7 @@ class _CardPlaceDragState extends State<CardPlaceDrag> {
     // ignore: use_build_context_synchronously
     context.read<DetailsPlaceInteractor>().updateScreen();
     // ignore: use_build_context_synchronously
-    context.read<VisitingModel>().updateScreen();
+    context.read<VisitingInteractor>().updateScreen();
   }
 
   void _actionOnDelete(BuildContext context, int index) {
@@ -110,7 +110,7 @@ class _CardPlaceDragState extends State<CardPlaceDrag> {
 
   void _actionOnSelectData(BuildContext context, DateTime dateTimeCupertino) {
     debugPrint(dateTimeCupertino.toString());
-    context.read<VisitingModel>().dateWantVisit(
+    context.read<VisitingInteractor>().dateWantVisit(
           widget.index,
           dateTimeCupertino,
         );
