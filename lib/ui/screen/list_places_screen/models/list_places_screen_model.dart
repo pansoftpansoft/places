@@ -6,7 +6,7 @@ import 'package:places/data/model/place.dart';
 ///Модель для добавления фотографий в карточку места
 class ListPlacesScreenModel extends ChangeNotifier {
   static StreamController<Place> streamControllerListPlace =
-      StreamController<Place>();
+      StreamController<Place>.broadcast();
 
   static void openStream() {
     debugPrint('Открыть стрим');

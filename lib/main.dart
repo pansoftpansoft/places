@@ -11,7 +11,7 @@ import 'package:provider/provider.dart';
 
 ThemeData themeColor = lightTheme;
 ApiClient apiClient = ApiClient();
-final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -47,7 +47,6 @@ class Main extends StatelessWidget {
         title: 'Задача  8.2',
         routes: mapRoutes,
         initialRoute: RouteName.splashScreen,
-        navigatorKey: navigatorKey,
       );
 }
 

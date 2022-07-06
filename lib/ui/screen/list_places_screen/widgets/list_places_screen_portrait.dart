@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:places/data/model/place.dart';
 import 'package:places/type_place.dart';
@@ -7,6 +8,7 @@ import 'package:places/ui/screen/filters_screen/model/filters_screen_model.dart'
 import 'package:places/ui/screen/list_places_screen/models/list_places_screen_model.dart';
 import 'package:places/ui/screen/list_places_screen/widgets/sticky_header.dart';
 import 'package:places/ui/screen/widgets/card_place/card_place.dart';
+import 'package:places/ui/screen/widgets/safe_area_widget.dart';
 import 'package:provider/provider.dart';
 
 class ListPlacesScreenPortrait extends StatelessWidget {
@@ -49,22 +51,30 @@ class ListPlacesScreenPortrait extends StatelessWidget {
                         )
                       : const SizedBox.shrink(),
                 ),
-                SliverList(
-                  delegate: SliverChildBuilderDelegate(
-                    (
-                      final context,
-                      final index,
-                    ) {
-                      debugPrint(
-                        ' mocksFiltered[$index].isFavorites = '
-                        '${mocksFiltered[index].isFavorites}',
-                      );
+                if (snapshot.hasError)
+                  const SliverToBoxAdapter(
+                    child: Padding(
+                      padding: EdgeInsets.all(100),
+                      child: SafeAreaWidget(),
+                    ),
+                  )
+                else
+                  SliverList(
+                    delegate: SliverChildBuilderDelegate(
+                      (
+                        final context,
+                        final index,
+                      ) {
+                        debugPrint(
+                          ' mocksFiltered[$index].isFavorites = '
+                          '${mocksFiltered[index].isFavorites}',
+                        );
 
-                      return CardPlace(mocksFiltered[index]);
-                    },
-                    childCount: mocksFiltered.length,
+                        return CardPlace(mocksFiltered[index]);
+                      },
+                      childCount: mocksFiltered.length,
+                    ),
                   ),
-                ),
               ],
             ),
           );

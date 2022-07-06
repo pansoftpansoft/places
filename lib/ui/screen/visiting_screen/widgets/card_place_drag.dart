@@ -39,30 +39,15 @@ class _CardPlaceDragState extends State<CardPlaceDrag> {
         iconDelete: true,
         //key: ValueKey(mocksWantVisit[index].name),
         actionOnDelete: () {
-          _actionOnDelete(context,widget.index);
+          _actionOnDelete(context, widget.index);
         },
 
         /// Установка даты, когда хочу посетить
         wantToVisit: () async {
           if (Platform.isAndroid) {
-            var dateTimeCupertino = DateTime.now();
+            final dateTimeCupertino = DateTime.now();
 
-            await Future(
-              () async {
-                await _showDialog(
-                  CupertinoDatePicker(
-                    initialDateTime: dateTimeCupertino,
-                    mode: CupertinoDatePickerMode.date,
-                    use24hFormat: true,
-                    onDateTimeChanged: (newDate) {
-                      dateTimeCupertino = newDate;
-                    },
-                  ),
-                ).then(
-                  (value) => _actionOnSelectData(context, dateTimeCupertino),
-                );
-              },
-            );
+            await wantToVisitAction(dateTimeCupertino, context);
           } else if (Platform.isIOS) {
             final dateTime = await showDatePicker(
               context: context,
@@ -82,7 +67,27 @@ class _CardPlaceDragState extends State<CardPlaceDrag> {
         },
       );
 
-
+  Future<void> wantToVisitAction(
+    DateTime dateTimeCupertino,
+    BuildContext context,
+  ) async {
+    return Future(
+      () async {
+        await _showDialog(
+          CupertinoDatePicker(
+            initialDateTime: dateTimeCupertino,
+            mode: CupertinoDatePickerMode.date,
+            use24hFormat: true,
+            onDateTimeChanged: (newDate) {
+              dateTimeCupertino = newDate;
+            },
+          ),
+        ).then(
+          (value) => _actionOnSelectData(context, dateTimeCupertino),
+        );
+      },
+    );
+  }
 
   Future<void> updateContext(Place place, BuildContext context) async {
     await PlaceInteractor.setFavorites(place);
@@ -94,7 +99,6 @@ class _CardPlaceDragState extends State<CardPlaceDrag> {
   }
 
   void _actionOnDelete(BuildContext context, int index) {
-
     // ignore: use_build_context_synchronously
     updateContext(mocksWantVisit[index], context);
   }

@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:places/main.dart';
-import 'package:places/ui/res/route_name.dart';
+import 'package:places/ui/screen/list_places_screen/models/list_places_screen_model.dart';
 
 class NetworkException implements Exception {
   final String urlString;
@@ -20,6 +19,6 @@ class NetworkException implements Exception {
   }
 
   static void showErrorScreen() {
-    navigatorKey.currentState!.pushReplacementNamed(RouteName.errorScreen);
+    ListPlacesScreenModel.streamControllerListPlace.addError(NetworkException);
   }
 }

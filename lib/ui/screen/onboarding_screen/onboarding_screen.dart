@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/screen/onboarding_screen/model/'
     'onboarding_screen_model.dart';
-import 'package:places/ui/screen/onboarding_screen/widgets/PageViewWidget.dart';
 import 'package:places/ui/screen/onboarding_screen/widgets/'
     'bottom_sheet_onboarding.dart';
 import 'package:places/ui/screen/onboarding_screen/widgets/header_page.dart';
+import 'package:places/ui/screen/onboarding_screen/widgets/page_view_widget.dart';
 import 'package:provider/provider.dart';
 
 ///Экран Onboarding
