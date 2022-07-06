@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:places/ui/screen/list_places_screen/models/list_places_screen_model.dart';
 
 class NetworkException implements Exception {
   final String urlString;
@@ -16,9 +15,5 @@ class NetworkException implements Exception {
   String toString() {
     return 'В запросе $urlString возникла ошибка:'
         '${codeError == null ? '' : ' $codeError'} $textError';
-  }
-
-  static void showErrorScreen() {
-    ListPlacesScreenModel.streamControllerListPlace.addError(NetworkException);
   }
 }
