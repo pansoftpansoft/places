@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:places/data/interactor/place_interactor.dart';
 import 'package:places/data/model/place.dart';
-import 'package:places/ui/screen/filters_screen/model/filters_screen_model.dart';
+import 'package:places/data/interactor/filters_screen_interactor.dart';
 
 ///Модель для добавления фотографий в карточку места
 class ListPlacesScreenModel extends ChangeNotifier {
@@ -31,10 +31,10 @@ class ListPlacesScreenModel extends ChangeNotifier {
   Future<void> load() async {
     openStream();
     await placeInteractor.getPlacesInteractor(
-      radiusRange: FiltersScreenModel.rangeDistance,
-      category: FiltersScreenModel.listCategory.isEmpty
+      radiusRange: FiltersScreenInteractor.rangeDistance,
+      category: FiltersScreenInteractor.listCategory.isEmpty
           ? null
-          : FiltersScreenModel.listCategory,
+          : FiltersScreenInteractor.listCategory,
       streamControllerListPlace: streamControllerListPlace,
     );
     await placeInteractor.getListWantVisitAndVisited(

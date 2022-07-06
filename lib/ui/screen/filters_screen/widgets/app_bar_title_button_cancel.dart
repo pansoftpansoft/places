@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:places/ui/res/labels.dart';
-import 'package:places/ui/screen/filters_screen/model/filters_screen_model.dart';
+import 'package:places/data/interactor/filters_screen_interactor.dart';
 import 'package:places/ui/screen/list_places_screen/models/list_places_screen_model.dart';
 import 'package:provider/provider.dart';
 
@@ -31,15 +31,15 @@ class AppBarTitleButtonCancel extends StatelessWidget {
 
   void _onPressed(final BuildContext context) {
     //Востановить состояние фильтра
-    context.read<FiltersScreenModel>().restoreFilterSettings().then(
+    context.read<FiltersScreenInteractor>().restoreFilterSettings().then(
           (value) => context
-              .read<FiltersScreenModel>()
+              .read<FiltersScreenInteractor>()
               .getDataFromRepository(
                 context.read<ListPlacesScreenModel>().streamControllerListPlace,
               )
               .then(
             (value) {
-              context.read<FiltersScreenModel>().notifyListenersFiltersScreen();
+              context.read<FiltersScreenInteractor>().notifyListenersFiltersScreen();
               Navigator.pop(context);
             },
           ),

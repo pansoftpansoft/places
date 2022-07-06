@@ -5,7 +5,7 @@ import 'package:places/ui/res/color_palette.dart';
 import 'package:places/ui/res/labels.dart';
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/res/svg_icons.dart';
-import 'package:places/ui/screen/filters_screen/model/filters_screen_model.dart';
+import 'package:places/data/interactor/filters_screen_interactor.dart';
 import 'package:places/ui/screen/list_places_screen/models/list_places_screen_model.dart';
 import 'package:places/ui/screen/search_places_screen/models/search_screen_model.dart';
 import 'package:places/ui/screen/widgets/text_field_icon/text_field_icon.dart';
@@ -79,7 +79,7 @@ class SearchBar extends StatelessWidget {
             );
       }
     } else {
-      context.read<FiltersScreenModel>().getDataFromRepository(
+      context.read<FiltersScreenInteractor>().getDataFromRepository(
             context.read<ListPlacesScreenModel>().streamControllerListPlace,
           );
     }

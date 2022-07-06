@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:places/type_place.dart';
 import 'package:places/ui/res/labels.dart';
 import 'package:places/ui/res/sizes.dart';
-import 'package:places/ui/screen/filters_screen/model/filters_screen_model.dart';
+import 'package:places/data/interactor/filters_screen_interactor.dart';
 import 'package:places/ui/screen/widgets/elevated_button_green_big.dart';
 import 'package:provider/provider.dart';
 
@@ -13,7 +13,7 @@ class BottomSheetButtonShow extends StatelessWidget {
 
   @override
   Widget build(final BuildContext context) {
-    return Consumer<FiltersScreenModel>(
+    return Consumer<FiltersScreenInteractor>(
       builder: (
         final context,
         final cart,
@@ -40,7 +40,7 @@ class BottomSheetButtonShow extends StatelessWidget {
   }
 
   void _onPressed(BuildContext context) {
-    context.read<FiltersScreenModel>().saveFilterSettings();
+    context.read<FiltersScreenInteractor>().saveFilterSettings();
     Navigator.pop(context);
   }
 }

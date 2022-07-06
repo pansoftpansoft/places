@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:places/ui/res/color_palette.dart';
-import 'package:places/ui/screen/filters_screen/model/filters_screen_model.dart';
+import 'package:places/data/interactor/filters_screen_interactor.dart';
 import 'package:places/ui/screen/list_places_screen/models/list_places_screen_model.dart';
 import 'package:provider/provider.dart';
 
@@ -26,7 +26,7 @@ class _FiltersScreenBodySliderState extends State<FiltersScreenBodySlider> {
       child: RangeSlider(
         min: 100,
         max: 10000,
-        values: FiltersScreenModel.rangeDistance,
+        values: FiltersScreenInteractor.rangeDistance,
         onChanged: (final newRange) {
           //Без определения этого свойства, бегунки не активны
           _onChange(context, newRange);
@@ -35,8 +35,8 @@ class _FiltersScreenBodySliderState extends State<FiltersScreenBodySlider> {
           _onChangeEnd(context, newRange);
         },
         labels: RangeLabels(
-          FiltersScreenModel.rangeDistance.start.round().toString(),
-          FiltersScreenModel.rangeDistance.end.round().toString(),
+          FiltersScreenInteractor.rangeDistance.start.round().toString(),
+          FiltersScreenInteractor.rangeDistance.end.round().toString(),
         ),
       ),
     );
@@ -45,8 +45,8 @@ class _FiltersScreenBodySliderState extends State<FiltersScreenBodySlider> {
   void _onChange(BuildContext context, RangeValues newRange) {
     setState(() {
       debugPrint('newRange = ${newRange.end}');
-      FiltersScreenModel.rangeDistance = newRange;
-      context.read<FiltersScreenModel>().notifyListenersFiltersScreen();
+      FiltersScreenInteractor.rangeDistance = newRange;
+      context.read<FiltersScreenInteractor>().notifyListenersFiltersScreen();
     });
   }
 
@@ -54,11 +54,11 @@ class _FiltersScreenBodySliderState extends State<FiltersScreenBodySlider> {
     debugPrint('_onChangeEnd newRange = ${newRange.end}');
 
     context
-        .read<FiltersScreenModel>()
+        .read<FiltersScreenInteractor>()
         .getDataFromRepository(
           context.read<ListPlacesScreenModel>().streamControllerListPlace,
         )
         .then((value) =>
-            context.read<FiltersScreenModel>().notifyListenersFiltersScreen());
+            context.read<FiltersScreenInteractor>().notifyListenersFiltersScreen());
   }
 }

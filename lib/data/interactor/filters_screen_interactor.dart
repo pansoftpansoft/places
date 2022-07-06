@@ -10,7 +10,7 @@ import 'package:places/data/model/filter_distance.dart';
 import 'package:places/data/model/place.dart';
 import 'package:places/type_place.dart';
 
-class FiltersScreenModel extends ChangeNotifier {
+class FiltersScreenInteractor extends ChangeNotifier {
   ///Список истории поисковых запросов
   static List<FilterCategory> listFilterCategory = <FilterCategory>[];
   static List<FilterDistance> listFilterDistance = <FilterDistance>[];
