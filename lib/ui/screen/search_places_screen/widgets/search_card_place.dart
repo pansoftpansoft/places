@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:places/data/interactor/details_place_interactor.dart';
 import 'package:places/data/interactor/list_places_screen_model.dart';
-import 'package:places/data/interactor/search_screen_model.dart';
+import 'package:places/data/interactor/search_screen_interactor.dart';
 import 'package:places/data/model/place.dart';
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/screen/details_place_screen/details_place_screen.dart';
@@ -56,7 +56,7 @@ class SearchCardPlace extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 0, width: 16),
-              SearchCardPlaceTextSpan(place, context.read<SearchScreenModel>().searchString),
+              SearchCardPlaceTextSpan(place, context.read<SearchScreenInteractor>().searchString),
             ],
           ),
         ),

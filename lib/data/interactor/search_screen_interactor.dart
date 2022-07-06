@@ -10,7 +10,7 @@ import 'package:places/domain/history.dart';
 import 'package:places/type_place.dart';
 
 ///Модель для поиска
-class SearchScreenModel extends ChangeNotifier {
+class SearchScreenInteractor extends ChangeNotifier {
   ///Список истории поисковых запросов
   static List<History> listHistory = <History>[];
 
@@ -99,11 +99,11 @@ class SearchScreenModel extends ChangeNotifier {
     mocksSearchText.clear();
     if (searchString == '') {
       _searchString = '';
-      SearchScreenModel.textEditingControllerFind.clear();
+      SearchScreenInteractor.textEditingControllerFind.clear();
     } else {
       _searchString = searchString;
 
-      SearchScreenModel.textEditingControllerFind.value = TextEditingValue(
+      SearchScreenInteractor.textEditingControllerFind.value = TextEditingValue(
         text: searchString,
         selection: TextSelection.fromPosition(
           TextPosition(offset: searchString.length),

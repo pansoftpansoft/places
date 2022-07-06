@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:places/data/interactor/search_screen_model.dart';
+import 'package:places/data/interactor/search_screen_interactor.dart';
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/screen/search_places_screen/widgets/search_places_screen_body_switch.dart';
 import 'package:places/ui/screen/widgets/bottom_navigation/bottom_navigation.dart';
@@ -54,7 +54,7 @@ class SearchPlacesScreenState extends State<SearchPlacesScreen> {
                   children: <Widget>[
                     SearchBar(
                       textEditingController:
-                          SearchScreenModel.textEditingControllerFind,
+                          SearchScreenInteractor.textEditingControllerFind,
                       autofocus: true,
                       focusNode: FocusNode(),
                     ),

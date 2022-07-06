@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:places/data/interactor/search_screen_model.dart';
+import 'package:places/data/interactor/search_screen_interactor.dart';
 import 'package:places/type_place.dart';
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/screen/search_places_screen/widgets/search_card_place.dart';
@@ -16,7 +16,7 @@ class ListFoundPlacesScreen extends StatelessWidget {
   Widget build(final BuildContext context) {
     debugPrint('100 ListOfFoundPlacesScreen ${mocksFiltered.length}');
 
-    return Consumer<SearchScreenModel>(builder: (
+    return Consumer<SearchScreenInteractor>(builder: (
       final context,
       final cart,
       final child,

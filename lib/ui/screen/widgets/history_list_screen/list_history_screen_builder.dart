@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:places/data/interactor/search_screen_model.dart';
+import 'package:places/data/interactor/search_screen_interactor.dart';
 import 'package:places/type_place.dart';
 import 'package:places/ui/res/color_palette.dart';
 import 'package:places/ui/res/labels.dart';
@@ -52,7 +52,7 @@ class ListHistoryScreenBuilder extends StatelessWidget {
 
   ///Чистим всю историю и показываем пустой экран
   void _onPressed(BuildContext context) {
-    context.read<SearchScreenModel>()
+    context.read<SearchScreenInteractor>()
       ..setSearchText('')
       ..clearHistory()
       ..managerSelectionScreen(numberScreen: ScreenEnum.cleanScreen)

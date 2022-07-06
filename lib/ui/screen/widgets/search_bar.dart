@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:places/data/interactor/filters_screen_interactor.dart';
 import 'package:places/data/interactor/list_places_screen_model.dart';
-import 'package:places/data/interactor/search_screen_model.dart';
+import 'package:places/data/interactor/search_screen_interactor.dart';
 import 'package:places/domain/db_provider.dart';
 import 'package:places/type_place.dart';
 import 'package:places/ui/res/color_palette.dart';
@@ -31,7 +31,7 @@ class SearchBar extends StatelessWidget {
 
   @override
   Widget build(final BuildContext context) =>
-      Consumer<SearchScreenModel>(builder: (
+      Consumer<SearchScreenInteractor>(builder: (
         final context,
         final cart,
         final child,
@@ -74,7 +74,7 @@ class SearchBar extends StatelessWidget {
       if (textEditingController.text
               .substring(textEditingController.text.length - 1) ==
           ' ') {
-        context.read<SearchScreenModel>().setSearchText(
+        context.read<SearchScreenInteractor>().setSearchText(
               textEditingController.text,
             );
       }
@@ -92,15 +92,15 @@ class SearchBar extends StatelessWidget {
     //Записали новое слово поиска в базу
     DBProvider.dbProvider.addHistory(value);
     //Обновляем список при загрузке
-    SearchScreenModel.getListHistory();
+    SearchScreenInteractor.getListHistory();
     //Подготовка Отображаем найденые места
     debugPrint('value = $value');
     if (value.isEmpty) {
-      context.read<SearchScreenModel>()
+      context.read<SearchScreenInteractor>()
         ..managerSelectionScreen(numberScreen: ScreenEnum.cleanScreen)
         ..notifyListenersSearchScreen();
     } else {
-      context.read<SearchScreenModel>()
+      context.read<SearchScreenInteractor>()
         ..setSearchText(value)
         ..getListSearchText(
           context.read<ListPlacesScreenModel>().streamControllerListPlace,
@@ -116,7 +116,7 @@ class SearchBar extends StatelessWidget {
   ) {
     if (value[value.length - 1] == ' ') {
       debugPrint('Обработка пробела в строке поиска');
-      context.read<SearchScreenModel>()
+      context.read<SearchScreenInteractor>()
         ..setSearchText(value)
         ..getListSearchText(
           context.read<ListPlacesScreenModel>().streamControllerListPlace,
@@ -131,16 +131,16 @@ class SearchBar extends StatelessWidget {
   ) {
     textEditingController!.clear();
 
-    if (SearchScreenModel.listHistory.isEmpty) {
+    if (SearchScreenInteractor.listHistory.isEmpty) {
       ///Чистим строку поиска
-      context.read<SearchScreenModel>()
+      context.read<SearchScreenInteractor>()
         ..setSearchText('')
         ..managerSelectionScreen(numberScreen: ScreenEnum.cleanScreen)
         ..notifyListenersSearchScreen();
     } else {
       ///Чистим строку поиска
       //context.read<FiltersScreenModel>().
-      context.read<SearchScreenModel>()
+      context.read<SearchScreenInteractor>()
         ..setSearchText('')
         ..getFilteredList()
         ..managerSelectionScreen(numberScreen: ScreenEnum.listSearchWords)

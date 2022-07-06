@@ -4,7 +4,7 @@ import 'package:places/data/interactor/details_place_interactor.dart';
 import 'package:places/data/interactor/filters_screen_interactor.dart';
 import 'package:places/data/interactor/list_places_screen_model.dart';
 import 'package:places/data/interactor/onboarding_screen_model.dart';
-import 'package:places/data/interactor/search_screen_model.dart';
+import 'package:places/data/interactor/search_screen_interactor.dart';
 import 'package:places/data/interactor/visiting_interactor.dart';
 import 'package:places/data/model/app_model.dart';
 import 'package:provider/provider.dart';
@@ -15,8 +15,8 @@ List<ChangeNotifierProvider<ChangeNotifier>> listMultiProviders =
   ChangeNotifierProvider<AppModel>(
     create: (final context) => AppModel(),
   ),
-  ChangeNotifierProvider<SearchScreenModel>(
-    create: (final context) => SearchScreenModel(),
+  ChangeNotifierProvider<SearchScreenInteractor>(
+    create: (final context) => SearchScreenInteractor(),
   ),
   ChangeNotifierProvider<VisitingInteractor>(
     create: (final context) => VisitingInteractor(),
