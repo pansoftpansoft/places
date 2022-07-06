@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:places/data/interactor/onboarding_screen_model.dart';
+import 'package:places/data/interactor/onboarding_screen_interactor.dart';
 import 'package:places/ui/res/labels.dart';
 import 'package:places/ui/res/route_name.dart';
 import 'package:places/ui/res/sizes.dart';
@@ -27,7 +27,7 @@ class FooterPageButtonStart extends StatelessWidget {
         horizontal: paddingPage,
       ),
       child: Visibility(
-        visible: OnboardingScreenModel.buttonOnVisible,
+        visible: OnboardingScreenInteractor.buttonOnVisible,
         child:
         ElevatedButtonGreenBig(
           title: onStart,
@@ -40,7 +40,7 @@ class FooterPageButtonStart extends StatelessWidget {
   }
 
   void _onPressed(BuildContext context) {
-    if (context.read<OnboardingScreenModel>().callingFromSettings) {
+    if (context.read<OnboardingScreenInteractor>().callingFromSettings) {
       Navigator.pop(context);
     } else {
       Navigator.pushReplacementNamed(

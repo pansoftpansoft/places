@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:places/data/interactor/onboarding_screen_model.dart';
+import 'package:places/data/interactor/onboarding_screen_interactor.dart';
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/screen/onboarding_screen/widgets/'
     'bottom_sheet_onboarding.dart';
@@ -15,22 +15,22 @@ class OnboardingScreen extends StatelessWidget {
   @override
   Widget build(final BuildContext context) {
     // Проверяем онбординг был вызван из Settings
-    context.read<OnboardingScreenModel>().callingFromSettings = (ModalRoute.of(context)
+    context.read<OnboardingScreenInteractor>().callingFromSettings = (ModalRoute.of(context)
         ?.settings
         .arguments as Map)['callingFromSettings'] as bool;
 
     // Устанавливаем начальные значения
-    context.read<OnboardingScreenModel>().onPageChanged(0);
+    context.read<OnboardingScreenInteractor>().onPageChanged(0);
 
     // Подписываемся на pageControllerOnboardingScreen
-    context.read<OnboardingScreenModel>().pageControllerOnboardingScreen.addListener(() {
-      if (context.read<OnboardingScreenModel>().pageControllerOnboardingScreen.page!
+    context.read<OnboardingScreenInteractor>().pageControllerOnboardingScreen.addListener(() {
+      if (context.read<OnboardingScreenInteractor>().pageControllerOnboardingScreen.page!
               .roundToDouble() ==
-          context.read<OnboardingScreenModel>().pageControllerOnboardingScreen.page) {
-        context.read<OnboardingScreenModel>().onPageChanged(
-          context.read<OnboardingScreenModel>().pageControllerOnboardingScreen.page,
+          context.read<OnboardingScreenInteractor>().pageControllerOnboardingScreen.page) {
+        context.read<OnboardingScreenInteractor>().onPageChanged(
+          context.read<OnboardingScreenInteractor>().pageControllerOnboardingScreen.page,
         );
-        context.read<OnboardingScreenModel>().notify();
+        context.read<OnboardingScreenInteractor>().notify();
       }
     });
 

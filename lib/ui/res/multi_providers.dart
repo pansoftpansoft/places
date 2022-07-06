@@ -3,7 +3,7 @@ import 'package:places/data/interactor/add_place_interactor.dart';
 import 'package:places/data/interactor/details_place_interactor.dart';
 import 'package:places/data/interactor/filters_screen_interactor.dart';
 import 'package:places/data/interactor/list_places_screen_model.dart';
-import 'package:places/data/interactor/onboarding_screen_model.dart';
+import 'package:places/data/interactor/onboarding_screen_interactor.dart';
 import 'package:places/data/interactor/search_screen_interactor.dart';
 import 'package:places/data/interactor/visiting_interactor.dart';
 import 'package:places/data/model/app_model.dart';
@@ -30,8 +30,8 @@ List<ChangeNotifierProvider<ChangeNotifier>> listMultiProviders =
   ChangeNotifierProvider<ListPlacesScreenModel>(
     create: (final context) => ListPlacesScreenModel(),
   ),
-  ChangeNotifierProvider<OnboardingScreenModel>(
-    create: (final context) => OnboardingScreenModel(),
+  ChangeNotifierProvider<OnboardingScreenInteractor>(
+    create: (final context) => OnboardingScreenInteractor(),
   ),
   ChangeNotifierProvider<FiltersScreenInteractor>(
     create: (final context) => FiltersScreenInteractor(),

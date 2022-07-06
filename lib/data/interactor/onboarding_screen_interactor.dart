@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:places/type_place.dart';
 
-class OnboardingScreenModel extends ChangeNotifier {
+class OnboardingScreenInteractor extends ChangeNotifier {
   ///Показывать кнопку на старт или кнопку пропустить
   static bool buttonOnVisible = false;
 

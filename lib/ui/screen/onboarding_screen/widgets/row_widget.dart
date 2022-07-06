@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:places/data/interactor/onboarding_screen_model.dart';
+import 'package:places/data/interactor/onboarding_screen_interactor.dart';
 import 'package:places/type_place.dart';
 import 'package:places/ui/res/svg_icons.dart';
 
@@ -20,7 +20,7 @@ class RowWidget extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 4.0),
             child: SvgPicture.asset(
-              indexOnboardingScreen == OnboardingScreenModel.numberPage
+              indexOnboardingScreen == OnboardingScreenInteractor.numberPage
                   ? SvgIcons.indicatorLine
                   : SvgIcons.indicatorPoint,
               color: Colors.green,
