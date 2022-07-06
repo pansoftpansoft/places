@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:places/data/interactor/details_place_interactor.dart';
 import 'package:places/data/model/place.dart';
 import 'package:places/ui/res/color_palette.dart';
 import 'package:places/ui/screen/details_place_screen/details_place_screen.dart';
-import 'package:places/ui/screen/details_place_screen/models/details_place_model.dart';
 import 'package:places/ui/screen/list_places_screen/models/list_places_screen_model.dart';
 import 'package:provider/provider.dart';
 
@@ -35,7 +35,7 @@ class CardPlaceBodyRippleEffect extends StatelessWidget {
     final Place place,
   ) async {
     await context
-        .read<DetailsPlaceModel>()
+        .read<DetailsPlaceInteractor>()
         .getPlace(
           place.id,
           context.read<ListPlacesScreenModel>().streamControllerListPlace,

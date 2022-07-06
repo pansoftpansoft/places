@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:places/data/interactor/details_place_interactor.dart';
 import 'package:places/data/model/place.dart';
 import 'package:places/ui/res/img.dart';
-import 'package:places/ui/screen/details_place_screen/models/details_place_model.dart';
 import 'package:places/ui/screen/details_place_screen/widgets/photo_gallery_picture.dart';
 import 'package:places/ui/screen/details_place_screen/widgets/scroll_indicator.dart';
 import 'package:provider/provider.dart';
@@ -24,7 +24,7 @@ class PhotoGallery extends StatelessWidget {
   Widget build(final BuildContext context) {
     /// Длина списка с урлами фотографий
     final lengthListUrls = place.urls.length;
-    context.read<DetailsPlaceModel>().changeScrollIndicator(
+    context.read<DetailsPlaceInteractor>().changeScrollIndicator(
           lengthListUrls,
           _index,
         );
@@ -43,7 +43,7 @@ class PhotoGallery extends StatelessWidget {
                 )
               : PageView.builder(
                   onPageChanged: (final index) {
-                    context.read<DetailsPlaceModel>()
+                    context.read<DetailsPlaceInteractor>()
                       ..changeScrollIndicator(
                         lengthListUrls,
                         index,

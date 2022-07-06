@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:places/ui/res/labels.dart';
 import 'package:places/data/interactor/add_place_interactor.dart';
+import 'package:places/ui/res/labels.dart';
 import 'package:places/ui/screen/widgets/elevated_button_green_big.dart';
 import 'package:provider/provider.dart';
 

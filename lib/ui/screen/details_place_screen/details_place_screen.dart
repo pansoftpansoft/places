@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:places/data/interactor/details_place_interactor.dart';
 import 'package:places/ui/res/color_palette.dart';
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/res/svg_icons.dart';
-import 'package:places/ui/screen/details_place_screen/models/details_place_model.dart';
 import 'package:places/ui/screen/details_place_screen/widgets/details_place_screen_decoration_container.dart';
 import 'package:places/ui/screen/details_place_screen/widgets/details_place_screen_picture.dart';
 import 'package:provider/provider.dart';
@@ -17,8 +17,8 @@ class DetailsPlaceScreen extends StatelessWidget {
   Widget build(final BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        context.read<DetailsPlaceModel>().index = 0;
-        context.read<DetailsPlaceModel>().closeStream();
+        context.read<DetailsPlaceInteractor>().index = 0;
+        context.read<DetailsPlaceInteractor>().closeStream();
 
         return true;
       },
@@ -32,7 +32,7 @@ class DetailsPlaceScreen extends StatelessWidget {
           child: Stack(
             children: <Widget>[
               DetailsPlaceScreenPicture(
-                context.read<DetailsPlaceModel>().detailsPlace!,
+                context.read<DetailsPlaceInteractor>().detailsPlace!,
               ),
               const DetailsPlaceScreenDecorationContainer(),
               Positioned(
@@ -57,8 +57,8 @@ class DetailsPlaceScreen extends StatelessWidget {
   }
 
   void _onPressed(BuildContext context) {
-    context.read<DetailsPlaceModel>().index = 0;
-    context.read<DetailsPlaceModel>().closeStream();
+    context.read<DetailsPlaceInteractor>().index = 0;
+    context.read<DetailsPlaceInteractor>().closeStream();
     Navigator.of(context).pop();
   }
 

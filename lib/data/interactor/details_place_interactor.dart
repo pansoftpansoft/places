@@ -10,7 +10,7 @@ import 'package:places/ui/screen/visiting_screen/models/visiting_model.dart';
 import 'package:provider/provider.dart';
 
 ///Модель для DetailsPlaceModel
-class DetailsPlaceModel extends ChangeNotifier {
+class DetailsPlaceInteractor extends ChangeNotifier {
   StreamController<String> streamControllerDetailsPlace =
       StreamController<String>();
 
@@ -49,7 +49,7 @@ class DetailsPlaceModel extends ChangeNotifier {
         )
         .then((value) {
       streamControllerDetailsPlace.sink.add(
-        context.read<DetailsPlaceModel>().iconList[place.isFavorites ? 1 : 0],
+        context.read<DetailsPlaceInteractor>().iconList[place.isFavorites ? 1 : 0],
       );
       debugPrint(
         'Обновление контекстов при нажатии кнопки Добавить в фавориты',
@@ -61,8 +61,8 @@ class DetailsPlaceModel extends ChangeNotifier {
 
   void onPressed(Place place, BuildContext context) {
     streamControllerDetailsPlace.sink
-        .add(context.read<DetailsPlaceModel>().iconList[2]);
-    context.read<DetailsPlaceModel>().updateContext(place, context);
+        .add(context.read<DetailsPlaceInteractor>().iconList[2]);
+    context.read<DetailsPlaceInteractor>().updateContext(place, context);
   }
 
   ///Изменнение положения индикатора

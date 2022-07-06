@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:places/data/interactor/details_place_interactor.dart';
 import 'package:places/data/model/place.dart';
 import 'package:places/ui/res/labels.dart';
-import 'package:places/ui/screen/details_place_screen/models/details_place_model.dart';
 import 'package:places/ui/screen/widgets/text_button_small.dart';
 import 'package:provider/provider.dart';
 
@@ -17,20 +17,20 @@ class AddToFavoritesButton extends StatelessWidget {
 
   @override
   Widget build(final BuildContext context) {
-    context.read<DetailsPlaceModel>().openStream();
+    context.read<DetailsPlaceInteractor>().openStream();
 
     return StreamBuilder(
       stream:
-          context.read<DetailsPlaceModel>().streamControllerDetailsPlace.stream,
+          context.read<DetailsPlaceInteractor>().streamControllerDetailsPlace.stream,
       builder: (context, snapshot) {
         if (snapshot.data == null) {
           context
-              .read<DetailsPlaceModel>()
+              .read<DetailsPlaceInteractor>()
               .streamControllerDetailsPlace
               .sink
               .add(
                 context
-                    .read<DetailsPlaceModel>()
+                    .read<DetailsPlaceInteractor>()
                     .iconList[_place.isFavorites ? 1 : 0],
               );
         }
@@ -40,7 +40,7 @@ class AddToFavoritesButton extends StatelessWidget {
               ? alreadyInFavoritesString
               : addToFavoritesString,
           onPressed: () {
-            context.read<DetailsPlaceModel>().onPressed(
+            context.read<DetailsPlaceInteractor>().onPressed(
                   _place,
                   context,
                 );
