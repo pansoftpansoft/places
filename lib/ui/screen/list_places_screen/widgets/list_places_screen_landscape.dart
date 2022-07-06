@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:places/data/interactor/search_screen_model.dart';
 import 'package:places/type_place.dart';
 import 'package:places/ui/screen/list_places_screen/widgets/sticky_header.dart';
-import 'package:places/ui/screen/search_places_screen/models/search_screen_model.dart';
 import 'package:places/ui/screen/widgets/card_place/card_place.dart';
 import 'package:provider/provider.dart';
 

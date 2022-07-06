@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:places/ui/screen/list_places_screen/models/list_places_screen_model.dart';
+import 'package:places/data/interactor/list_places_screen_model.dart';
 import 'package:places/ui/screen/list_places_screen/widgets/floating_button.dart';
 import 'package:places/ui/screen/list_places_screen/widgets/list_places_screen_landscape.dart';
 import 'package:places/ui/screen/list_places_screen/widgets/list_places_screen_portrait.dart';

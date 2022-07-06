@@ -1,9 +1,9 @@
 import 'dart:async';
 
 import 'package:flutter/foundation.dart';
+import 'package:places/data/interactor/filters_screen_interactor.dart';
 import 'package:places/data/interactor/place_interactor.dart';
 import 'package:places/data/model/place.dart';
-import 'package:places/data/interactor/filters_screen_interactor.dart';
 
 ///Модель для добавления фотографий в карточку места
 class ListPlacesScreenModel extends ChangeNotifier {

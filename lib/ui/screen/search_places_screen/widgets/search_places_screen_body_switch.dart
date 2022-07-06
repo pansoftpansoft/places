@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:places/data/interactor/search_screen_model.dart';
 import 'package:places/type_place.dart';
 import 'package:places/ui/res/labels.dart';
 import 'package:places/ui/res/svg_icons.dart';
-import 'package:places/ui/screen/search_places_screen/models/search_screen_model.dart';
 import 'package:places/ui/screen/search_places_screen/widgets/empty_screen.dart';
 import 'package:places/ui/screen/search_places_screen/widgets/list_found_places_screen.dart';
 import 'package:places/ui/screen/search_places_screen/widgets/load_screen.dart';

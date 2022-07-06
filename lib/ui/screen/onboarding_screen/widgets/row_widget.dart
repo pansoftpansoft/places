@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:places/data/interactor/onboarding_screen_model.dart';
 import 'package:places/type_place.dart';
 import 'package:places/ui/res/svg_icons.dart';
-import 'package:places/ui/screen/onboarding_screen/model/onboarding_screen_model.dart';
 
 class RowWidget extends StatelessWidget {
   const RowWidget({

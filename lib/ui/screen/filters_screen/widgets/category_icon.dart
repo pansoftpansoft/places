@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:places/data/model/place_type.dart';
 import 'package:places/data/interactor/filters_screen_interactor.dart';
+import 'package:places/data/model/place_type.dart';
 import 'package:places/ui/screen/filters_screen/widgets/category_icon_svg_icon.dart';
 import 'package:provider/provider.dart';
 

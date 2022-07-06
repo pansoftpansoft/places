@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:places/data/interactor/onboarding_screen_model.dart';
 import 'package:places/ui/res/labels.dart';
 import 'package:places/ui/res/route_name.dart';
-import 'package:places/ui/screen/onboarding_screen/model/onboarding_screen_model.dart';
 import 'package:places/ui/screen/widgets/text_button_green_text.dart';
 import 'package:provider/provider.dart';
 

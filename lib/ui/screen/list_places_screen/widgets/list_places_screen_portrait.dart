@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:places/data/interactor/filters_screen_interactor.dart';
+import 'package:places/data/interactor/list_places_screen_model.dart';
 import 'package:places/data/model/place.dart';
 import 'package:places/type_place.dart';
 import 'package:places/ui/res/img.dart';
 import 'package:places/ui/res/sizes.dart';
-import 'package:places/data/interactor/filters_screen_interactor.dart';
-import 'package:places/ui/screen/list_places_screen/models/list_places_screen_model.dart';
 import 'package:places/ui/screen/list_places_screen/widgets/sticky_header.dart';
 import 'package:places/ui/screen/widgets/card_place/card_place.dart';
 import 'package:places/ui/screen/widgets/safe_area_widget.dart';

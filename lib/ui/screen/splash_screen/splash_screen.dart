@@ -1,10 +1,11 @@
 import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:places/data/interactor/filters_screen_interactor.dart';
+import 'package:places/data/interactor/search_screen_model.dart';
 import 'package:places/ui/res/color_palette.dart';
 import 'package:places/ui/res/img.dart';
 import 'package:places/ui/res/route_name.dart';
-import 'package:places/data/interactor/filters_screen_interactor.dart';
-import 'package:places/ui/screen/search_places_screen/models/search_screen_model.dart';
 
 /// Экран затавка при загрузке приложения
 class SplashScreen extends StatefulWidget {

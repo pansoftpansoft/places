@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:places/data/interactor/filters_screen_interactor.dart';
 import 'package:places/ui/res/labels.dart';
 import 'package:places/ui/res/sizes.dart';
-import 'package:places/data/interactor/filters_screen_interactor.dart';
 import 'package:provider/provider.dart';
 
 class FiltersScreenBodySliderHeader extends StatelessWidget {

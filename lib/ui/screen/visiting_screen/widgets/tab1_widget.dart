@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:places/data/interactor/visiting_model.dart';
 import 'package:places/type_place.dart';
-import 'package:places/ui/screen/visiting_screen/models/visiting_model.dart';
 import 'package:places/ui/screen/visiting_screen/widgets/list_view_card_drag.dart';
 import 'package:places/ui/screen/visiting_screen/widgets/tab1_widget_empty_list.dart';
 import 'package:places/ui/screen/widgets/sized_box_12.dart';

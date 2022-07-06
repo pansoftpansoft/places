@@ -4,11 +4,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:places/data/interactor/details_place_interactor.dart';
+import 'package:places/data/interactor/list_places_screen_model.dart';
 import 'package:places/data/interactor/place_interactor.dart';
+import 'package:places/data/interactor/visiting_model.dart';
 import 'package:places/data/model/place.dart';
 import 'package:places/type_place.dart';
-import 'package:places/ui/screen/list_places_screen/models/list_places_screen_model.dart';
-import 'package:places/ui/screen/visiting_screen/models/visiting_model.dart';
 import 'package:places/ui/screen/widgets/card_place/card_place.dart';
 import 'package:provider/provider.dart';
 

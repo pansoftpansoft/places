@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:places/data/interactor/onboarding_screen_model.dart';
 import 'package:places/domain/onboarding_page.dart';
 import 'package:places/type_place.dart';
-import 'package:places/ui/screen/onboarding_screen/model/onboarding_screen_model.dart';
 import 'package:places/ui/screen/onboarding_screen/widgets/body_page.dart';
 import 'package:provider/provider.dart';
 

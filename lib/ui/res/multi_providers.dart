@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:places/data/interactor/add_place_interactor.dart';
 import 'package:places/data/interactor/details_place_interactor.dart';
-import 'package:places/data/model/app_model.dart';
 import 'package:places/data/interactor/filters_screen_interactor.dart';
-import 'package:places/ui/screen/list_places_screen/models/list_places_screen_model.dart';
-import 'package:places/ui/screen/onboarding_screen/model/onboarding_screen_model.dart';
-import 'package:places/ui/screen/search_places_screen/models/search_screen_model.dart';
-import 'package:places/ui/screen/visiting_screen/models/visiting_model.dart';
+import 'package:places/data/interactor/list_places_screen_model.dart';
+import 'package:places/data/interactor/onboarding_screen_model.dart';
+import 'package:places/data/interactor/search_screen_model.dart';
+import 'package:places/data/interactor/visiting_model.dart';
+import 'package:places/data/model/app_model.dart';
 import 'package:provider/provider.dart';
 
 /// Список подключенных провадеров
