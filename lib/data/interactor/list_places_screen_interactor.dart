@@ -6,7 +6,7 @@ import 'package:places/data/interactor/place_interactor.dart';
 import 'package:places/data/model/place.dart';
 
 ///Модель для добавления фотографий в карточку места
-class ListPlacesScreenModel extends ChangeNotifier {
+class ListPlacesScreenInteractor extends ChangeNotifier {
   StreamController<Place> streamControllerListPlace =
       StreamController<Place>.broadcast();
 

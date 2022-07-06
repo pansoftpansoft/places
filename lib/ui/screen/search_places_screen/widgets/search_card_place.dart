@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:places/data/interactor/details_place_interactor.dart';
-import 'package:places/data/interactor/list_places_screen_model.dart';
+import 'package:places/data/interactor/list_places_screen_interactor.dart';
 import 'package:places/data/interactor/search_screen_interactor.dart';
 import 'package:places/data/model/place.dart';
 import 'package:places/ui/res/sizes.dart';
@@ -63,7 +63,7 @@ class SearchCardPlace extends StatelessWidget {
       );
 
   Future<void> _onTap(BuildContext context) async {
-    await context.read<DetailsPlaceInteractor>().getPlace(place.id, context.read<ListPlacesScreenModel>().streamControllerListPlace).then(
+    await context.read<DetailsPlaceInteractor>().getPlace(place.id, context.read<ListPlacesScreenInteractor>().streamControllerListPlace).then(
           (value) => showModalBottomSheet<Widget>(
             context: context,
             builder: (final _) => const DetailsPlaceScreen(),

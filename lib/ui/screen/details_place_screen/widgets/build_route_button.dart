@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:places/data/interactor/list_places_screen_model.dart';
+import 'package:places/data/interactor/list_places_screen_interactor.dart';
 import 'package:places/data/interactor/place_interactor.dart';
 import 'package:places/data/interactor/visiting_interactor.dart';
 import 'package:places/data/model/place.dart';
@@ -31,7 +31,7 @@ class BuildRouteButton extends StatelessWidget {
     // так же эта кнопка переводит маршрут в посещенные
     debugPrint('Это кнопка "Построить маршрут"');
     await context.read<PlaceInteractor>().setStatusPlaceVisited(_place,
-    context.read<ListPlacesScreenModel>().streamControllerListPlace,);
+    context.read<ListPlacesScreenInteractor>().streamControllerListPlace,);
     // ignore: use_build_context_synchronously
     context.read<VisitingInteractor>().updateScreen();
     //Navigator.pushNamed(context, RouteName.mapScreen);

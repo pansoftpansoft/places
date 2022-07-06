@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:places/data/interactor/filters_screen_interactor.dart';
-import 'package:places/data/interactor/list_places_screen_model.dart';
+import 'package:places/data/interactor/list_places_screen_interactor.dart';
 import 'package:places/data/model/place.dart';
 import 'package:places/type_place.dart';
 import 'package:places/ui/res/img.dart';
@@ -24,7 +24,7 @@ class ListPlacesScreenPortrait extends StatelessWidget {
       final child,
     ) {
       return StreamBuilder<Place>(
-        stream: context.read<ListPlacesScreenModel>().streamControllerListPlace.stream,
+        stream: context.read<ListPlacesScreenInteractor>().streamControllerListPlace.stream,
         builder: (context, snapshot) {
           return Padding(
             padding: const EdgeInsets.symmetric(

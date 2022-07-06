@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:places/data/interactor/add_place_interactor.dart';
 import 'package:places/data/interactor/details_place_interactor.dart';
 import 'package:places/data/interactor/filters_screen_interactor.dart';
-import 'package:places/data/interactor/list_places_screen_model.dart';
+import 'package:places/data/interactor/list_places_screen_interactor.dart';
 import 'package:places/data/interactor/onboarding_screen_interactor.dart';
 import 'package:places/data/interactor/search_screen_interactor.dart';
 import 'package:places/data/interactor/visiting_interactor.dart';
@@ -27,8 +27,8 @@ List<ChangeNotifierProvider<ChangeNotifier>> listMultiProviders =
   ChangeNotifierProvider<DetailsPlaceInteractor>(
     create: (final context) => DetailsPlaceInteractor(),
   ),
-  ChangeNotifierProvider<ListPlacesScreenModel>(
-    create: (final context) => ListPlacesScreenModel(),
+  ChangeNotifierProvider<ListPlacesScreenInteractor>(
+    create: (final context) => ListPlacesScreenInteractor(),
   ),
   ChangeNotifierProvider<OnboardingScreenInteractor>(
     create: (final context) => OnboardingScreenInteractor(),

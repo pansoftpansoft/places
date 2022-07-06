@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:places/data/interactor/details_place_interactor.dart';
-import 'package:places/data/interactor/list_places_screen_model.dart';
+import 'package:places/data/interactor/list_places_screen_interactor.dart';
 import 'package:places/data/interactor/place_interactor.dart';
 import 'package:places/data/interactor/visiting_interactor.dart';
 import 'package:places/data/model/place.dart';
@@ -94,7 +94,7 @@ class _CardPlaceDragState extends State<CardPlaceDrag> {
   Future<void> updateContext(Place place, BuildContext context) async {
     await context.read<PlaceInteractor>().setFavorites(
           place,
-          context.read<ListPlacesScreenModel>().streamControllerListPlace,
+          context.read<ListPlacesScreenInteractor>().streamControllerListPlace,
         );
     debugPrint('Обновление контекстов при нажатии кнопки Добавить в фавориты');
     // ignore: use_build_context_synchronously

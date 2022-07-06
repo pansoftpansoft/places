@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:places/data/interactor/filters_screen_interactor.dart';
-import 'package:places/data/interactor/list_places_screen_model.dart';
+import 'package:places/data/interactor/list_places_screen_interactor.dart';
 import 'package:places/data/interactor/search_screen_interactor.dart';
 import 'package:places/domain/db_provider.dart';
 import 'package:places/type_place.dart';
@@ -80,7 +80,7 @@ class SearchBar extends StatelessWidget {
       }
     } else {
       context.read<FiltersScreenInteractor>().getDataFromRepository(
-            context.read<ListPlacesScreenModel>().streamControllerListPlace,
+            context.read<ListPlacesScreenInteractor>().streamControllerListPlace,
           );
     }
   }
@@ -103,7 +103,7 @@ class SearchBar extends StatelessWidget {
       context.read<SearchScreenInteractor>()
         ..setSearchText(value)
         ..getListSearchText(
-          context.read<ListPlacesScreenModel>().streamControllerListPlace,
+          context.read<ListPlacesScreenInteractor>().streamControllerListPlace,
         )
         ..managerSelectionScreen(numberScreen: ScreenEnum.listFoundPlacesScreen)
         ..changeSearch();
@@ -119,7 +119,7 @@ class SearchBar extends StatelessWidget {
       context.read<SearchScreenInteractor>()
         ..setSearchText(value)
         ..getListSearchText(
-          context.read<ListPlacesScreenModel>().streamControllerListPlace,
+          context.read<ListPlacesScreenInteractor>().streamControllerListPlace,
         )
         ..managerSelectionScreen(numberScreen: ScreenEnum.listFoundPlacesScreen)
         ..notifyListenersSearchScreen();
