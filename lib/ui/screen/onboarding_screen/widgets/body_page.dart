@@ -22,7 +22,7 @@ class BodyPage extends StatelessWidget {
   }) : super(key: key);
 
   @override
-  Widget build(final BuildContext context) => Padding(
+  Widget build(BuildContext context) => Padding(
         //Отступили на высоту BottomSheetOnboarding с низу
         //после чего контейнер выравнивается строго по центру
         padding: const EdgeInsets.only(bottom: heightBottomSheetOnboarding),

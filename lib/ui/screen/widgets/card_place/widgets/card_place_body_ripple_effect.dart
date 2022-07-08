@@ -43,7 +43,7 @@ class CardPlaceBodyRippleEffect extends StatelessWidget {
         .then(
           (value) => showModalBottomSheet<Widget>(
             context: context,
-            builder: (final _) => const DetailsPlaceScreen(),
+            builder: (_) => const DetailsPlaceScreen(),
             isScrollControlled: true,
             isDismissible: true,
             useRootNavigator: true,

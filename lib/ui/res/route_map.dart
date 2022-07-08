@@ -16,15 +16,15 @@ import 'package:places/ui/screen/visiting_screen/visiting_screen.dart';
 ///Мапа маршрутов
 final Map<String, Widget Function(BuildContext context)> mapRoutes =
     <String, Widget Function(BuildContext context)>{
-  RouteName.addPlaceScreen: (final context) => const AddPlaceScreen(),
-  RouteName.filtersScreen: (final context) => const FiltersScreen(),
-  RouteName.mapScreen: (final context) => const MapScreen(),
-  RouteName.onboardingScreen: (final context) => const OnboardingScreen(),
-  RouteName.selectCategory: (final context) => const SelectCategory(),
-  RouteName.settingsScreen: (final context) => const SettingsScreen(),
-  RouteName.detailsPlaceScreen: (final context) => const DetailsPlaceScreen(),
-  RouteName.listPlacesScreen: (final context) => const ListPlacesScreen(),
-  RouteName.searchPlacesScreen: (final context) => const SearchPlacesScreen(),
-  RouteName.splashScreen: (final context) => const SplashScreen(),
-  RouteName.visitingScreen: (final context) => const VisitingScreen(),
+  RouteName.addPlaceScreen: (context) => const AddPlaceScreen(),
+  RouteName.filtersScreen: (context) => const FiltersScreen(),
+  RouteName.mapScreen: (context) => const MapScreen(),
+  RouteName.onboardingScreen: (context) => const OnboardingScreen(),
+  RouteName.selectCategory: (context) => const SelectCategory(),
+  RouteName.settingsScreen: (context) => const SettingsScreen(),
+  RouteName.detailsPlaceScreen: (context) => const DetailsPlaceScreen(),
+  RouteName.listPlacesScreen: (context) => const ListPlacesScreen(),
+  RouteName.searchPlacesScreen: (context) => const SearchPlacesScreen(),
+  RouteName.splashScreen: (context) => const SplashScreen(),
+  RouteName.visitingScreen: (context) => const VisitingScreen(),
 };

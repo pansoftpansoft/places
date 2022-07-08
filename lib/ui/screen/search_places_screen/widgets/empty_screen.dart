@@ -33,7 +33,7 @@ class EmptyScreen extends StatefulWidget {
 
 class _EmptyScreenState extends State<EmptyScreen> {
   @override
-  Widget build(final BuildContext context) => Container(
+  Widget build(BuildContext context) => Container(
         alignment: Alignment.center,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -57,7 +57,7 @@ class _EmptyScreenState extends State<EmptyScreen> {
       );
 
   @override
-  void debugFillProperties(final DiagnosticPropertiesBuilder properties) {
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties.add(StringProperty('textHeader', widget.textHeader));
   }

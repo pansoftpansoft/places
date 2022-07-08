@@ -13,7 +13,7 @@ class AlertDialogCancelButton extends StatelessWidget {
   }) : super(key: key);
 
   @override
-  Widget build(final BuildContext context) => Padding(
+  Widget build(BuildContext context) => Padding(
         padding: const EdgeInsets.only(
           top: paddingPage / 2,
         ),

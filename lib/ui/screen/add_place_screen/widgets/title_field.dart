@@ -14,7 +14,7 @@ class TitleField extends StatelessWidget {
   }) : super(key: key);
 
   @override
-  Widget build(final BuildContext context) => Column(
+  Widget build(BuildContext context) => Column(
         children: [
           Row(
             children: [

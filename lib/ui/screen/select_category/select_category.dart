@@ -16,7 +16,7 @@ class SelectCategory extends StatefulWidget {
 
   ///
   const SelectCategory({
-    final Key? key,
+    Key? key,
     this.typePlaceSelected,
     this.typePlaceSelectedActual,
   }) : super(key: key);
@@ -27,7 +27,7 @@ class SelectCategory extends StatefulWidget {
 
 class _SelectCategoryState extends State<SelectCategory> {
   @override
-  Widget build(final BuildContext context) {
+  Widget build(BuildContext context) {
     if (widget.typePlaceSelectedActual != null &&
         widget.typePlaceSelected == null) {
       context.read<AddPlaceInteractor>().selectTypePlace =

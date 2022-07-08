@@ -38,7 +38,7 @@ class CardPlace extends StatelessWidget {
   }) : super(key: key);
 
   @override
-  Widget build(final BuildContext context) => Padding(
+  Widget build(BuildContext context) => Padding(
     padding: const EdgeInsets.only(bottom: heightSizeBox24),
     child: ClipRRect(
           borderRadius: const BorderRadius.all(

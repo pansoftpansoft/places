@@ -12,7 +12,7 @@ class FullPhoto extends StatefulWidget {
   ///
   const FullPhoto(
     this.index, {
-    final Key? key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -21,11 +21,11 @@ class FullPhoto extends StatefulWidget {
 
 class _FullPhotoState extends State<FullPhoto> {
   @override
-  Widget build(final BuildContext context) => Padding(
+  Widget build(BuildContext context) => Padding(
         padding: const EdgeInsets.only(right: paddingPage),
         child: Dismissible(
           direction: DismissDirection.up,
-          onDismissed: (final direction) {
+          onDismissed: (direction) {
             _onTap(context, widget.index);
           },
           key: UniqueKey(),
@@ -33,7 +33,7 @@ class _FullPhotoState extends State<FullPhoto> {
         ),
       );
 
-  void _onTap(final BuildContext context, int index) {
+  void _onTap(BuildContext context, int index) {
     context.read<AddPlaceInteractor>().deletePhoto(index);
   }
 }

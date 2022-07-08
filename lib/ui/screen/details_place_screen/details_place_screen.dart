@@ -11,10 +11,10 @@ import 'package:provider/provider.dart';
 /// Подробно о достопримечательности
 class DetailsPlaceScreen extends StatelessWidget {
   /// Конструктор экрана подробности о достопримечательности
-  const DetailsPlaceScreen({final Key? key}) : super(key: key);
+  const DetailsPlaceScreen({Key? key}) : super(key: key);
 
   @override
-  Widget build(final BuildContext context) {
+  Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
         context.read<DetailsPlaceInteractor>().index = 0;

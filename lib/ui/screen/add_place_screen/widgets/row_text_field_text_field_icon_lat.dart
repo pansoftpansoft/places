@@ -33,7 +33,7 @@ class RowTextFieldTextFieldIconLat extends StatelessWidget {
             RegExp(r'^\d*?\.?\d*?$'),
           ),
         ],
-        actionOnSubmitted: (final value) {
+        actionOnSubmitted: (value) {
           _focusNodeLon.requestFocus();
         },
       ),

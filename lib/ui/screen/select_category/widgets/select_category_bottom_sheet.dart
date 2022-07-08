@@ -10,7 +10,7 @@ class SelectCategoryBottomSheet extends StatelessWidget {
   }) : super(key: key);
 
   @override
-  Widget build(final BuildContext context) => const Padding(
+  Widget build(BuildContext context) => const Padding(
         padding: EdgeInsets.symmetric(
           horizontal: paddingPage,
           vertical: paddingPage / 2,

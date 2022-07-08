@@ -151,7 +151,7 @@ class _TextFieldIconState extends State<TextFieldIcon> {
   }
 
   @override
-  Widget build(final BuildContext context) => TextField(
+  Widget build(BuildContext context) => TextField(
         cursorColor: widget.cursorColor,
         maxLines: widget.maxLines,
         controller: _textEditingController,
@@ -164,13 +164,13 @@ class _TextFieldIconState extends State<TextFieldIcon> {
               fontWeight: FontWeight.w400,
             ),
         textAlignVertical: TextAlignVertical.center,
-        onSubmitted: (final value) {
+        onSubmitted: (value) {
           if (widget.actionOnSubmitted != null) {
             widget.actionOnSubmitted!(value);
           }
         },
         inputFormatters: widget.inputFormatters,
-        onChanged: (final value) {
+        onChanged: (value) {
           if (widget.onChanged != null) {
             widget.onChanged!(value);
           }

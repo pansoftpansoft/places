@@ -8,7 +8,7 @@ import 'package:places/ui/screen/add_place_screen/widgets/photo_show_dialog.dart
 ///Экран добавления карточек
 class AddPlaceScreen extends StatefulWidget {
   /// Конструктор
-  const AddPlaceScreen({final Key? key}) : super(key: key);
+  const AddPlaceScreen({Key? key}) : super(key: key);
 
   @override
   FiltersScreenState createState() => FiltersScreenState();
@@ -39,13 +39,13 @@ class FiltersScreenState extends State<AddPlaceScreen> {
     Future(() {
       showDialog<void>(
         context: context,
-        builder: (final context) => const PhotoShowDialog(),
+        builder: (context) => const PhotoShowDialog(),
       );
     });
   }
 
   @override
-  Widget build(final BuildContext context) => Scaffold(
+  Widget build(BuildContext context) => Scaffold(
         resizeToAvoidBottomInset: true,
         bottomSheet: const BottomSheetCreateButton(),
         appBar: const PreferredSize(

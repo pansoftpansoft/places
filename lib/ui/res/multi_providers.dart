@@ -13,27 +13,27 @@ import 'package:provider/provider.dart';
 List<ChangeNotifierProvider<ChangeNotifier>> listMultiProviders =
     <ChangeNotifierProvider<ChangeNotifier>>[
   ChangeNotifierProvider<AppModel>(
-    create: (final context) => AppModel(),
+    create: (context) => AppModel(),
   ),
   ChangeNotifierProvider<SearchScreenInteractor>(
-    create: (final context) => SearchScreenInteractor(),
+    create: (context) => SearchScreenInteractor(),
   ),
   ChangeNotifierProvider<VisitingInteractor>(
-    create: (final context) => VisitingInteractor(),
+    create: (context) => VisitingInteractor(),
   ),
   ChangeNotifierProvider<AddPlaceInteractor>(
-    create: (final context) => AddPlaceInteractor(),
+    create: (context) => AddPlaceInteractor(),
   ),
   ChangeNotifierProvider<DetailsPlaceInteractor>(
-    create: (final context) => DetailsPlaceInteractor(),
+    create: (context) => DetailsPlaceInteractor(),
   ),
   ChangeNotifierProvider<ListPlacesScreenInteractor>(
-    create: (final context) => ListPlacesScreenInteractor(),
+    create: (context) => ListPlacesScreenInteractor(),
   ),
   ChangeNotifierProvider<OnboardingScreenInteractor>(
-    create: (final context) => OnboardingScreenInteractor(),
+    create: (context) => OnboardingScreenInteractor(),
   ),
   ChangeNotifierProvider<FiltersScreenInteractor>(
-    create: (final context) => FiltersScreenInteractor(),
+    create: (context) => FiltersScreenInteractor(),
   ),
 ];

@@ -11,19 +11,19 @@ class ListHistory extends StatelessWidget {
   }) : super(key: key);
 
   @override
-  Widget build(final BuildContext context) => Consumer<SearchScreenInteractor>(
+  Widget build(BuildContext context) => Consumer<SearchScreenInteractor>(
         builder: (
-          final context,
-          final cart,
-          final child,
+          context,
+          cart,
+          child,
         ) =>
             ListView.separated(
           itemCount: SearchScreenInteractor.listHistory.length,
           shrinkWrap: true,
-          itemBuilder: (final context, final index) => ListHistoryItemBuilder(
+          itemBuilder: (context, index) => ListHistoryItemBuilder(
             index,
           ),
-          separatorBuilder: (final context, final index) => const Divider(
+          separatorBuilder: (context, index) => const Divider(
             height: 0.8,
           ),
         ),

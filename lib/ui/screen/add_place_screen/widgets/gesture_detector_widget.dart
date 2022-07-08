@@ -18,7 +18,7 @@ class GestureDetectorWidget extends StatefulWidget {
 
 class _GestureDetectorWidgetState extends State<GestureDetectorWidget> {
   @override
-  Widget build(final BuildContext context) => GestureDetector(
+  Widget build(BuildContext context) => GestureDetector(
         child: Container(
           margin: const EdgeInsets.only(right: 16),
           padding: const EdgeInsets.only(left: 16, right: 16),

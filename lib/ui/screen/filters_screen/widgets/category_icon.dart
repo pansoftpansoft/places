@@ -10,7 +10,7 @@ class CategoryIcon extends StatefulWidget {
 
   const CategoryIcon(
     this.placeType, {
-    final Key? key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -19,11 +19,11 @@ class CategoryIcon extends StatefulWidget {
 
 class _CategoryIconState extends State<CategoryIcon> {
   @override
-  Widget build(final BuildContext context) => Consumer<FiltersScreenInteractor>(
+  Widget build(BuildContext context) => Consumer<FiltersScreenInteractor>(
         builder: (
-          final context,
-          final cart,
-          final child,
+          context,
+          cart,
+          child,
         ) =>
             Column(
           children: <Widget>[

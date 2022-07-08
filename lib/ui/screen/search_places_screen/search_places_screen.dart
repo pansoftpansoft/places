@@ -11,7 +11,7 @@ import 'package:places/ui/screen/widgets/title_app_big_or_small.dart';
 ///Окно поиска мест
 class SearchPlacesScreen extends StatefulWidget {
   ///
-  const SearchPlacesScreen({final Key? key}) : super(key: key);
+  const SearchPlacesScreen({Key? key}) : super(key: key);
 
   @override
   SearchPlacesScreenState createState() => SearchPlacesScreenState();
@@ -30,7 +30,7 @@ class SearchPlacesScreenState extends State<SearchPlacesScreen> {
   }
 
   @override
-  Widget build(final BuildContext context) => Scaffold(
+  Widget build(BuildContext context) => Scaffold(
         appBar: PreferredSize(
           preferredSize: const Size.fromHeight(110),
           child: AppBar(

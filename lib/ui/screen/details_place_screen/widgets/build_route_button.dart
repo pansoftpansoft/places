@@ -14,11 +14,11 @@ class BuildRouteButton extends StatelessWidget {
   ///Конструктор кнопки 'Построить маршрут'
   const BuildRouteButton(
     this._place, {
-    final Key? key,
+    Key? key,
   }) : super(key: key);
 
   @override
-  Widget build(final BuildContext context) => ElevatedButtonGreenBig(
+  Widget build(BuildContext context) => ElevatedButtonGreenBig(
         title: buildRoute.toUpperCase(),
         onPressed: () {
           _onPress(context);

@@ -35,7 +35,7 @@ class AddPlaceScreenBodyFieldName extends StatelessWidget {
               svgIconSuffixForTextColor: Colors.black,
               borderRadius: borderRadiusCard8,
               actionIconSuffixForText: _textEditingControllerNamePlace.clear,
-              actionOnSubmitted: (final value) {
+              actionOnSubmitted: (value) {
                 context.read<AddPlaceInteractor>().disableButtonCreate(value);
                 _focusNodeLat.requestFocus();
               },

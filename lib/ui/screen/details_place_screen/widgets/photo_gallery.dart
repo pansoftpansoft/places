@@ -21,7 +21,7 @@ class PhotoGallery extends StatelessWidget {
   }) : super(key: key);
 
   @override
-  Widget build(final BuildContext context) {
+  Widget build(BuildContext context) {
     /// Длина списка с урлами фотографий
     final lengthListUrls = place.urls.length;
     context.read<DetailsPlaceInteractor>().changeScrollIndicator(
@@ -42,7 +42,7 @@ class PhotoGallery extends StatelessWidget {
                   width: 122,
                 )
               : PageView.builder(
-                  onPageChanged: (final index) {
+                  onPageChanged: (index) {
                     context.read<DetailsPlaceInteractor>()
                       ..changeScrollIndicator(
                         lengthListUrls,
@@ -51,7 +51,7 @@ class PhotoGallery extends StatelessWidget {
                       ..updateScreen();
                   },
                   itemCount: lengthListUrls,
-                  itemBuilder: (final context, final index) =>
+                  itemBuilder: (context, index) =>
                       PhotoGalleryPicture(place.urls[index]),
                 ),
         ),

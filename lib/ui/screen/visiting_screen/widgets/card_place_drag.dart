@@ -20,7 +20,7 @@ class CardPlaceDrag extends StatefulWidget {
   ///
   const CardPlaceDrag(
     this.index, {
-    final Key? key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -29,7 +29,7 @@ class CardPlaceDrag extends StatefulWidget {
 
 class _CardPlaceDragState extends State<CardPlaceDrag> {
   @override
-  Widget build(final BuildContext context) => CardPlace(
+  Widget build(BuildContext context) => CardPlace(
         mocksWantVisit[widget.index],
         goNeed: mocksWantVisit[widget.index].wantVisitDate == null
             ? 'Запланируйте дату для посещения'

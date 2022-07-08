@@ -9,11 +9,11 @@ import 'package:places/ui/res/svg_icons.dart';
 class BackgroundDismissible extends StatelessWidget {
   ///
   const BackgroundDismissible({
-    final Key? key,
+    Key? key,
   }) : super(key: key);
 
   @override
-  Widget build(final BuildContext context) => AspectRatio(
+  Widget build(BuildContext context) => AspectRatio(
         aspectRatio: 3 / 2,
         child: Container(
           padding: _buildEdgeInsets(),

@@ -14,7 +14,7 @@ class Tab1Widget extends StatelessWidget {
   }) : super(key: key);
 
   @override
-  Widget build(final BuildContext context) => Consumer<VisitingInteractor>(
+  Widget build(BuildContext context) => Consumer<VisitingInteractor>(
         builder: (
           final context,
           final cart,
@@ -23,10 +23,10 @@ class Tab1Widget extends StatelessWidget {
             mocksWantVisit.isEmpty
                 ? const Tab1WidgetEmptyList()
                 : ListView.separated(
-                    separatorBuilder: (final context, final index) =>
+                    separatorBuilder: (context, index) =>
                         const SizedBox12(),
                     itemCount: mocksWantVisit.length,
-                    itemBuilder: (final context, final index) =>
+                    itemBuilder: (context, index) =>
                         ListViewCardDrag(index),
                   ),
       );

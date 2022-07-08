@@ -20,9 +20,9 @@ class SettingsScreenThemeSwitch extends StatelessWidget {
         ),
         CupertinoSwitch(
           value: context.select<AppModel, bool>(
-            (final a) => AppModel.isThemeColor,
+            (a) => AppModel.isThemeColor,
           ),
-          onChanged: (final value) {
+          onChanged: (value) {
             context.read<AppModel>().changeTheme();
           },
         ),

@@ -9,7 +9,7 @@ import 'package:provider/provider.dart';
 class ListViewPhotoAdd extends StatefulWidget {
   ///
   const ListViewPhotoAdd({
-    final Key? key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -18,7 +18,7 @@ class ListViewPhotoAdd extends StatefulWidget {
 
 class _ListViewPhotoAddState extends State<ListViewPhotoAdd> {
   @override
-  Widget build(final BuildContext context) => Column(
+  Widget build(BuildContext context) => Column(
         children: [
           SizedBox(
             height: heightSizeBox72,

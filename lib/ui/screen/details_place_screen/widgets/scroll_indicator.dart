@@ -11,7 +11,7 @@ class ScrollIndicator extends StatelessWidget {
   }) : super(key: key);
 
   @override
-  Widget build(final BuildContext context) => Consumer<DetailsPlaceInteractor>(
+  Widget build(BuildContext context) => Consumer<DetailsPlaceInteractor>(
         builder: (
           final context,
           final detailsPlaceModel,
@@ -36,7 +36,7 @@ class ScrollIndicator extends StatelessWidget {
       );
 
   ///Изменяем отображение индикатора прокрутки для крайних положений
-  BorderRadius buildBorderRadius(final int index, final int countElements) {
+  BorderRadius buildBorderRadius(int index, int countElements) {
     var borderRadius = const BorderRadius.all(
       Radius.circular(borderRadiusCard16),
     );

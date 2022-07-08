@@ -11,7 +11,7 @@ class AddPlaceInteractor extends ChangeNotifier {
 
   ///Добавляем фотографию
   void addPhoto(
-    final String pathPhoto,
+    String pathPhoto,
   ) {
     debugPrint('tempPhotoPlace.add $pathPhoto');
 
@@ -20,7 +20,7 @@ class AddPlaceInteractor extends ChangeNotifier {
   }
 
   ///Удаляем фотографию
-  void deletePhoto(final int index) {
+  void deletePhoto(int index) {
     if (index == 0) {
       return;
     } //Не удаляем кнопку добавить
@@ -38,13 +38,13 @@ class AddPlaceInteractor extends ChangeNotifier {
   }
 
   ///
-  void selectCategory(final TypePlace? changeSelect) {
+  void selectCategory(TypePlace? changeSelect) {
     selectTypePlace = changeSelect;
     notifyListeners();
   }
 
   ///Управление кнопкой создать
-  void disableButtonCreate(final String value) {
+  void disableButtonCreate(String value) {
     disableButton = value.isEmpty ? null : value;
     notifyListeners();
   }

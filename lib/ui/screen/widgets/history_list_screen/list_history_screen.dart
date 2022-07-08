@@ -6,7 +6,7 @@ import 'package:places/ui/screen/widgets/history_list_screen/list_history_screen
 
 class ListHistoryScreen extends StatelessWidget {
   ///
-  const ListHistoryScreen({final Key? key}) : super(key: key);
+  const ListHistoryScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

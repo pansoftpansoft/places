@@ -16,7 +16,7 @@ class AddToFavoritesButton extends StatelessWidget {
   }) : super(key: key);
 
   @override
-  Widget build(final BuildContext context) {
+  Widget build(BuildContext context) {
     context.read<DetailsPlaceInteractor>().openStream();
 
     return StreamBuilder(

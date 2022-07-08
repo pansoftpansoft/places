@@ -5,10 +5,10 @@ import 'package:places/ui/screen/widgets/bottom_navigation/bottom_navigation.dar
 ///Экран с картой объектов
 class MapScreen extends StatelessWidget {
   ///конструктор
-  const MapScreen({final Key? key}) : super(key: key);
+  const MapScreen({Key? key}) : super(key: key);
 
   @override
-  Widget build(final BuildContext context) => Scaffold(
+  Widget build(BuildContext context) => Scaffold(
         bottomNavigationBar: BottomNavigation(1),
         body: Container(
           alignment: Alignment.center,

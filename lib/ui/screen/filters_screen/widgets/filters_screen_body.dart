@@ -14,9 +14,9 @@ class FiltersScreenBody extends StatelessWidget {
     return SingleChildScrollView(
       child: Consumer<FiltersScreenInteractor>(
         builder: (
-          final context,
-          final cart,
-          final child,
+           context,
+          cart,
+          child,
         ) =>
             Column(
           children: const <Widget>[

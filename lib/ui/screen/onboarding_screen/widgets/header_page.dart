@@ -12,7 +12,7 @@ class HeaderPage extends StatelessWidget {
   }) : super(key: key);
 
   @override
-  Widget build(final BuildContext context) {
+  Widget build(BuildContext context) {
     return Consumer<OnboardingScreenInteractor>(
       builder: (
         final context,

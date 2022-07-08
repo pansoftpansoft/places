@@ -8,7 +8,7 @@ import 'package:places/ui/screen/select_category/select_category.dart';
 ///
 class SelectTypePlace extends StatefulWidget {
   ///
-  const SelectTypePlace({final Key? key}) : super(key: key);
+  const SelectTypePlace({Key? key}) : super(key: key);
 
   @override
   State<SelectTypePlace> createState() => _SelectTypePlaceState();
@@ -18,7 +18,7 @@ class _SelectTypePlaceState extends State<SelectTypePlace> {
   TypePlace? _typePlaceSelected;
 
   @override
-  Widget build(final BuildContext context) => SizedBox(
+  Widget build(BuildContext context) => SizedBox(
         height: 32,
         child: TextButton(
           style: ButtonStyle(
@@ -52,7 +52,7 @@ class _SelectTypePlaceState extends State<SelectTypePlace> {
     typePlaceResponse = await Navigator.push(
       context,
       MaterialPageRoute<TypePlace>(
-        builder: (final context) =>
+        builder: (context) =>
             SelectCategory(typePlaceSelectedActual: _typePlaceSelected),
       ),
     );

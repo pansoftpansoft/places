@@ -13,7 +13,7 @@ class IconButtonSpecial extends StatefulWidget {
   const IconButtonSpecial(
     this.iconName, {
     this.onPressed,
-    final Key? key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -22,7 +22,7 @@ class IconButtonSpecial extends StatefulWidget {
 
 class _IconButtonSpecialState extends State<IconButtonSpecial> {
   @override
-  Widget build(final BuildContext context) {
+  Widget build(BuildContext context) {
 
     return Material(
       borderRadius: const BorderRadius.all(

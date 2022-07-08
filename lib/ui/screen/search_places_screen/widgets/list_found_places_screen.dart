@@ -13,7 +13,7 @@ class ListFoundPlacesScreen extends StatelessWidget {
   }) : super(key: key);
 
   @override
-  Widget build(final BuildContext context) {
+  Widget build(BuildContext context) {
     debugPrint('100 ListOfFoundPlacesScreen ${mocksFiltered.length}');
 
     return Consumer<SearchScreenInteractor>(builder: (
@@ -24,7 +24,7 @@ class ListFoundPlacesScreen extends StatelessWidget {
       return ListView.separated(
         itemCount: mocksSearchText.length,
         shrinkWrap: true,
-        itemBuilder: (final context, final index) =>
+        itemBuilder: (context, index) =>
             SearchCardPlace(mocksSearchText[index]),
         separatorBuilder: (
           final context,

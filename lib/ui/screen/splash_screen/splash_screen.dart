@@ -10,7 +10,7 @@ import 'package:places/ui/res/route_name.dart';
 /// Экран затавка при загрузке приложения
 class SplashScreen extends StatefulWidget {
   ///
-  const SplashScreen({final Key? key}) : super(key: key);
+  const SplashScreen({Key? key}) : super(key: key);
 
   @override
   SplashScreenState createState() => SplashScreenState();
@@ -33,7 +33,7 @@ class SplashScreenState extends State<SplashScreen> {
   }
 
   @override
-  Widget build(final BuildContext context) => DecoratedBox(
+  Widget build(BuildContext context) => DecoratedBox(
         decoration: const BoxDecoration(
           gradient: LinearGradient(
             colors: <Color>[
@@ -73,7 +73,7 @@ class SplashScreenState extends State<SplashScreen> {
   }
 
   /// Запуск анимации на заставке
-  Future<void> startAnimation(final int numberCycle) async {
+  Future<void> startAnimation(int numberCycle) async {
     debugPrint('Анимация запустилась $numberCycle раз.');
     await Future.delayed(const Duration(seconds: 1), () {
       debugPrint('Ждем две секунды!');

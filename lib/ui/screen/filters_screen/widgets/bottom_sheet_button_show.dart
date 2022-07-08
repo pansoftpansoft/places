@@ -9,10 +9,10 @@ import 'package:provider/provider.dart';
 ///Кнопка "показать"
 class BottomSheetButtonShow extends StatelessWidget {
   ///Кнопка "показать"
-  const BottomSheetButtonShow({final Key? key}) : super(key: key);
+  const BottomSheetButtonShow({Key? key}) : super(key: key);
 
   @override
-  Widget build(final BuildContext context) {
+  Widget build(BuildContext context) {
     return Consumer<FiltersScreenInteractor>(
       builder: (
         final context,

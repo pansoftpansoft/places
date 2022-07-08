@@ -130,10 +130,6 @@ List<Place> mocks = <Place>[];
 // ),
 //];
 
-// mocks.where((final element) => element.visitedDate != null).toList();
-
-
-
 /// Очередь для главного экрана
 List<Place> mocksFiltered = [];
 /// Списик для экрана Поиска по тексту

@@ -13,7 +13,7 @@ class Tab2Widget extends StatelessWidget {
   }) : super(key: key);
 
   @override
-  Widget build(final BuildContext context) => Consumer<VisitingInteractor>(
+  Widget build(BuildContext context) => Consumer<VisitingInteractor>(
         builder: (
           final context,
           final cart,

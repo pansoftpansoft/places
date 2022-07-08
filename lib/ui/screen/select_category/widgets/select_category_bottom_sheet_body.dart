@@ -29,13 +29,13 @@ class SelectCategoryBottomSheetBody extends StatelessWidget {
     );
   }
 
-  void _onPressed(final BuildContext context) {
+  void _onPressed(BuildContext context) {
     if (context.read<AddPlaceInteractor>().selectTypePlace != null) {
       _navigator(context);
     }
   }
 
-  void _navigator(final BuildContext context) {
+  void _navigator(BuildContext context) {
     Navigator.pop(
       context,
       context.read<AddPlaceInteractor>().selectTypePlace,

@@ -11,7 +11,7 @@ class ScheduleButton extends StatelessWidget {
   }) : super(key: key);
 
   @override
-  Widget build(final BuildContext context) => const TextButtonSmall(
+  Widget build(BuildContext context) => const TextButtonSmall(
         title: schedule,
         svgIconNamePrefix: SvgIcons.schedule,
       );

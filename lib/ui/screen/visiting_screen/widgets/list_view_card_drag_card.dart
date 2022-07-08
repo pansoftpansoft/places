@@ -18,7 +18,7 @@ class ListViewCardDragCard extends StatelessWidget {
       children: [
         const BackgroundDismissible(),
         Dismissible(
-          onDismissed: (final direction) {
+          onDismissed: (direction) {
             _onDismissed(context);
           },
           key: UniqueKey(),

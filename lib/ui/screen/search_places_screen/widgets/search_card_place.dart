@@ -25,13 +25,13 @@ class SearchCardPlace extends StatelessWidget {
   ///
   const SearchCardPlace(
     this.place, {
-    final Key? key,
+    Key? key,
     this.goNeed = '',
     this.goal = '',
   }) : super(key: key);
 
   @override
-  Widget build(final BuildContext context) => InkWell(
+  Widget build(BuildContext context) => InkWell(
         onTap: () {
           _onTap(context);
         },
@@ -66,7 +66,7 @@ class SearchCardPlace extends StatelessWidget {
     await context.read<DetailsPlaceInteractor>().getPlace(place.id, context.read<ListPlacesScreenInteractor>().streamControllerListPlace).then(
           (value) => showModalBottomSheet<Widget>(
             context: context,
-            builder: (final _) => const DetailsPlaceScreen(),
+            builder: (_) => const DetailsPlaceScreen(),
             isScrollControlled: true,
             isDismissible: true,
             useRootNavigator: true,

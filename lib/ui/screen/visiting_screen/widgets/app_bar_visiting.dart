@@ -11,7 +11,7 @@ class AppBarVisiting extends StatelessWidget {
   }) : super(key: key);
 
   @override
-  Widget build(final BuildContext context) => AppBar(
+  Widget build(BuildContext context) => AppBar(
         title: Text(
           checkFavorites,
           textAlign: TextAlign.center,

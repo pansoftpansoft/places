@@ -30,7 +30,7 @@ class VisitingInteractor extends ChangeNotifier {
   }
 
   ///Перемещение карточек внутри списка
-  void sortedPlaceWantVisit(final int sours, final int target) {
+  void sortedPlaceWantVisit(int sours, int target) {
     final placeTarget = mocksWantVisit[target];
     mocksWantVisit[target] = mocksWantVisit[sours];
     mocksWantVisit[sours] = placeTarget;
@@ -38,7 +38,7 @@ class VisitingInteractor extends ChangeNotifier {
   }
 
   ///Установка или изменение даты заплонированного посещения интересног места
-  void dateWantVisit(final int sours, final DateTime dateWantVisitNew) {
+  void dateWantVisit(int sours, DateTime dateWantVisitNew) {
     mocksWantVisit[sours].wantVisitDate = dateWantVisitNew;
     notifyListeners();
   }

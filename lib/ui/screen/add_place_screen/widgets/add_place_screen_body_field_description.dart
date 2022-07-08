@@ -28,7 +28,7 @@ class AddPlaceScreenBodyFieldDescription extends StatelessWidget {
               borderRadius: borderRadiusCard8,
               maxLines: maxLines5,
               actionIconSuffixForText: textEditingControllerDescription!.clear,
-              actionOnSubmitted: (final value) {
+              actionOnSubmitted: (value) {
                 focusNodeDescription!.unfocus();
               },
             ),

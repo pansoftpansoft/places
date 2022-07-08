@@ -23,18 +23,18 @@ class SearchBar extends StatelessWidget {
 
   ///
   const SearchBar({
-    final Key? key,
+    Key? key,
     this.textEditingController,
     this.autofocus = false,
     this.focusNode,
   }) : super(key: key);
 
   @override
-  Widget build(final BuildContext context) =>
+  Widget build(BuildContext context) =>
       Consumer<SearchScreenInteractor>(builder: (
-        final context,
-        final cart,
-        final child,
+        context,
+        cart,
+        child,
       ) {
         return SizedBox(
           height: heightTextFieldSearch,
@@ -43,7 +43,7 @@ class SearchBar extends StatelessWidget {
             controller: textEditingController,
             autofocus: autofocus,
             focusNode: focusNode,
-            textEditingControllerFunction: (final textEditingController) {
+            textEditingControllerFunction: (textEditingController) {
               _textEditingControllerFunction(textEditingController, context);
             },
             borderRadius: borderRadiusCard12,
@@ -56,10 +56,10 @@ class SearchBar extends StatelessWidget {
             svgIconPrefixColor: ColorPalette.textInTextField,
             //borderColor: Colors.transparent,
             fillColor: ColorPalette.filledTextField,
-            actionOnSubmitted: (final value) {
+            actionOnSubmitted: (value) {
               _actionOnSubmitted(value, context);
             },
-            onChanged: (final value) {
+            onChanged: (value) {
               _actionOnChanged(value, context);
             },
           ),

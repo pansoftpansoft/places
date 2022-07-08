@@ -9,10 +9,10 @@ import 'package:provider/provider.dart';
 ///Экран фильтров
 class FiltersScreen extends StatelessWidget {
   ///Конструктор
-  const FiltersScreen({final Key? key}) : super(key: key);
+  const FiltersScreen({Key? key}) : super(key: key);
 
   @override
-  Widget build(final BuildContext context) {
+  Widget build(BuildContext context) {
     loadSettings(context);
 
     return Scaffold(

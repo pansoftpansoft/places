@@ -10,10 +10,10 @@ import 'package:provider/provider.dart';
 ///Экран Onboarding
 class OnboardingScreen extends StatelessWidget {
   ///Конструктор Onboarding
-  const OnboardingScreen({final Key? key}) : super(key: key);
+  const OnboardingScreen({Key? key}) : super(key: key);
 
   @override
-  Widget build(final BuildContext context) {
+  Widget build(BuildContext context) {
     // Проверяем онбординг был вызван из Settings
     context.read<OnboardingScreenInteractor>().callingFromSettings = (ModalRoute.of(context)
         ?.settings

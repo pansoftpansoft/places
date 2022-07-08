@@ -9,7 +9,7 @@ import 'package:provider/provider.dart';
 ///Список достопримечательностей
 class ListPlacesScreen extends StatefulWidget {
   ///Конструктор
-  const ListPlacesScreen({final Key? key}) : super(key: key);
+  const ListPlacesScreen({Key? key}) : super(key: key);
 
   @override
   ListPlacesScreenState createState() => ListPlacesScreenState();

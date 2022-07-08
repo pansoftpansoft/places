@@ -95,7 +95,7 @@ class SearchScreenInteractor extends ChangeNotifier {
   }
 
   ///Устанавливаем строку поиска
-  void setSearchText(final String searchString) {
+  void setSearchText(String searchString) {
     mocksSearchText.clear();
     if (searchString == '') {
       _searchString = '';
@@ -114,7 +114,7 @@ class SearchScreenInteractor extends ChangeNotifier {
 
   /// поиск мест по вводимому тексту при нажатии Enter
   ///c записью запроса в историю запросов
-  void searchPlaceForEnter(final String searchString) {
+  void searchPlaceForEnter(String searchString) {
     //Ищем текст
     setSearchText(searchString);
     //сохранить текст поиска
@@ -128,7 +128,7 @@ class SearchScreenInteractor extends ChangeNotifier {
   }
 
   ///Удаляю одну запись из истории поиска
-  Future<void> deleteHistory(final String historyText) async {
+  Future<void> deleteHistory(String historyText) async {
     await DBProvider.deleteHistory(historyText);
     await getListHistory(); //Обновляем список после удаления всей истории
     notifyListeners();
@@ -137,7 +137,7 @@ class SearchScreenInteractor extends ChangeNotifier {
   ///Здесь мы устанавливаем какой экран хотим получить и корректируем
   ///в зависимости от данных, выдавая
   ///пустые экраны или экраны с ошибкой
-  Future<void> managerSelectionScreen({final ScreenEnum? numberScreen}) async {
+  Future<void> managerSelectionScreen({ScreenEnum? numberScreen}) async {
     ///Если экран жестко задан
     debugPrint('managerSelectionScreen $numberScreen');
     if (numberScreen != null) {

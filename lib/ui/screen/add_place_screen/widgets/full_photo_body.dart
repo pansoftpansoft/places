@@ -56,7 +56,7 @@ class FullPhotoBody extends StatelessWidget {
     );
   }
 
-  void _onTap(final BuildContext context, int index) {
+  void _onTap(BuildContext context, int index) {
     context.read<AddPlaceInteractor>().deletePhoto(index);
   }
 }

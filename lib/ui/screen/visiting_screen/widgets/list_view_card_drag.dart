@@ -16,8 +16,8 @@ class ListViewCardDrag extends StatelessWidget {
   }) : super(key: key);
 
   @override
-  Widget build(final BuildContext context) => DragTarget<int>(
-        onAccept: (final data) {
+  Widget build(BuildContext context) => DragTarget<int>(
+        onAccept: (data) {
           context.read<VisitingInteractor>().sortedPlaceWantVisit(data, index);
         },
         builder: (

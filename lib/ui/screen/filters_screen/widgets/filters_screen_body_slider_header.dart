@@ -13,9 +13,9 @@ class FiltersScreenBodySliderHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<FiltersScreenInteractor>(
       builder: (
-        final context,
-        final cart,
-        final child,
+        context,
+        cart,
+        child,
       ) =>
           Padding(
         padding: const EdgeInsets.all(paddingPage),

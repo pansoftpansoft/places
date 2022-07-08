@@ -12,7 +12,7 @@ class BottomSheetOnboarding extends StatelessWidget {
   }) : super(key: key);
 
   @override
-  Widget build(final BuildContext context) {
+  Widget build(BuildContext context) {
     debugPrint(
       '${OnboardingScreenInteractor.numberPage} '
       '${context.read<OnboardingScreenInteractor>().fileName}',

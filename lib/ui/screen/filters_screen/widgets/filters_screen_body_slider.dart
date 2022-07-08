@@ -27,11 +27,11 @@ class _FiltersScreenBodySliderState extends State<FiltersScreenBodySlider> {
         min: 100,
         max: 10000,
         values: FiltersScreenInteractor.rangeDistance,
-        onChanged: (final newRange) {
+        onChanged: (newRange) {
           //Без определения этого свойства, бегунки не активны
           _onChange(context, newRange);
         },
-        onChangeEnd: (final newRange) {
+        onChangeEnd: (newRange) {
           _onChangeEnd(context, newRange);
         },
         labels: RangeLabels(
