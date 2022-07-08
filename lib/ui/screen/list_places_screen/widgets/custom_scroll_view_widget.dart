@@ -43,8 +43,8 @@ class CustomScrollViewWidget extends StatelessWidget {
         SliverList(
           delegate: SliverChildBuilderDelegate(
             (
-              final context,
-              final index,
+              context,
+              index,
             ) {
               debugPrint(
                 ' mocksFiltered[$index].isFavorites = '

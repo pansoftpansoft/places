@@ -23,7 +23,7 @@ class TextButtonSmall extends StatelessWidget {
   }) : super(key: key);
 
   @override
-  Widget build(final BuildContext context) {
+  Widget build(BuildContext context) {
     //debugPrint('Это кнопка "$title"; Виджет $TextButtonSmall $VoidCallback');
 
     //debugPrint('AppModel().themeColor ${AppModel().themeColor}');

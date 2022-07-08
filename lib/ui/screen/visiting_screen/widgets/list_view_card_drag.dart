@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:places/ui/screen/visiting_screen/models/visiting_model.dart';
+import 'package:places/data/interactor/visiting_interactor.dart';
 import 'package:places/ui/screen/visiting_screen/widgets/card_place_drag.dart';
 import 'package:places/ui/screen/visiting_screen/widgets/list_view_card_drag_card.dart';
 import 'package:provider/provider.dart';
@@ -16,9 +16,9 @@ class ListViewCardDrag extends StatelessWidget {
   }) : super(key: key);
 
   @override
-  Widget build(final BuildContext context) => DragTarget<int>(
-        onAccept: (final data) {
-          context.read<VisitingModel>().sortedPlaceWantVisit(data, index);
+  Widget build(BuildContext context) => DragTarget<int>(
+        onAccept: (data) {
+          context.read<VisitingInteractor>().sortedPlaceWantVisit(data, index);
         },
         builder: (
           final context,

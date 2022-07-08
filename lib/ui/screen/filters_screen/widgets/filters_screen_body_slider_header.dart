@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:places/data/interactor/filters_screen_interactor.dart';
 import 'package:places/ui/res/labels.dart';
 import 'package:places/ui/res/sizes.dart';
-import 'package:places/ui/screen/filters_screen/model/filters_screen_model.dart';
 import 'package:provider/provider.dart';
 
 class FiltersScreenBodySliderHeader extends StatelessWidget {
@@ -11,11 +11,11 @@ class FiltersScreenBodySliderHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<FiltersScreenModel>(
+    return Consumer<FiltersScreenInteractor>(
       builder: (
-        final context,
-        final cart,
-        final child,
+        context,
+        cart,
+        child,
       ) =>
           Padding(
         padding: const EdgeInsets.all(paddingPage),
@@ -25,9 +25,9 @@ class FiltersScreenBodySliderHeader extends StatelessWidget {
             const Text(distance),
             Text(
               '$from  '
-              '${FiltersScreenModel.rangeDistance.start.round().toString()}'
+              '${FiltersScreenInteractor.rangeDistance.start.round().toString()}'
               ' $toto '
-              '${FiltersScreenModel.rangeDistance.end.round().toString()}'
+              '${FiltersScreenInteractor.rangeDistance.end.round().toString()}'
               '$meters',
             ),
           ],

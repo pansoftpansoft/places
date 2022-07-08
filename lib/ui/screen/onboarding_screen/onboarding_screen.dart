@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:places/data/interactor/onboarding_screen_interactor.dart';
 import 'package:places/ui/res/sizes.dart';
-import 'package:places/ui/screen/onboarding_screen/model/'
-    'onboarding_screen_model.dart';
 import 'package:places/ui/screen/onboarding_screen/widgets/'
     'bottom_sheet_onboarding.dart';
 import 'package:places/ui/screen/onboarding_screen/widgets/header_page.dart';
@@ -11,27 +10,27 @@ import 'package:provider/provider.dart';
 ///Экран Onboarding
 class OnboardingScreen extends StatelessWidget {
   ///Конструктор Onboarding
-  const OnboardingScreen({final Key? key}) : super(key: key);
+  const OnboardingScreen({Key? key}) : super(key: key);
 
   @override
-  Widget build(final BuildContext context) {
+  Widget build(BuildContext context) {
     // Проверяем онбординг был вызван из Settings
-    OnboardingScreenModel.callingFromSettings = (ModalRoute.of(context)
+    context.read<OnboardingScreenInteractor>().callingFromSettings = (ModalRoute.of(context)
         ?.settings
         .arguments as Map)['callingFromSettings'] as bool;
 
     // Устанавливаем начальные значения
-    OnboardingScreenModel.onPageChanged(0);
+    context.read<OnboardingScreenInteractor>().onPageChanged(0);
 
     // Подписываемся на pageControllerOnboardingScreen
-    OnboardingScreenModel.pageControllerOnboardingScreen.addListener(() {
-      if (OnboardingScreenModel.pageControllerOnboardingScreen.page!
+    context.read<OnboardingScreenInteractor>().pageControllerOnboardingScreen.addListener(() {
+      if (context.read<OnboardingScreenInteractor>().pageControllerOnboardingScreen.page!
               .roundToDouble() ==
-          OnboardingScreenModel.pageControllerOnboardingScreen.page) {
-        OnboardingScreenModel.onPageChanged(
-          OnboardingScreenModel.pageControllerOnboardingScreen.page,
+          context.read<OnboardingScreenInteractor>().pageControllerOnboardingScreen.page) {
+        context.read<OnboardingScreenInteractor>().onPageChanged(
+          context.read<OnboardingScreenInteractor>().pageControllerOnboardingScreen.page,
         );
-        context.read<OnboardingScreenModel>().notify();
+        context.read<OnboardingScreenInteractor>().notify();
       }
     });
 

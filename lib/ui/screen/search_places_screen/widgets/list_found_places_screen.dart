@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:places/data/interactor/search_screen_interactor.dart';
 import 'package:places/type_place.dart';
 import 'package:places/ui/res/sizes.dart';
-import 'package:places/ui/screen/search_places_screen/models/search_screen_model.dart';
 import 'package:places/ui/screen/search_places_screen/widgets/search_card_place.dart';
 import 'package:provider/provider.dart';
 
@@ -13,10 +13,10 @@ class ListFoundPlacesScreen extends StatelessWidget {
   }) : super(key: key);
 
   @override
-  Widget build(final BuildContext context) {
+  Widget build(BuildContext context) {
     debugPrint('100 ListOfFoundPlacesScreen ${mocksFiltered.length}');
 
-    return Consumer<SearchScreenModel>(builder: (
+    return Consumer<SearchScreenInteractor>(builder: (
       final context,
       final cart,
       final child,
@@ -24,7 +24,7 @@ class ListFoundPlacesScreen extends StatelessWidget {
       return ListView.separated(
         itemCount: mocksSearchText.length,
         shrinkWrap: true,
-        itemBuilder: (final context, final index) =>
+        itemBuilder: (context, index) =>
             SearchCardPlace(mocksSearchText[index]),
         separatorBuilder: (
           final context,

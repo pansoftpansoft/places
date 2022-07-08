@@ -9,10 +9,10 @@ import 'package:places/ui/screen/widgets/bottom_navigation/bottom_navigation.dar
 ///Экран настроек
 class SettingsScreen extends StatelessWidget {
   ///Конструктор
-  const SettingsScreen({final Key? key}) : super(key: key);
+  const SettingsScreen({Key? key}) : super(key: key);
 
   @override
-  Widget build(final BuildContext context) => Scaffold(
+  Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
           title: Text(
             settings,

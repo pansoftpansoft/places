@@ -13,7 +13,7 @@ class FloatingButton extends StatelessWidget {
   }) : super(key: key);
 
   @override
-  Widget build(final BuildContext context) => DecoratedBox(
+  Widget build(BuildContext context) => DecoratedBox(
         decoration: const BoxDecoration(
           gradient: LinearGradient(
             colors: <Color>[

@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:places/type_place.dart';
 
 ///Модель для добавления фотографий в карточку места
-class AddPlaceModel extends ChangeNotifier {
+class AddPlaceInteractor extends ChangeNotifier {
   /// Первое значение бронируем,
   /// так как это будет кнопка "Добавить", которую удалять нельзя
   TypePlace? selectTypePlace;
@@ -10,20 +10,21 @@ class AddPlaceModel extends ChangeNotifier {
   String? disableButton;
 
   ///Добавляем фотографию
-  void addPhoto(final String pathPhoto) {
-    debugPrint('tempPhotoPlace.add');
-    //TODO сделать добавление фотографий
+  void addPhoto(
+    String pathPhoto,
+  ) {
+    debugPrint('tempPhotoPlace.add $pathPhoto');
+
     //tempPhotoPlace.add(pathPhoto);
     notifyListeners();
   }
 
   ///Удаляем фотографию
-  void deletePhoto(final int index) {
+  void deletePhoto(int index) {
     if (index == 0) {
       return;
     } //Не удаляем кнопку добавить
 
-    //TODO сделать удаление фотографий
     // if (tempPhotoPlace.length == 1) {
     //   return;
     // } //Не удаляем кнопку добавить
@@ -37,13 +38,13 @@ class AddPlaceModel extends ChangeNotifier {
   }
 
   ///
-  void selectCategory(final TypePlace? changeSelect) {
+  void selectCategory(TypePlace? changeSelect) {
     selectTypePlace = changeSelect;
     notifyListeners();
   }
 
   ///Управление кнопкой создать
-  void disableButtonCreate(final String value) {
+  void disableButtonCreate(String value) {
     disableButton = value.isEmpty ? null : value;
     notifyListeners();
   }

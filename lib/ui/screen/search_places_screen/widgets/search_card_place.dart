@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:places/data/interactor/details_place_interactor.dart';
+import 'package:places/data/interactor/list_places_screen_interactor.dart';
+import 'package:places/data/interactor/search_screen_interactor.dart';
 import 'package:places/data/model/place.dart';
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/screen/details_place_screen/details_place_screen.dart';
-import 'package:places/ui/screen/details_place_screen/models/details_place_model.dart';
-import 'package:places/ui/screen/search_places_screen/models/search_screen_model.dart';
 import 'package:places/ui/screen/search_places_screen/widgets/search_card_place_text_span.dart';
 import 'package:provider/provider.dart';
 
@@ -24,13 +25,13 @@ class SearchCardPlace extends StatelessWidget {
   ///
   const SearchCardPlace(
     this.place, {
-    final Key? key,
+    Key? key,
     this.goNeed = '',
     this.goal = '',
   }) : super(key: key);
 
   @override
-  Widget build(final BuildContext context) => InkWell(
+  Widget build(BuildContext context) => InkWell(
         onTap: () {
           _onTap(context);
         },
@@ -55,17 +56,17 @@ class SearchCardPlace extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 0, width: 16),
-              SearchCardPlaceTextSpan(place, SearchScreenModel.searchString),
+              SearchCardPlaceTextSpan(place, context.read<SearchScreenInteractor>().searchString),
             ],
           ),
         ),
       );
 
   Future<void> _onTap(BuildContext context) async {
-    await context.read<DetailsPlaceModel>().getPlace(place.id).then(
+    await context.read<DetailsPlaceInteractor>().getPlace(place.id, context.read<ListPlacesScreenInteractor>().streamControllerListPlace).then(
           (value) => showModalBottomSheet<Widget>(
             context: context,
-            builder: (final _) => const DetailsPlaceScreen(),
+            builder: (_) => const DetailsPlaceScreen(),
             isScrollControlled: true,
             isDismissible: true,
             useRootNavigator: true,

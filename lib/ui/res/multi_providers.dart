@@ -1,39 +1,39 @@
 import 'package:flutter/material.dart';
+import 'package:places/data/interactor/add_place_interactor.dart';
+import 'package:places/data/interactor/details_place_interactor.dart';
+import 'package:places/data/interactor/filters_screen_interactor.dart';
+import 'package:places/data/interactor/list_places_screen_interactor.dart';
+import 'package:places/data/interactor/onboarding_screen_interactor.dart';
+import 'package:places/data/interactor/search_screen_interactor.dart';
+import 'package:places/data/interactor/visiting_interactor.dart';
 import 'package:places/data/model/app_model.dart';
-import 'package:places/ui/screen/add_place_screen/models/add_place_model.dart';
-import 'package:places/ui/screen/details_place_screen/models/details_place_model.dart';
-import 'package:places/ui/screen/filters_screen/model/filters_screen_model.dart';
-import 'package:places/ui/screen/list_places_screen/models/list_places_screen_model.dart';
-import 'package:places/ui/screen/onboarding_screen/model/onboarding_screen_model.dart';
-import 'package:places/ui/screen/search_places_screen/models/search_screen_model.dart';
-import 'package:places/ui/screen/visiting_screen/models/visiting_model.dart';
 import 'package:provider/provider.dart';
 
 /// Список подключенных провадеров
 List<ChangeNotifierProvider<ChangeNotifier>> listMultiProviders =
     <ChangeNotifierProvider<ChangeNotifier>>[
   ChangeNotifierProvider<AppModel>(
-    create: (final context) => AppModel(),
+    create: (context) => AppModel(),
   ),
-  ChangeNotifierProvider<SearchScreenModel>(
-    create: (final context) => SearchScreenModel(),
+  ChangeNotifierProvider<SearchScreenInteractor>(
+    create: (context) => SearchScreenInteractor(),
   ),
-  ChangeNotifierProvider<VisitingModel>(
-    create: (final context) => VisitingModel(),
+  ChangeNotifierProvider<VisitingInteractor>(
+    create: (context) => VisitingInteractor(),
   ),
-  ChangeNotifierProvider<AddPlaceModel>(
-    create: (final context) => AddPlaceModel(),
+  ChangeNotifierProvider<AddPlaceInteractor>(
+    create: (context) => AddPlaceInteractor(),
   ),
-  ChangeNotifierProvider<DetailsPlaceModel>(
-    create: (final context) => DetailsPlaceModel(),
+  ChangeNotifierProvider<DetailsPlaceInteractor>(
+    create: (context) => DetailsPlaceInteractor(),
   ),
-  ChangeNotifierProvider<ListPlacesScreenModel>(
-    create: (final context) => ListPlacesScreenModel(),
+  ChangeNotifierProvider<ListPlacesScreenInteractor>(
+    create: (context) => ListPlacesScreenInteractor(),
   ),
-  ChangeNotifierProvider<OnboardingScreenModel>(
-    create: (final context) => OnboardingScreenModel(),
+  ChangeNotifierProvider<OnboardingScreenInteractor>(
+    create: (context) => OnboardingScreenInteractor(),
   ),
-  ChangeNotifierProvider<FiltersScreenModel>(
-    create: (final context) => FiltersScreenModel(),
+  ChangeNotifierProvider<FiltersScreenInteractor>(
+    create: (context) => FiltersScreenInteractor(),
   ),
 ];

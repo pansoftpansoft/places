@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:places/data/interactor/list_places_screen_interactor.dart';
+import 'package:places/data/interactor/visiting_interactor.dart';
 import 'package:places/type_place.dart';
-import 'package:places/ui/screen/visiting_screen/models/visiting_model.dart';
 import 'package:places/ui/screen/visiting_screen/widgets/background_dismissible.dart';
 import 'package:places/ui/screen/visiting_screen/widgets/card_place_drag.dart';
 import 'package:provider/provider.dart';
@@ -17,7 +18,7 @@ class ListViewCardDragCard extends StatelessWidget {
       children: [
         const BackgroundDismissible(),
         Dismissible(
-          onDismissed: (final direction) {
+          onDismissed: (direction) {
             _onDismissed(context);
           },
           key: UniqueKey(),
@@ -28,8 +29,9 @@ class ListViewCardDragCard extends StatelessWidget {
   }
 
   void _onDismissed(BuildContext context) {
-    context.read<VisitingModel>().deletePlaceWantVisit(
+    context.read<VisitingInteractor>().deletePlaceWantVisit(
           mocksWantVisit[index],
+          context.read<ListPlacesScreenInteractor>().streamControllerListPlace,
         );
   }
 }

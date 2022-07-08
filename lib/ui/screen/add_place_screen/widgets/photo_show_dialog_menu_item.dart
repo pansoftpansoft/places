@@ -19,7 +19,7 @@ class PhotoShowDialogMenuItem extends StatelessWidget {
   }) : super(key: key);
 
   @override
-  Widget build(final BuildContext context) => Row(
+  Widget build(BuildContext context) => Row(
         children: <Widget>[
           SvgPicture.asset(
             svgIcons,

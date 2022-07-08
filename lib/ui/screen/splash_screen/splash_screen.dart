@@ -1,15 +1,16 @@
 import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:places/data/interactor/filters_screen_interactor.dart';
+import 'package:places/data/interactor/search_screen_interactor.dart';
 import 'package:places/ui/res/color_palette.dart';
 import 'package:places/ui/res/img.dart';
 import 'package:places/ui/res/route_name.dart';
-import 'package:places/ui/screen/filters_screen/model/filters_screen_model.dart';
-import 'package:places/ui/screen/search_places_screen/models/search_screen_model.dart';
 
 /// Экран затавка при загрузке приложения
 class SplashScreen extends StatefulWidget {
   ///
-  const SplashScreen({final Key? key}) : super(key: key);
+  const SplashScreen({Key? key}) : super(key: key);
 
   @override
   SplashScreenState createState() => SplashScreenState();
@@ -32,7 +33,7 @@ class SplashScreenState extends State<SplashScreen> {
   }
 
   @override
-  Widget build(final BuildContext context) => DecoratedBox(
+  Widget build(BuildContext context) => DecoratedBox(
         decoration: const BoxDecoration(
           gradient: LinearGradient(
             colors: <Color>[
@@ -65,14 +66,14 @@ class SplashScreenState extends State<SplashScreen> {
   Future<void> getNetData() async {
     debugPrint('Запустилась GetNetData().');
 
-    await SearchScreenModel.getListHistory();
-    await FiltersScreenModel.getFilterSettings();
+    await SearchScreenInteractor.getListHistory();
+    await FiltersScreenInteractor.getFilterSettings();
 
     debugPrint('Завершилась GetNetData().');
   }
 
   /// Запуск анимации на заставке
-  Future<void> startAnimation(final int numberCycle) async {
+  Future<void> startAnimation(int numberCycle) async {
     debugPrint('Анимация запустилась $numberCycle раз.');
     await Future.delayed(const Duration(seconds: 1), () {
       debugPrint('Ждем две секунды!');

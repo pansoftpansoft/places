@@ -15,7 +15,7 @@ class ListPlacesScreenAppBar extends StatelessWidget {
   }) : super(key: key);
 
   @override
-  Widget build(final BuildContext context) => AppBar(
+  Widget build(BuildContext context) => AppBar(
         titleSpacing: 0,
         toolbarHeight: 100,
         centerTitle: false,

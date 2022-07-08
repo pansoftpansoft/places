@@ -10,7 +10,7 @@ class DividerOpacity extends StatelessWidget {
   }) : super(key: key);
 
   @override
-  Widget build(final BuildContext context) => const Opacity(
+  Widget build(BuildContext context) => const Opacity(
         opacity: opacityText,
         child: Divider(
           color: ColorPalette.lmTabBarUnSelect,

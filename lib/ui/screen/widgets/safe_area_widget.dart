@@ -10,7 +10,7 @@ class SafeAreaWidget extends StatelessWidget {
   }) : super(key: key);
 
   @override
-  Widget build(final BuildContext context) => Column(
+  Widget build(BuildContext context) => Column(
     children: <Widget>[
       SvgPicture.asset(
         SvgIcons.errorIcon,

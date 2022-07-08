@@ -8,12 +8,12 @@ class TitleAppBigOrSmall extends StatelessWidget {
 
   ///Конструктор
   const TitleAppBigOrSmall({
-    final Key? key,
+    Key? key,
     this.small = false,
   }) : super(key: key);
 
   @override
-  Widget build(final BuildContext context) => small
+  Widget build(BuildContext context) => small
       ? Text(
           listInterestingPlaces,
           textAlign: TextAlign.center,

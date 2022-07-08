@@ -36,13 +36,13 @@ void main() {
 class Main extends StatelessWidget {
   /// Конструктор
   const Main({
-    final Key? key,
+    Key? key,
   }) : super(key: key);
 
   @override
-  Widget build(final BuildContext context) => MaterialApp(
+  Widget build(BuildContext context) => MaterialApp(
         theme: context.select<AppModel, ThemeData>(
-          (final a) => themeColor,
+          (a) => themeColor,
         ),
         title: 'Задача  8.2',
         routes: mapRoutes,

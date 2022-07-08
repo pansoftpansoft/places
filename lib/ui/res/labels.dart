@@ -87,7 +87,7 @@ const details = '''
                         Московского дома. 
                     ''';
 
-String typePlaceString(final TypePlace enumString) {
+String typePlaceString(TypePlace enumString) {
   switch (enumString) {
     case TypePlace.hotel:
       {

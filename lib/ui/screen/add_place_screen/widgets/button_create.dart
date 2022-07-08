@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:places/data/interactor/add_place_interactor.dart';
 import 'package:places/data/model/place.dart';
 import 'package:places/type_place.dart';
 import 'package:places/ui/res/labels.dart';
 import 'package:places/ui/res/route_name.dart';
-import 'package:places/ui/screen/add_place_screen/models/add_place_model.dart';
 import 'package:places/ui/screen/add_place_screen/widgets/show_alert_add.dart';
 import 'package:places/ui/screen/widgets/elevated_button_green_big.dart';
 import 'package:provider/provider.dart';
@@ -16,7 +16,7 @@ class ButtonCreate extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<AddPlaceModel>(
+    return Consumer<AddPlaceInteractor>(
       builder: (
         final context,
         final place,
@@ -24,7 +24,7 @@ class ButtonCreate extends StatelessWidget {
       ) =>
           ElevatedButtonGreenBig(
         title: create.toUpperCase(),
-        onPressed: context.read<AddPlaceModel>().disableButton == null
+        onPressed: context.read<AddPlaceInteractor>().disableButton == null
             ? null
             : () {
                 _addPlace(context);
@@ -52,7 +52,7 @@ class ButtonCreate extends StatelessWidget {
     Future(() async {
       await showDialog<void>(
         context: context,
-        builder: (final context) => const ShowAlertAdd(),
+        builder: (context) => const ShowAlertAdd(),
       ).then((value) {
         _onPress(context);
       });
@@ -61,7 +61,7 @@ class ButtonCreate extends StatelessWidget {
 
   ///Обработка кнопки предупреждения что добавляется новое место или ошибка
   void _onPress(BuildContext context) {
-    context.read<AddPlaceModel>().disableButton = null;
+    context.read<AddPlaceInteractor>().disableButton = null;
     Navigator.pushReplacementNamed(
       context,
       RouteName.listPlacesScreen,

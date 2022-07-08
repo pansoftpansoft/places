@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:places/data/interactor/filters_screen_interactor.dart';
+import 'package:places/data/interactor/list_places_screen_interactor.dart';
 import 'package:places/data/model/place_type.dart';
 import 'package:places/ui/res/color_palette.dart';
-import 'package:places/ui/screen/filters_screen/model/filters_screen_model.dart';
 import 'package:places/ui/screen/filters_screen/widgets/category_icon_tick_choice.dart';
 import 'package:provider/provider.dart';
 
@@ -49,10 +50,15 @@ class _CategoryIconSvgIconState extends State<CategoryIconSvgIcon> {
   }
 
   void _onPressed() {
-    context.read<FiltersScreenModel>().setTypePlaceSelected(
+    context.read<FiltersScreenInteractor>().setTypePlaceSelected(
           widget.placeType.namePlaceDB,
         );
-    context.read<FiltersScreenModel>().getDataFromRepository().then((value) =>
-        context.read<FiltersScreenModel>().notifyListenersFiltersScreen());
+    context
+        .read<FiltersScreenInteractor>()
+        .getDataFromRepository(
+          context.read<ListPlacesScreenInteractor>().streamControllerListPlace,
+        )
+        .then((value) =>
+            context.read<FiltersScreenInteractor>().notifyListenersFiltersScreen());
   }
 }

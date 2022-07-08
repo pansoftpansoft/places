@@ -11,7 +11,7 @@ class BottomSheetCreateButton extends StatelessWidget {
 
   ///
   @override
-  Widget build(final BuildContext context) => Container(
+  Widget build(BuildContext context) => Container(
         color: Theme.of(context).backgroundColor,
         child: Padding(
           padding: const EdgeInsets.symmetric(

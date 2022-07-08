@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:places/data/interactor/onboarding_screen_interactor.dart';
 import 'package:places/ui/res/sizes.dart';
-import 'package:places/ui/screen/onboarding_screen/model/onboarding_screen_model.dart';
 import 'package:places/ui/screen/onboarding_screen/widgets/footer_page_button_start.dart';
 import 'package:places/ui/screen/onboarding_screen/widgets/row_widget.dart';
 import 'package:provider/provider.dart';
@@ -12,12 +12,13 @@ class BottomSheetOnboarding extends StatelessWidget {
   }) : super(key: key);
 
   @override
-  Widget build(final BuildContext context) {
+  Widget build(BuildContext context) {
     debugPrint(
-      '${OnboardingScreenModel.numberPage} ${OnboardingScreenModel.fileName}',
+      '${OnboardingScreenInteractor.numberPage} '
+      '${context.read<OnboardingScreenInteractor>().fileName}',
     );
 
-    return Consumer<OnboardingScreenModel>(
+    return Consumer<OnboardingScreenInteractor>(
       builder: (
         final context,
         final cart,
@@ -34,7 +35,7 @@ class BottomSheetOnboarding extends StatelessWidget {
             const RowWidget(),
             const SizedBox(height: heightSizeBox12),
             FooterPageButtonStart(
-              buttonOnStartVisible: OnboardingScreenModel.buttonOnVisible,
+              buttonOnStartVisible: OnboardingScreenInteractor.buttonOnVisible,
             ),
           ],
         ),

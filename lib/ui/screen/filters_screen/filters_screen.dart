@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:places/ui/screen/filters_screen/model/filters_screen_model.dart';
+import 'package:places/data/interactor/filters_screen_interactor.dart';
+import 'package:places/data/interactor/list_places_screen_interactor.dart';
 import 'package:places/ui/screen/filters_screen/widgets/app_bar_title.dart';
 import 'package:places/ui/screen/filters_screen/widgets/bottom_sheet_button_show.dart';
 import 'package:places/ui/screen/filters_screen/widgets/filters_screen_body.dart';
@@ -8,10 +9,10 @@ import 'package:provider/provider.dart';
 ///Экран фильтров
 class FiltersScreen extends StatelessWidget {
   ///Конструктор
-  const FiltersScreen({final Key? key}) : super(key: key);
+  const FiltersScreen({Key? key}) : super(key: key);
 
   @override
-  Widget build(final BuildContext context) {
+  Widget build(BuildContext context) {
     loadSettings(context);
 
     return Scaffold(
@@ -27,5 +28,5 @@ class FiltersScreen extends StatelessWidget {
 }
 
 Future<void> loadSettings(BuildContext context) async {
-  await context.read<FiltersScreenModel>().getDataFromRepository();
+  await context.read<FiltersScreenInteractor>().getDataFromRepository(context.read<ListPlacesScreenInteractor>().streamControllerListPlace);
 }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:places/data/interactor/onboarding_screen_interactor.dart';
 import 'package:places/ui/res/labels.dart';
 import 'package:places/ui/res/route_name.dart';
-import 'package:places/ui/screen/onboarding_screen/model/onboarding_screen_model.dart';
 import 'package:places/ui/screen/widgets/text_button_green_text.dart';
 import 'package:provider/provider.dart';
 
@@ -12,8 +12,8 @@ class HeaderPage extends StatelessWidget {
   }) : super(key: key);
 
   @override
-  Widget build(final BuildContext context) {
-    return Consumer<OnboardingScreenModel>(
+  Widget build(BuildContext context) {
+    return Consumer<OnboardingScreenInteractor>(
       builder: (
         final context,
         final cart,
@@ -24,11 +24,13 @@ class HeaderPage extends StatelessWidget {
           children: [
             const SizedBox(height: 110),
             Visibility(
-              visible: !OnboardingScreenModel.buttonOnVisible,
+              visible: !OnboardingScreenInteractor.buttonOnVisible,
               child: TextButtonGreenText(
                 title: skip,
                 onPressed: () {
-                  if (OnboardingScreenModel.callingFromSettings) {
+                  if (context
+                      .read<OnboardingScreenInteractor>()
+                      .callingFromSettings) {
                     Navigator.pop(context);
                   } else {
                     Navigator.pushReplacementNamed(

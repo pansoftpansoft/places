@@ -6,10 +6,10 @@ import 'package:places/ui/screen/add_place_screen/widgets/photo_show_dialog_menu
 ///Диалог выбора от куда загружать фотки
 class PhotoShowDialog extends StatelessWidget {
   ///Диалог выбора от куда загружать фотки
-  const PhotoShowDialog({final Key? key}) : super(key: key);
+  const PhotoShowDialog({Key? key}) : super(key: key);
 
   @override
-  Widget build(final BuildContext context) => AlertDialog(
+  Widget build(BuildContext context) => AlertDialog(
         elevation: 0,
         insetPadding: EdgeInsets.zero,
         backgroundColor: Colors.transparent,

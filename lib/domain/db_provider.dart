@@ -37,7 +37,7 @@ class DBProvider {
   DBProvider._();
 
   /// Удалить поисковый запрос из истории поиска
-  static Future<int> deleteHistory(final String historyText) async {
+  static Future<int> deleteHistory(String historyText) async {
     _database = await database;
     final res = await _database!.delete(
       'history',
@@ -60,7 +60,7 @@ class DBProvider {
     return openDatabase(
       path,
       version: 10,
-      onOpen: (final db) async {
+      onOpen: (db) async {
         debugPrint('Открать базу данных');
       },
       onCreate: (
@@ -70,7 +70,7 @@ class DBProvider {
         debugPrint('Создать базу данных');
         await onCreate(database);
       },
-      onUpgrade: (final database, final oldVersion, final newVersion) async {
+      onUpgrade: (database, oldVersion, newVersion) async {
         debugPrint('Обновить базу данных');
         await onCreate(database);
       },
@@ -124,7 +124,7 @@ class DBProvider {
 
   ///--------------------------------------------------------------
   /// Добавить, в список историй поиска, новый поисковый запрос
-  Future<int> addHistory(final String historyText) async {
+  Future<int> addHistory(String historyText) async {
     if (historyText.isEmpty) {
       return 0;
     }

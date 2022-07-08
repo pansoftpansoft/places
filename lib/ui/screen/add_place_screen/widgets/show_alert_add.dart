@@ -5,10 +5,10 @@ import 'package:places/ui/screen/add_place_screen/widgets/alert_dialog_ok_button
 
 class ShowAlertAdd extends StatelessWidget {
   ///Диалог выбора от куда загружать фотки
-  const ShowAlertAdd({final Key? key}) : super(key: key);
+  const ShowAlertAdd({Key? key}) : super(key: key);
 
   @override
-  Widget build(final BuildContext context) => AlertDialog(
+  Widget build(BuildContext context) => AlertDialog(
         elevation: 0,
         insetPadding: EdgeInsets.zero,
         backgroundColor: Colors.transparent,
@@ -40,7 +40,7 @@ class ShowAlertAdd extends StatelessWidget {
         ),
       );
 
-  BoxDecoration _buildBoxDecoration(final BuildContext context) {
+  BoxDecoration _buildBoxDecoration(BuildContext context) {
 
     return BoxDecoration(
       color: Theme.of(context).backgroundColor,

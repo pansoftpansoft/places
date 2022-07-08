@@ -10,7 +10,7 @@ class AddPlaceAppBar extends StatelessWidget {
   }) : super(key: key);
 
   @override
-  Widget build(final BuildContext context) => AppBar(
+  Widget build(BuildContext context) => AppBar(
         automaticallyImplyLeading: false,
         centerTitle: false,
         title: Padding(

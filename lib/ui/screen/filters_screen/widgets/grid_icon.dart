@@ -7,11 +7,11 @@ import 'package:places/ui/screen/filters_screen/widgets/category_icon.dart';
 class GridIcon extends StatelessWidget {
   ///
   const GridIcon({
-    final Key? key,
+    Key? key,
   }) : super(key: key);
 
   @override
-  Widget build(final BuildContext context) {
+  Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
 
     final typePlaceList = <Widget>[

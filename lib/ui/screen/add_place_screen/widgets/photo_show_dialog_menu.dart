@@ -8,11 +8,11 @@ import 'package:places/ui/screen/add_place_screen/widgets/photo_show_dialog_menu
 class PhotoShowDialogMenu extends StatelessWidget {
   ///Меню в диалоговом окне при добавлении фотографий
   const PhotoShowDialogMenu({
-    final Key? key,
+    Key? key,
   }) : super(key: key);
 
   @override
-  Widget build(final BuildContext context) => Container(
+  Widget build(BuildContext context) => Container(
         padding: const EdgeInsets.symmetric(
           horizontal: paddingPage / 2,
           vertical: paddingPage,
@@ -33,7 +33,7 @@ class PhotoShowDialogMenu extends StatelessWidget {
         ),
       );
 
-  BoxDecoration _buildBoxDecoration(final BuildContext context) {
+  BoxDecoration _buildBoxDecoration(BuildContext context) {
     return BoxDecoration(
       color: Theme.of(context).backgroundColor,
       borderRadius: const BorderRadius.all(Radius.circular(borderRadiusCard16)),

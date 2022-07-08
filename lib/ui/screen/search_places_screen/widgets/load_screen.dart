@@ -8,7 +8,7 @@ class LoadScreen extends StatelessWidget {
   }) : super(key: key);
 
   @override
-  Widget build(final BuildContext context) => Container(
+  Widget build(BuildContext context) => Container(
     alignment: Alignment.center,
     child: const CircularProgressIndicator(),
   );

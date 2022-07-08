@@ -4,27 +4,30 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:places/data/interactor/place_interactor.dart';
+import 'package:places/data/model/place.dart';
 import 'package:places/domain/db_provider.dart';
 import 'package:places/domain/history.dart';
 import 'package:places/type_place.dart';
 
 ///Модель для поиска
-class SearchScreenModel extends ChangeNotifier {
+class SearchScreenInteractor extends ChangeNotifier {
   ///Список истории поисковых запросов
   static List<History> listHistory = <History>[];
-
-  ///
-  static ScreenEnum? selectedScreen;
 
   ///Контроллер поля поиска
   static TextEditingController textEditingControllerFind =
       TextEditingController();
 
-  static String _searchString = '';
-
+  ///
   final bool _errorTest = false;
 
-  static String get searchString => _searchString;
+  PlaceInteractor placeInteractor = PlaceInteractor();
+
+  ScreenEnum? selectedScreen;
+
+  String get searchString => _searchString;
+
+  String _searchString = '';
 
   ///Получаем список историй поиска
   static Future<int> getListHistory() async {
@@ -52,10 +55,12 @@ class SearchScreenModel extends ChangeNotifier {
     return _errorTest;
   }
 
-  Future<void> getListSearchText() async {
+  Future<void> getListSearchText(
+      StreamController<Place> streamControllerListPlace,) async {
     mocksSearchText.clear();
     if (_searchString.isNotEmpty) {
-      mocksSearchText = (await PlaceInteractor.getPlacesInteractor(
+      mocksSearchText = (await placeInteractor.getPlacesInteractor(
+        streamControllerListPlace: streamControllerListPlace,
         searchString: _searchString,
       ))!;
     }
@@ -90,15 +95,15 @@ class SearchScreenModel extends ChangeNotifier {
   }
 
   ///Устанавливаем строку поиска
-  void setSearchText(final String searchString) {
+  void setSearchText(String searchString) {
     mocksSearchText.clear();
     if (searchString == '') {
       _searchString = '';
-      SearchScreenModel.textEditingControllerFind.clear();
+      SearchScreenInteractor.textEditingControllerFind.clear();
     } else {
       _searchString = searchString;
 
-      SearchScreenModel.textEditingControllerFind.value = TextEditingValue(
+      SearchScreenInteractor.textEditingControllerFind.value = TextEditingValue(
         text: searchString,
         selection: TextSelection.fromPosition(
           TextPosition(offset: searchString.length),
@@ -109,7 +114,7 @@ class SearchScreenModel extends ChangeNotifier {
 
   /// поиск мест по вводимому тексту при нажатии Enter
   ///c записью запроса в историю запросов
-  void searchPlaceForEnter(final String searchString) {
+  void searchPlaceForEnter(String searchString) {
     //Ищем текст
     setSearchText(searchString);
     //сохранить текст поиска
@@ -123,7 +128,7 @@ class SearchScreenModel extends ChangeNotifier {
   }
 
   ///Удаляю одну запись из истории поиска
-  Future<void> deleteHistory(final String historyText) async {
+  Future<void> deleteHistory(String historyText) async {
     await DBProvider.deleteHistory(historyText);
     await getListHistory(); //Обновляем список после удаления всей истории
     notifyListeners();
@@ -132,7 +137,7 @@ class SearchScreenModel extends ChangeNotifier {
   ///Здесь мы устанавливаем какой экран хотим получить и корректируем
   ///в зависимости от данных, выдавая
   ///пустые экраны или экраны с ошибкой
-  Future<void> managerSelectionScreen({final ScreenEnum? numberScreen}) async {
+  Future<void> managerSelectionScreen({ScreenEnum? numberScreen}) async {
     ///Если экран жестко задан
     debugPrint('managerSelectionScreen $numberScreen');
     if (numberScreen != null) {

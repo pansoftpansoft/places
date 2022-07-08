@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:places/data/interactor/add_place_interactor.dart';
 import 'package:places/type_place.dart';
-import 'package:places/ui/screen/add_place_screen/models/add_place_model.dart';
 import 'package:places/ui/screen/select_category/widgets/select_category_app_bar.dart';
 import 'package:places/ui/screen/select_category/widgets/select_category_bottom_sheet.dart';
 import 'package:places/ui/screen/select_category/widgets/select_category_list.dart';
@@ -16,7 +16,7 @@ class SelectCategory extends StatefulWidget {
 
   ///
   const SelectCategory({
-    final Key? key,
+    Key? key,
     this.typePlaceSelected,
     this.typePlaceSelectedActual,
   }) : super(key: key);
@@ -27,13 +27,13 @@ class SelectCategory extends StatefulWidget {
 
 class _SelectCategoryState extends State<SelectCategory> {
   @override
-  Widget build(final BuildContext context) {
+  Widget build(BuildContext context) {
     if (widget.typePlaceSelectedActual != null &&
         widget.typePlaceSelected == null) {
-      context.read<AddPlaceModel>().selectTypePlace =
+      context.read<AddPlaceInteractor>().selectTypePlace =
           widget.typePlaceSelectedActual;
     } else {
-      context.read<AddPlaceModel>().selectTypePlace = null;
+      context.read<AddPlaceInteractor>().selectTypePlace = null;
     }
 
     return Scaffold(

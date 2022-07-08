@@ -9,7 +9,7 @@ import 'package:places/ui/screen/widgets/bottom_navigation/bottom_navigation.dar
 ///места которые хочешь посетить и которые уже посетил
 class VisitingScreen extends StatefulWidget {
   ///
-  const VisitingScreen({final Key? key}) : super(key: key);
+  const VisitingScreen({Key? key}) : super(key: key);
 
   @override
   VisitingScreenState createState() => VisitingScreenState();
@@ -23,7 +23,7 @@ class VisitingScreenState extends State<VisitingScreen> {
   }
 
   @override
-  Widget build(final BuildContext context) => DefaultTabController(
+  Widget build(BuildContext context) => DefaultTabController(
         length: 2,
         child: Scaffold(
           appBar: const PreferredSize(

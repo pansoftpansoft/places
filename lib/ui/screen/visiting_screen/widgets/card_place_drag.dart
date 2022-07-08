@@ -3,11 +3,12 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:places/data/interactor/details_place_interactor.dart';
+import 'package:places/data/interactor/list_places_screen_interactor.dart';
 import 'package:places/data/interactor/place_interactor.dart';
+import 'package:places/data/interactor/visiting_interactor.dart';
 import 'package:places/data/model/place.dart';
 import 'package:places/type_place.dart';
-import 'package:places/ui/screen/details_place_screen/models/details_place_model.dart';
-import 'package:places/ui/screen/visiting_screen/models/visiting_model.dart';
 import 'package:places/ui/screen/widgets/card_place/card_place.dart';
 import 'package:provider/provider.dart';
 
@@ -19,7 +20,7 @@ class CardPlaceDrag extends StatefulWidget {
   ///
   const CardPlaceDrag(
     this.index, {
-    final Key? key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -28,7 +29,7 @@ class CardPlaceDrag extends StatefulWidget {
 
 class _CardPlaceDragState extends State<CardPlaceDrag> {
   @override
-  Widget build(final BuildContext context) => CardPlace(
+  Widget build(BuildContext context) => CardPlace(
         mocksWantVisit[widget.index],
         goNeed: mocksWantVisit[widget.index].wantVisitDate == null
             ? 'Запланируйте дату для посещения'
@@ -79,6 +80,7 @@ class _CardPlaceDragState extends State<CardPlaceDrag> {
             mode: CupertinoDatePickerMode.date,
             use24hFormat: true,
             onDateTimeChanged: (newDate) {
+              // ignore: parameter_assignments
               dateTimeCupertino = newDate;
             },
           ),
@@ -90,12 +92,15 @@ class _CardPlaceDragState extends State<CardPlaceDrag> {
   }
 
   Future<void> updateContext(Place place, BuildContext context) async {
-    await PlaceInteractor.setFavorites(place);
+    await context.read<PlaceInteractor>().setFavorites(
+          place,
+          context.read<ListPlacesScreenInteractor>().streamControllerListPlace,
+        );
     debugPrint('Обновление контекстов при нажатии кнопки Добавить в фавориты');
     // ignore: use_build_context_synchronously
-    context.read<DetailsPlaceModel>().updateScreen();
+    context.read<DetailsPlaceInteractor>().updateScreen();
     // ignore: use_build_context_synchronously
-    context.read<VisitingModel>().updateScreen();
+    context.read<VisitingInteractor>().updateScreen();
   }
 
   void _actionOnDelete(BuildContext context, int index) {
@@ -105,7 +110,7 @@ class _CardPlaceDragState extends State<CardPlaceDrag> {
 
   void _actionOnSelectData(BuildContext context, DateTime dateTimeCupertino) {
     debugPrint(dateTimeCupertino.toString());
-    context.read<VisitingModel>().dateWantVisit(
+    context.read<VisitingInteractor>().dateWantVisit(
           widget.index,
           dateTimeCupertino,
         );
