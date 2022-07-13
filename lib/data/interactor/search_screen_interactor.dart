@@ -4,7 +4,6 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:places/data/interactor/place_interactor.dart';
-import 'package:places/data/model/place.dart';
 import 'package:places/domain/db_provider.dart';
 import 'package:places/domain/history.dart';
 import 'package:places/type_place.dart';
@@ -55,12 +54,10 @@ class SearchScreenInteractor extends ChangeNotifier {
     return _errorTest;
   }
 
-  Future<void> getListSearchText(
-      StreamController<Place> streamControllerListPlace,) async {
+  Future<void> getListSearchText() async {
     mocksSearchText.clear();
     if (_searchString.isNotEmpty) {
       mocksSearchText = (await placeInteractor.getPlacesInteractor(
-        streamControllerListPlace: streamControllerListPlace,
         searchString: _searchString,
       ))!;
     }

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:places/data/interactor/filters_screen_interactor.dart';
-import 'package:places/data/interactor/list_places_screen_interactor.dart';
 import 'package:places/ui/screen/filters_screen/widgets/app_bar_title.dart';
 import 'package:places/ui/screen/filters_screen/widgets/bottom_sheet_button_show.dart';
 import 'package:places/ui/screen/filters_screen/widgets/filters_screen_body.dart';
@@ -28,5 +27,5 @@ class FiltersScreen extends StatelessWidget {
 }
 
 Future<void> loadSettings(BuildContext context) async {
-  await context.read<FiltersScreenInteractor>().getDataFromRepository(context.read<ListPlacesScreenInteractor>().streamControllerListPlace);
+  await context.read<FiltersScreenInteractor>().getDataFromRepository();
 }

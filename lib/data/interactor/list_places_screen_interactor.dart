@@ -35,10 +35,7 @@ class ListPlacesScreenInteractor extends ChangeNotifier {
       category: FiltersScreenInteractor.listCategory.isEmpty
           ? null
           : FiltersScreenInteractor.listCategory,
-      streamControllerListPlace: streamControllerListPlace,
     );
-    await placeInteractor.getListWantVisitAndVisited(
-      streamControllerListPlace,
-    );
+    await placeInteractor.getListWantVisitAndVisited();
   }
 }

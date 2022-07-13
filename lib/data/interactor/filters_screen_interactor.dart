@@ -62,7 +62,6 @@ class FiltersScreenInteractor extends ChangeNotifier {
   Future<void> restoreFilterSettings() => getFilterSettings();
 
   Future<void> getDataFromRepository(
-    StreamController<Place> streamControllerListPlace,
   ) async {
     mocksSearchText.clear();
     listCategory = <String>[];
@@ -75,7 +74,6 @@ class FiltersScreenInteractor extends ChangeNotifier {
     mocksFiltered = await placeInteractor.getPlacesInteractor(
       radiusRange: rangeDistance,
       category: listCategory.isEmpty ? null : listCategory,
-      streamControllerListPlace: streamControllerListPlace,
     ) as List<Place>;
 
     debugPrint(' countPlace 3  = ${mocksFiltered.length}');

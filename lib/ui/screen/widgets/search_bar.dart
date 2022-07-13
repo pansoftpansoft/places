@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:places/data/interactor/filters_screen_interactor.dart';
-import 'package:places/data/interactor/list_places_screen_interactor.dart';
 import 'package:places/data/interactor/search_screen_interactor.dart';
 import 'package:places/domain/db_provider.dart';
 import 'package:places/type_place.dart';
@@ -79,9 +78,7 @@ class SearchBar extends StatelessWidget {
             );
       }
     } else {
-      context.read<FiltersScreenInteractor>().getDataFromRepository(
-            context.read<ListPlacesScreenInteractor>().streamControllerListPlace,
-          );
+      context.read<FiltersScreenInteractor>().getDataFromRepository();
     }
   }
 
@@ -102,9 +99,7 @@ class SearchBar extends StatelessWidget {
     } else {
       context.read<SearchScreenInteractor>()
         ..setSearchText(value)
-        ..getListSearchText(
-          context.read<ListPlacesScreenInteractor>().streamControllerListPlace,
-        )
+        ..getListSearchText()
         ..managerSelectionScreen(numberScreen: ScreenEnum.listFoundPlacesScreen)
         ..changeSearch();
     }
@@ -118,9 +113,7 @@ class SearchBar extends StatelessWidget {
       debugPrint('Обработка пробела в строке поиска');
       context.read<SearchScreenInteractor>()
         ..setSearchText(value)
-        ..getListSearchText(
-          context.read<ListPlacesScreenInteractor>().streamControllerListPlace,
-        )
+        ..getListSearchText()
         ..managerSelectionScreen(numberScreen: ScreenEnum.listFoundPlacesScreen)
         ..notifyListenersSearchScreen();
     }

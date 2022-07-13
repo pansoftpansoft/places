@@ -13,19 +13,20 @@ class VisitingInteractor extends ChangeNotifier {
   ///Удаление из мест которые хотел посетить
   Future<void> deletePlaceWantVisit(
     Place place,
-    StreamController<Place> streamControllerListPlace,
-  ) async {
-    await placeInteractor.setFavorites(place, streamControllerListPlace);
+      ) async {
+    await placeInteractor.setFavorites(
+      place,
+    );
     notifyListeners();
   }
 
   ///Удаление из мест которые уже посетил
   Future<void> deletePlaceVisited(
     Place place,
-    StreamController<Place> streamControllerListPlace,
   ) async {
     await placeInteractor.setStatusPlaceVisited(
-        place, streamControllerListPlace,);
+      place,
+    );
     notifyListeners();
   }
 

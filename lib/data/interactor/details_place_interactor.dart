@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:places/data/interactor/filters_screen_interactor.dart';
-import 'package:places/data/interactor/list_places_screen_interactor.dart';
 import 'package:places/data/interactor/place_interactor.dart';
 import 'package:places/data/interactor/visiting_interactor.dart';
 import 'package:places/data/model/place.dart';
@@ -43,10 +42,7 @@ class DetailsPlaceInteractor extends ChangeNotifier {
   void updateContext(Place place, BuildContext context) {
     context
         .read<PlaceInteractor>()
-        .setFavorites(
-          place,
-          context.read<ListPlacesScreenInteractor>().streamControllerListPlace,
-        )
+        .setFavorites(place)
         .then((value) {
       streamControllerDetailsPlace.sink.add(
         context.read<DetailsPlaceInteractor>().iconList[place.isFavorites ? 1 : 0],
