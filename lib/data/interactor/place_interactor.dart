@@ -16,13 +16,12 @@ class PlaceInteractor {
     RangeValues? radiusRange,
     List<String>? category,
     String? searchString,
-    required StreamController<Place> streamControllerListPlace,
+
   }) async {
     final mocksFromRepository = await placeRepository.getPlacesRepository(
       radiusRange: radiusRange,
       category: category,
       searchString: searchString,
-      streamControllerListPlace: streamControllerListPlace,
     );
     mocksFiltered = mocksFromRepository;
     debugPrint('Загрузку mocksFiltered завершене = ${mocksFiltered.length}');
@@ -40,7 +39,6 @@ class PlaceInteractor {
   /// Установка месту избранное или нет
   Future<void> setFavorites(
     Place place,
-    StreamController<Place> streamControllerListPlace,
   ) async {
     // Пробуем обновить место
 
@@ -74,15 +72,14 @@ class PlaceInteractor {
     debugPrint('place id = ${place.id} isFavorites = ${place.isFavorites}');
 
     mocksFiltered =
-        (await placeRepository.updateMocksFiltered(streamControllerListPlace))!;
-    await getListWantVisitAndVisited(streamControllerListPlace);
+        (await placeRepository.updateMocksFiltered())!;
+    await getListWantVisitAndVisited();
   }
 
   ///-----------------------------------------------
   /// Добавить место в посещенные
   Future<void> setStatusPlaceVisited(
     Place place,
-    StreamController<Place> streamControllerListPlace,
   ) async {
     place.visitedDate = place.visitedDate == null ? DateTime.now() : null;
 
@@ -106,14 +103,13 @@ class PlaceInteractor {
     }
     debugPrint('place id = ${place.id} isFavorites = ${place.visitedDate}');
 
-    await getListWantVisitAndVisited(streamControllerListPlace);
+    await getListWantVisitAndVisited();
   }
 
   Future<void> getListWantVisitAndVisited(
-    StreamController<Place> streamControllerListPlace,
   ) async {
     final listAllPlace =
-        await placeRepository.getAllPlace(streamControllerListPlace);
+        await placeRepository.getAllPlace();
     debugPrint('listAllPlace = ${listAllPlace.length}');
     mocksWantVisit = await placeRepository.getPlacesWantVisit(listAllPlace);
     debugPrint('mocksWantVisit = ${mocksWantVisit.length}');
@@ -133,6 +129,6 @@ class PlaceInteractor {
         element.visitedDate = DateTime.now();
       }
     }
-    await getListWantVisitAndVisited(streamControllerListPlace);
+    await getListWantVisitAndVisited();
   }
 }

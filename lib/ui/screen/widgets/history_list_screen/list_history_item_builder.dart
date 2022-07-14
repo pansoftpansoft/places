@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:places/data/interactor/list_places_screen_interactor.dart';
 import 'package:places/data/interactor/search_screen_interactor.dart';
 import 'package:places/type_place.dart';
 import 'package:places/ui/res/color_palette.dart';
@@ -91,9 +90,7 @@ class ListHistoryItemBuilder extends StatelessWidget {
       ..setSearchText(
         SearchScreenInteractor.listHistory[index].historyText,
       )
-      ..getListSearchText(
-        context.read<ListPlacesScreenInteractor>().streamControllerListPlace,
-      )
+      ..getListSearchText()
       ..managerSelectionScreen(numberScreen: ScreenEnum.listFoundPlacesScreen)
       ..changeSearch();
   }

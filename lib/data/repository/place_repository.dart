@@ -18,7 +18,7 @@ final repositoryMocks = <Place>[];
 
 ///--------------------------------------------------------------
 /// Слой получения данных
-class PlaceRepository {
+class PlaceRepository extends ChangeNotifier {
   /// ---------------------------------------------------------------
   /// Создать новое место на сервере
   Future<Response> postPlace(
@@ -39,7 +39,6 @@ class PlaceRepository {
   ///--------------------------------------------------------------
   /// Получаем список всех мест
   Future<List<Place>> getAllPlace(
-    StreamController<Place> streamControllerListPlace,
   ) async {
     try {
       final placesLocalData = await DBProvider.dbProvider.getPlacesLocal();
@@ -74,7 +73,7 @@ class PlaceRepository {
 
       return listPlaceAll;
     } on DioError catch (e) {
-      streamControllerListPlace.addError(NetworkException);
+      //streamControllerListPlace.addError(NetworkException);
       throw NetworkException(e);
     }
   }
@@ -85,24 +84,23 @@ class PlaceRepository {
     RangeValues? radiusRange,
     List<String>? category,
     String? searchString,
-    required StreamController<Place> streamControllerListPlace,
   }) async {
     placesDtoFilter = await getPlacesDto(
       radiusRange,
       category,
       searchString,
-      streamControllerListPlace,
     );
-    await createMocks(placesDtoFilter, streamControllerListPlace);
+    await createMocks(placesDtoFilter);
     debugPrint('repositoryMocks.length = ${repositoryMocks.length}');
+
+    mocksFiltered=repositoryMocks;
 
     return repositoryMocks;
   }
 
   Future<List<Place>?> updateMocksFiltered(
-    StreamController<Place> streamControllerListPlace,
   ) async {
-    await createMocks(placesDtoFilter, streamControllerListPlace);
+    await createMocks(placesDtoFilter);
 
     return repositoryMocks;
   }
@@ -126,9 +124,8 @@ class PlaceRepository {
 
   ///--------------------------------------------------------------
   /// получить объедененный список DTO и LOCAL
-  Future<Stream<Place>> createMocks(
+  Future<void> createMocks(
     List<PlaceDto> placesDto,
-    StreamController<Place> streamControllerListPlace,
   ) async {
     repositoryMocks.clear();
     final placesLocalData = await DBProvider.dbProvider.getPlacesLocal();
@@ -169,12 +166,9 @@ class PlaceRepository {
       );
       repositoryMocks.add(place);
       debugPrint('place.name = ${place.name}');
-      streamControllerListPlace.sink.add(
-        place,
-      );
     }
 
-    return streamControllerListPlace.stream;
+    return;
   }
 
   ///--------------------------------------------------------------
@@ -183,7 +177,6 @@ class PlaceRepository {
     RangeValues? radiusRange,
     List<String>? category,
     String? searchString,
-    StreamController<Place> streamControllerListPlace,
   ) async {
     try {
       // Создаем фильтр
@@ -208,7 +201,6 @@ class PlaceRepository {
 
       return placesDto;
     } on DioError catch (e) {
-      streamControllerListPlace.addError(NetworkException);
       throw NetworkException(e);
     }
   }
