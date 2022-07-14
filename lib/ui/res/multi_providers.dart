@@ -7,6 +7,7 @@ import 'package:places/data/interactor/onboarding_screen_interactor.dart';
 import 'package:places/data/interactor/search_screen_interactor.dart';
 import 'package:places/data/interactor/visiting_interactor.dart';
 import 'package:places/data/model/app_model.dart';
+import 'package:places/data/repository/place_repository.dart';
 import 'package:provider/provider.dart';
 
 /// Список подключенных провадеров
@@ -35,5 +36,8 @@ List<ChangeNotifierProvider<ChangeNotifier>> listMultiProviders =
   ),
   ChangeNotifierProvider<FiltersScreenInteractor>(
     create: (context) => FiltersScreenInteractor(),
+  ),
+  ChangeNotifierProvider<PlaceRepository>(
+    create: (context) => PlaceRepository(),
   ),
 ];
