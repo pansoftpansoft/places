@@ -4,6 +4,7 @@ import 'package:places/data/interactor/details_place_interactor.dart';
 import 'package:places/data/interactor/filters_screen_interactor.dart';
 import 'package:places/data/interactor/list_places_screen_interactor.dart';
 import 'package:places/data/interactor/onboarding_screen_interactor.dart';
+import 'package:places/data/interactor/place_interactor.dart';
 import 'package:places/data/interactor/search_screen_interactor.dart';
 import 'package:places/data/interactor/visiting_interactor.dart';
 import 'package:places/data/model/app_model.dart';
@@ -39,5 +40,8 @@ List<ChangeNotifierProvider<ChangeNotifier>> listMultiProviders =
   ),
   ChangeNotifierProvider<PlaceRepository>(
     create: (context) => PlaceRepository(),
+  ),
+  ChangeNotifierProvider<PlaceInteractor>(
+    create: (context) => PlaceInteractor(),
   ),
 ];

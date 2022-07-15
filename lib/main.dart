@@ -12,7 +12,6 @@ import 'package:provider/provider.dart';
 ThemeData themeColor = lightTheme;
 ApiClient apiClient = ApiClient();
 
-
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
 
