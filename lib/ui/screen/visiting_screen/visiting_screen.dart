@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:places/blocs/visiting_screen/visiting_screen_bloc.dart';
+import 'package:places/blocs/visiting_screen/visited_tab/visited_tab_bloc.dart';
+import 'package:places/blocs/visiting_screen/want_visit_tab/want_visit_tab_bloc.dart';
 import 'package:places/ui/res/img.dart';
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/screen/visiting_screen/widgets/app_bar_visiting.dart';
@@ -24,7 +25,8 @@ class _VisitingScreenState extends State<VisitingScreen> {
   void initState() {
     super.initState();
 
-    context.read<VisitingScreenBloc>().add(VisitingScreenLoad());
+    context.read<WantVisitTabBloc>().add(WantVisitTabLoad());
+    context.read<VisitedTabBloc>().add(VisitedTabLoad());
   }
 
   @override
@@ -40,9 +42,10 @@ class _VisitingScreenState extends State<VisitingScreen> {
             padding: const EdgeInsets.all(paddingPage),
             child: TabBarView(
               children: <Widget>[
-                BlocBuilder<VisitingScreenBloc, VisitingScreenState>(
+                BlocBuilder<WantVisitTabBloc, WantVisitTabState>(
                   builder: (context, state) {
-                    if (state is VisitingScreenLoadInSuccess) {
+                    if (state is WantVisitTabLoadInSuccess) {
+                      // ignore: prefer_const_constructors
                       return Tab1Widget();
                     }
 
@@ -59,7 +62,26 @@ class _VisitingScreenState extends State<VisitingScreen> {
                     );
                   },
                 ),
-                const Tab2Widget(),
+                BlocBuilder<VisitedTabBloc, VisitedTabState>(
+                  builder: (context, state) {
+                    if (state is VisitedTabLoadInSuccess) {
+                      // ignore: prefer_const_constructors
+                      return Tab2Widget();
+                    }
+
+                    return Padding(
+                      padding: const EdgeInsets.only(
+                        top: heightSizeBox12,
+                        bottom: iconSize29,
+                      ),
+                      child: Image.asset(
+                        ellipse107,
+                        height: iconSize29,
+                        width: iconSize29,
+                      ),
+                    );
+                  },
+                ),
               ],
             ),
           ),

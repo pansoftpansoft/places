@@ -5,48 +5,49 @@ import 'package:places/data/interactor/visiting_interactor.dart';
 import 'package:places/data/model/place.dart';
 import 'package:places/type_place.dart';
 
-part 'visiting_screen_event.dart';
+part 'visited_tab_event.dart';
 
-part 'visiting_screen_state.dart';
+part 'visited_tab_state.dart';
 
-class VisitingScreenBloc
-    extends Bloc<VisitingScreenEvent, VisitingScreenState> {
+
+class VisitedTabBloc
+    extends Bloc<VisitedTabEvent, VisitedTabState> {
   final VisitingInteractor visitingInteractor;
 
-  VisitingScreenBloc(this.visitingInteractor)
-      : super(VisitingScreenLoadInProgress()) {
+  VisitedTabBloc(this.visitingInteractor)
+      : super(VisitedTabLoadInProgress()) {
     ///Обработка события загрузка экрана
-    on<VisitingScreenLoad>(
+    on<VisitedTabLoad>(
       (event, emit) async {
-        await visitingScreenLoadCheck();
+        await visitedTabBLoadCheck();
       },
     );
 
-    ///Обработка события удаление меств из списка "Хочу посетить"
-    on<VisitingScreenRemovePlace>(
+    ///Обработка события удаление меств из списка "Посещенные"
+    on<VisitedTabEventRemovePlace>(
       (event, emit) async {
-        await visitingScreenRemovePlace(event);
+        await visitedTabRemovePlace(event);
       },
     );
   }
 
-  Future<void> visitingScreenLoadCheck() async {
-    emit(VisitingScreenLoadInProgress());
+  Future<void> visitedTabBLoadCheck() async {
+    emit(VisitedTabLoadInProgress());
     final future = visitingInteractor.getListWantVisitAndVisited();
     await future.whenComplete(
       () => emit(
-        VisitingScreenLoadInSuccess(mocksWantVisit),
+        VisitedTabLoadInSuccess(mocksVisited),
       ),
     );
   }
 
-  Future<void> visitingScreenRemovePlace(
-    VisitingScreenRemovePlace event,
+  Future<void> visitedTabRemovePlace(
+      VisitedTabEventRemovePlace event,
   ) async {
     final future = visitingInteractor.deletePlaceVisited(event.place);
     await future.whenComplete(
       () => emit(
-        VisitingScreenLoadInSuccess(mocksWantVisit),
+        VisitedTabLoadInSuccess(mocksVisited),
       ),
     );
   }

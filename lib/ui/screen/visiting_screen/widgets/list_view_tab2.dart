@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:places/data/interactor/visiting_interactor.dart';
+import 'package:places/blocs/visiting_screen/visited_tab/visited_tab_bloc.dart';
 import 'package:places/type_place.dart';
 import 'package:places/ui/screen/widgets/card_place/card_place.dart';
 import 'package:provider/provider.dart';
@@ -24,10 +24,14 @@ class ListViewTab2 extends StatelessWidget {
                   ' ${DateFormat.yMMMd().format(mocksVisited[index].visitedDate!)}',
           //key: ValueKey(mocksVisited[index].name),
           actionOnDelete: () {
-            context.read<VisitingInteractor>().deletePlaceVisited(
-                  mocksVisited[index],
-                );
+            _actionOnDelete(context, index);
           },
         ),
       );
+
+  void _actionOnDelete(BuildContext context, int index) {
+    context
+        .read<VisitedTabBloc>()
+        .add(VisitedTabEventRemovePlace(mocksVisited[index]));
+  }
 }
