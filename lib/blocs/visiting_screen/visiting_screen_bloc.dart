@@ -15,16 +15,39 @@ class VisitingScreenBloc
 
   VisitingScreenBloc(this.visitingInteractor)
       : super(VisitingScreenLoadInProgress()) {
-    on<VisitingScreenLoad>((event, emit) async {
-      await visitingScreenLoadCheck();
-    });
+    ///Обработка события загрузка экрана
+    on<VisitingScreenLoad>(
+      (event, emit) async {
+        await visitingScreenLoadCheck();
+      },
+    );
+
+    ///Обработка события удаление меств из списка "Хочу посетить"
+    on<VisitingScreenRemovePlace>(
+      (event, emit) async {
+        await visitingScreenRemovePlace(event);
+      },
+    );
   }
 
   Future<void> visitingScreenLoadCheck() async {
     emit(VisitingScreenLoadInProgress());
     final future = visitingInteractor.getListWantVisitAndVisited();
     await future.whenComplete(
-      () => emit(VisitingScreenLoadInSuccess(mocksWantVisit)),
+      () => emit(
+        VisitingScreenLoadInSuccess(mocksWantVisit),
+      ),
+    );
+  }
+
+  Future<void> visitingScreenRemovePlace(
+    VisitingScreenRemovePlace event,
+  ) async {
+    final future = visitingInteractor.deletePlaceVisited(event.place);
+    await future.whenComplete(
+      () => emit(
+        VisitingScreenLoadInSuccess(mocksWantVisit),
+      ),
     );
   }
 }

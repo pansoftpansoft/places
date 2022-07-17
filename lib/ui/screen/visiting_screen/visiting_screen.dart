@@ -24,8 +24,6 @@ class _VisitingScreenState extends State<VisitingScreen> {
   void initState() {
     super.initState();
 
-    debugPrint(' 1111= ${11111}');
-    //context.read<VisitingScreenBloc>().state=VisitingScreenLoadInSuccess();
     context.read<VisitingScreenBloc>().add(VisitingScreenLoad());
   }
 
