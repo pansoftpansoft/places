@@ -53,6 +53,9 @@ class VisitingInteractor extends ChangeNotifier {
 
   Future<void> getListWantVisitAndVisited(
       ) async {
+
+    await placeRepository.getAllPlace();
+
     final listAllPlace =  await placeRepository.getAllPlace();
     debugPrint('listAllPlace = ${listAllPlace.length}');
     mocksWantVisit = await placeRepository.getPlacesWantVisit(listAllPlace);

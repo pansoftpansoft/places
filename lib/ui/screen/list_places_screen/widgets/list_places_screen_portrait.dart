@@ -39,62 +39,62 @@ class _ListPlacesScreenPortraitState extends State<ListPlacesScreenPortrait> {
         final context,
         final cart,
         final child,
-      ) { return
-            Provider<ListPlacesStore>(
-              create: (_) => _store,
-              child: Observer(
-                builder: (_) {
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: paddingPage,
+      ) {
+        return Provider<ListPlacesStore>(
+          create: (_) => _store,
+          child: Observer(
+            builder: (_) {
+              return Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: paddingPage,
+                ),
+                child: CustomScrollView(
+                  slivers: <Widget>[
+                    SliverPersistentHeader(
+                      delegate: StickyHeader(),
+                      pinned: true,
                     ),
-                    child: CustomScrollView(
-                      slivers: <Widget>[
-                        SliverPersistentHeader(
-                          delegate: StickyHeader(),
-                          pinned: true,
-                        ),
-                        if (_store.getListPlaceFuture?.status ==
-                            FutureStatus.pending)
-                          SliverToBoxAdapter(
-                            child: Padding(
-                              padding: const EdgeInsets.only(
-                                top: heightSizeBox12,
-                                bottom: iconSize29,
-                              ),
-                              child: Image.asset(
-                                ellipse107,
-                                height: iconSize29,
-                                width: iconSize29,
-                              ),
-                            ),
-                          )
-                        else
-                          SliverList(
-                            delegate: SliverChildBuilderDelegate(
-                              (
-                                final context,
-                                final index,
-                              ) {
-                                debugPrint(
-                                  ' mocksFiltered[$index].isFavorites = '
-                                  '${mocksFiltered[index].isFavorites}',
-                                );
-
-                                return CardPlace(mocksFiltered[index]);
-                              },
-                              childCount: mocksFiltered.length,
-                            ),
+                    if (_store.getListPlaceFuture?.status ==
+                        FutureStatus.pending)
+                      SliverToBoxAdapter(
+                        child: Padding(
+                          padding: const EdgeInsets.only(
+                            top: heightSizeBox12,
+                            bottom: iconSize29,
                           ),
-                      ],
-                    ),
-                  );
-                },
-              ),
-            );
-          },
+                          child: Image.asset(
+                            ellipse107,
+                            height: iconSize29,
+                            width: iconSize29,
+                          ),
+                        ),
+                      )
+                    else
+                      SliverList(
+                        delegate: SliverChildBuilderDelegate(
+                          (
+                            final context,
+                            final index,
+                          ) {
+                            debugPrint(
+                              ' mocksFiltered[$index].isFavorites = '
+                              '${mocksFiltered[index].isFavorites}',
+                            );
+
+                            return CardPlace(mocksFiltered[index]);
+                          },
+                          childCount: mocksFiltered.length,
+                        ),
+                      ),
+                  ],
+                ),
+              );
+            },
+          ),
         );
- //     },
- //   );
+      },
+    );
+    //     },
+    //   );
   }
 }
