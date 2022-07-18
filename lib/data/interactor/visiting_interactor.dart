@@ -15,9 +15,11 @@ class VisitingInteractor extends ChangeNotifier {
   ///Удаление из мест которые хотел посетить
   Future<void> deletePlaceWantVisit(
     Place place,
-      ) async {
+    //StreamController<Place> streamControllerListPlace,
+  ) async {
     await placeInteractor.setFavorites(
       place,
+      //streamControllerListPlace,
     );
     notifyListeners();
   }
@@ -47,16 +49,14 @@ class VisitingInteractor extends ChangeNotifier {
   }
 
   ///Установка места признака что оно посещено
-  void updateScreen() {
-    notifyListeners();
+  Future<void> wantVisitUpdateToVisit(Place place) async {
+    await placeInteractor.setStatusPlaceVisited(place);
   }
 
-  Future<void> getListWantVisitAndVisited(
-      ) async {
-
+  Future<void> getListWantVisitAndVisited() async {
     await placeRepository.getAllPlace();
 
-    final listAllPlace =  await placeRepository.getAllPlace();
+    final listAllPlace = await placeRepository.getAllPlace();
     debugPrint('listAllPlace = ${listAllPlace.length}');
     mocksWantVisit = await placeRepository.getPlacesWantVisit(listAllPlace);
     debugPrint('mocksWantVisit = ${mocksWantVisit.length}');

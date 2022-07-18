@@ -1,5 +1,6 @@
 // ignore_for_file: invalid_use_of_visible_for_testing_member
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:places/data/interactor/visiting_interactor.dart';
 import 'package:places/data/model/place.dart';
@@ -44,11 +45,13 @@ class VisitedTabBloc
   Future<void> visitedTabRemovePlace(
       VisitedTabEventRemovePlace event,
   ) async {
+    debugPrint('visitedTabRemovePlace = 1');
     final future = visitingInteractor.deletePlaceVisited(event.place);
     await future.whenComplete(
       () => emit(
         VisitedTabLoadInSuccess(mocksVisited),
       ),
     );
+    debugPrint('visitedTabRemovePlace = 2');
   }
 }

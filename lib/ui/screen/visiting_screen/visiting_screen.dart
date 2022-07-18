@@ -45,6 +45,9 @@ class _VisitingScreenState extends State<VisitingScreen> {
                 BlocBuilder<WantVisitTabBloc, WantVisitTabState>(
                   builder: (context, state) {
                     if (state is WantVisitTabLoadInSuccess) {
+
+                      debugPrint('state 1= ${state.toString()}');
+
                       // ignore: prefer_const_constructors
                       return Tab1Widget();
                     }

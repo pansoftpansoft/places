@@ -20,6 +20,6 @@ class WantVisitTabLoadInSuccess extends WantVisitTabState {
 
   @override
   String toString() {
-    return 'WantVisitTabLoadInSuccess $listPlaceWantVisit';
+    return 'WantVisitTabLoadInSuccess listPlaceWantVisit.length ${listPlaceWantVisit.length}';
   }
 }

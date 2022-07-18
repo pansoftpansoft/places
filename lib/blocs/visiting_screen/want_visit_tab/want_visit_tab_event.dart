@@ -17,3 +17,12 @@ class WantVisitTabRemovePlace extends WantVisitTabEvent {
 
   const WantVisitTabRemovePlace(this.place);
 }
+
+class WantVisitUpdateToVisited extends WantVisitTabEvent {
+  final Place place;
+
+  @override
+  List<Object> get props => [place];
+
+  const WantVisitUpdateToVisited(this.place);
+}

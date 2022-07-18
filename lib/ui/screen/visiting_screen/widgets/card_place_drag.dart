@@ -3,10 +3,8 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:places/data/interactor/details_place_interactor.dart';
-import 'package:places/data/interactor/place_interactor.dart';
+import 'package:places/blocs/visiting_screen/want_visit_tab/want_visit_tab_bloc.dart';
 import 'package:places/data/interactor/visiting_interactor.dart';
-import 'package:places/data/model/place.dart';
 import 'package:places/type_place.dart';
 import 'package:places/ui/screen/widgets/card_place/card_place.dart';
 import 'package:provider/provider.dart';
@@ -90,20 +88,22 @@ class _CardPlaceDragState extends State<CardPlaceDrag> {
     );
   }
 
-  Future<void> updateContext(Place place, BuildContext context) async {
-    await context.read<PlaceInteractor>().setFavorites(
-          place,
-        );
-    debugPrint('Обновление контекстов при нажатии кнопки Добавить в фавориты');
-    // ignore: use_build_context_synchronously
-    context.read<DetailsPlaceInteractor>().updateScreen();
-    // ignore: use_build_context_synchronously
-    context.read<VisitingInteractor>().updateScreen();
-  }
+  // Future<void> updateContext(Place place, BuildContext context) async {
+  //   await context.read<PlaceInteractor>().setFavorites(
+  //         place,
+  //       );
+  //   debugPrint('Обновление контекстов при нажатии кнопки Добавить в фавориты');
+  //   // ignore: use_build_context_synchronously
+  //   context.read<DetailsPlaceInteractor>().updateScreen();
+  //   // ignore: use_build_context_synchronously
+  //   context.read<VisitingInteractor>().updateScreen();
+  // }
 
   void _actionOnDelete(BuildContext context, int index) {
-    // ignore: use_build_context_synchronously
-    updateContext(mocksWantVisit[index], context);
+    debugPrint('Нажата кнопка actionOnDelete = ${index.toString()}');
+    context
+        .read<WantVisitTabBloc>()
+        .add(WantVisitTabRemovePlace(mocksWantVisit[index]));
   }
 
   void _actionOnSelectData(BuildContext context, DateTime dateTimeCupertino) {

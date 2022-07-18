@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:places/data/interactor/place_interactor.dart';
-import 'package:places/data/interactor/visiting_interactor.dart';
+import 'package:places/blocs/visiting_screen/want_visit_tab/want_visit_tab_bloc.dart';
 import 'package:places/data/model/place.dart';
 import 'package:places/ui/res/labels.dart';
 import 'package:places/ui/screen/widgets/elevated_button_green_big.dart';
@@ -26,14 +25,9 @@ class BuildRouteButton extends StatelessWidget {
       );
 
   // ignore: avoid_void_async
-  void _onPress(BuildContext context) async {
+  void _onPress(BuildContext context) {
     // так же эта кнопка переводит маршрут в посещенные
     debugPrint('Это кнопка "Построить маршрут"');
-    await context.read<PlaceInteractor>().setStatusPlaceVisited(
-          _place,
-        );
-    // ignore: use_build_context_synchronously
-    context.read<VisitingInteractor>().updateScreen();
-    //Navigator.pushNamed(context, RouteName.mapScreen);
+    context.read<WantVisitTabBloc>().add(WantVisitUpdateToVisited(_place));
   }
 }

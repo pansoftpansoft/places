@@ -38,6 +38,8 @@ class PlaceInteractor extends ChangeNotifier {
   /// Установка месту избранное или нет
   Future<void> setFavorites(
     Place place,
+      //StreamController<Place> streamControllerListPlace,
+
   ) async {
     // Пробуем обновить место
 

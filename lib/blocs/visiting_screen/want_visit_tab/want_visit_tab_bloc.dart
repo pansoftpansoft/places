@@ -9,9 +9,7 @@ part 'want_visit_tab_event.dart';
 
 part 'want_visit_tab_state.dart';
 
-
-class WantVisitTabBloc
-    extends Bloc<WantVisitTabEvent, WantVisitTabState> {
+class WantVisitTabBloc extends Bloc<WantVisitTabEvent, WantVisitTabState> {
   final VisitingInteractor visitingInteractor;
 
   WantVisitTabBloc(this.visitingInteractor)
@@ -27,6 +25,13 @@ class WantVisitTabBloc
     on<WantVisitTabRemovePlace>(
       (event, emit) async {
         await wantVisitTabRemovePlace(event);
+      },
+    );
+
+    ///Обработка переноса события из "хочу посетить" в "посещенные"
+    on<WantVisitUpdateToVisited>(
+      (event, emit) async {
+        await wantVisitUpdateToVisited(event);
       },
     );
   }
@@ -45,6 +50,18 @@ class WantVisitTabBloc
     WantVisitTabRemovePlace event,
   ) async {
     final future = visitingInteractor.deletePlaceWantVisit(event.place);
+    await future.whenComplete(
+      () => emit(
+        WantVisitTabLoadInSuccess(mocksWantVisit),
+      ),
+    );
+  }
+
+  Future<void> wantVisitUpdateToVisited(
+      WantVisitUpdateToVisited event,
+  ) async {
+    final future = visitingInteractor.wantVisitUpdateToVisit(event.place);
+
     await future.whenComplete(
       () => emit(
         WantVisitTabLoadInSuccess(mocksWantVisit),
