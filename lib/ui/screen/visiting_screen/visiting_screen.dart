@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:places/blocs/visiting_screen/visited_tab/visited_tab_bloc.dart';
+import 'package:places/blocs/visiting_screen/want_visit_tab/want_visit_tab_bloc.dart';
+import 'package:places/ui/res/img.dart';
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/screen/visiting_screen/widgets/app_bar_visiting.dart';
 import 'package:places/ui/screen/visiting_screen/widgets/tab1_widget.dart';
@@ -12,14 +16,17 @@ class VisitingScreen extends StatefulWidget {
   const VisitingScreen({Key? key}) : super(key: key);
 
   @override
-  VisitingScreenState createState() => VisitingScreenState();
+  _VisitingScreenState createState() => _VisitingScreenState();
 }
 
 ///
-class VisitingScreenState extends State<VisitingScreen> {
+class _VisitingScreenState extends State<VisitingScreen> {
   @override
   void initState() {
     super.initState();
+
+    context.read<WantVisitTabBloc>().add(WantVisitTabLoad());
+    context.read<VisitedTabBloc>().add(VisitedTabLoad());
   }
 
   @override
@@ -31,12 +38,53 @@ class VisitingScreenState extends State<VisitingScreen> {
             child: AppBarVisiting(),
           ),
           bottomNavigationBar: BottomNavigation(2),
-          body: const Padding(
-            padding: EdgeInsets.all(paddingPage),
+          body: Padding(
+            padding: const EdgeInsets.all(paddingPage),
             child: TabBarView(
               children: <Widget>[
-                Tab1Widget(),
-                Tab2Widget(),
+                BlocBuilder<WantVisitTabBloc, WantVisitTabState>(
+                  builder: (context, state) {
+                    if (state is WantVisitTabLoadInSuccess) {
+
+                      debugPrint('state 1= ${state.toString()}');
+
+                      // ignore: prefer_const_constructors
+                      return Tab1Widget();
+                    }
+
+                    return Padding(
+                      padding: const EdgeInsets.only(
+                        top: heightSizeBox12,
+                        bottom: iconSize29,
+                      ),
+                      child: Image.asset(
+                        ellipse107,
+                        height: iconSize29,
+                        width: iconSize29,
+                      ),
+                    );
+                  },
+                ),
+                BlocBuilder<VisitedTabBloc, VisitedTabState>(
+                  builder: (context, state) {
+                    if (state is VisitedTabLoadInSuccess) {
+                      // ignore: prefer_const_constructors
+                      return Tab2Widget();
+                    }
+
+                    return Padding(
+                      padding: const EdgeInsets.only(
+                        top: heightSizeBox12,
+                        bottom: iconSize29,
+                      ),
+                      child: Image.asset(
+                        ellipse107,
+                        height: iconSize29,
+                        width: iconSize29,
+                      ),
+                    );
+                  },
+                ),
               ],
             ),
           ),

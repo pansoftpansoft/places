@@ -7,7 +7,7 @@ import 'package:places/domain/db_provider.dart';
 import 'package:places/type_place.dart';
 
 /// Слой бизнес логики
-class PlaceInteractor {
+class PlaceInteractor extends ChangeNotifier {
   PlaceRepository placeRepository = PlaceRepository();
 
   ///--------------------------------------------------------------
@@ -16,7 +16,6 @@ class PlaceInteractor {
     RangeValues? radiusRange,
     List<String>? category,
     String? searchString,
-
   }) async {
     final mocksFromRepository = await placeRepository.getPlacesRepository(
       radiusRange: radiusRange,
@@ -39,6 +38,8 @@ class PlaceInteractor {
   /// Установка месту избранное или нет
   Future<void> setFavorites(
     Place place,
+      //StreamController<Place> streamControllerListPlace,
+
   ) async {
     // Пробуем обновить место
 
@@ -71,8 +72,7 @@ class PlaceInteractor {
 
     debugPrint('place id = ${place.id} isFavorites = ${place.isFavorites}');
 
-    mocksFiltered =
-        (await placeRepository.updateMocksFiltered())!;
+    mocksFiltered = (await placeRepository.updateMocksFiltered())!;
     await getListWantVisitAndVisited();
   }
 
@@ -106,10 +106,8 @@ class PlaceInteractor {
     await getListWantVisitAndVisited();
   }
 
-  Future<void> getListWantVisitAndVisited(
-  ) async {
-    final listAllPlace =
-        await placeRepository.getAllPlace();
+  Future<void> getListWantVisitAndVisited() async {
+    final listAllPlace = await placeRepository.getAllPlace();
     debugPrint('listAllPlace = ${listAllPlace.length}');
     mocksWantVisit = await placeRepository.getPlacesWantVisit(listAllPlace);
     debugPrint('mocksWantVisit = ${mocksWantVisit.length}');
