@@ -88,17 +88,6 @@ class _CardPlaceDragState extends State<CardPlaceDrag> {
     );
   }
 
-  // Future<void> updateContext(Place place, BuildContext context) async {
-  //   await context.read<PlaceInteractor>().setFavorites(
-  //         place,
-  //       );
-  //   debugPrint('Обновление контекстов при нажатии кнопки Добавить в фавориты');
-  //   // ignore: use_build_context_synchronously
-  //   context.read<DetailsPlaceInteractor>().updateScreen();
-  //   // ignore: use_build_context_synchronously
-  //   context.read<VisitingInteractor>().updateScreen();
-  // }
-
   void _actionOnDelete(BuildContext context, int index) {
     debugPrint('Нажата кнопка actionOnDelete = ${index.toString()}');
     context

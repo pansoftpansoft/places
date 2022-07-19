@@ -20,19 +20,19 @@ class VisitedTabBloc
     ///Обработка события загрузка экрана
     on<VisitedTabLoad>(
       (event, emit) async {
-        await visitedTabBLoadCheck();
+        await _visitedTabBLoadCheck();
       },
     );
 
     ///Обработка события удаление меств из списка "Посещенные"
     on<VisitedTabEventRemovePlace>(
       (event, emit) async {
-        await visitedTabRemovePlace(event);
+        await _visitedTabRemovePlace(event);
       },
     );
   }
 
-  Future<void> visitedTabBLoadCheck() async {
+  Future<void> _visitedTabBLoadCheck() async {
     emit(VisitedTabLoadInProgress());
     final future = visitingInteractor.getListWantVisitAndVisited();
     await future.whenComplete(
@@ -42,7 +42,7 @@ class VisitedTabBloc
     );
   }
 
-  Future<void> visitedTabRemovePlace(
+  Future<void> _visitedTabRemovePlace(
       VisitedTabEventRemovePlace event,
   ) async {
     debugPrint('visitedTabRemovePlace = 1');
