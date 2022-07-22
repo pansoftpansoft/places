@@ -30,6 +30,7 @@ class SearchScreenInteractor extends ChangeNotifier {
 
   ///Получаем список историй поиска
   static Future<int> getListHistory() async {
+    listHistory.clear();
     listHistory = (await DBProvider.dbProvider.getListHistoryFromDb())!;
 
     return listHistory.length;
@@ -67,28 +68,20 @@ class SearchScreenInteractor extends ChangeNotifier {
   }
 
   ///Сообщить всем что список мест изменился
-  void changeSearch() {
+  Future<void> changeSearch() async {
     ///Запускаем загрузчик
-    managerSelectionScreen(numberScreen: ScreenEnum.loadScreen);
-    notifyListeners();
-    Timer(
-      const Duration(seconds: 1),
-      () {
-        debugPrint('300 mocksSearch ${mocksSearchText.length.toString()}');
-        if (mocksSearchText.isEmpty) {
-          //ошибка выдаем экран сообщения
-          debugPrint('Не найдено ни одного места');
-          managerSelectionScreen(numberScreen: ScreenEnum.emptyScreen);
-        } else {
-          debugPrint('Найдено ${mocksSearchText.length} места');
-          managerSelectionScreen(
-            numberScreen: ScreenEnum.listFoundPlacesScreen,
-          );
-        }
-        debugPrint('changeSearch notifyListeners()');
-        notifyListeners();
-      },
-    );
+    await managerSelectionScreen(numberScreen: ScreenEnum.loadScreen);
+    debugPrint('300 mocksSearch ${mocksSearchText.length.toString()}');
+    if (mocksSearchText.isEmpty) {
+      //ошибка выдаем экран сообщения
+      debugPrint('Не найдено ни одного места');
+      await managerSelectionScreen(numberScreen: ScreenEnum.emptyScreen);
+    } else {
+      debugPrint('Найдено ${mocksSearchText.length} места');
+      await managerSelectionScreen(
+        numberScreen: ScreenEnum.listFoundPlacesScreen,
+      );
+    }
   }
 
   ///Устанавливаем строку поиска
@@ -120,6 +113,7 @@ class SearchScreenInteractor extends ChangeNotifier {
 
   ///Очищаем список историй поиска
   Future<void> clearHistory() async {
+    SearchScreenInteractor.listHistory.clear();
     await DBProvider.dbProvider.deleteTheListOfSearchHistoryWords();
     await getListHistory(); //Обновляем список после удаления всех имторий
   }
@@ -152,23 +146,4 @@ class SearchScreenInteractor extends ChangeNotifier {
       return;
     }
   }
-
-  void notifyListenersSearchScreen() {
-    notifyListeners();
-  }
-
-  ///Проверка вхождения точки в радиус
-// bool _arePointsNear(final double checkPointLat, final double checkPointLon) {
-//   const centerPointLat = 55.753605;
-//   const centerPointLon = 37.619773;
-//   const kyPoint = 40000000 / 360; //40000000 - длина окружности земли в метрах
-//   final kxPoint = cos(pi * centerPointLat / 180.0) * kyPoint;
-//   final dxPoint = (centerPointLon - checkPointLon).abs() * kxPoint;
-//   final dyPoint = (centerPointLat - checkPointLat).abs() * kyPoint;
-//
-//   return sqrt(dxPoint * dxPoint + dyPoint * dyPoint) <=
-//           SearchFilterModel.selectedRange.end &&
-//       sqrt(dxPoint * dxPoint + dyPoint * dyPoint) >=
-//           SearchFilterModel.selectedRange.start;
-// }
 }

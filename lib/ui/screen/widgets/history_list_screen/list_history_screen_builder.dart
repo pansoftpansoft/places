@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
 import 'package:places/data/interactor/search_screen_interactor.dart';
-import 'package:places/type_place.dart';
+import 'package:places/redux/action/search_places_screen_actions.dart';
+import 'package:places/redux/state/app_state.dart';
 import 'package:places/ui/res/color_palette.dart';
 import 'package:places/ui/res/labels.dart';
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/screen/widgets/history_list_screen/list_history.dart';
 import 'package:provider/provider.dart';
-
-
 
 class ListHistoryScreenBuilder extends StatelessWidget {
   const ListHistoryScreenBuilder({
@@ -21,13 +21,9 @@ class ListHistoryScreenBuilder extends StatelessWidget {
       children: <Widget>[
         Text(
           youLooking,
-          style: Theme
-              .of(context)
-              .textTheme
-              .subtitle2!
-              .copyWith(
-            color: ColorPalette.lmFontSubtitle2.withOpacity(opacityText),
-          ),
+          style: Theme.of(context).textTheme.subtitle2!.copyWith(
+                color: ColorPalette.lmFontSubtitle2.withOpacity(opacityText),
+              ),
         ),
         const Flexible(child: ListHistory()),
         TextButton(
@@ -39,8 +35,7 @@ class ListHistoryScreenBuilder extends StatelessWidget {
           },
           child: Text(
             clearHistory,
-            style: Theme
-                .of(context)
+            style: Theme.of(context)
                 .textTheme
                 .subtitle1!
                 .copyWith(color: ColorPalette.greenColor),
@@ -54,8 +49,9 @@ class ListHistoryScreenBuilder extends StatelessWidget {
   void _onPressed(BuildContext context) {
     context.read<SearchScreenInteractor>()
       ..setSearchText('')
-      ..clearHistory()
-      ..managerSelectionScreen(numberScreen: ScreenEnum.cleanScreen)
-      ..notifyListenersSearchScreen();
+      ..clearHistory();
+
+    StoreProvider.of<AppState>(context)
+        .dispatch(OpenSearchPlacesScreenAction());
   }
 }
