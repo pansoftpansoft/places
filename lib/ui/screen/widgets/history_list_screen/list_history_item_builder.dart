@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:places/data/interactor/search_screen_interactor.dart';
+import 'package:places/redux/action/search_places_screen_actions.dart';
+import 'package:places/redux/state/app_state.dart';
 import 'package:places/type_place.dart';
 import 'package:places/ui/res/color_palette.dart';
 import 'package:places/ui/res/svg_icons.dart';
@@ -69,29 +72,23 @@ class ListHistoryItemBuilder extends StatelessWidget {
       if (SearchScreenInteractor.listHistory.isEmpty) {
         context.read<SearchScreenInteractor>()
           ..setSearchText('')
-          ..managerSelectionScreen(numberScreen: ScreenEnum.cleanScreen)
-          ..notifyListenersSearchScreen();
+          ..clearHistory();
+        StoreProvider.of<AppState>(context).dispatch(OpenSearchPlacesScreenAction());
         debugPrint('Удалаем строку истории! 1');
       } else {
         context.read<SearchScreenInteractor>()
           ..setSearchText('')
-          ..managerSelectionScreen(numberScreen: ScreenEnum.listSearchWords)
-          ..notifyListenersSearchScreen();
+          ..managerSelectionScreen(numberScreen: ScreenEnum.listSearchWords);
         debugPrint('Удалаем строку истории! 2');
       }
     });
+
   }
 
   void _onSelectWord(
     int index,
     BuildContext context,
   ) {
-    context.read<SearchScreenInteractor>()
-      ..setSearchText(
-        SearchScreenInteractor.listHistory[index].historyText,
-      )
-      ..getListSearchText()
-      ..managerSelectionScreen(numberScreen: ScreenEnum.listFoundPlacesScreen)
-      ..changeSearch();
+    StoreProvider.of<AppState>(context).dispatch(StartFindAction(SearchScreenInteractor.listHistory[index].historyText));
   }
 }

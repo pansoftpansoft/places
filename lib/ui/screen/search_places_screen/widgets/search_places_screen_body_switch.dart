@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
 import 'package:places/data/interactor/search_screen_interactor.dart';
+import 'package:places/redux/action/search_places_screen_actions.dart';
+import 'package:places/redux/state/app_state.dart';
+import 'package:places/redux/state/search_places_screen_states.dart';
 import 'package:places/type_place.dart';
 import 'package:places/ui/res/labels.dart';
 import 'package:places/ui/res/svg_icons.dart';
@@ -17,40 +21,51 @@ class SearchPlacesScreenBodySwitch extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-    return Consumer<SearchScreenInteractor>(
+    return StoreConnector<AppState, SearchPlacesScreenStates>(
+      onInit: (store) async {
+        StoreProvider.of<AppState>(context).dispatch(
+          OpenSearchPlacesScreenAction(),
+        );
+      },
+      converter: (store) {
+        return store.state.searchPlacesScreenStates;
+      },
       builder: (
-        final context,
-        final card,
-        final child,
+        context,
+        state,
       ) {
-        switch (context.read<SearchScreenInteractor>().selectedScreen) {
-          case ScreenEnum.loadScreen:
-            return const LoadScreen();
-          case ScreenEnum.emptyScreen:
-            return const SearchPlacesScreenBodySwitchNotFound();
-          case ScreenEnum.cleanScreen:
-            return const EmptyScreen(
-              textHeader: insertText,
-              textComment: '',
-              svgIcon: SvgIcons.info,
-            );
-          case ScreenEnum.listFoundPlacesScreen:
-            return const ListFoundPlacesScreen();
-          case ScreenEnum.listSearchWords:
-            return const ListHistoryScreen();
-          case ScreenEnum.errorScreen:
-            return const EmptyScreen(
-              textHeader: dataLoadingError,
-              textComment: tryAgain,
-              svgIcon: SvgIcons.delete,
-            );
-          default:
-            return const EmptyScreen(
-              textHeader: unknownError,
-              textComment: tryAgain,
-              svgIcon: SvgIcons.delete,
-            );
+        debugPrint(
+          'context.read<SearchScreenInteractor>().selectedScreen '
+          '= ${context.read<SearchScreenInteractor>().selectedScreen}',
+        );
+
+        debugPrint(
+          'state '
+          '= ${state.toString()}',
+        );
+
+        if (state is ListFoundSearchPlacesScreenStates) {
+          return const ListFoundPlacesScreen();
+        } else if (state is LoadSearchPlacesScreenState) {
+          return const LoadScreen();
+        } else if (state is EmptySearchPlacesScreenState) {
+          return const SearchPlacesScreenBodySwitchNotFound();
+        } else if (state is ShowCleanScreeState) {
+          return const EmptyScreen(
+            textHeader: insertText,
+            textComment: '',
+            svgIcon: SvgIcons.info,
+          );
+        } else if (state is ShowHistoryListScreeState) {
+          return const ListHistoryScreen();
+        } else if (state is ShowNotFindScreeState) {
+          return const SearchPlacesScreenBodySwitchNotFound();
+        } else {
+          return const EmptyScreen(
+            textHeader: unknownError,
+            textComment: tryAgain,
+            svgIcon: SvgIcons.delete,
+          );
         }
       },
     );

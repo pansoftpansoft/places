@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
 import 'package:places/data/interactor/filters_screen_interactor.dart';
 import 'package:places/data/interactor/search_screen_interactor.dart';
 import 'package:places/domain/db_provider.dart';
+import 'package:places/redux/action/search_places_screen_actions.dart';
+import 'package:places/redux/state/app_state.dart';
 import 'package:places/type_place.dart';
 import 'package:places/ui/res/color_palette.dart';
 import 'package:places/ui/res/labels.dart';
@@ -93,15 +96,9 @@ class SearchBar extends StatelessWidget {
     //Подготовка Отображаем найденые места
     debugPrint('value = $value');
     if (value.isEmpty) {
-      context.read<SearchScreenInteractor>()
-        ..managerSelectionScreen(numberScreen: ScreenEnum.cleanScreen)
-        ..notifyListenersSearchScreen();
+      StoreProvider.of<AppState>(context).dispatch(ShowEmptyScreeAction());
     } else {
-      context.read<SearchScreenInteractor>()
-        ..setSearchText(value)
-        ..getListSearchText()
-        ..managerSelectionScreen(numberScreen: ScreenEnum.listFoundPlacesScreen)
-        ..changeSearch();
+      StoreProvider.of<AppState>(context).dispatch(StartFindAction(value));
     }
   }
 
@@ -111,11 +108,7 @@ class SearchBar extends StatelessWidget {
   ) {
     if (value[value.length - 1] == ' ') {
       debugPrint('Обработка пробела в строке поиска');
-      context.read<SearchScreenInteractor>()
-        ..setSearchText(value)
-        ..getListSearchText()
-        ..managerSelectionScreen(numberScreen: ScreenEnum.listFoundPlacesScreen)
-        ..notifyListenersSearchScreen();
+      StoreProvider.of<AppState>(context).dispatch(StartFindAction(value));
     }
   }
 
@@ -123,21 +116,8 @@ class SearchBar extends StatelessWidget {
     BuildContext context,
   ) {
     textEditingController!.clear();
-
-    if (SearchScreenInteractor.listHistory.isEmpty) {
-      ///Чистим строку поиска
-      context.read<SearchScreenInteractor>()
-        ..setSearchText('')
-        ..managerSelectionScreen(numberScreen: ScreenEnum.cleanScreen)
-        ..notifyListenersSearchScreen();
-    } else {
-      ///Чистим строку поиска
-      //context.read<FiltersScreenModel>().
-      context.read<SearchScreenInteractor>()
-        ..setSearchText('')
-        ..getFilteredList()
-        ..managerSelectionScreen(numberScreen: ScreenEnum.listSearchWords)
-        ..notifyListenersSearchScreen();
-    }
+    StoreProvider.of<AppState>(context).dispatch(
+      OpenSearchPlacesScreenAction(),
+    );
   }
 }

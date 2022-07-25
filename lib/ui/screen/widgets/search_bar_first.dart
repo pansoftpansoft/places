@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:places/data/interactor/search_screen_interactor.dart';
+import 'package:places/redux/state/app_state.dart';
 import 'package:places/type_place.dart';
 import 'package:places/ui/res/color_palette.dart';
 import 'package:places/ui/res/labels.dart';
@@ -87,17 +89,17 @@ class SearchBarFirst extends StatelessWidget {
   void _go(BuildContext context) {
     debugPrint('Хочу перейти на поиск ${RouteName.searchPlacesScreen}');
 
-    if (SearchScreenInteractor.listHistory.isEmpty) {
-      ///Чистим строку поиска
-      context.read<SearchScreenInteractor>()
-        ..setSearchText('')
-        ..managerSelectionScreen(numberScreen: ScreenEnum.cleanScreen);
-    } else {
-      ///Чистим строку поиска
-      context.read<SearchScreenInteractor>()
-        ..setSearchText('')
-        ..managerSelectionScreen(numberScreen: ScreenEnum.listSearchWords);
-    }
+    // if (SearchScreenInteractor.listHistory.isEmpty) {
+    //   ///Чистим строку поиска
+    //   context.read<SearchScreenInteractor>()
+    //     ..setSearchText('')
+    //     ..managerSelectionScreen(numberScreen: ScreenEnum.cleanScreen);
+    // } else {
+    //   ///Чистим строку поиска
+    //   context.read<SearchScreenInteractor>()
+    //     ..setSearchText('')
+    //     ..managerSelectionScreen(numberScreen: ScreenEnum.listSearchWords);
+    // }
 
     Navigator.pushNamed(context, RouteName.searchPlacesScreen);
   }

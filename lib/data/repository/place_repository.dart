@@ -31,7 +31,7 @@ class PlaceRepository extends ChangeNotifier {
         place.toJson().toString(),
       );
     } on DioError catch (e) {
-      streamControllerListPlace.addError(NetworkException);
+      //streamControllerListPlace.addError(NetworkException);
       throw NetworkException(e);
     }
   }
