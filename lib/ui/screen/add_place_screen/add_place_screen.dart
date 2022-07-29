@@ -1,13 +1,15 @@
+import 'package:elementary/elementary.dart';
 import 'package:flutter/material.dart';
 import 'package:places/ui/res/sizes.dart';
+import 'package:places/ui/screen/add_place_screen/add_place_screen_widget_model.dart';
 import 'package:places/ui/screen/add_place_screen/widgets/add_place_app_bar.dart';
 import 'package:places/ui/screen/add_place_screen/widgets/add_place_screen_body.dart';
 import 'package:places/ui/screen/add_place_screen/widgets/bottom_sheet_create_button.dart';
 import 'package:places/ui/screen/add_place_screen/widgets/photo_show_dialog.dart';
 
 ///Экран добавления карточек
-class AddPlaceScreen extends StatefulWidget {
-  /// Конструктор
+class AddPlaceScreen extends ElementaryWidget <IAddPlaceScreenWidgetModel> {
+  /// Конструктор add_place_screen_widget_model
   const AddPlaceScreen({Key? key}) : super(key: key);
 
   @override
