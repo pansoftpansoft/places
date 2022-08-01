@@ -16,7 +16,7 @@ class AddPlaceScreenModel extends ElementaryModel {
     this._place,
   ) : super(errorHandler: errorHandler);
 
-  /// Return iterable countries.
+  /// Отправить новаое место на сервер
   Future<PlaceDto> postPlace() async {
     try {
       final res = await _placeRepository.postPlace(_place);

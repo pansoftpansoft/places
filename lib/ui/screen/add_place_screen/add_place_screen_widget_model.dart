@@ -4,16 +4,30 @@ import 'package:flutter/material.dart';
 import 'package:places/data/model/place_dto.dart';
 import 'package:places/ui/screen/add_place_screen/add_place_screen.dart';
 import 'package:places/ui/screen/add_place_screen/add_place_screen_model.dart';
+import 'package:provider/provider.dart';
+
+/// Factory for [AddPlaceScreenWidgetModel]
+AddPlaceScreenWidgetModel addPlaceScreenWidgetModelFactory(
+    BuildContext context,
+    ) {
+  final model = context.read<AddPlaceScreenModel>();
+
+  return AddPlaceScreenWidgetModel(model);
+}
+
+
 
 class AddPlaceScreenWidgetModel
     extends WidgetModel<AddPlaceScreen, AddPlaceScreenModel>
     implements IAddPlaceScreenWidgetModel {
+
+
   final _placeState = EntityStateNotifier<PlaceDto>();
+  final _placeDto = PlaceDto(name: '', placeType: '');
 
   @override
   ListenableState<EntityState<PlaceDto>> get placeState => _placeState;
 
-  PlaceDto _placeDto = PlaceDto(name: , placeType: placeType);
 
   AddPlaceScreenWidgetModel(
     AddPlaceScreenModel model,
@@ -22,6 +36,8 @@ class AddPlaceScreenWidgetModel
   @override
   void initWidgetModel() {
     super.initWidgetModel();
+
+    _loadAddPlaceScreen();
   }
 
   
@@ -46,6 +62,11 @@ class AddPlaceScreenWidgetModel
     } on Exception catch (e) {
       _placeState.error(e, previousData);
     }
+  }
+
+  void _loadAddPlaceScreen() {
+    //_placeState.loading(_placeDto);
+    _placeState.content(_placeDto);
   }
 }
 
