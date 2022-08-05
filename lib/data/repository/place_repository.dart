@@ -21,7 +21,7 @@ final repositoryMocks = <Place>[];
 class PlaceRepository extends ChangeNotifier {
   /// ---------------------------------------------------------------
   /// Создать новое место на сервере
-  Future<PlaceDto?> postPlace(
+  Future<Place?> postPlace(
     Place place,
   ) async {
     try {
@@ -33,23 +33,25 @@ class PlaceRepository extends ChangeNotifier {
       switch (response.statusCode) {
         case 200:
           {
-            return PlaceDto.fromJson(response.data as Map<String, dynamic>);
+            return Place.fromJson(response.data as Map<String, dynamic>);
           }
         case 400:
           {
-            return PlaceDto.fromJson(response.data as Map<String, dynamic>);
+            throw CustomException400();
           }
         case 409:
           {
-            return PlaceDto.fromJson(response.data as Map<String, dynamic>);
+            throw CustomException409();
           }
       }
+
+      return Place.fromJson(response.data as Map<String, dynamic>);
+
     } on DioError catch (e) {
       //streamControllerListPlace.addError(NetworkException);
       throw NetworkException(e);
     }
 
-    return null;
   }
 
   ///--------------------------------------------------------------
@@ -314,4 +316,12 @@ class PlaceRepository extends ChangeNotifier {
       throw NetworkException(e);
     }
   }
+}
+
+class CustomException400 implements Exception {
+  String errMsg() => '400';
+}
+
+class CustomException409 implements Exception {
+  String errMsg() => '409';
 }

@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:places/data/interactor/search_screen_interactor.dart';
 import 'package:places/redux/action/search_places_screen_actions.dart';
 import 'package:places/redux/state/app_state.dart';
@@ -19,17 +18,9 @@ class FindPlaceMiddleware implements MiddlewareClass<AppState> {
   ) {
     if (action is StartFindAction) {
       _startFindAction(action.findString).then<dynamic>((value) {
-        if (mocksSearchText.length > 0) {
-
-          return store.dispatch(
-            ResultFindAction(mocksSearchText),
-          );
-        } else {
-
-          return store.dispatch(
-            NotResultFindAction(),
-          );
-        }
+        return mocksSearchText.isNotEmpty
+            ? store.dispatch(ResultFindAction(mocksSearchText))
+            : store.dispatch(NotResultFindAction());
       });
     }
 
@@ -38,18 +29,17 @@ class FindPlaceMiddleware implements MiddlewareClass<AppState> {
         numberScreen: ScreenEnum.cleanScreen,
       );
 
-      return store.dispatch(
-        ResultFindAction(mocksSearchText),
-      );
+      // return store.dispatch(
+      //   ResultFindAction(mocksSearchText),
+      // );
     }
 
     if (action is OpenSearchPlacesScreenAction) {
       mocksSearchText.clear();
 
-
-      return SearchScreenInteractor.listHistory.isEmpty
-          ? store.dispatch(ShowEmptyScreeAction())
-          : store.dispatch(ShowHistoryListScreeAction());
+      // return SearchScreenInteractor.listHistory.isEmpty
+      //     ? store.dispatch(ShowEmptyScreeAction())
+      //     : store.dispatch(ShowHistoryListScreeAction());
     }
 
     next(action);
@@ -62,6 +52,5 @@ class FindPlaceMiddleware implements MiddlewareClass<AppState> {
       numberScreen: ScreenEnum.listFoundPlacesScreen,
     );
     await _searchScreenInteractor.changeSearch();
-    return;
   }
 }

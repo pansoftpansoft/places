@@ -1,6 +1,6 @@
 import 'package:elementary/elementary.dart';
 import 'package:flutter/material.dart';
-import 'package:places/data/model/place_dto.dart';
+import 'package:places/data/model/place.dart';
 import 'package:places/ui/screen/add_place_screen/add_place_screen_widget_model.dart';
 import 'package:places/ui/screen/add_place_screen/widgets/add_place_app_bar.dart';
 import 'package:places/ui/screen/add_place_screen/widgets/add_place_error_widget.dart';
@@ -23,20 +23,19 @@ class AddPlaceScreen extends ElementaryWidget<IAddPlaceScreenWidgetModel> {
 
     return Scaffold(
       resizeToAvoidBottomInset: true,
-      bottomSheet: const BottomSheetCreateButton(),
+      bottomSheet: BottomSheetCreateButton(wm: wm),
       appBar: const PreferredSize(
         preferredSize: Size(double.infinity, kToolbarHeight),
         child: AddPlaceAppBar(),
       ),
-      body: EntityStateNotifierBuilder<PlaceDto>(
+      body: EntityStateNotifierBuilder<Place>(
         listenableEntityState: wm.placeState,
         loadingBuilder: (_, __) => const LoadingWidget(),
         errorBuilder: (_, __, ___) => const AddPlaceErrorWidget(),
-        builder: (_, placeDto) {
-          return AddPlaceForm(placeDto: placeDto); //_AddPlaceScreen();
+        builder: (_, place) {
+          return AddPlaceForm(place: place, wm: wm,); //_AddPlaceScreen();
         },
       ),
     );
   }
 }
-

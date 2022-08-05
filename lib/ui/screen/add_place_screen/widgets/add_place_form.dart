@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:places/data/model/place_dto.dart';
+import 'package:places/data/model/place.dart';
 import 'package:places/ui/res/sizes.dart';
+import 'package:places/ui/screen/add_place_screen/add_place_screen_widget_model.dart';
 import 'package:places/ui/screen/add_place_screen/widgets/add_place_screen_body.dart';
 
 class AddPlaceForm extends StatelessWidget {
-  final PlaceDto? placeDto;
+  final Place? place;
+  final IAddPlaceScreenWidgetModel wm;
 
   final _focusNodeNamePlace = FocusNode();
   final _focusNodeLat = FocusNode();
@@ -18,12 +20,16 @@ class AddPlaceForm extends StatelessWidget {
 
   AddPlaceForm({
     Key? key,
-    this.placeDto,
+    this.place,
+    required this.wm,
   }) : super(key: key);
 
 
   @override
-  Widget build(BuildContext context) => SingleChildScrollView(
+  Widget build(BuildContext context) {
+    debugPrint('wm = ${wm.toString()}');
+
+    return SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(paddingPage),
           child: AddPlaceScreenBody(
@@ -38,4 +44,5 @@ class AddPlaceForm extends StatelessWidget {
           ),
         ),
       );
+  }
 }

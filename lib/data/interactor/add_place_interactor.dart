@@ -46,6 +46,5 @@ class AddPlaceInteractor extends ChangeNotifier {
   ///Управление кнопкой создать
   void disableButtonCreate(String value) {
     disableButton = value.isEmpty ? null : value;
-    notifyListeners();
   }
 }

@@ -44,4 +44,5 @@ List<ChangeNotifierProvider<ChangeNotifier>> listMultiProviders =
   ChangeNotifierProvider<PlaceInteractor>(
     create: (context) => PlaceInteractor(),
   ),
+
 ];

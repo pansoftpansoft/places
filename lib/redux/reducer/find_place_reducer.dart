@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_annotating_with_dynamic
+
 import 'package:places/redux/action/search_places_screen_actions.dart';
 import 'package:places/redux/state/app_state.dart';
 import 'package:places/redux/state/search_places_screen_states.dart';

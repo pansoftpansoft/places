@@ -4,7 +4,6 @@ import 'package:places/data/interactor/search_screen_interactor.dart';
 import 'package:places/redux/action/search_places_screen_actions.dart';
 import 'package:places/redux/state/app_state.dart';
 import 'package:places/redux/state/search_places_screen_states.dart';
-import 'package:places/type_place.dart';
 import 'package:places/ui/res/labels.dart';
 import 'package:places/ui/res/svg_icons.dart';
 import 'package:places/ui/screen/search_places_screen/widgets/empty_screen.dart';
