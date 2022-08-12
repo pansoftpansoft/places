@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:places/blocs/place_bloc_observer.dart';
 import 'package:places/data/api/api_client.dart';
 import 'package:places/data/interactor/search_screen_interactor.dart';
 import 'package:places/data/interactor/settings_interactor.dart';
@@ -22,6 +23,8 @@ ThemeData themeColor = lightTheme;
 ApiClient apiClient = ApiClient();
 
 void main() {
+  Bloc.observer = PlaceBlocObserver();
+
   WidgetsFlutterBinding.ensureInitialized();
 
   loadSettings();
@@ -32,13 +35,11 @@ void main() {
     ),
   );
 
-
   final store = Store<AppState>(
     reducer,
     initialState: AppState(),
     middleware: [FindPlaceMiddleware(SearchScreenInteractor())],
   );
-
 
   runApp(
     MultiProvider(
@@ -66,16 +67,16 @@ class Main extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StoreProvider<AppState>(
-        store: store,
-        child: MaterialApp(
-          theme: context.select<AppModel, ThemeData>(
-            (a) => themeColor,
-          ),
-          title: 'Задача  8.2',
-          routes: mapRoutes,
-          initialRoute: RouteName.splashScreen,
+      store: store,
+      child: MaterialApp(
+        theme: context.select<AppModel, ThemeData>(
+          (a) => themeColor,
         ),
-      );
+        title: 'Задача  8.2',
+        routes: mapRoutes,
+        initialRoute: RouteName.splashScreen,
+      ),
+    );
   }
 }
 
