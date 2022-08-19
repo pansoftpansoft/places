@@ -7,6 +7,9 @@ analyzer:
     - "**/*.g.dart"
     - "**/*.freezed.dart"
 
+  errors:
+    invalid_annotation_target: ignore
+
 dart_code_metrics:
   metrics:
     cyclomatic-complexity: 20

@@ -1,14 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:places/data/interactor/search_screen_interactor.dart';
-import 'package:places/redux/state/app_state.dart';
-import 'package:places/type_place.dart';
 import 'package:places/ui/res/color_palette.dart';
 import 'package:places/ui/res/labels.dart';
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/res/svg_icons.dart';
-import 'package:provider/provider.dart';
 
 import '../../res/route_name.dart';
 

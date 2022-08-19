@@ -10,6 +10,6 @@ class AppState {
     SearchPlacesScreenStates? findPlaceState,
   }) =>
       AppState(
-        findPlaceState: findPlaceState ?? this.searchPlacesScreenStates,
+        findPlaceState: findPlaceState ?? searchPlacesScreenStates,
       );
 }

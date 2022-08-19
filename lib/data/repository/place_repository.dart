@@ -21,25 +21,42 @@ final repositoryMocks = <Place>[];
 class PlaceRepository extends ChangeNotifier {
   /// ---------------------------------------------------------------
   /// Создать новое место на сервере
-  Future<Response> postPlace(
+  Future<Place?> postPlace(
     Place place,
-    StreamController<Place> streamControllerListPlace,
   ) async {
     try {
-      return apiClient.post(
+      final response = await apiClient.post(
         pathUrlCreatePlace,
         place.toJson().toString(),
       );
+
+      switch (response.statusCode) {
+        case 200:
+          {
+            return Place.fromJson(response.data as Map<String, dynamic>);
+          }
+        case 400:
+          {
+            throw CustomException400();
+          }
+        case 409:
+          {
+            throw CustomException409();
+          }
+      }
+
+      return Place.fromJson(response.data as Map<String, dynamic>);
+
     } on DioError catch (e) {
       //streamControllerListPlace.addError(NetworkException);
       throw NetworkException(e);
     }
+
   }
 
   ///--------------------------------------------------------------
   /// Получаем список всех мест
-  Future<List<Place>> getAllPlace(
-  ) async {
+  Future<List<Place>> getAllPlace() async {
     try {
       final placesLocalData = await DBProvider.dbProvider.getPlacesLocal();
       final listPlaceAll = ((await apiClient.get(pathUrlListPlaces)).data
@@ -93,13 +110,12 @@ class PlaceRepository extends ChangeNotifier {
     await createMocks(placesDtoFilter);
     debugPrint('repositoryMocks.length = ${repositoryMocks.length}');
 
-    mocksFiltered=repositoryMocks;
+    mocksFiltered = repositoryMocks;
 
     return repositoryMocks;
   }
 
-  Future<List<Place>?> updateMocksFiltered(
-  ) async {
+  Future<List<Place>?> updateMocksFiltered() async {
     await createMocks(placesDtoFilter);
 
     return repositoryMocks;
@@ -300,4 +316,12 @@ class PlaceRepository extends ChangeNotifier {
       throw NetworkException(e);
     }
   }
+}
+
+class CustomException400 implements Exception {
+  String errMsg() => '400';
+}
+
+class CustomException409 implements Exception {
+  String errMsg() => '409';
 }

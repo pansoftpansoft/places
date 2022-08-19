@@ -35,11 +35,16 @@ class PlaceInteractor extends ChangeNotifier {
     return placeRepository.getPlaceId(placeId, streamControllerListPlace);
   }
 
+  Future<Place?> postPlace(
+    Place place,
+  ) async {
+    return placeRepository.postPlace(place);
+  }
+
   /// Установка месту избранное или нет
   Future<void> setFavorites(
     Place place,
-      //StreamController<Place> streamControllerListPlace,
-
+    //StreamController<Place> streamControllerListPlace,
   ) async {
     // Пробуем обновить место
 
@@ -115,18 +120,18 @@ class PlaceInteractor extends ChangeNotifier {
     mocksVisited = await placeRepository.getPlacesVisited(listAllPlace);
   }
 
-  ///-----------------------------------------------
-  /// Отметить место как посещенное
-  Future<void> addToVisitingPlaces(
-    Place place,
-    StreamController<Place> streamControllerListPlace,
-  ) async {
-    await placeRepository.postPlace(place, streamControllerListPlace);
-    for (final element in mocks) {
-      if (element.id == place.id) {
-        element.visitedDate = DateTime.now();
-      }
-    }
-    await getListWantVisitAndVisited();
-  }
+// ///-----------------------------------------------
+// /// Отметить место как посещенное
+// Future<void> addToVisitingPlaces(
+//   Place place,
+//   StreamController<Place> streamControllerListPlace,
+// ) async {
+//   await placeRepository.postPlace(place, streamControllerListPlace);
+//   for (final element in mocks) {
+//     if (element.id == place.id) {
+//       element.visitedDate = DateTime.now();
+//     }
+//   }
+//   await getListWantVisitAndVisited();
+// }
 }

@@ -1,5 +1,3 @@
-import 'package:places/data/model/place.dart';
-
 /// Базовое состояние профиля
 abstract class SearchPlacesScreenStates {}
 
