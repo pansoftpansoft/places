@@ -5,20 +5,8 @@ import 'package:places/ui/screen/list_places_screen/widgets/list_places_screen_p
 import 'package:places/ui/screen/widgets/bottom_navigation/bottom_navigation.dart';
 
 ///Список достопримечательностей
-class ListPlacesScreen extends StatefulWidget {
-  ///Конструктор
+class ListPlacesScreen extends StatelessWidget {
   const ListPlacesScreen({Key? key}) : super(key: key);
-
-  @override
-  ListPlacesScreenState createState() => ListPlacesScreenState();
-}
-
-///
-class ListPlacesScreenState extends State<ListPlacesScreen> {
-  @override
-  void initState() {
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) => OrientationBuilder(
@@ -41,9 +29,4 @@ class ListPlacesScreenState extends State<ListPlacesScreen> {
           );
         },
       );
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
 }

@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:places/data/interactor/details_place_interactor.dart';
-import 'package:places/data/interactor/list_places_screen_interactor.dart';
 import 'package:places/data/model/place.dart';
 import 'package:places/ui/res/color_palette.dart';
-import 'package:places/ui/screen/details_place_screen/details_place_screen.dart';
+import 'package:places/ui/screen/list_places_screen/bloc/list_places_bloc.dart';
 import 'package:provider/provider.dart';
 
 class CardPlaceBodyRippleEffect extends StatelessWidget {
@@ -20,7 +18,7 @@ class CardPlaceBodyRippleEffect extends StatelessWidget {
           child: InkWell(
             splashColor: ColorPalette.whiteMain.withOpacity(0.4),
             onTap: () {
-              showDetailsScreen(context, place);
+              context.read<ListPlacesBloc>().add( ListPlacesEvents.selected(place: place));
               debugPrint(place.name);
               debugPrint('Это кнопка "Вся карточка"');
             },
@@ -28,26 +26,5 @@ class CardPlaceBodyRippleEffect extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  Future<void> showDetailsScreen(
-    final BuildContext context,
-    final Place place,
-  ) async {
-    await context
-        .read<DetailsPlaceInteractor>()
-        .getPlace(
-          place.id,
-          context.read<ListPlacesScreenInteractor>().streamControllerListPlace,
-        )
-        .then(
-          (value) => showModalBottomSheet<Widget>(
-            context: context,
-            builder: (_) => const DetailsPlaceScreen(),
-            isScrollControlled: true,
-            isDismissible: true,
-            useRootNavigator: true,
-          ),
-        );
   }
 }

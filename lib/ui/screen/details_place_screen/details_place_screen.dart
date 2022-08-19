@@ -6,6 +6,7 @@ import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/res/svg_icons.dart';
 import 'package:places/ui/screen/details_place_screen/widgets/details_place_screen_decoration_container.dart';
 import 'package:places/ui/screen/details_place_screen/widgets/details_place_screen_picture.dart';
+import 'package:places/ui/screen/list_places_screen/bloc/list_places_bloc.dart';
 import 'package:provider/provider.dart';
 
 /// Подробно о достопримечательности
@@ -58,7 +59,8 @@ class DetailsPlaceScreen extends StatelessWidget {
 
   void _onPressed(BuildContext context) {
     context.read<DetailsPlaceInteractor>().index = 0;
-    context.read<DetailsPlaceInteractor>().closeStream();
+    // context.read<DetailsPlaceInteractor>().closeStream();
+    context.read<ListPlacesBloc>().add(const ListPlacesEvents.load());
     Navigator.of(context).pop();
   }
 

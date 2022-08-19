@@ -116,7 +116,7 @@ class PlaceRepository extends ChangeNotifier {
   }
 
   Future<List<Place>?> updateMocksFiltered() async {
-    await createMocks(placesDtoFilter);
+    //await createMocks(placesDtoFilter);
 
     return repositoryMocks;
   }

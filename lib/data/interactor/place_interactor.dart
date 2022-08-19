@@ -111,6 +111,7 @@ class PlaceInteractor extends ChangeNotifier {
     await getListWantVisitAndVisited();
   }
 
+  @Deprecated('Не возвращала список. Список необходим для перехода на Bloc')
   Future<void> getListWantVisitAndVisited() async {
     final listAllPlace = await placeRepository.getAllPlace();
     debugPrint('listAllPlace = ${listAllPlace.length}');
@@ -118,6 +119,16 @@ class PlaceInteractor extends ChangeNotifier {
     debugPrint('mocksWantVisit = ${mocksWantVisit.length}');
 
     mocksVisited = await placeRepository.getPlacesVisited(listAllPlace);
+  }
+
+  Future<List<Place>> getListWantVisitAndVisitedBloc() async {
+    final listAllPlace = await placeRepository.getAllPlace();
+    debugPrint('listAllPlace = ${listAllPlace.length}');
+    mocksWantVisit = await placeRepository.getPlacesWantVisit(listAllPlace);
+    debugPrint('mocksWantVisit = ${mocksWantVisit.length}');
+    final list = await placeRepository.getPlacesVisited(listAllPlace);
+
+    return list;
   }
 
 // ///-----------------------------------------------

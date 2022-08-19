@@ -1,100 +1,107 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:mobx/mobx.dart';
-import 'package:places/data/interactor/filters_screen_interactor.dart';
-import 'package:places/data/repository/place_repository.dart';
-import 'package:places/store/list_places/list_places_store.dart';
-import 'package:places/type_place.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:places/data/interactor/details_place_interactor.dart';
+import 'package:places/data/interactor/list_places_screen_interactor.dart';
+import 'package:places/data/model/place.dart';
+
 import 'package:places/ui/res/img.dart';
+import 'package:places/ui/res/route_name.dart';
 import 'package:places/ui/res/sizes.dart';
+import 'package:places/ui/screen/details_place_screen/details_place_screen.dart';
+import 'package:places/ui/screen/list_places_screen/bloc/list_places_bloc.dart';
 import 'package:places/ui/screen/list_places_screen/widgets/sticky_header.dart';
 import 'package:places/ui/screen/widgets/card_place/card_place.dart';
-import 'package:provider/provider.dart';
 
-class ListPlacesScreenPortrait extends StatefulWidget {
-  const ListPlacesScreenPortrait({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  State<ListPlacesScreenPortrait> createState() =>
-      _ListPlacesScreenPortraitState();
-}
-
-class _ListPlacesScreenPortraitState extends State<ListPlacesScreenPortrait> {
-  late ListPlacesStore _store;
-
-  @override
-  void initState() {
-    super.initState();
-    _store = ListPlacesStore(context.read<PlaceRepository>());
-    _store.getListPlace();
-  }
+class ListPlacesScreenPortrait extends StatelessWidget {
+  const ListPlacesScreenPortrait({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<FiltersScreenInteractor>(
-      builder: (
-        final context,
-        final cart,
-        final child,
-      ) {
-        return Provider<ListPlacesStore>(
-          create: (_) => _store,
-          child: Observer(
-            builder: (_) {
-              return Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: paddingPage,
+    return MultiBlocListener(
+      listeners: [
+        BlocListener<ListPlacesBloc, ListPlacesState>(
+          listenWhen: (previousState, state) => state.addNew,
+          listener: (context, state) {
+            Navigator.pushNamed(context, RouteName.addPlaceScreen);
+          },
+        ),
+        BlocListener<ListPlacesBloc, ListPlacesState>(
+          listenWhen: (previousState, state) => state.selected,
+          listener: (context, state) {
+            showDetailsScreen(context, state.place);
+          },
+        ),
+      ],
+      child: BlocBuilder<ListPlacesBloc, ListPlacesState>(
+        builder: (context, state) {
+          return Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: paddingPage,
+            ),
+            child: CustomScrollView(
+              slivers: <Widget>[
+                SliverPersistentHeader(
+                  delegate: StickyHeader(),
+                  pinned: true,
                 ),
-                child: CustomScrollView(
-                  slivers: <Widget>[
-                    SliverPersistentHeader(
-                      delegate: StickyHeader(),
-                      pinned: true,
-                    ),
-                    if (_store.getListPlaceFuture?.status ==
-                        FutureStatus.pending)
-                      SliverToBoxAdapter(
-                        child: Padding(
-                          padding: const EdgeInsets.only(
-                            top: heightSizeBox12,
-                            bottom: iconSize29,
-                          ),
-                          child: Image.asset(
-                            ellipse107,
-                            height: iconSize29,
-                            width: iconSize29,
-                          ),
-                        ),
-                      )
-                    else
-                      SliverList(
-                        delegate: SliverChildBuilderDelegate(
-                          (
-                            final context,
-                            final index,
-                          ) {
-                            debugPrint(
-                              ' mocksFiltered[$index].isFavorites = '
-                              '${mocksFiltered[index].isFavorites}',
-                            );
-
-                            return CardPlace(mocksFiltered[index]);
-                          },
-                          childCount: mocksFiltered.length,
-                        ),
+                if (state.load)
+                  SliverToBoxAdapter(
+                    child: Padding(
+                      padding: const EdgeInsets.only(
+                        top: heightSizeBox12,
+                        bottom: iconSize29,
                       ),
-                  ],
-                ),
-              );
-            },
+                      child: Image.asset(
+                        ellipse107,
+                        height: iconSize29,
+                        width: iconSize29,
+                      ),
+                    ),
+                  )
+                else
+                  SliverList(
+                    delegate: SliverChildBuilderDelegate(
+                      (
+                        final context,
+                        final index,
+                      ) {
+                        debugPrint(
+                          ' state.listPlaces[$index].isFavorites = '
+                          '${state.listPlaces[index].isFavorites}',
+                        );
+
+                        return CardPlace(state.listPlaces[index]);
+                      },
+                      childCount:
+                          state.listPlaces.length, // mocksFiltered.length,
+                    ),
+                  ),
+              ],
+            ),
+          );
+        },
+      ),
+    );
+  }
+
+  Future<void> showDetailsScreen(
+    final BuildContext context,
+    final Place place,
+  ) async {
+    await context
+        .read<DetailsPlaceInteractor>()
+        .getPlace(
+          place.id,
+          context.read<ListPlacesScreenInteractor>().streamControllerListPlace,
+        )
+        .then(
+          (value) => showModalBottomSheet<Widget>(
+            context: context,
+            builder: (_) => const DetailsPlaceScreen(),
+            isScrollControlled: true,
+            isDismissible: true,
+            useRootNavigator: true,
           ),
         );
-      },
-    );
-    //     },
-    //   );
   }
 }

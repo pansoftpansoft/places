@@ -18,6 +18,7 @@ import 'package:redux/redux.dart';
 
 import 'redux/middleware/find_place_middleware.dart';
 import 'redux/reducer/reducer.dart';
+import 'ui/res/multi_repository_provider.dart';
 
 ThemeData themeColor = lightTheme;
 ApiClient apiClient = ApiClient();
@@ -42,12 +43,15 @@ void main() {
   );
 
   runApp(
-    MultiProvider(
-      providers: listMultiProviders,
-      child: MultiBlocProvider(
-        providers: listMultiBlocProviders,
-        child: Main(
-          store: store,
+    MultiRepositoryProvider(
+      providers: listMultiRepositoryProvider,
+      child: MultiProvider(
+        providers: listMultiProviders,
+        child: MultiBlocProvider(
+          providers: listMultiBlocProviders,
+          child: Main(
+            store: store,
+          ),
         ),
       ),
     ),

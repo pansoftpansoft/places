@@ -5,6 +5,12 @@ class PlaceBlocObserver extends BlocObserver {
   @override
   void onCreate(BlocBase bloc) {
     super.onCreate(bloc);
-    debugPrint('Создалсф bloc = ${bloc.toString()}');
+    debugPrint('Создался bloc = ${bloc.toString()}');
+  }
+
+  @override
+  void onEvent(Bloc bloc, Object? event) {
+    super.onEvent(bloc, event);
+    debugPrint('event = ${event.toString()}');
   }
 }
