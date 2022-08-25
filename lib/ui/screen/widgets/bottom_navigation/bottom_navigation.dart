@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:places/ui/res/route_name.dart';
 import 'package:places/ui/res/svg_icons.dart';
+import 'package:places/ui/screen/list_places_screen/bloc/list_places_bloc.dart';
+import 'package:provider/provider.dart';
 
 /// Нижнее главное меню
 class BottomNavigation extends StatefulWidget {
@@ -75,6 +77,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
       widget._selectedIndex = index;
       switch (index) {
         case 0:
+          context.read<ListPlacesBloc>().add(const ListPlacesEvents.load());
           Navigator.pushReplacementNamed(
             context,
             RouteName.listPlacesScreen,

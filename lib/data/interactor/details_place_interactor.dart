@@ -14,9 +14,6 @@ class DetailsPlaceInteractor extends ChangeNotifier {
 
   PlaceInteractor placeInteractor = PlaceInteractor();
 
-  ///Всего отображаемых фотографий
-  int countElements = 1;
-
   ///Индекс отображаемой фотографии
   int index = 0;
 
@@ -39,12 +36,11 @@ class DetailsPlaceInteractor extends ChangeNotifier {
   }
 
   void updateContext(Place place, BuildContext context) {
-    context
-        .read<PlaceInteractor>()
-        .setFavorites(place)
-        .then((value) {
+    context.read<PlaceInteractor>().setFavorites(place).then((value) {
       streamControllerDetailsPlace.sink.add(
-        context.read<DetailsPlaceInteractor>().iconList[place.isFavorites ? 1 : 0],
+        context
+            .read<DetailsPlaceInteractor>()
+            .iconList[place.isFavorites ? 1 : 0],
       );
       debugPrint(
         'Обновление контекстов при нажатии кнопки Добавить в фавориты',
@@ -61,11 +57,9 @@ class DetailsPlaceInteractor extends ChangeNotifier {
 
   ///Изменнение положения индикатора
   void changeScrollIndicator(
-    final int countPhoto,
     final int indexIndicator,
   ) {
     debugPrint('notifyListeners()');
-    countElements = countPhoto;
     index = indexIndicator;
   }
 

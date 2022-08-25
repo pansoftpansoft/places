@@ -1,38 +1,32 @@
 import 'package:flutter/material.dart';
-import 'package:places/data/interactor/details_place_interactor.dart';
 import 'package:places/ui/res/sizes.dart';
-import 'package:provider/provider.dart';
 
 ///Индикатор прокрутки фотографий
 class ScrollIndicator extends StatelessWidget {
+  final int countElements;
+  final int index;
+
   ///Конструктор индикатора прокрутки фотографий
   const ScrollIndicator({
+    required this.countElements,
+    required this.index,
     final Key? key,
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) => Consumer<DetailsPlaceInteractor>(
-        builder: (
-          final context,
-          final detailsPlaceModel,
-          final child,
-        ) => Container(
-            margin: EdgeInsets.only(
-              left: (MediaQuery.of(context).size.width /
-                  context.read<DetailsPlaceInteractor>().countElements) *
-                  context.read<DetailsPlaceInteractor>().index,
-            ),
-            height: 8,
-            width: MediaQuery.of(context).size.width /
-                context.read<DetailsPlaceInteractor>().countElements,
-            decoration: BoxDecoration(
-              color: Theme.of(context).indicatorColor,
-              borderRadius: buildBorderRadius(
-                context.read<DetailsPlaceInteractor>().index,
-                context.read<DetailsPlaceInteractor>().countElements,
-              ),
-            ),
+  Widget build(BuildContext context) => Container(
+        margin: EdgeInsets.only(
+          left: (MediaQuery.of(context).size.width / countElements) * index,
+        ),
+        height: 8,
+        width: MediaQuery.of(context).size.width / countElements,
+        decoration: BoxDecoration(
+          color: Theme.of(context).indicatorColor,
+          borderRadius: buildBorderRadius(
+            index,
+            countElements,
           ),
+        ),
       );
 
   ///Изменяем отображение индикатора прокрутки для крайних положений
