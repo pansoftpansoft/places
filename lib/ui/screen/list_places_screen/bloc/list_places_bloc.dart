@@ -58,8 +58,6 @@ class ListPlacesBloc extends Bloc<ListPlacesEvents, ListPlacesState> {
       //
     } on Object catch (error, stackTrace) {
       rethrow;
-    } finally {
-      //
     }
   }
 
@@ -74,8 +72,6 @@ class ListPlacesBloc extends Bloc<ListPlacesEvents, ListPlacesState> {
       //
     } on Object catch (error, stackTrace) {
       rethrow;
-    } finally {
-      //
     }
   }
 

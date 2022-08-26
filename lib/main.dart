@@ -1,18 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_redux/flutter_redux.dart';
 import 'package:places/blocs/place_bloc_observer.dart';
 import 'package:places/data/api/api_client.dart';
 import 'package:places/data/interactor/search_screen_interactor.dart';
-import 'package:places/data/interactor/settings_interactor.dart';
-import 'package:places/data/model/app_model.dart';
 import 'package:places/redux/state/app_state.dart';
 import 'package:places/ui/res/multi_bloc_providers.dart';
 import 'package:places/ui/res/multi_providers.dart';
 import 'package:places/ui/res/route_map.dart';
 import 'package:places/ui/res/route_name.dart';
 import 'package:places/ui/res/themes.dart';
+import 'package:places/ui/screen/settings_screen/bloc/settings_bloc.dart';
 import 'package:provider/provider.dart';
 import 'package:redux/redux.dart';
 
@@ -28,7 +26,7 @@ void main() {
 
   WidgetsFlutterBinding.ensureInitialized();
 
-  loadSettings();
+  //loadSettings();
 
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
@@ -70,23 +68,19 @@ class Main extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return StoreProvider<AppState>(
-      store: store,
-      child: MaterialApp(
-        theme: context.select<AppModel, ThemeData>(
-          (a) => themeColor,
-        ),
-        title: 'Задача  8.2',
-        routes: mapRoutes,
-        initialRoute: RouteName.splashScreen,
-      ),
+    return Builder(
+      builder: (context) {
+        return BlocBuilder<SettingsBloc, SettingsState>(
+          builder: (context, state) {
+            return MaterialApp(
+              theme: state.theme,
+              title: 'Мои путешествия',
+              routes: mapRoutes,
+              initialRoute: RouteName.splashScreen,
+            );
+          },
+        );
+      },
     );
   }
-}
-
-Future<void> loadSettings() async {
-  themeColor = await SettingsInteractor.getSettingsTheme('themes');
-  await SettingsInteractor.updateSettingsThemeColor(themeColor);
-
-  return;
 }

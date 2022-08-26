@@ -3,8 +3,8 @@ import 'package:places/data/repository/settings_repository.dart';
 
 import '../../ui/res/themes.dart';
 
-class SettingsInteractor {
-  static Future<ThemeData> getSettingsTheme(String settingName) async {
+class SettingsInteractor extends ChangeNotifier {
+  Future<ThemeData> getSettingsTheme(String settingName) async {
     final listFilter = await SettingsRepository.getListSettingsApp();
     var settingListValue = lightTheme;
 
@@ -19,7 +19,7 @@ class SettingsInteractor {
     return settingListValue;
   }
 
-  static Future<void> updateSettingsThemeColor(ThemeData themeData) async {
+  Future<void> updateSettingsThemeColor(ThemeData themeData) async {
     final settingListValue = themeData == darkTheme ? '1' : '0';
     await SettingsRepository.updateSettingsThemeColor(settingListValue);
   }
