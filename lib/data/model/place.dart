@@ -42,16 +42,21 @@ class Place with _$Place {
 
   ///Конструктор
   const factory Place({
+    @JsonKey()
     @Default(0) int id,
     @Default(0) double lat,
-    @Default(0) double lon,
+    @Default(0) double lng,
     @Default('') String name,
     @Default(<String>[]) List<String> urls,
     @Default('') String placeType,
     @Default('') String description,
+    @JsonKey(ignore: true)
     @Default(false) bool isFavorites,
+    @JsonKey(ignore: true)
     DateTime? wantVisitDate,
+    @JsonKey(ignore: true)
     DateTime? visitedDate,
+    @JsonKey(ignore: true)
     @Default(0) double distance,
   }) = _Place;
 

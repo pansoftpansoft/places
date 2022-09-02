@@ -40,7 +40,7 @@ class RowTextFieldTextFieldIconLon extends StatelessWidget {
           context.read<AddPlaceBloc>().add(
             AddPlaceEvents.onChangedFields(
               place: context.read<AddPlaceBloc>().state.place.copyWith(
-                lon: double.parse(value),
+                lng: double.parse(value),
               ),
             ),
           );

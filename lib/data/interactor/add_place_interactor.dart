@@ -1,13 +1,14 @@
 import 'package:flutter/foundation.dart';
+import 'package:places/data/model/place.dart';
+import 'package:places/data/repository/place_repository.dart';
 
 ///Модель для добавления фотографий в карточку места
 class AddPlaceInteractor extends ChangeNotifier {
   /// Первое значение бронируем,
   /// так как это будет кнопка "Добавить", которую удалять нельзя
-  String? selectTypePlace;
 
-  String? disableButton;
 
+  PlaceRepository placeRepository = PlaceRepository();
   ///Добавляем фотографию
   void addPhoto(
     String pathPhoto,
@@ -36,14 +37,11 @@ class AddPlaceInteractor extends ChangeNotifier {
     notifyListeners();
   }
 
-  ///
-  void selectCategory(String? changeSelect) {
-    selectTypePlace = changeSelect;
-    notifyListeners();
+     Future<Place?> addPlace(Place place) async {
+
+     final newPlace = await placeRepository.postPlace(place);
+
+     return newPlace;
   }
 
-  ///Управление кнопкой создать
-  void disableButtonCreate(String value) {
-    disableButton = value.isEmpty ? null : value;
-  }
 }

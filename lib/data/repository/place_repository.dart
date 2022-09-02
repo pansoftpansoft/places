@@ -13,6 +13,7 @@ import 'package:places/data/model/place_filter_request_dto.dart';
 import 'package:places/domain/db_provider.dart';
 import 'package:places/main.dart';
 import 'package:places/type_place.dart';
+import 'dart:convert';
 
 final repositoryMocks = <Place>[];
 
@@ -27,7 +28,7 @@ class PlaceRepository extends ChangeNotifier {
     try {
       final response = await apiClient.post(
         pathUrlCreatePlace,
-        place.toJson().toString(),
+        json.encode(place.toJson()),
       );
 
       switch (response.statusCode) {
@@ -37,6 +38,7 @@ class PlaceRepository extends ChangeNotifier {
           }
         case 400:
           {
+            debugPrint('response.data = ${response.data.toString()}');
             throw CustomException400();
           }
         case 409:
@@ -174,7 +176,7 @@ class PlaceRepository extends ChangeNotifier {
       final place = Place(
         id: placeDto.id,
         lat: placeDto.lat,
-        lon: placeDto.lon,
+        lng: placeDto.lon,
         name: placeDto.name,
         urls: placeDto.urls,
         placeType: placeDto.placeType,

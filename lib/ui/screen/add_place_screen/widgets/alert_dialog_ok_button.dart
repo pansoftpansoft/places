@@ -7,7 +7,7 @@ import 'package:places/ui/screen/widgets/elevated_button_green_big.dart';
 class AlertDialogOkButton extends StatelessWidget {
   static double heightAlertDialog = 48;
 
-  ///Диалог придупреждения при нажатии кнопки отмена
+  ///Диалог  при нажатии кнопки Ok
   const AlertDialogOkButton({
     final Key? key,
   }) : super(key: key);

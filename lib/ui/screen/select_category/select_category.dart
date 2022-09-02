@@ -21,17 +21,15 @@ class SelectCategory extends StatelessWidget {
         appBar: const PreferredSize(
           preferredSize: Size(double.infinity, kToolbarHeight),
           child: SelectCategoryAppBar(),
-
         ),
         body: Column(
           children: const <Widget>[
             SelectCategoryList(),
           ],
         ),
-
       ),
       onWillPop: () async {
-        _onWillPop(context,'');
+        _onWillPop(context, '');
 
         return true;
       },
@@ -40,11 +38,10 @@ class SelectCategory extends StatelessWidget {
 
   void _onWillPop(BuildContext context, String placeType) {
     context.read<AddPlaceBloc>().add(
-      AddPlaceEvents.load(
-        place: context.read<AddPlaceBloc>().state.place.copyWith(
-        ),
-      ),
-    );
+          AddPlaceEvents.load(
+            place: context.read<AddPlaceBloc>().state.place.copyWith(),
+          ),
+        );
 
     _navigator(context);
   }
@@ -52,8 +49,6 @@ class SelectCategory extends StatelessWidget {
   void _navigator(BuildContext context) {
     Navigator.pop(
       context,
-      context.read<AddPlaceInteractor>().selectTypePlace,
     );
   }
-
 }

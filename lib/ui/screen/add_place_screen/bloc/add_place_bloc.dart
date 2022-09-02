@@ -24,6 +24,7 @@ class AddPlaceBloc extends Bloc<AddPlaceEvents, AddPlaceState> {
         onCreatePlace: (event) => _onCreatePlace(event, emitter),
         onSelectPlaceType: (event) => _onSelectPlaceType(event, emitter),
         onSelectedPlaceType: (event) => _onSelectedPlaceType(event, emitter),
+        onErrorAdd: (event) => _onErrorAdd(event, emitter),
       ),
       transformer: bloc_concurrency.sequential(),
     );
@@ -69,10 +70,17 @@ class AddPlaceBloc extends Bloc<AddPlaceEvents, AddPlaceState> {
     debugPrint('emitter = ${emitter.toString()}');
     try {
       if (state.addReadyCheck == 1) {
-        emit(AddPlaceState.showPage(place: state.place));
+        final newPlace = await _addPlaceInteractor.addPlace(event.place
+            .copyWith(id: 999, description: '123', placeType: "park", urls: [
+          "https://picsum.photos/1000/800",
+          "https://picsum.photos/1000/800"
+        ]));
+        emit(AddPlaceState.addedPlace(place: event.place.copyWith(id: 999)));
       }
     } on Object catch (error, stackTrace) {
-      rethrow;
+      debugPrint('error 10000 = ${error.toString()}');
+      emit(AddPlaceState.errorAdd(place: event.place));
+      //rethrow;
     }
   }
 
@@ -98,6 +106,24 @@ class AddPlaceBloc extends Bloc<AddPlaceEvents, AddPlaceState> {
     _onSelectedPlaceTypeEvents event,
     Emitter<AddPlaceState> emit,
   ) async {
+    debugPrint('1 event = ${event.toString()}');
+    debugPrint('1 emit = ${emit.toString()}');
+    try {
+      emit(AddPlaceState.showPage(place: state.place));
+    } on NetworkException {
+      // emit(const ListPlacesState.error(message: 'Ошибка загрузки из сети'));
+    } on Object catch (error, stackTrace) {
+      rethrow;
+    } finally {
+      debugPrint('2 event = ${event.toString()}');
+      debugPrint('2 emitter = ${emit.toString()}');
+    }
+  }
+
+  Future<void> _onErrorAdd(
+      _onErrorAddEvents event,
+      Emitter<AddPlaceState> emit,
+      ) async {
     debugPrint('1 event = ${event.toString()}');
     debugPrint('1 emit = ${emit.toString()}');
     try {
@@ -137,6 +163,10 @@ class AddPlaceEvents with _$AddPlaceEvents {
   const factory AddPlaceEvents.onSelectedPlaceType({
     required final Place place,
   }) = _onSelectedPlaceTypeEvents;
+
+  const factory AddPlaceEvents.onErrorAdd({
+    required final Place place,
+  }) = _onErrorAddEvents;
 }
 
 /// Состояния
@@ -144,7 +174,7 @@ class AddPlaceEvents with _$AddPlaceEvents {
 class AddPlaceState with _$AddPlaceState {
   //Проверка заполнения необходимых полей
   int get addReadyCheck {
-    if (place.name.isNotEmpty && place.lat != 0 && place.lon != 0) {
+    if (place.name.isNotEmpty && place.lat != 0 && place.lng != 0) {
       debugPrint('addReadyCheck = ${1}');
 
       return 1;
@@ -157,6 +187,16 @@ class AddPlaceState with _$AddPlaceState {
   bool get selectPlaceType => maybeMap<bool>(
         orElse: () => false,
         selectPlaceType: (_) => true,
+      );
+
+  bool get addedPlace => maybeMap<bool>(
+        orElse: () => false,
+        addedPlace: (_) => true,
+      );
+
+  bool get error => maybeMap<bool>(
+        orElse: () => true,
+        errorAdd: (_) => true,
       );
 
   const AddPlaceState._();
@@ -174,15 +214,19 @@ class AddPlaceState with _$AddPlaceState {
   // Выбор типа места
   const factory AddPlaceState.selectPlaceType({
     required final Place place,
-  }) = _SelectPlaceType;
+  }) = _SelectPlaceTypeState;
 
   // Нажата кнопка создать место
   const factory AddPlaceState.createPlace({
     required final Place place,
-  }) = _CreatePlaceType;
+  }) = _CreatePlaceState;
+
+  const factory AddPlaceState.addedPlace({
+    required final Place place,
+  }) = _AddedPlaceState;
 
   // Ошибка
-  const factory AddPlaceState.error({
+  const factory AddPlaceState.errorAdd({
     required final Place place,
-  }) = _ErrorAddPlaceState;
+  }) = _ErrorAddState;
 }

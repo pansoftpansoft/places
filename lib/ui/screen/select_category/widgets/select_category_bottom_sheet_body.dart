@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:places/data/interactor/add_place_interactor.dart';
 import 'package:places/ui/res/labels.dart';
 import 'package:places/ui/screen/add_place_screen/bloc/add_place_bloc.dart';
 import 'package:places/ui/screen/select_category/bloc/select_category_bloc.dart';
@@ -45,7 +44,6 @@ class SelectCategoryBottomSheetBody extends StatelessWidget {
   void _navigator(BuildContext context) {
     Navigator.pop(
       context,
-      context.read<AddPlaceInteractor>().selectTypePlace,
     );
   }
 }
