@@ -38,7 +38,6 @@ class OnboardingBloc extends Bloc<OnboardingEvents, OnboardingState> {
       emit(OnboardingState.showPage(
         listPage: listPage,
         currentPage: 0,
-        callingFromSettings: event.callingFromSettings,
       ));
     } on NetworkException {
       // emit(const ListPlacesState.error(message: 'Ошибка загрузки из сети'));
@@ -60,7 +59,6 @@ class OnboardingBloc extends Bloc<OnboardingEvents, OnboardingState> {
       emit(OnboardingState.showPage(
         listPage: event.listPage,
         currentPage: event.currentPage,
-        callingFromSettings: event.callingFromSettings,
       ));
     } on Object catch (error, stackTrace) {
       rethrow;
@@ -80,52 +78,24 @@ class OnboardingEvents with _$OnboardingEvents {
   const factory OnboardingEvents.onPageChanged({
     @Default(<OnboardingPage>[]) final List<OnboardingPage> listPage,
     @Default(0) final int currentPage,
-    @Default(false) final bool callingFromSettings,
   }) = _onPageChangedOnboardingEvents;
 }
 
 /// Состояния
 @freezed
 class OnboardingState with _$OnboardingState {
-  bool get callingFromSettings => maybeWhen<bool>(
-        orElse: () => false,
-        load: (_) => false,
-        showPage: (listPage, currentPage, callingFromSettings) =>
-            callingFromSettings,
-      );
-
-  int get currentPage => maybeWhen<int>(
-        orElse: () => 0,
-        showPage: (
-          listPage,
-          currentPage,
-          callingFromSettings,
-        ) =>
-            currentPage,
-      );
-
-  List<OnboardingPage> get listPage => maybeWhen<List<OnboardingPage>>(
-        orElse: () => [],
-        showPage: (
-          listPage,
-          currentPage,
-          callingFromSettings,
-        ) =>
-            listPage,
-      );
-
   const OnboardingState._();
 
   // Идет загрузка
   const factory OnboardingState.load({
-    @Default(false) final bool callingFromSettings,
+    @Default(<OnboardingPage>[]) final List<OnboardingPage> listPage,
+    @Default(0) final int currentPage,
   }) = _LoadOnboardingState;
 
   // Список загружен
   const factory OnboardingState.showPage({
     @Default(<OnboardingPage>[]) final List<OnboardingPage> listPage,
     @Default(0) final int currentPage,
-    @Default(false) final bool callingFromSettings,
   }) = _ShowOnboardingState;
 
   // Ошибка

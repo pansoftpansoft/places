@@ -14,7 +14,8 @@ class ListViewTab2 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => ListView.builder(
-        itemCount: mocksVisited.length,
+//        itemCount: mocksVisited.length,
+        itemCount: context.read<VisitedTabBloc>().state.props.length,
         itemBuilder: (context, index) => CardPlace(
           mocksVisited[index],
           iconDelete: true,

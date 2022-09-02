@@ -49,10 +49,10 @@ class PlaceInteractor extends ChangeNotifier {
     // Пробуем обновить место
 
     if (place.isFavorites) {
-      place.isFavorites = false;
+      place.copyWith(isFavorites: false);
       debugPrint('Это кнопка "В избранное" remove');
     } else {
-      place.isFavorites = true;
+      place.copyWith(isFavorites: true);
       debugPrint('Это кнопка "В избранное" add');
     }
 
@@ -86,7 +86,9 @@ class PlaceInteractor extends ChangeNotifier {
   Future<void> setStatusPlaceVisited(
     Place place,
   ) async {
-    place.visitedDate = place.visitedDate == null ? DateTime.now() : null;
+    place.copyWith(
+      visitedDate: place.visitedDate == null ? DateTime.now() : null,
+    );
 
     // проверяем есть токое место в лакальной базе, если нет добавляем.
     final addInLocalDB = await DBProvider.dbProvider.checkPlacesInLocalDataId(

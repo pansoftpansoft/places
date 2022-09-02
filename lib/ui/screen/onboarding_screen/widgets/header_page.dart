@@ -24,10 +24,8 @@ class HeaderPage extends StatelessWidget {
               child: TextButtonGreenText(
                 title: skip,
                 onPressed: () {
-                  if (context
-                      .read<OnboardingBloc>()
-                      .state
-                      .callingFromSettings) {
+                  if ((ModalRoute.of(context)?.settings.arguments
+                      as Map)['callingFromSettings'] as bool) {
                     Navigator.pop(context);
                   } else {
                     Navigator.pushReplacementNamed(

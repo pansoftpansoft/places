@@ -1,81 +1,59 @@
-import 'package:places/ui/res/img.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+
+part 'place.freezed.dart';
+
+part 'place.g.dart';
 
 /// Класс места
-class Place {
+@freezed
+class Place with _$Place {
   /// Id достопримечательности
-  final int id;
+  //final int id;
 
   /// Координаты места
-  final double lat;
+  //final double lat;
 
   /// Координаты места
-  final double lon;
+  //final double lon;
 
   /// Название достопримечательности
-  final String name;
+  //final String name;
 
   /// Пути до фотографиЙ в интернете
-  final List<String> urls;
+  //final List<String> urls;
 
   /// Тип достопримечательности.
-  final String placeType;
+  //final String placeType;
 
   /// Тип описание
-  final String description;
+  //final String description;
 
   /// Растояние до точки
-  final double? distance;
+  //final double? distance;
 
   /// Признак того что место добавлено в избранное
-  bool isFavorites;
+  //final bool isFavorites;
 
   /// Дата когда хочу посетить место
-  DateTime? wantVisitDate;
+  //final DateTime? wantVisitDate;
 
   /// Дата когда посетил
-  DateTime? visitedDate;
-
-  ///отображать в списке после поиска и фильтрации.
-  bool visibleFilter = false;
+  //final DateTime? visitedDate;
 
   ///Конструктор
-  Place({
-    this.id = 0,
-    this.lat = 0,
-    this.lon = 0,
-    required this.name,
-    this.urls = const <String>[],
-    required this.placeType,
-    this.description = '',
-    this.isFavorites = false,
-    this.wantVisitDate,
-    this.visitedDate,
-    this.distance,
-  });
+  const factory Place({
+    @Default(0) int id,
+    @Default(0) double lat,
+    @Default(0) double lon,
+    @Default('') String name,
+    @Default(<String>[]) List<String> urls,
+    @Default('') String placeType,
+    @Default('') String description,
+    @Default(false) bool isFavorites,
+    DateTime? wantVisitDate,
+    DateTime? visitedDate,
+    @Default(0) double distance,
+  }) = _Place;
 
-  /// парсинг из json
-  Place.fromJson(Map<String, dynamic> json)
-      : id = json['id'] as int,
-        lat = json['lat'] as double,
-        lon = json['lng'] as double,
-        name = json['name'] as String,
-        urls = (json['urls'] as List<dynamic>).isEmpty
-            ? [noPhoto]
-            : (json['urls'] as List<dynamic>).whereType<String>().toList(),
-        placeType = json['placeType'] as String,
-        description = json['description'] as String,
-        distance =
-            json['distance'] != null ? json['distance'] as double? : null,
-        isFavorites = false;
-
-  /// создание мапы для добавление в json
-  Map<String, dynamic> toJson() => <String, dynamic>{
-        'id': id,
-        'lat': lat,
-        'lon': lon,
-        'name': name,
-        'urls': urls,
-        'placeType': placeType,
-        'description': description,
-      };
+  factory Place.fromJson(Map<String, dynamic> json) => _$PlaceFromJson(json);
 }

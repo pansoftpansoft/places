@@ -44,7 +44,7 @@ class VisitingInteractor extends ChangeNotifier {
 
   ///Установка или изменение даты заплонированного посещения интересног места
   void dateWantVisit(int sours, DateTime dateWantVisitNew) {
-    mocksWantVisit[sours].wantVisitDate = dateWantVisitNew;
+    mocksWantVisit[sours].copyWith(wantVisitDate: dateWantVisitNew);
     notifyListeners();
   }
 

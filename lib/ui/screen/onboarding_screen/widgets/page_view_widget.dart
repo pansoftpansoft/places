@@ -20,11 +20,9 @@ class PageViewWidget extends StatelessWidget {
                   OnboardingEvents.onPageChanged(
                     listPage: state.listPage,
                     currentPage: value,
-                    callingFromSettings: state.callingFromSettings,
                   ),
                 );
           },
-          //controller: context.read<OnboardingScreenInteractor>().pageControllerOnboardingScreen,
           children: [
             for (OnboardingPage page in mocksOnboardingScreen)
               BodyPage(

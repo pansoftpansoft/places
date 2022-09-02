@@ -7,7 +7,6 @@ import 'package:provider/provider.dart';
 
 ///Создание списка категорий
 class SelectCategoryList extends StatelessWidget {
-
   const SelectCategoryList({
     Key? key,
   }) : super(key: key);
@@ -29,12 +28,10 @@ class SelectCategoryList extends StatelessWidget {
               ListView(
             children: <Widget>[
               for (var iTypePlace = 0;
-                  iTypePlace < TypePlace.values.toList().length;
+                  iTypePlace < typePlace.length;
                   iTypePlace++) ...<Widget>[
                 SelectElementList(
-                  TypePlace.values.toList()[iTypePlace],
-                  typePlaceSelected:
-                      context.read<AddPlaceInteractor>().selectTypePlace,
+                  typePlace[iTypePlace],
                 ),
                 const Divider(),
               ],

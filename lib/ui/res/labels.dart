@@ -1,5 +1,3 @@
-import 'package:places/type_place.dart';
-
 ///Текстовые константы
 const String addToFavoritesString = 'В избранное';
 const String alreadyInFavoritesString = 'Уже в избранном';
@@ -87,31 +85,31 @@ const details = '''
                         Московского дома. 
                     ''';
 
-String typePlaceString(TypePlace enumString) {
-  switch (enumString) {
-    case TypePlace.hotel:
-      {
-        return hotel;
-      }
-    case TypePlace.restaurant:
-      {
-        return restaurant;
-      }
-    case TypePlace.particularPlace:
-      {
-        return particularPlace;
-      }
-    case TypePlace.park:
-      {
-        return park;
-      }
-    case TypePlace.museum:
-      {
-        return museum;
-      }
-    case TypePlace.cafe:
-      {
-        return cafe;
-      }
-  }
-}
+// String typePlaceString(TypePlace enumString) {
+//   switch (enumString) {
+//     case TypePlace.hotel:
+//       {
+//         return hotel;
+//       }
+//     case TypePlace.restaurant:
+//       {
+//         return restaurant;
+//       }
+//     case TypePlace.particularPlace:
+//       {
+//         return particularPlace;
+//       }
+//     case TypePlace.park:
+//       {
+//         return park;
+//       }
+//     case TypePlace.museum:
+//       {
+//         return museum;
+//       }
+//     case TypePlace.cafe:
+//       {
+//         return cafe;
+//       }
+//   }
+// }

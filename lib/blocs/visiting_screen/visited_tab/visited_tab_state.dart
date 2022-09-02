@@ -1,6 +1,9 @@
 part of 'visited_tab_bloc.dart';
 
 
+
+
+
 abstract class VisitedTabState extends Equatable {
   const VisitedTabState();
 }

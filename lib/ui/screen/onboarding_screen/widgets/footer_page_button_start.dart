@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:places/ui/res/labels.dart';
 import 'package:places/ui/res/route_name.dart';
 import 'package:places/ui/res/sizes.dart';
-import 'package:places/ui/screen/onboarding_screen/bloc/onboarding_bloc.dart';
 import 'package:places/ui/screen/widgets/elevated_button_green_big.dart';
-import 'package:provider/provider.dart';
 
 class FooterPageButtonStart extends StatelessWidget {
   static const double heightFooterPage = 48;
@@ -39,16 +37,19 @@ class FooterPageButtonStart extends StatelessWidget {
   }
 
   void _onPressed(BuildContext context) {
-    debugPrint('context.read<OnboardingBloc>().state.firstStart = ${context.read<OnboardingBloc>().state.callingFromSettings}');
+    debugPrint(
+      'context.read<OnboardingBloc>().state.firstStart = '
+      '${(ModalRoute.of(context)?.settings.arguments as Map)['callingFromSettings'] as bool}',
+    );
 
-    if (context.read<OnboardingBloc>().state.callingFromSettings) {
+    if ((ModalRoute.of(context)?.settings.arguments
+        as Map)['callingFromSettings'] as bool) {
       Navigator.pop(context);
     } else {
       Navigator.pushReplacementNamed(
         context,
         RouteName.listPlacesScreen,
       );
-
     }
   }
 }

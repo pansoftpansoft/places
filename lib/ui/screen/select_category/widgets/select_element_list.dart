@@ -1,41 +1,47 @@
 import 'package:flutter/material.dart';
-import 'package:places/data/interactor/add_place_interactor.dart';
-import 'package:places/type_place.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:places/ui/screen/select_category/bloc/select_category_bloc.dart';
 import 'package:places/ui/screen/select_category/widgets/select_element_list_row.dart';
-import 'package:provider/provider.dart';
 
 ///
-class SelectElementList extends StatefulWidget {
-  final TypePlace typePlace;
-  final TypePlace? typePlaceSelected;
+class SelectElementList extends StatelessWidget {
+  final String typePlace;
 
   const SelectElementList(
     this.typePlace, {
-    this.typePlaceSelected,
     Key? key,
   }) : super(key: key);
 
   @override
-  State<SelectElementList> createState() => _SelectElementListState();
-}
-
-class _SelectElementListState extends State<SelectElementList> {
-  @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () {
-        final typePlaceSelect = widget.typePlaceSelected == widget.typePlace
-            ? null
-            : widget.typePlace;
-        debugPrint('Выбрали тип места');
-        context.read<AddPlaceInteractor>().selectCategory(typePlaceSelect);
+    return BlocBuilder<SelectCategoryBloc, SelectCategoryState>(
+      builder: (
+        context,
+        state,
+      ) {
+        return InkWell(
+          onTap: () {
+            _onTap(context, typePlace);
+          },
+          child: SizedBox(
+            height: 48,
+            child: SelectElementListRow(
+              currentSelectCategory: state.currentSelectCategory,
+              typePlaceSelected: typePlace,
+            ),
+          ),
+        );
       },
-      child: SizedBox(
-        height: 48,
-        child: SelectElementListRow(
-          widget: widget,
-        ),
-      ),
     );
+  }
+
+  void _onTap(BuildContext context, String typePlaceSelected) {
+    context.read<SelectCategoryBloc>().add(
+          SelectCategoryEvents.select(
+            currentSelectCategory: typePlaceSelected,
+          ),
+        );
+
+    return;
   }
 }

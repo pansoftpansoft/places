@@ -1,11 +1,10 @@
 import 'package:flutter/foundation.dart';
-import 'package:places/type_place.dart';
 
 ///Модель для добавления фотографий в карточку места
 class AddPlaceInteractor extends ChangeNotifier {
   /// Первое значение бронируем,
   /// так как это будет кнопка "Добавить", которую удалять нельзя
-  TypePlace? selectTypePlace;
+  String? selectTypePlace;
 
   String? disableButton;
 
@@ -38,7 +37,7 @@ class AddPlaceInteractor extends ChangeNotifier {
   }
 
   ///
-  void selectCategory(TypePlace? changeSelect) {
+  void selectCategory(String? changeSelect) {
     selectTypePlace = changeSelect;
     notifyListeners();
   }

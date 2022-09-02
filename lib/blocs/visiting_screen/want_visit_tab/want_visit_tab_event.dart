@@ -26,3 +26,13 @@ class WantVisitUpdateToVisited extends WantVisitTabEvent {
 
   const WantVisitUpdateToVisited(this.place);
 }
+
+// Выбор места для показа деталей о места
+class SelectedWantVisitPlace extends WantVisitTabEvent {
+  final Place place;
+
+  @override
+  List<Object> get props => [place];
+
+  const SelectedWantVisitPlace(this.place);
+}

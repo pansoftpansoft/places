@@ -46,12 +46,10 @@ class PlaceRepository extends ChangeNotifier {
       }
 
       return Place.fromJson(response.data as Map<String, dynamic>);
-
     } on DioError catch (e) {
       //streamControllerListPlace.addError(NetworkException);
       throw NetworkException(e);
     }
-
   }
 
   ///--------------------------------------------------------------
@@ -69,20 +67,25 @@ class PlaceRepository extends ChangeNotifier {
         if (placesLocalData.isNotEmpty) {
           for (final placesLocalDataElement in placesLocalData) {
             if (placesLocalDataElement.id == placeOne.id) {
-              placeOne.isFavorites =
-                  // ignore: avoid_bool_literals_in_conditional_expressions
-                  placesLocalDataElement.isFavorites == 1 ? true : false;
-              placeOne.wantVisitDate =
-                  placesLocalDataElement.wantVisitDate == null
-                      ? null
-                      : placesLocalDataElement.wantVisitDateToDatetime();
+              placeOne.copyWith(
+                isFavorites:
+                    // ignore: avoid_bool_literals_in_conditional_expressions
+                    placesLocalDataElement.isFavorites == 1 ? true : false,
+              );
+              placeOne.copyWith(
+                wantVisitDate: placesLocalDataElement.wantVisitDate == null
+                    ? null
+                    : placesLocalDataElement.wantVisitDateToDatetime(),
+              );
 
               debugPrint(
                 'placesLocalDataElement.visitedDate = ${placesLocalDataElement.visitedDate}',
               );
-              placeOne.visitedDate = placesLocalDataElement.visitedDate == 0
-                  ? null
-                  : placesLocalDataElement.visitedDateToDatetime();
+              placeOne.copyWith(
+                visitedDate: placesLocalDataElement.visitedDate == 0
+                    ? null
+                    : placesLocalDataElement.visitedDateToDatetime(),
+              );
             }
           }
         }
@@ -248,9 +251,9 @@ class PlaceRepository extends ChangeNotifier {
 
       if (placeLocalData != null) {
         //place.id =  placeLocalData.id;
-        place.isFavorites = placeLocalData.isFavoritesToBool();
-        place.wantVisitDate = placeLocalData.wantVisitDateToDatetime();
-        place.visitedDate = placeLocalData.visitedDateToDatetime();
+        place.copyWith(isFavorites: placeLocalData.isFavoritesToBool());
+        place.copyWith(wantVisitDate: placeLocalData.wantVisitDateToDatetime());
+        place.copyWith(visitedDate: placeLocalData.visitedDateToDatetime());
       }
 
       return place;

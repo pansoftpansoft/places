@@ -1,30 +1,28 @@
-import 'package:elementary/elementary.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:places/ui/res/labels.dart';
-import 'package:places/ui/screen/add_place_screen/widgets/bottom_sheet_create_button.dart';
+import 'package:places/ui/screen/add_place_screen/bloc/add_place_bloc.dart';
 import 'package:places/ui/screen/widgets/elevated_button_green_big.dart';
 
 /// Кнопка "Создать"
 class ButtonCreate extends StatelessWidget {
-
   const ButtonCreate({
-      final Key? key,
+    final Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final wm = context.findAncestorWidgetOfExactType<BottomSheetCreateButton>()!.wm;
-    debugPrint('wm 3  = ${wm.toString()}');
-
-
-    return StateNotifierBuilder<bool>(
-      listenableState: wm.buttonCreateState,
-      builder: (context, data) {
+    return  BlocBuilder<AddPlaceBloc, AddPlaceState>(
+        builder: (context, state) {
         return ElevatedButtonGreenBig(
           title: create.toUpperCase(),
-          onPressed: data==true ? wm.createPlace : null,
+          onPressed: state.addReadyCheck == 1
+              ? () {
+                  _onPressed(context);
+                }
+              : null,
         );
-       },
+      },
     );
   }
 
@@ -54,14 +52,17 @@ class ButtonCreate extends StatelessWidget {
   //   });
   // }
 
-  // ///Обработка кнопки предупреждения что добавляется новое место или ошибка
-  // void _onPress(BuildContext context) {
-  //   context
-  //       .read<AddPlaceInteractor>()
-  //       .disableButton = null;
-  //   Navigator.pushReplacementNamed(
-  //     context,
-  //     RouteName.listPlacesScreen,
-  //   );
-  // }
+  ///Обработка кнопки предупреждения что добавляется новое место или ошибка
+  void _onPressed(BuildContext context) {
+    context.read<AddPlaceBloc>().add(
+          AddPlaceEvents.onCreatePlace(
+            place: context.read<AddPlaceBloc>().state.place,
+          ),
+        );
+
+    // Navigator.pushReplacementNamed(
+    //   context,
+    //   RouteName.listPlacesScreen,
+    // );
+  }
 }
