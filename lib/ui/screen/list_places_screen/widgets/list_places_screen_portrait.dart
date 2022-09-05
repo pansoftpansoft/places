@@ -7,6 +7,7 @@ import 'package:places/data/model/place.dart';
 import 'package:places/ui/res/img.dart';
 import 'package:places/ui/res/route_name.dart';
 import 'package:places/ui/res/sizes.dart';
+import 'package:places/ui/screen/add_place_screen/bloc/add_place_bloc.dart';
 import 'package:places/ui/screen/details_place_screen/details_place_screen.dart';
 import 'package:places/ui/screen/list_places_screen/bloc/list_places_bloc.dart';
 import 'package:places/ui/screen/list_places_screen/widgets/sticky_header.dart';

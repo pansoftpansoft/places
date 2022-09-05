@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:places/data/interactor/add_place_interactor.dart';
 import 'package:places/ui/screen/add_place_screen/bloc/add_place_bloc.dart';
+import 'package:places/ui/screen/select_category/bloc/select_category_bloc.dart';
 import 'package:places/ui/screen/select_category/widgets/select_category_app_bar.dart';
 import 'package:places/ui/screen/select_category/widgets/select_category_bottom_sheet.dart';
 import 'package:places/ui/screen/select_category/widgets/select_category_list.dart';
@@ -15,6 +16,15 @@ class SelectCategory extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    context.read<SelectCategoryBloc>().add(
+          SelectCategoryEvents.load(
+            currentSelectCategory:
+                context.read<AddPlaceBloc>().state.place.placeType == ''
+                    ? ''
+                    : context.read<AddPlaceBloc>().state.place.placeType,
+          ),
+        );
+
     return WillPopScope(
       child: Scaffold(
         bottomSheet: const SelectCategoryBottomSheet(),

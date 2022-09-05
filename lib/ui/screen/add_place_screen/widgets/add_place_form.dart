@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/screen/add_place_screen/bloc/add_place_bloc.dart';
 import 'package:places/ui/screen/add_place_screen/widgets/add_place_screen_body.dart';
-import 'package:places/ui/screen/add_place_screen/widgets/alert_dialog_ok_button.dart';
+import 'package:places/ui/screen/list_places_screen/bloc/list_places_bloc.dart';
 import 'package:places/ui/screen/select_category/select_category.dart';
 
 class AddPlaceForm extends StatelessWidget {
@@ -37,15 +37,44 @@ class AddPlaceForm extends StatelessWidget {
             BlocListener<AddPlaceBloc, AddPlaceState>(
               listenWhen: (previousState, state) => state.addedPlace,
               listener: (context, state) {
-                debugPrint('state.addedPlace = ${state.toString()}');
-                const AlertDialogOkButton();
+                debugPrint('!!! Show snack add = ${state.toString()}');
+                final snackBar = SnackBar(
+                  content: const Text('Место добавлено!'),
+                  action: SnackBarAction(
+                    label: 'Undo',
+                    onPressed: () {
+                      // Some code to undo the change.
+                    },
+                  ),
+                );
+                ScaffoldMessenger
+                    .of(context)
+                    .showSnackBar(snackBar)
+                    .closed
+                    .then((value) {
+                  context.read<ListPlacesBloc>().add(
+                    const ListPlacesEvents.load(),);
+                  Navigator.pop(
+                    context,
+                  );
+                },
+                );
               },
             ),
             BlocListener<AddPlaceBloc, AddPlaceState>(
               listenWhen: (previousState, state) => state.error,
               listener: (context, state) {
-                debugPrint('state.addedPlace = ${state.toString()}');
-                const AlertDialogOkButton();
+                debugPrint('!!! Show snack error = ${state.toString()}');
+                final snackBar = SnackBar(
+                  content: const Text('Ошибка!'),
+                  action: SnackBarAction(
+                    label: 'Undo',
+                    onPressed: () {
+                      // Some code to undo the change.
+                    },
+                  ),
+                );
+                ScaffoldMessenger.of(context).showSnackBar(snackBar);
               },
             ),
           ],

@@ -38,7 +38,7 @@ class AddPlaceBloc extends Bloc<AddPlaceEvents, AddPlaceState> {
     debugPrint('1 emit = ${emit.toString()}');
     try {
       //final listPage = _addPlaceInteractor.selectCategory();
-      emit(AddPlaceState.showPage(place: state.place));
+      emit(AddPlaceState.showPage(place: event.place));
     } on NetworkException {
       // emit(const ListPlacesState.error(message: 'Ошибка загрузки из сети'));
     } on Object catch (error, stackTrace) {
@@ -71,11 +71,11 @@ class AddPlaceBloc extends Bloc<AddPlaceEvents, AddPlaceState> {
     try {
       if (state.addReadyCheck == 1) {
         final newPlace = await _addPlaceInteractor.addPlace(event.place
-            .copyWith(id: 999, description: '123', placeType: "park", urls: [
+            .copyWith(id: 99993, description: '123', placeType: "park", urls: [
           "https://picsum.photos/1000/800",
           "https://picsum.photos/1000/800"
         ]));
-        emit(AddPlaceState.addedPlace(place: event.place.copyWith(id: 999)));
+        emit(AddPlaceState.addedPlace(place: event.place.copyWith(id: 99993)));
       }
     } on Object catch (error, stackTrace) {
       debugPrint('error 10000 = ${error.toString()}');
@@ -121,9 +121,9 @@ class AddPlaceBloc extends Bloc<AddPlaceEvents, AddPlaceState> {
   }
 
   Future<void> _onErrorAdd(
-      _onErrorAddEvents event,
-      Emitter<AddPlaceState> emit,
-      ) async {
+    _onErrorAddEvents event,
+    Emitter<AddPlaceState> emit,
+  ) async {
     debugPrint('1 event = ${event.toString()}');
     debugPrint('1 emit = ${emit.toString()}');
     try {
@@ -195,7 +195,7 @@ class AddPlaceState with _$AddPlaceState {
       );
 
   bool get error => maybeMap<bool>(
-        orElse: () => true,
+        orElse: () => false,
         errorAdd: (_) => true,
       );
 

@@ -60,6 +60,7 @@ class TextFieldIcon extends StatefulWidget {
   // final String textValue;
   ///
   final ValueChanged<String>? actionOnSubmitted;
+  final ValueChanged? onEditingComplete;
 
   ///
   final int maxLines;
@@ -89,6 +90,7 @@ class TextFieldIcon extends StatefulWidget {
 
   ///
   const TextFieldIcon({
+    this.onEditingComplete,
     this.controller,
     this.textEditingControllerFunction,
     this.focusNode,
