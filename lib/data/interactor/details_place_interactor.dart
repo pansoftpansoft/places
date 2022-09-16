@@ -9,9 +9,6 @@ import 'package:provider/provider.dart';
 
 ///Модель для DetailsPlaceModel
 class DetailsPlaceInteractor extends ChangeNotifier {
-  StreamController<String> streamControllerDetailsPlace =
-      StreamController<String>();
-
   PlaceInteractor placeInteractor = PlaceInteractor();
 
   ///Индекс отображаемой фотографии
@@ -24,36 +21,6 @@ class DetailsPlaceInteractor extends ChangeNotifier {
   ];
 
   Place? detailsPlace;
-
-  void openStream() {
-    debugPrint('Открываем стрим');
-    streamControllerDetailsPlace = StreamController<String>();
-  }
-
-  void closeStream() {
-    debugPrint('Закрываем стрим');
-    streamControllerDetailsPlace.close();
-  }
-
-  void updateContext(Place place, BuildContext context) {
-    context.read<PlaceInteractor>().setFavorites(place).then((value) {
-      streamControllerDetailsPlace.sink.add(
-        context
-            .read<DetailsPlaceInteractor>()
-            .iconList[place.isFavorites ? 1 : 0],
-      );
-      debugPrint(
-        'Обновление контекстов при нажатии кнопки Добавить в фавориты',
-      );
-      context.read<FiltersScreenInteractor>().notifyListenersFiltersScreen();
-    });
-  }
-
-  void onPressed(Place place, BuildContext context) {
-    streamControllerDetailsPlace.sink
-        .add(context.read<DetailsPlaceInteractor>().iconList[2]);
-    context.read<DetailsPlaceInteractor>().updateContext(place, context);
-  }
 
   ///Изменнение положения индикатора
   void changeScrollIndicator(

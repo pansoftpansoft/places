@@ -12,7 +12,7 @@ class PlaceInteractor extends ChangeNotifier {
 
   ///--------------------------------------------------------------
   /// Получить список отфильтрованных мест
-  Future<List<Place>?> getPlacesInteractor({
+  Future<List<Place>> getPlacesInteractor({
     RangeValues? radiusRange,
     List<String>? category,
     String? searchString,

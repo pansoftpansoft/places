@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_redux/flutter_redux.dart';
 import 'package:places/data/interactor/search_screen_interactor.dart';
-import 'package:places/redux/action/search_places_screen_actions.dart';
-import 'package:places/redux/state/app_state.dart';
 import 'package:places/ui/res/color_palette.dart';
 import 'package:places/ui/res/labels.dart';
 import 'package:places/ui/res/sizes.dart';
@@ -51,7 +48,7 @@ class ListHistoryScreenBuilder extends StatelessWidget {
       ..setSearchText('')
       ..clearHistory();
 
-    StoreProvider.of<AppState>(context)
-        .dispatch(OpenSearchPlacesScreenAction());
+    // StoreProvider.of<AppState>(context)
+    //     .dispatch(OpenSearchPlacesScreenAction());
   }
 }

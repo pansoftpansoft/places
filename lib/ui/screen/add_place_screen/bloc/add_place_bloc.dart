@@ -73,7 +73,7 @@ class AddPlaceBloc extends Bloc<AddPlaceEvents, AddPlaceState> {
         final newPlace = await _addPlaceInteractor.addPlace(event.place
             .copyWith(id: 99993, description: '123', placeType: "park", urls: [
           "https://picsum.photos/1000/800",
-          "https://picsum.photos/1000/800"
+          "https://picsum.photos/1000/800",
         ]));
         emit(AddPlaceState.addedPlace(place: event.place.copyWith(id: 99993)));
       }

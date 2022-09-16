@@ -4,8 +4,9 @@ import 'package:places/ui/res/labels.dart';
 import 'package:places/ui/res/svg_icons.dart';
 import 'package:places/ui/screen/search_places_screen/widgets/empty_screen.dart';
 
-class SearchPlacesScreenBodySwitchNotFound extends StatelessWidget {
-  const SearchPlacesScreenBodySwitchNotFound({
+//SearchPlacesScreenBodySwitchNotFound
+class SearchNotFoundScreen extends StatelessWidget {
+  const SearchNotFoundScreen({
     Key? key,
   }) : super(key: key);
 

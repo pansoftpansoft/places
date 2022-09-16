@@ -6,20 +6,9 @@ import 'package:places/data/interactor/place_interactor.dart';
 import 'package:places/data/model/place.dart';
 
 class ListPlacesScreenInteractor extends ChangeNotifier {
-  StreamController<Place> streamControllerListPlace =
-      StreamController<Place>.broadcast();
 
   PlaceInteractor placeInteractor = PlaceInteractor();
 
-  void openStream() {
-    debugPrint('Открыть стрим');
-    streamControllerListPlace = StreamController<Place>();
-  }
-
-  void closeStream() {
-    debugPrint('Закрываем стрим');
-    streamControllerListPlace.close();
-  }
 
   ///Управление кнопкой создать
   void updatePlacesList() {
@@ -29,7 +18,7 @@ class ListPlacesScreenInteractor extends ChangeNotifier {
 
   @Deprecated('В связи с рефакторингом на блок. Актуальна loadBloc')
   Future<void> load() async {
-    openStream();
+
     await placeInteractor.getPlacesInteractor(
       radiusRange: FiltersScreenInteractor.rangeDistance,
       category: FiltersScreenInteractor.listCategory.isEmpty
@@ -47,8 +36,8 @@ class ListPlacesScreenInteractor extends ChangeNotifier {
           : FiltersScreenInteractor.listCategory,
     );
 
-    debugPrint('list.toString() = ${list?.length}');
+    debugPrint('list.toString() = ${list.length}');
 
-    return list ?? [];
+    return list;
   }
 }

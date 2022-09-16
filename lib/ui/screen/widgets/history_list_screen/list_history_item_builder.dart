@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:places/data/interactor/search_screen_interactor.dart';
-import 'package:places/redux/action/search_places_screen_actions.dart';
-import 'package:places/redux/state/app_state.dart';
 import 'package:places/type_place.dart';
 import 'package:places/ui/res/color_palette.dart';
 import 'package:places/ui/res/svg_icons.dart';
@@ -68,20 +65,20 @@ class ListHistoryItemBuilder extends StatelessWidget {
         .deleteHistory(SearchScreenInteractor.listHistory[index].historyText);
 
     //Обновляем список при удалении строки из поиска
-    await SearchScreenInteractor.getListHistory().then((value) {
-      if (SearchScreenInteractor.listHistory.isEmpty) {
-        context.read<SearchScreenInteractor>()
-          ..setSearchText('')
-          ..clearHistory();
-        StoreProvider.of<AppState>(context).dispatch(OpenSearchPlacesScreenAction());
-        debugPrint('Удалаем строку истории! 1');
-      } else {
-        context.read<SearchScreenInteractor>()
-          ..setSearchText('')
-          ..managerSelectionScreen(numberScreen: ScreenEnum.listSearchWords);
-        debugPrint('Удалаем строку истории! 2');
-      }
-    });
+    // await SearchScreenInteractor.getListHistory().then((value) {
+    //   if (SearchScreenInteractor.listHistory.isEmpty) {
+    //     context.read<SearchScreenInteractor>()
+    //       ..setSearchText('')
+    //       ..clearHistory();
+    //     //StoreProvider.of<AppState>(context).dispatch(OpenSearchPlacesScreenAction());
+    //     debugPrint('Удалаем строку истории! 1');
+    //   } else {
+    //     context.read<SearchScreenInteractor>()
+    //       ..setSearchText('')
+    //       ..managerSelectionScreen(numberScreen: ScreenEnum.listSearchWords);
+    //     debugPrint('Удалаем строку истории! 2');
+    //   }
+    // });
 
   }
 
@@ -89,6 +86,6 @@ class ListHistoryItemBuilder extends StatelessWidget {
     int index,
     BuildContext context,
   ) {
-    StoreProvider.of<AppState>(context).dispatch(StartFindAction(SearchScreenInteractor.listHistory[index].historyText));
+    //StoreProvider.of<AppState>(context).dispatch(StartFindAction(SearchScreenInteractor.listHistory[index].historyText));
   }
 }

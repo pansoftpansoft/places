@@ -3,13 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:places/data/api/network_exception.dart';
+import 'package:places/data/interactor/details_place_interactor.dart';
 import 'package:places/data/interactor/list_places_screen_interactor.dart';
 import 'package:places/data/model/place.dart';
+import 'package:places/ui/screen/details_place_screen/bloc/details_place_bloc.dart';
 
 part 'list_places_bloc.freezed.dart';
 
 class ListPlacesBloc extends Bloc<ListPlacesEvents, ListPlacesState> {
   final ListPlacesScreenInteractor _listPlacesScreenInteractor;
+
 
   ListPlacesBloc(
     final this._listPlacesScreenInteractor,
@@ -68,7 +71,13 @@ class ListPlacesBloc extends Bloc<ListPlacesEvents, ListPlacesState> {
     debugPrint('event = ${event.toString()}');
     debugPrint('emitter = ${emit.toString()}');
     try {
-      emit(ListPlacesState.selected(place: event.place));
+
+
+      // context.read<DetailsPlaceBloc>().getPlace(place.id,context.read<ListPlacesScreenInteractor>().streamControllerListPlace,);
+      // context.read<DetailsPlaceBloc>()
+
+      emit(ListPlacesState.selected(
+          listPlaces: state.listPlaces, place: event.place));
       //
     } on Object catch (error, stackTrace) {
       rethrow;
@@ -116,7 +125,8 @@ class ListPlacesEvents with _$ListPlacesEvents {
 
   const factory ListPlacesEvents.loaded() = _LoadedListPlacesEvents;
 
-  const factory ListPlacesEvents.selected({required  Place place}) = _SelectListPlacesEvents;
+  const factory ListPlacesEvents.selected({required Place place}) =
+      _SelectListPlacesEvents;
 
   const factory ListPlacesEvents.addNew() = _AddNewListPlacesEvents;
 
@@ -158,10 +168,9 @@ class ListPlacesState with _$ListPlacesState {
       );
 
   Place get place => maybeWhen<Place>(
-    orElse: () => place,
-    selected: (place) => place,
-  );
-
+        orElse: () => place,
+        selected: (listPlaces, place) => place,
+      );
 
   const ListPlacesState._();
 
@@ -172,11 +181,12 @@ class ListPlacesState with _$ListPlacesState {
 
   // Список загружен
   const factory ListPlacesState.loaded({
-    required final List<Place> listPlaces,
+    @Default(<Place>[]) final List<Place> listPlaces,
   }) = _ShowListPlacesState;
 
   // Выбрана карточка
   const factory ListPlacesState.selected({
+    @Default(<Place>[]) final List<Place> listPlaces,
     required final Place place,
   }) = _selectedListPlacesState;
 

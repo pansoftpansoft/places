@@ -66,7 +66,7 @@ class SplashScreenState extends State<SplashScreen> {
   Future<void> getNetData() async {
     debugPrint('Запустилась GetNetData().');
 
-    await SearchScreenInteractor.getListHistory();
+    //await SearchScreenInteractor.getListHistory();
     await FiltersScreenInteractor.getFilterSettings();
 
     debugPrint('Завершилась GetNetData().');

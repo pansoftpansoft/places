@@ -3,8 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:places/blocs/place_bloc_observer.dart';
 import 'package:places/data/api/api_client.dart';
-import 'package:places/data/interactor/search_screen_interactor.dart';
-import 'package:places/redux/state/app_state.dart';
 import 'package:places/ui/res/multi_bloc_providers.dart';
 import 'package:places/ui/res/multi_providers.dart';
 import 'package:places/ui/res/route_map.dart';
@@ -12,10 +10,7 @@ import 'package:places/ui/res/route_name.dart';
 import 'package:places/ui/res/themes.dart';
 import 'package:places/ui/screen/settings_screen/bloc/settings_bloc.dart';
 import 'package:provider/provider.dart';
-import 'package:redux/redux.dart';
 
-import 'redux/middleware/find_place_middleware.dart';
-import 'redux/reducer/reducer.dart';
 import 'ui/res/multi_repository_provider.dart';
 
 ThemeData themeColor = lightTheme;
@@ -34,12 +29,6 @@ void main() {
     ),
   );
 
-  final store = Store<AppState>(
-    reducer,
-    initialState: AppState(),
-    middleware: [FindPlaceMiddleware(SearchScreenInteractor())],
-  );
-
   runApp(
     MultiRepositoryProvider(
       providers: listMultiRepositoryProvider,
@@ -47,9 +36,7 @@ void main() {
         providers: listMultiProviders,
         child: MultiBlocProvider(
           providers: listMultiBlocProviders,
-          child: Main(
-            store: store,
-          ),
+          child: const Main(),
         ),
       ),
     ),
@@ -58,11 +45,8 @@ void main() {
 
 /// Запуск приложения
 class Main extends StatelessWidget {
-  final Store<AppState> store;
-
   /// Конструктор
   const Main({
-    required this.store,
     Key? key,
   }) : super(key: key);
 

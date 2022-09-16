@@ -29,7 +29,13 @@ class ListPlacesScreenPortrait extends StatelessWidget {
         BlocListener<ListPlacesBloc, ListPlacesState>(
           listenWhen: (previousState, state) => state.selected,
           listener: (context, state) {
-            showDetailsScreen(context, state.place);
+            showModalBottomSheet<Widget>(
+              context: context,
+              builder: (_) => const DetailsPlaceScreen(),
+              isScrollControlled: true,
+              isDismissible: true,
+              useRootNavigator: true,
+            );
           },
         ),
       ],
@@ -83,26 +89,5 @@ class ListPlacesScreenPortrait extends StatelessWidget {
         },
       ),
     );
-  }
-
-  Future<void> showDetailsScreen(
-    final BuildContext context,
-    final Place place,
-  ) async {
-    await context
-        .read<DetailsPlaceInteractor>()
-        .getPlace(
-          place.id,
-          context.read<ListPlacesScreenInteractor>().streamControllerListPlace,
-        )
-        .then(
-          (value) => showModalBottomSheet<Widget>(
-            context: context,
-            builder: (_) => const DetailsPlaceScreen(),
-            isScrollControlled: true,
-            isDismissible: true,
-            useRootNavigator: true,
-          ),
-        );
   }
 }

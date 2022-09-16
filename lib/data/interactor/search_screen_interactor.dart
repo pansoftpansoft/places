@@ -4,6 +4,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:places/data/interactor/place_interactor.dart';
+import 'package:places/data/model/place.dart';
 import 'package:places/domain/db_provider.dart';
 import 'package:places/domain/history.dart';
 import 'package:places/type_place.dart';
@@ -29,38 +30,33 @@ class SearchScreenInteractor extends ChangeNotifier {
   String _searchString = '';
 
   ///Получаем список историй поиска
-  static Future<int> getListHistory() async {
+  Future<List<History>> getListHistory() async {
     listHistory.clear();
     listHistory = (await DBProvider.dbProvider.getListHistoryFromDb())!;
 
-    return listHistory.length;
+    return listHistory;
+  }
+
+  ///Получаем список историй поиска
+  Future<void> addToListHistory(String value) async {
+    await DBProvider.dbProvider.addHistory(value);
   }
 
   /// Получить отфильтрованный список мест
   /// И проверить на совподение со строкой поиска
-  bool getFilteredList() {
-    //mocksFiltered.clear();
-    mocksSearchText.clear();
-    if (_searchString.isNotEmpty) {
-      for (final item in mocks) {
-        //фильтр установлен проверяем его и поиск по имени
-        debugPrint(_searchString);
-        if (item.name.toLowerCase().contains(_searchString.toLowerCase())) {
-          mocksFiltered.add(item);
-        }
-      }
-    }
-    debugPrint('200 mocksSearch ${mocksFiltered.length.toString()}');
-
-    return _errorTest;
+  Future<List<Place>> getFilteredList(String value) async {
+    final listPlace = await placeInteractor.getPlacesInteractor(
+      searchString: value,
+    );
+    return listPlace;
   }
 
   Future<void> getListSearchText() async {
     mocksSearchText.clear();
     if (_searchString.isNotEmpty) {
-      mocksSearchText = (await placeInteractor.getPlacesInteractor(
+      mocksSearchText = await placeInteractor.getPlacesInteractor(
         searchString: _searchString,
-      ))!;
+      );
     }
     debugPrint(' countPlace 4  = ${mocksSearchText.length}');
 

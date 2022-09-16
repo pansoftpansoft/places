@@ -5,6 +5,7 @@ import 'package:places/data/interactor/search_screen_interactor.dart';
 import 'package:places/data/model/place.dart';
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/screen/details_place_screen/details_place_screen.dart';
+import 'package:places/ui/screen/search_places_screen/bloc/search_places_bloc.dart';
 import 'package:places/ui/screen/search_places_screen/widgets/search_card_place_text_span.dart';
 import 'package:provider/provider.dart';
 
@@ -56,21 +57,18 @@ class SearchCardPlace extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 0, width: 16),
-              SearchCardPlaceTextSpan(place, context.read<SearchScreenInteractor>().searchString),
+              SearchCardPlaceTextSpan(
+                place,
+                context.read<SearchScreenInteractor>().searchString,
+              ),
             ],
           ),
         ),
       );
 
   Future<void> _onTap(BuildContext context) async {
-    await context.read<DetailsPlaceInteractor>().getPlace(place.id, context.read<ListPlacesScreenInteractor>().streamControllerListPlace).then(
-          (value) => showModalBottomSheet<Widget>(
-            context: context,
-            builder: (_) => const DetailsPlaceScreen(),
-            isScrollControlled: true,
-            isDismissible: true,
-            useRootNavigator: true,
-          ),
-        );
+    context
+        .read<SearchPlacesBloc>()
+        .add(SearchPlacesEvents.selectSearch(place: place));
   }
 }
