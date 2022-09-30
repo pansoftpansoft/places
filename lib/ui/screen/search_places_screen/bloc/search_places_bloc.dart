@@ -1,3 +1,5 @@
+// ignore_for_file: invalid_use_of_visible_for_testing_member
+
 import 'package:bloc_concurrency/bloc_concurrency.dart' as bloc_concurrency;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -23,9 +25,10 @@ class SearchPlacesBloc extends Bloc<SearchPlacesEvents, SearchPlacesState> {
     on<SearchPlacesEvents>(
       (event, emitter) => event.map<Future<void>>(
         load: (event) => _load(event, emitter),
-        loaded: (event) => _loaded(event, emitter),
         newSearch: (event) => _onNewSearch(event, emitter),
         selectSearch: (event) => _onSelectSearch(event, emitter),
+        clearHistory: (event) => _onClearHistory(event, emitter),
+        deleteHistoryWord: (event) => _onDeleteHistoryWord(event, emitter),
       ),
       transformer: bloc_concurrency.sequential(),
     );
@@ -66,11 +69,7 @@ class SearchPlacesBloc extends Bloc<SearchPlacesEvents, SearchPlacesState> {
           event.listSearch.isEmpty &&
           event.stringSearch.isEmpty) {
         emit(
-          SearchPlacesState.showEmpty(
-            listHistory: event.listHistory,
-            listSearch: event.listSearch,
-            stringSearch: event.stringSearch,
-          ),
+          const SearchPlacesState.showEmpty(),
         );
 
         return;
@@ -88,13 +87,6 @@ class SearchPlacesBloc extends Bloc<SearchPlacesEvents, SearchPlacesState> {
     }
   }
 
-  Future<void> _loaded(
-    _onLoadedSearchPlacesEvents event,
-    Emitter<SearchPlacesState> emit,
-  ) async {
-    return;
-  }
-
   //Введено слово, начикаем поиск
   Future<void> _onNewSearch(
     _onNewSearchPlacesEvents event,
@@ -108,10 +100,11 @@ class SearchPlacesBloc extends Bloc<SearchPlacesEvents, SearchPlacesState> {
       );
 
       //Записали новое слово поиска в историю поиска
-      //await _searchScreenInteractor.addToListHistory(event.stringSearch);
-      var listPlace =
+      await _searchScreenInteractor.addToListHistory(event.stringSearch);
+
+      final listPlace =
           await _searchScreenInteractor.getFilteredList(event.stringSearch);
-      debugPrint('listPlace = = ${listPlace}');
+      debugPrint('listPlace = = $listPlace');
       if (listPlace.isNotEmpty) {
         emit(
           SearchPlacesState.showSearch(
@@ -141,13 +134,76 @@ class SearchPlacesBloc extends Bloc<SearchPlacesEvents, SearchPlacesState> {
     debugPrint('event = ${event.toString()}');
     debugPrint('emitter = ${emitter.toString()}');
     try {
+      //Показываем экран загрузки
       emit(
-        SearchPlacesState.showSelected(
+        SearchPlacesState.load(
           listSearch: state.listSearch,
           stringSearch: state.stringSearch,
           place: event.place,
         ),
       );
+      //Проверить историю поиск
+      if (event.place != null) {
+        final place = await _searchScreenInteractor.getPlaceId(event.place!.id);
+        emit(
+          SearchPlacesState.showSelected(
+            listSearch: state.listSearch,
+            stringSearch: state.stringSearch,
+            place: place,
+          ),
+        );
+      } else {
+        emit(
+          SearchPlacesState.showNotFound(
+            listHistory: event.listHistory,
+            listSearch: event.listSearch,
+            stringSearch: event.stringSearch,
+          ),
+        );
+      }
+    } on Object catch (error, stackTrace) {
+      rethrow;
+    }
+  }
+
+  Future<void> _onClearHistory(
+    _onClearHistoryEvents event,
+    Emitter<SearchPlacesState> emitter,
+  ) async {
+    debugPrint('event = ${event.toString()}');
+    debugPrint('emitter = ${emitter.toString()}');
+    try {
+      //Показываем экран загрузки
+
+      _searchScreenInteractor.setSearchText('');
+      await _searchScreenInteractor.clearHistory();
+
+      emit(
+        const SearchPlacesState.showEmpty(),
+      );
+    } on Object catch (error, stackTrace) {
+      rethrow;
+    }
+  }
+
+  Future<void> _onDeleteHistoryWord(
+    _onDeleteHistoryWordEvents event,
+    Emitter<SearchPlacesState> emitter,
+  ) async {
+    try {
+      //Удаляем слово из истории поиска
+      await _searchScreenInteractor.deleteHistory(
+        SearchScreenInteractor.listHistory[event.indexHistoryText!].historyText,
+      );
+      //Проверяем список слов в истории поиска
+      final listHistoryNew = await _searchScreenInteractor.getListHistory();
+
+      //Слов нет, чистим все.
+      if (listHistoryNew.isEmpty) {
+        emit(
+          const SearchPlacesState.showEmpty(),
+        );
+      }
     } on Object catch (error, stackTrace) {
       rethrow;
     }
@@ -164,20 +220,15 @@ class SearchPlacesEvents with _$SearchPlacesEvents {
     @Default(<Place>[]) final List<Place> listSearch,
     @Default('') final String stringSearch,
     @Default(null) final Place? place,
+    @Default(null) final int? indexHistoryText,
   }) = _onLoadSearchPlacesEvents;
-
-  const factory SearchPlacesEvents.loaded({
-    @Default(<History>[]) final List<History> listHistory,
-    @Default(<Place>[]) final List<Place> listSearch,
-    @Default('') final String stringSearch,
-    @Default(null) final Place? place,
-  }) = _onLoadedSearchPlacesEvents;
 
   const factory SearchPlacesEvents.newSearch({
     @Default(<History>[]) final List<History> listHistory,
     @Default(<Place>[]) final List<Place> listSearch,
     @Default('') final String stringSearch,
     @Default(null) final Place? place,
+    @Default(null) final int? indexHistoryText,
   }) = _onNewSearchPlacesEvents;
 
   const factory SearchPlacesEvents.selectSearch({
@@ -185,7 +236,24 @@ class SearchPlacesEvents with _$SearchPlacesEvents {
     @Default(<Place>[]) final List<Place> listSearch,
     @Default('') final String stringSearch,
     @Default(null) final Place? place,
+    @Default(null) final int? indexHistoryText,
   }) = _onSelectSearchPlacesEvents;
+
+  const factory SearchPlacesEvents.clearHistory({
+    @Default(<History>[]) final List<History> listHistory,
+    @Default(<Place>[]) final List<Place> listSearch,
+    @Default('') final String stringSearch,
+    @Default(null) final Place? place,
+    @Default(null) final int? indexHistoryText,
+  }) = _onClearHistoryEvents;
+
+  const factory SearchPlacesEvents.deleteHistoryWord({
+    @Default(<History>[]) final List<History> listHistory,
+    @Default(<Place>[]) final List<Place> listSearch,
+    @Default('') final String stringSearch,
+    @Default(null) final Place? place,
+    @Default(null) final int? indexHistoryText,
+  }) = _onDeleteHistoryWordEvents;
 }
 
 /// Состояния
@@ -210,6 +278,7 @@ class SearchPlacesState with _$SearchPlacesState {
     @Default(<Place>[]) final List<Place> listSearch,
     @Default('') final String stringSearch,
     @Default(null) final Place? place,
+    @Default(null) final int? indexHistoryText,
   }) = _LoadSearchPlacesState;
 
   const factory SearchPlacesState.loader({
@@ -217,6 +286,7 @@ class SearchPlacesState with _$SearchPlacesState {
     @Default(<Place>[]) final List<Place> listSearch,
     @Default('') final String stringSearch,
     @Default(null) final Place? place,
+    @Default(null) final int? indexHistoryText,
   }) = _LoaderSearchPlacesState;
 
   // Список загружен
@@ -225,6 +295,7 @@ class SearchPlacesState with _$SearchPlacesState {
     @Default(<Place>[]) final List<Place> listSearch,
     @Default('') final String stringSearch,
     @Default(null) final Place? place,
+    @Default(null) final int? indexHistoryText,
   }) = _ShowSearchPlacesState;
 
   // Список историй поиска
@@ -233,6 +304,7 @@ class SearchPlacesState with _$SearchPlacesState {
     @Default(<Place>[]) final List<Place> listSearch,
     @Default('') final String stringSearch,
     @Default(null) final Place? place,
+    @Default(null) final int? indexHistoryText,
   }) = _ShowListHistoryPlacesState;
 
   // Показ пустого окна когда нет истории поиска
@@ -241,6 +313,7 @@ class SearchPlacesState with _$SearchPlacesState {
     @Default(<Place>[]) final List<Place> listSearch,
     @Default('') final String stringSearch,
     @Default(null) final Place? place,
+    @Default(null) final int? indexHistoryText,
   }) = _ShowEmptyState;
 
   // Показ окна с сообщением что ничего не найдено
@@ -249,6 +322,7 @@ class SearchPlacesState with _$SearchPlacesState {
     @Default(<Place>[]) final List<Place> listSearch,
     @Default('') final String stringSearch,
     @Default(null) final Place? place,
+    @Default(null) final int? indexHistoryText,
   }) = _ShowNotFound;
 
   const factory SearchPlacesState.showSelected({
@@ -256,6 +330,7 @@ class SearchPlacesState with _$SearchPlacesState {
     @Default(<Place>[]) final List<Place> listSearch,
     @Default('') final String stringSearch,
     @Default(null) final Place? place,
+    @Default(null) final int? indexHistoryText,
   }) = _ShowSelectedPlaceState;
 
   // Ошибка
@@ -264,5 +339,6 @@ class SearchPlacesState with _$SearchPlacesState {
     @Default(<Place>[]) final List<Place> listSearch,
     @Default('') final String stringSearch,
     @Default(null) final Place? place,
+    @Default(null) final int? indexHistoryText,
   }) = _ErrorSearchPlacesState;
 }

@@ -1,3 +1,5 @@
+// ignore_for_file: invalid_use_of_visible_for_testing_member
+
 import 'package:bloc_concurrency/bloc_concurrency.dart' as bloc_concurrency;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -70,11 +72,6 @@ class AddPlaceBloc extends Bloc<AddPlaceEvents, AddPlaceState> {
     debugPrint('emitter = ${emitter.toString()}');
     try {
       if (state.addReadyCheck == 1) {
-        final newPlace = await _addPlaceInteractor.addPlace(event.place
-            .copyWith(id: 99993, description: '123', placeType: "park", urls: [
-          "https://picsum.photos/1000/800",
-          "https://picsum.photos/1000/800",
-        ]));
         emit(AddPlaceState.addedPlace(place: event.place.copyWith(id: 99993)));
       }
     } on Object catch (error, stackTrace) {

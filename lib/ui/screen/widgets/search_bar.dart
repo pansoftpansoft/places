@@ -108,8 +108,6 @@ class SearchBar extends StatelessWidget {
     BuildContext context,
   ) {
     textEditingController!.clear();
-    // StoreProvider.of<AppState>(context).dispatch(
-    //   OpenSearchPlacesScreenAction(),
-    //);
+    context.read<SearchPlacesBloc>().add(const SearchPlacesEvents.load());
   }
 }

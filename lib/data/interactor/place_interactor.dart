@@ -30,9 +30,8 @@ class PlaceInteractor extends ChangeNotifier {
 
   Future<Place?> getPlaceDetails(
     int placeId,
-    StreamController<Place> streamControllerListPlace,
   ) async {
-    return placeRepository.getPlaceId(placeId, streamControllerListPlace);
+    return placeRepository.getPlaceId(placeId);
   }
 
   Future<Place?> postPlace(

@@ -3,16 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:places/data/api/network_exception.dart';
-import 'package:places/data/interactor/details_place_interactor.dart';
 import 'package:places/data/interactor/list_places_screen_interactor.dart';
 import 'package:places/data/model/place.dart';
-import 'package:places/ui/screen/details_place_screen/bloc/details_place_bloc.dart';
 
 part 'list_places_bloc.freezed.dart';
 
 class ListPlacesBloc extends Bloc<ListPlacesEvents, ListPlacesState> {
   final ListPlacesScreenInteractor _listPlacesScreenInteractor;
-
 
   ListPlacesBloc(
     final this._listPlacesScreenInteractor,
@@ -70,14 +67,19 @@ class ListPlacesBloc extends Bloc<ListPlacesEvents, ListPlacesState> {
   ) async {
     debugPrint('event = ${event.toString()}');
     debugPrint('emitter = ${emit.toString()}');
+    //Показываем экран загрузки
+    emit(
+      ListPlacesState.load(
+        listPlaces: state.listPlaces,
+      ),
+    );
     try {
-
-
-      // context.read<DetailsPlaceBloc>().getPlace(place.id,context.read<ListPlacesScreenInteractor>().streamControllerListPlace,);
-      // context.read<DetailsPlaceBloc>()
-
-      emit(ListPlacesState.selected(
-          listPlaces: state.listPlaces, place: event.place));
+      emit(
+        ListPlacesState.selected(
+          listPlaces: state.listPlaces,
+          place: event.place,
+        ),
+      );
       //
     } on Object catch (error, stackTrace) {
       rethrow;

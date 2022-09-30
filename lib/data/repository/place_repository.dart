@@ -13,7 +13,6 @@ import 'package:places/data/model/place_filter_request_dto.dart';
 import 'package:places/domain/db_provider.dart';
 import 'package:places/main.dart';
 import 'package:places/type_place.dart';
-import 'dart:convert';
 
 final repositoryMocks = <Place>[];
 
@@ -230,7 +229,6 @@ class PlaceRepository extends ChangeNotifier {
   /// Получить место по идентификатору
   Future<Place> getPlaceId(
     int placeId,
-    StreamController<Place> streamControllerListPlace,
   ) async {
     try {
       String mapString;
@@ -260,7 +258,6 @@ class PlaceRepository extends ChangeNotifier {
 
       return place;
     } on DioError catch (e) {
-      streamControllerListPlace.addError(NetworkException);
       throw NetworkException(e);
     }
   }

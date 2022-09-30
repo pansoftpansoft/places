@@ -1,13 +1,10 @@
 // ignore_for_file: prefer_final_in_for_each
-
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:places/data/interactor/filter_interactor.dart';
 import 'package:places/data/interactor/place_interactor.dart';
 import 'package:places/data/model/filter_category.dart';
 import 'package:places/data/model/filter_distance.dart';
-import 'package:places/data/model/place.dart';
 import 'package:places/type_place.dart';
 
 class FiltersScreenInteractor extends ChangeNotifier {
@@ -61,8 +58,7 @@ class FiltersScreenInteractor extends ChangeNotifier {
 
   Future<void> restoreFilterSettings() => getFilterSettings();
 
-  Future<void> getDataFromRepository(
-  ) async {
+  Future<void> getDataFromRepository() async {
     mocksSearchText.clear();
     listCategory = <String>[];
     for (final item in filterMap.keys.toList()) {
@@ -74,7 +70,7 @@ class FiltersScreenInteractor extends ChangeNotifier {
     mocksFiltered = await placeInteractor.getPlacesInteractor(
       radiusRange: rangeDistance,
       category: listCategory.isEmpty ? null : listCategory,
-    ) as List<Place>;
+    );
 
     debugPrint(' countPlace 3  = ${mocksFiltered.length}');
 

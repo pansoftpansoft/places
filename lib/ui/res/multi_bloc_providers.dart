@@ -36,6 +36,7 @@ List<BlocProvider> listMultiBlocProviders = <BlocProvider>[
   BlocProvider<DetailsPlaceBloc>(
     create: (context) => DetailsPlaceBloc(
       context.read<DetailsPlaceInteractor>(),
+
     ),
   ),
   BlocProvider<SettingsBloc>(

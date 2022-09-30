@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:places/data/interactor/details_place_interactor.dart';
-import 'package:places/data/interactor/list_places_screen_interactor.dart';
-import 'package:places/data/model/place.dart';
 import 'package:places/ui/res/labels.dart';
 import 'package:places/ui/res/svg_icons.dart';
 import 'package:places/ui/screen/details_place_screen/details_place_screen.dart';
@@ -34,7 +31,7 @@ class SearchPlacesScreenBodySwitch extends StatelessWidget {
             debugPrint('!!!state = ${state.current}');
             await showModalBottomSheet<Widget>(
               context: context,
-              builder: (_) => const DetailsPlaceScreen(),
+              builder: (_) => DetailsPlaceScreen( place:  state.place,),
               isScrollControlled: true,
               isDismissible: true,
               useRootNavigator: true,

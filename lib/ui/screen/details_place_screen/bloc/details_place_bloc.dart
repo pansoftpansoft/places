@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:places/data/interactor/details_place_interactor.dart';
+import 'package:places/data/model/place.dart';
 
 part 'details_place_bloc.freezed.dart';
 
@@ -12,11 +13,15 @@ class DetailsPlaceBloc extends Bloc<DetailsPlaceEvents, DetailsPlaceState> {
   DetailsPlaceBloc(
     final this._detailsPlaceInteractor,
   ) : super(
-          const DetailsPlaceState.selectedNewPageChanged(index: 0),
+          const DetailsPlaceState.selectedNewPlace(
+            null,
+            index: 0,
+          ),
         ) {
     debugPrint('ListPlacesBloc ');
     on<DetailsPlaceEvents>(
       (event, emitter) => event.map<Future<void>>(
+        onSelectNewPlace: (event) => _onSelectNewPlace(event, emitter),
         onPageChanged: (event) => _onPageChanged(event, emitter),
       ),
       transformer: bloc_concurrency.sequential(),
@@ -31,7 +36,31 @@ class DetailsPlaceBloc extends Bloc<DetailsPlaceEvents, DetailsPlaceState> {
     debugPrint('emitter = ${emit.toString()}');
     try {
       _detailsPlaceInteractor.changeScrollIndicator(event.index);
-      emit(DetailsPlaceState.selectedNewPageChanged(index: event.index));
+      emit(
+        DetailsPlaceState.selectedNewPageChanged(
+          event.place,
+          index: event.index,
+        ),
+      );
+    } on Object catch (error, stackTrace) {
+      rethrow;
+    }
+  }
+
+  Future<void> _onSelectNewPlace(
+    _OnSelectNewPlace event,
+    Emitter<DetailsPlaceState> emit,
+  ) async {
+    debugPrint('event = ${event.toString()}');
+    debugPrint('emitter = ${emit.toString()}');
+    try {
+      _detailsPlaceInteractor.changeScrollIndicator(event.index);
+      emit(
+        DetailsPlaceState.selectedNewPageChanged(
+          event.place,
+          index: event.index,
+        ),
+      );
     } on Object catch (error, stackTrace) {
       rethrow;
     }
@@ -43,8 +72,11 @@ class DetailsPlaceBloc extends Bloc<DetailsPlaceEvents, DetailsPlaceState> {
 class DetailsPlaceEvents with _$DetailsPlaceEvents {
   const DetailsPlaceEvents._();
 
-  const factory DetailsPlaceEvents.onPageChanged(int index) =
+  const factory DetailsPlaceEvents.onPageChanged(Place place, int index) =
       _OnPageChangedEvents;
+
+  const factory DetailsPlaceEvents.onSelectNewPlace(Place place, int index) =
+      _OnSelectNewPlace;
 }
 
 /// Состояния
@@ -57,7 +89,13 @@ class DetailsPlaceState with _$DetailsPlaceState {
 
   const DetailsPlaceState._();
 
-  const factory DetailsPlaceState.selectedNewPageChanged({
+  const factory DetailsPlaceState.selectedNewPageChanged(
+    final Place? place, {
     @Default(0) final int index,
   }) = _SelectedNewPageChanged;
+
+  const factory DetailsPlaceState.selectedNewPlace(
+    final Place? place, {
+    @Default(0) final int index,
+  }) = _SelectedNewPlace;
 }

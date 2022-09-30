@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:places/data/interactor/details_place_interactor.dart';
+import 'package:places/data/model/place.dart';
 import 'package:places/ui/res/color_palette.dart';
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/res/svg_icons.dart';
 import 'package:places/ui/screen/details_place_screen/widgets/details_place_screen_decoration_container.dart';
 import 'package:places/ui/screen/details_place_screen/widgets/details_place_screen_picture.dart';
 
-import 'package:provider/provider.dart';
-
 /// Подробно о достопримечательности
 class DetailsPlaceScreen extends StatelessWidget {
+  final Place? place;
+
   /// Конструктор экрана подробности о достопримечательности
-  const DetailsPlaceScreen({Key? key}) : super(key: key);
+  const DetailsPlaceScreen({this.place, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +26,7 @@ class DetailsPlaceScreen extends StatelessWidget {
         child: Stack(
           children: <Widget>[
             DetailsPlaceScreenPicture(
-              context.read<DetailsPlaceInteractor>().detailsPlace!,
+              place!,
             ),
             const DetailsPlaceScreenDecorationContainer(),
             Positioned(

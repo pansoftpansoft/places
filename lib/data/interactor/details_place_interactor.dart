@@ -1,11 +1,9 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:places/data/interactor/filters_screen_interactor.dart';
 import 'package:places/data/interactor/place_interactor.dart';
 import 'package:places/data/model/place.dart';
 import 'package:places/ui/res/svg_icons.dart';
-import 'package:provider/provider.dart';
 
 ///Модель для DetailsPlaceModel
 class DetailsPlaceInteractor extends ChangeNotifier {
@@ -40,7 +38,6 @@ class DetailsPlaceInteractor extends ChangeNotifier {
   ) async {
     detailsPlace = await placeInteractor.getPlaceDetails(
       placeId,
-      streamControllerListPlace,
     );
   }
 }

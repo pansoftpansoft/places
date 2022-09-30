@@ -18,7 +18,11 @@ class CardPlaceBodyRippleEffect extends StatelessWidget {
           child: InkWell(
             splashColor: ColorPalette.whiteMain.withOpacity(0.4),
             onTap: () {
-              context.read<ListPlacesBloc>().add( ListPlacesEvents.selected(place: place));
+              context.read<ListPlacesBloc>().add(
+                    ListPlacesEvents.selected(
+                      place: place,
+                    ),
+                  );
               debugPrint(place.name);
               debugPrint('Это кнопка "Вся карточка"');
             },

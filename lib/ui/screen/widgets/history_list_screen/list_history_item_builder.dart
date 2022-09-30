@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:places/data/interactor/search_screen_interactor.dart';
-import 'package:places/type_place.dart';
 import 'package:places/ui/res/color_palette.dart';
 import 'package:places/ui/res/svg_icons.dart';
+import 'package:places/ui/screen/search_places_screen/bloc/search_places_bloc.dart';
 import 'package:provider/provider.dart';
 
 class ListHistoryItemBuilder extends StatelessWidget {
@@ -60,32 +60,28 @@ class ListHistoryItemBuilder extends StatelessWidget {
   ) async {
     debugPrint('Удалаем строку истории!');
 
-    await context
-        .read<SearchScreenInteractor>()
-        .deleteHistory(SearchScreenInteractor.listHistory[index].historyText);
+    context
+        .read<SearchPlacesBloc>()
+        .add(SearchPlacesEvents.deleteHistoryWord(indexHistoryText: index));
 
-    //Обновляем список при удалении строки из поиска
-    // await SearchScreenInteractor.getListHistory().then((value) {
-    //   if (SearchScreenInteractor.listHistory.isEmpty) {
-    //     context.read<SearchScreenInteractor>()
-    //       ..setSearchText('')
-    //       ..clearHistory();
-    //     //StoreProvider.of<AppState>(context).dispatch(OpenSearchPlacesScreenAction());
-    //     debugPrint('Удалаем строку истории! 1');
-    //   } else {
-    //     context.read<SearchScreenInteractor>()
-    //       ..setSearchText('')
-    //       ..managerSelectionScreen(numberScreen: ScreenEnum.listSearchWords);
-    //     debugPrint('Удалаем строку истории! 2');
-    //   }
-    // });
-
+    // await context
+    //     .read<SearchScreenInteractor>()
+    //     .deleteHistory(SearchScreenInteractor.listHistory[index].historyText);
   }
 
   void _onSelectWord(
     int index,
     BuildContext context,
   ) {
+    final stringSearch =
+        context.read<SearchPlacesBloc>().state.listHistory[index].historyText;
+
+
+    debugPrint('stringSearch = ${stringSearch}');
+    context
+        .read<SearchPlacesBloc>()
+        .add(SearchPlacesEvents.newSearch(stringSearch: stringSearch));
+
     //StoreProvider.of<AppState>(context).dispatch(StartFindAction(SearchScreenInteractor.listHistory[index].historyText));
   }
 }

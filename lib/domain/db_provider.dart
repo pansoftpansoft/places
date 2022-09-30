@@ -63,10 +63,8 @@ class DBProvider {
       onOpen: (db) async {
         debugPrint('Открать базу данных');
       },
-      onCreate: (
-        final database,
-        final version,
-      ) async {
+      onCreate: (final database,
+          final version,) async {
         debugPrint('Создать базу данных');
         await onCreate(database);
       },
@@ -117,7 +115,7 @@ class DBProvider {
     );
 
     final list =
-        res.isNotEmpty ? res.map(History.fromMap).toList() : <History>[];
+    res.isNotEmpty ? res.map(History.fromMap).toList() : <History>[];
 
     return list;
   }
@@ -128,12 +126,18 @@ class DBProvider {
     if (historyText.isEmpty) {
       return 0;
     }
-    //ToDo сделать проверку на совпадение
-    _database = await database;
-    final newHistory = History(historyText: historyText);
-    final res = await _database!.insert('history', newHistory.toMap());
+    try {
+      //ToDo сделать проверку на совпадение
+      _database = await database;
+      final newHistory = History(historyText: historyText);
+      final res = await _database!.insert('history', newHistory.toMap());
 
-    return res;
+      return res;
+    } catch (e) {
+      debugPrint('Скорее всего найден дублер');
+
+      return 0;
+    }
   }
 
   ///--------------------------------------------------------------
@@ -155,8 +159,7 @@ class DBProvider {
   ///--------------------------------------------------------------
   /// Соохранить настройки фильтра категории в базу
   Future<void> updateSettingsFilterCategoryInDb(
-    final FilterCategory filter,
-  ) async {
+      final FilterCategory filter,) async {
     _database = await database;
     final res = await _database!.update(
       'FilterCategory',
@@ -198,8 +201,7 @@ class DBProvider {
   ///--------------------------------------------------------------
   /// Соохранить настройки фильтра растояния в базу
   Future<void> updateSettingsFilterDistanceInDb(
-    final FilterDistance filter,
-  ) async {
+      final FilterDistance filter,) async {
     debugPrint('filter.toMap() = ${filter.toMap().toString()}');
     _database = await database;
     final res = await _database!.update(
@@ -210,9 +212,7 @@ class DBProvider {
     );
   }
 
-  Future<void> updateSettingsThemeColorInDb(
-    final String settingsApp,
-  ) async {
+  Future<void> updateSettingsThemeColorInDb(final String settingsApp,) async {
     debugPrint('SettingsApp.toMap() = $settingsApp');
     _database = await database;
     final res = await _database!.update(
@@ -311,12 +311,12 @@ class DBProvider {
       place.id,
       isFavorites: place.isFavorites ? 1 : 0,
       wantVisitDate:
-          place.wantVisitDate == null ? 0 : place.wantVisitDate as int,
+      place.wantVisitDate == null ? 0 : place.wantVisitDate as int,
       visitedDate: place.visitedDate == null ? 0 : place.visitedDate as int,
     );
 
     final res =
-        await _database!.insert('placesLocal', newPlacesLocalData.toMap());
+    await _database!.insert('placesLocal', newPlacesLocalData.toMap());
 
     return res;
   }

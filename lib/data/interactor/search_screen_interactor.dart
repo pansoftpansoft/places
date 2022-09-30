@@ -18,9 +18,6 @@ class SearchScreenInteractor extends ChangeNotifier {
   static TextEditingController textEditingControllerFind =
       TextEditingController();
 
-  ///
-  final bool _errorTest = false;
-
   PlaceInteractor placeInteractor = PlaceInteractor();
 
   ScreenEnum? selectedScreen;
@@ -37,9 +34,10 @@ class SearchScreenInteractor extends ChangeNotifier {
     return listHistory;
   }
 
-  ///Получаем список историй поиска
-  Future<void> addToListHistory(String value) async {
-    await DBProvider.dbProvider.addHistory(value);
+  Future<Place?> getPlaceId(int placeId) async {
+    final place = await placeInteractor.getPlaceDetails(placeId);
+
+    return place;
   }
 
   /// Получить отфильтрованный список мест
@@ -48,7 +46,13 @@ class SearchScreenInteractor extends ChangeNotifier {
     final listPlace = await placeInteractor.getPlacesInteractor(
       searchString: value,
     );
+
     return listPlace;
+  }
+
+  ///Получаем список историй поиска
+  Future<void> addToListHistory(String value) async {
+    await DBProvider.dbProvider.addHistory(value);
   }
 
   Future<void> getListSearchText() async {
