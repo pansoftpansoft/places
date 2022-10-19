@@ -37,7 +37,7 @@ class GridIcon extends StatelessWidget {
 
     debugPrint('$height < $maxHeightSmallScreen');
 
-    return height < maxHeightSmallScreen
+    return height < maxHeightSmallScreen //различные настройки для разных размеров экранна
         ? SizedBox(
             height: 150.0,
             child: ListView(

@@ -135,7 +135,6 @@ class DBProvider {
       return res;
     } catch (e) {
       debugPrint('Скорее всего найден дублер');
-
       return 0;
     }
   }
@@ -208,7 +207,7 @@ class DBProvider {
       'FilterDistance',
       filter.toMap(),
       where: 'distanceCode=?',
-      whereArgs: [1],
+      whereArgs: [0],
     );
   }
 

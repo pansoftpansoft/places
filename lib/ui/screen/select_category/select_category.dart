@@ -6,7 +6,7 @@ import 'package:places/ui/screen/select_category/widgets/select_category_bottom_
 import 'package:places/ui/screen/select_category/widgets/select_category_list.dart';
 import 'package:provider/provider.dart';
 
-/// Сисок категорий мест с возможностью выбора
+/// Сисок категорий мест с возможностью выбора при добавлении нового места
 class SelectCategory extends StatelessWidget {
   ///
   const SelectCategory({
@@ -45,7 +45,10 @@ class SelectCategory extends StatelessWidget {
     );
   }
 
-  void _onWillPop(BuildContext context, String placeType) {
+  void _onWillPop(
+    BuildContext context,
+    String placeType,
+  ) {
     context.read<AddPlaceBloc>().add(
           AddPlaceEvents.load(
             place: context.read<AddPlaceBloc>().state.place.copyWith(),

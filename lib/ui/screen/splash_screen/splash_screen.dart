@@ -64,11 +64,9 @@ class SplashScreenState extends State<SplashScreen> {
   /// Получение данных из сети. Инициализация.
   Future<void> getNetData() async {
     debugPrint('Запустилась GetNetData().');
-
     //await SearchScreenInteractor.getListHistory();
-    await FiltersScreenInteractor.getFilterSettings();
-
-    debugPrint('Завершилась GetNetData().');
+    //await FiltersScreenInteractor.getFilterSettings();
+    //debugPrint('Завершилась GetNetData().');
   }
 
   /// Запуск анимации на заставке

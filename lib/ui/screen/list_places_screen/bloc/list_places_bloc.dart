@@ -16,7 +16,6 @@ class ListPlacesBloc extends Bloc<ListPlacesEvents, ListPlacesState> {
   ) : super(
           const ListPlacesState.load(listPlaces: <Place>[]),
         ) {
-    debugPrint('ListPlacesBloc ');
     on<ListPlacesEvents>(
       (event, emitter) => event.map<Future<void>>(
         load: (event) => _load(event, emitter),
@@ -36,8 +35,11 @@ class ListPlacesBloc extends Bloc<ListPlacesEvents, ListPlacesState> {
     debugPrint('1 event = ${event.toString()}');
     debugPrint('1 emit = ${emit.toString()}');
     try {
+
       final listPlacesEmpty = await _listPlacesScreenInteractor.loadBloc();
       emit(ListPlacesState.loaded(listPlaces: listPlacesEmpty));
+
+
     } on NetworkException {
       emit(const ListPlacesState.error(message: 'Ошибка загрузки из сети'));
     } on Object catch (error, stackTrace) {
@@ -123,7 +125,8 @@ class ListPlacesBloc extends Bloc<ListPlacesEvents, ListPlacesState> {
 class ListPlacesEvents with _$ListPlacesEvents {
   const ListPlacesEvents._();
 
-  const factory ListPlacesEvents.load() = _LoadListPlacesEvents;
+  const factory ListPlacesEvents.
+  load() = _LoadListPlacesEvents;
 
   const factory ListPlacesEvents.loaded() = _LoadedListPlacesEvents;
 

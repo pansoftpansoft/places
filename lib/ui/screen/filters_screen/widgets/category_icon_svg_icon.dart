@@ -3,7 +3,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:places/data/interactor/filters_screen_interactor.dart';
 import 'package:places/data/model/place_type.dart';
 import 'package:places/ui/res/color_palette.dart';
+import 'package:places/ui/screen/filters_screen/bloc/filter_bloc.dart';
 import 'package:places/ui/screen/filters_screen/widgets/category_icon_tick_choice.dart';
+import 'package:places/ui/screen/search_places_screen/bloc/search_places_bloc.dart';
 import 'package:provider/provider.dart';
 
 class CategoryIconSvgIcon extends StatefulWidget {
@@ -49,13 +51,20 @@ class _CategoryIconSvgIconState extends State<CategoryIconSvgIcon> {
   }
 
   void _onPressed() {
-    context.read<FiltersScreenInteractor>().setTypePlaceSelected(
-          widget.placeType.namePlaceDB,
+    context.read<FilterBloc>().add(
+          FilterEvents.updateFilterCategory(
+            selectedCategory: widget.placeType.namePlaceDB,
+          ),
         );
-    context
-        .read<FiltersScreenInteractor>()
-        .getDataFromRepository()
-        .then((value) =>
-            context.read<FiltersScreenInteractor>().notifyListenersFiltersScreen());
+
+    // context.read<FiltersScreenInteractor>().setTypePlaceSelected(
+    //       widget.placeType.namePlaceDB,
+    //     );
+    //
+    // context
+    //     .read<FiltersScreenInteractor>()
+    //     .getDataFromRepository()
+    //     .then((value) =>
+    //         context.read<FiltersScreenInteractor>().notifyListenersFiltersScreen());
   }
 }

@@ -16,7 +16,7 @@ class FilterRepository {
 
   ///--------------------------------------------------------------
   ///Получаем список настроек фильтра дистанции
-  static Future<List<FilterDistance>> getListFilterDistance() async {
+  static Future<FilterDistance> getListFilterDistance() async {
     final listFilter =
         await DBProvider.dbProvider.getListFilterDistanceFromDb();
     // for (final item in listFilter) {
@@ -25,7 +25,9 @@ class FilterRepository {
     //   );
     // }
 
-    return listFilter;
+    //Возвращаем первую запись из списка, так как о на там одна
+
+    return listFilter.first;
   }
 
   ///--------------------------------------------------------------

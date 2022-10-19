@@ -34,7 +34,6 @@ class DetailsPlaceInteractor extends ChangeNotifier {
 
   Future<void> getPlace(
     int placeId,
-    StreamController<Place> streamControllerListPlace,
   ) async {
     detailsPlace = await placeInteractor.getPlaceDetails(
       placeId,

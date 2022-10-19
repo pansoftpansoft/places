@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:places/data/interactor/filters_screen_interactor.dart';
 import 'package:places/ui/res/svg_icons.dart';
+import 'package:places/ui/screen/filters_screen/bloc/filter_bloc.dart';
 
 class CategoryIconTickChoice extends StatelessWidget {
   final String nameKey;
@@ -10,15 +12,19 @@ class CategoryIconTickChoice extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Positioned(
-      bottom: -4,
-      right: -4,
-      child: FiltersScreenInteractor.filterMap[nameKey]!
-          ? SvgPicture.asset(
-              SvgIcons.tickChoice,
-              height: 25,
-            )
-          : const SizedBox.shrink(),
+    return BlocBuilder<FilterBloc, FilterState>(
+      builder: (context, state) {
+        return Positioned(
+          bottom: -4,
+          right: -4,
+          child:  state.filterMap[nameKey]!
+              ? SvgPicture.asset(
+                  SvgIcons.tickChoice,
+                  height: 25,
+                )
+              : const SizedBox.shrink(),
+        );
+      },
     );
   }
 }

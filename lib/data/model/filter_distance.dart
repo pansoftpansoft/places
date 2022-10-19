@@ -4,7 +4,7 @@ class FilterDistance {
   double distanceEnd;
 
   FilterDistance(
-    this.distanceCode,
+    this.distanceCode ,
     this.distanceStart,
     this.distanceEnd,
   );
