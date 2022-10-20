@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:places/ui/res/labels.dart';
+import 'package:places/ui/res/route_name.dart';
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/screen/add_place_screen/bloc/add_place_bloc.dart';
 import 'package:places/ui/screen/add_place_screen/widgets/add_place_screen_body.dart';
-import 'package:places/ui/screen/list_places_screen/bloc/list_places_bloc.dart';
 import 'package:places/ui/screen/select_category/select_category.dart';
 
 class AddPlaceForm extends StatelessWidget {
@@ -32,6 +33,8 @@ class AddPlaceForm extends StatelessWidget {
               listenWhen: (previousState, state) => state.selectPlaceType,
               listener: (context, state) {
                 _onPressed(context);
+
+                return;
               },
             ),
             BlocListener<AddPlaceBloc, AddPlaceState>(
@@ -39,26 +42,32 @@ class AddPlaceForm extends StatelessWidget {
               listener: (context, state) {
                 debugPrint('!!! Show snack add = ${state.toString()}');
                 final snackBar = SnackBar(
-                  content: const Text('Место добавлено!'),
+                  content: const Text(placeAdd),
                   action: SnackBarAction(
-                    label: 'Undo',
+                    label: showList,
                     onPressed: () {
-                      // Some code to undo the change.
+                      Navigator.pushReplacementNamed(
+                        context,
+                        RouteName.listPlacesScreen,
+                      );
+
+                      return;
                     },
                   ),
                 );
-                ScaffoldMessenger
-                    .of(context)
+                ScaffoldMessenger.of(context)
                     .showSnackBar(snackBar)
                     .closed
-                    .then((value) {
-                  context.read<ListPlacesBloc>().add(
-                    const ListPlacesEvents.load(),);
-                  Navigator.pop(
-                    context,
-                  );
-                },
+                    .then(
+                  (value) {
+                    Navigator.pushReplacementNamed(
+                      context,
+                      RouteName.listPlacesScreen,
+                    );
+                  },
                 );
+
+                return;
               },
             ),
             BlocListener<AddPlaceBloc, AddPlaceState>(
@@ -66,9 +75,9 @@ class AddPlaceForm extends StatelessWidget {
               listener: (context, state) {
                 debugPrint('!!! Show snack error = ${state.toString()}');
                 final snackBar = SnackBar(
-                  content: const Text('Ошибка!'),
+                  content: const Text(errorText),
                   action: SnackBarAction(
-                    label: 'Undo',
+                    label: errorText,
                     onPressed: () {
                       // Some code to undo the change.
                     },
@@ -89,7 +98,7 @@ class AddPlaceForm extends StatelessWidget {
                 textEditingControllerLon: _textEditingControllerLon,
                 focusNodeDescription: _focusNodeDescription,
                 textEditingControllerDescription:
-                _textEditingControllerDescription,
+                    _textEditingControllerDescription,
               );
             },
           ),
@@ -98,7 +107,11 @@ class AddPlaceForm extends StatelessWidget {
     );
   }
 
-  Future<void> _onPressed(BuildContext context,) async {
+  Future<void> _onPressed(
+    BuildContext context,
+  ) async {
+
+    debugPrint(' окно выбора категории ');
     await Navigator.push(
       context,
       MaterialPageRoute<String>(

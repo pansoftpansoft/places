@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:places/data/model/place.dart';
 import 'package:places/ui/res/color_palette.dart';
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/res/svg_icons.dart';
+import 'package:places/ui/screen/details_place_screen/bloc/details_place_bloc.dart';
 import 'package:places/ui/screen/details_place_screen/widgets/details_place_screen_decoration_container.dart';
 import 'package:places/ui/screen/details_place_screen/widgets/details_place_screen_picture.dart';
 
@@ -16,6 +18,13 @@ class DetailsPlaceScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    context.read<DetailsPlaceBloc>().add(
+          DetailsPlaceEvents.onChangedFavorites(
+            place!,
+            isFavorites: !place!.isFavorites,
+          ),
+        );
+
     return ClipRRect(
       borderRadius: const BorderRadius.vertical(
         top: Radius.circular(borderRadiusCard16),

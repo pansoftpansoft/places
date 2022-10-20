@@ -44,6 +44,7 @@ const String lon = 'ДОЛГОТА';
 const String museum = 'Музей';
 const String meters = 'метров';
 const String newPlace = 'Новое место';
+const String placeAdd = 'Место добавлено';
 const String newPlaceAdd = 'Добавлено новое место';
 const String namePlace = 'НАЗВАНИЕ';
 const String notSelected = 'Не выбрано';
@@ -58,6 +59,7 @@ const String shareMostInterestingOnes =
     'Делись самыми интересными\nи помоги нам стать лучше!';
 const String shortDescription = 'краткое описание';
 const String show = 'ПОКАЗАТЬ';
+const String showList = 'Показать список';
 const String skip = 'Пропустить';
 const String somethingWentWrong = 'Что то пошло не так\nпопробуйте позже.';
 const String toto = 'до';

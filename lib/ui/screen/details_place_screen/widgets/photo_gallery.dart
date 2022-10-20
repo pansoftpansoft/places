@@ -40,7 +40,7 @@ class PhotoGallery extends StatelessWidget {
                         context.read<DetailsPlaceBloc>().add(
                               DetailsPlaceEvents.onPageChanged(
                                 place,
-                                index,
+                                index: index,
                               ),
                             );
                       },

@@ -38,7 +38,7 @@ class SelectCategory extends StatelessWidget {
         ),
       ),
       onWillPop: () async {
-        _onWillPop(context, '');
+        _onWillPop(context);
 
         return true;
       },
@@ -47,7 +47,6 @@ class SelectCategory extends StatelessWidget {
 
   void _onWillPop(
     BuildContext context,
-    String placeType,
   ) {
     context.read<AddPlaceBloc>().add(
           AddPlaceEvents.load(

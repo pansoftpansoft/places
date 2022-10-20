@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:places/ui/res/labels.dart';
 import 'package:places/ui/screen/add_place_screen/bloc/add_place_bloc.dart';
+import 'package:places/ui/screen/list_places_screen/bloc/list_places_bloc.dart';
 import 'package:places/ui/screen/widgets/elevated_button_green_big.dart';
 
 /// Кнопка "Создать"
@@ -60,6 +61,7 @@ class ButtonCreate extends StatelessWidget {
           ),
         );
 
+    context.read<ListPlacesBloc>().add(const ListPlacesEvents.load());
     // Navigator.pushReplacementNamed(
     //   context,
     //   RouteName.listPlacesScreen,

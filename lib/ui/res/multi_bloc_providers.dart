@@ -6,6 +6,7 @@ import 'package:places/data/interactor/details_place_interactor.dart';
 import 'package:places/data/interactor/filters_screen_interactor.dart';
 import 'package:places/data/interactor/list_places_screen_interactor.dart';
 import 'package:places/data/interactor/onboarding_screen_interactor.dart';
+import 'package:places/data/interactor/place_interactor.dart';
 import 'package:places/data/interactor/search_screen_interactor.dart';
 import 'package:places/data/interactor/settings_interactor.dart';
 import 'package:places/data/interactor/visiting_interactor.dart';
@@ -38,6 +39,7 @@ List<BlocProvider> listMultiBlocProviders = <BlocProvider>[
   BlocProvider<DetailsPlaceBloc>(
     create: (context) => DetailsPlaceBloc(
       context.read<DetailsPlaceInteractor>(),
+      context.read<PlaceInteractor>(),
     ),
   ),
   BlocProvider<SettingsBloc>(

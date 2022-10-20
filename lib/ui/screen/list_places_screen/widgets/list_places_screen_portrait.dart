@@ -19,6 +19,8 @@ class ListPlacesScreenPortrait extends StatelessWidget {
           listenWhen: (previousState, state) => state.addNew,
           listener: (context, state) {
             Navigator.pushNamed(context, RouteName.addPlaceScreen);
+
+            return;
           },
         ),
         BlocListener<ListPlacesBloc, ListPlacesState>(
@@ -31,6 +33,8 @@ class ListPlacesScreenPortrait extends StatelessWidget {
               isDismissible: true,
               useRootNavigator: true,
             );
+
+            return;
           },
         ),
       ],

@@ -3,17 +3,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:places/data/interactor/details_place_interactor.dart';
+import 'package:places/data/interactor/place_interactor.dart';
 import 'package:places/data/model/place.dart';
 
 part 'details_place_bloc.freezed.dart';
 
 class DetailsPlaceBloc extends Bloc<DetailsPlaceEvents, DetailsPlaceState> {
   final DetailsPlaceInteractor _detailsPlaceInteractor;
+  final PlaceInteractor _placeInteractor;
 
   DetailsPlaceBloc(
     final this._detailsPlaceInteractor,
+    final this._placeInteractor,
   ) : super(
-          const DetailsPlaceState.selectedNewPlace(
+          DetailsPlaceState.selectedNewPlace(
             null,
             index: 0,
           ),
@@ -23,6 +26,8 @@ class DetailsPlaceBloc extends Bloc<DetailsPlaceEvents, DetailsPlaceState> {
       (event, emitter) => event.map<Future<void>>(
         onSelectNewPlace: (event) => _onSelectNewPlace(event, emitter),
         onPageChanged: (event) => _onPageChanged(event, emitter),
+        onChangedFavorites: (event) =>
+            _onChangedFavoritesEvents(event, emitter),
       ),
       transformer: bloc_concurrency.sequential(),
     );
@@ -65,6 +70,30 @@ class DetailsPlaceBloc extends Bloc<DetailsPlaceEvents, DetailsPlaceState> {
       rethrow;
     }
   }
+
+  Future<void> _onChangedFavoritesEvents(
+    _OnChangedFavoritesEvents event,
+    Emitter<DetailsPlaceState> emit,
+  ) async {
+    debugPrint('event = ${event.toString()}');
+    debugPrint('emitter = ${emit.toString()}');
+    try {
+      await _placeInteractor.setFavorites(
+        event.place.copyWith(
+          isFavorites: !event.isFavorites,
+        ),
+      );
+      emit(
+        DetailsPlaceState.selectedNewPageChanged(
+          event.place,
+          index: state.index,
+          isFavorites: !event.isFavorites,
+        ),
+      );
+    } on Object catch (error, stackTrace) {
+      rethrow;
+    }
+  }
 }
 
 /// События
@@ -72,11 +101,23 @@ class DetailsPlaceBloc extends Bloc<DetailsPlaceEvents, DetailsPlaceState> {
 class DetailsPlaceEvents with _$DetailsPlaceEvents {
   const DetailsPlaceEvents._();
 
-  const factory DetailsPlaceEvents.onPageChanged(Place place, int index) =
-      _OnPageChangedEvents;
+  const factory DetailsPlaceEvents.onPageChanged(
+    Place place, {
+    @Default(0) final int index,
+    @Default(false) final bool isFavorites,
+  }) = _OnPageChangedEvents;
 
-  const factory DetailsPlaceEvents.onSelectNewPlace(Place place, int index) =
-      _OnSelectNewPlace;
+  const factory DetailsPlaceEvents.onSelectNewPlace(
+    Place place, {
+    @Default(0) final int index,
+    @Default(false) final bool isFavorites,
+  }) = _OnSelectNewPlace;
+
+  const factory DetailsPlaceEvents.onChangedFavorites(
+    Place place, {
+    @Default(0) final int index,
+    @Default(false) final bool isFavorites,
+  }) = _OnChangedFavoritesEvents;
 }
 
 /// Состояния
@@ -92,10 +133,12 @@ class DetailsPlaceState with _$DetailsPlaceState {
   const factory DetailsPlaceState.selectedNewPageChanged(
     final Place? place, {
     @Default(0) final int index,
+    @Default(false) final bool isFavorites,
   }) = _SelectedNewPageChanged;
 
   const factory DetailsPlaceState.selectedNewPlace(
     final Place? place, {
     @Default(0) final int index,
+    @Default(false) final bool isFavorites,
   }) = _SelectedNewPlace;
 }

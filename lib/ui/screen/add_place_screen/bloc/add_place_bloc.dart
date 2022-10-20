@@ -176,6 +176,7 @@ class AddPlaceState with _$AddPlaceState {
 
       return 1;
     }
+
     debugPrint('addReadyCheck = ${0}');
 
     return 0;

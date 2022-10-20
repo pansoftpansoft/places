@@ -95,7 +95,7 @@ class ListPlacesBloc extends Bloc<ListPlacesEvents, ListPlacesState> {
     debugPrint('event = ${event.toString()}');
     debugPrint('emitter = ${emit.toString()}');
     try {
-      emit(const ListPlacesState.addNew());
+      emit(ListPlacesState.addNew(listPlaces: state.listPlaces));
       //
     } on Object catch (error, stackTrace) {
       rethrow;
