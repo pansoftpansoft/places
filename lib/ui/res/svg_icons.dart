@@ -2,8 +2,9 @@
 class SvgIcons {
   static const String catalog = 'res/icon/';
   static const String bucket = '${catalog}bucket.svg';
-  //static const String cafe = '${catalog}cafe.svg';
+  static const String cafe = '${catalog}cafe.svg';
   static const String calendar = '${catalog}calendar.svg';
+  static const String calendarFull = '${catalog}calendar_full.svg';
   static const String camera = '${catalog}camera.svg';
   static const String card = '${catalog}card.svg';
   static const String clear = '${catalog}clear.svg';

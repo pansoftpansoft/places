@@ -53,6 +53,7 @@ const String restaurant = 'Ресторан';
 const String specifyOnMap = 'Указать на карте';
 const String save = 'СОХРАНИТЬ';
 const String schedule = 'Запланировать';
+const String scheduled = 'Запланировано\nна ';
 const String search = 'Поиск';
 const String settings = 'Настройки';
 const String shareMostInterestingOnes =

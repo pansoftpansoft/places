@@ -19,9 +19,14 @@ class DetailsPlaceScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     context.read<DetailsPlaceBloc>().add(
-          DetailsPlaceEvents.onChangedFavorites(
-            place!,
+          DetailsPlaceEvents.onLoaded(
+            place: place,
+            index: 0,
             isFavorites: !place!.isFavorites,
+            wantVisitDate:
+                place!.wantVisitDate.toString().substring(0, 10) == '1970-01-01'
+                    ? null
+                    : place!.wantVisitDate,
           ),
         );
 

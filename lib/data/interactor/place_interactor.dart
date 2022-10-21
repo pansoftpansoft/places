@@ -77,7 +77,7 @@ class PlaceInteractor extends ChangeNotifier {
     debugPrint('place id = ${place.id} isFavorites = ${place.isFavorites}');
 
     mocksFiltered = (await placeRepository.updateMocksFiltered())!;
-    await getListWantVisitAndVisited();
+    await getListWantVisitAndVisitedBloc();
   }
 
   ///-----------------------------------------------
@@ -109,17 +109,30 @@ class PlaceInteractor extends ChangeNotifier {
     }
     debugPrint('place id = ${place.id} isFavorites = ${place.visitedDate}');
 
-    await getListWantVisitAndVisited();
+    await getListWantVisitAndVisitedBloc();
   }
 
-  @Deprecated('Не возвращала список. Список необходим для перехода на Bloc')
-  Future<void> getListWantVisitAndVisited() async {
-    final listAllPlace = await placeRepository.getAllPlace();
-    debugPrint('listAllPlace = ${listAllPlace.length}');
-    mocksWantVisit = await placeRepository.getPlacesWantVisit(listAllPlace);
-    debugPrint('mocksWantVisit = ${mocksWantVisit.length}');
+  /// Добавить место в посещенные
+  Future<void> setStatusPlaceWantVisitDate(
+    Place place,
+  ) async {
+    // проверяем есть токое место в лакальной базе, если нет добавляем.
+    final addInLocalDB = await DBProvider.dbProvider.checkPlacesInLocalDataId(
+      place.id,
+    );
 
-    mocksVisited = await placeRepository.getPlacesVisited(listAllPlace);
+    if (addInLocalDB) {
+      final countUpdate = await DBProvider.dbProvider.updatePlacesLocalData(
+        place,
+      );
+    } else {
+      final countInsert = await DBProvider.dbProvider.insertPlacesLocalData(
+        place,
+      );
+    }
+    debugPrint('place id = ${place.id} isFavorites = ${place.visitedDate}');
+
+    await getListWantVisitAndVisitedBloc();
   }
 
   Future<List<Place>> getListWantVisitAndVisitedBloc() async {

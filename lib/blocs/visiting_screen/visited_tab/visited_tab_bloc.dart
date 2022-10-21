@@ -33,7 +33,9 @@ class VisitedTabBloc
   }
 
   Future<void> _visitedTabBLoadCheck() async {
+    debugPrint(' до загрузки');
     emit(VisitedTabLoadInProgress());
+    debugPrint(' после загрузки');
     final future = visitingInteractor.getListWantVisitAndVisited();
     await future.whenComplete(
       () => emit(

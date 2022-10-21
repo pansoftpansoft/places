@@ -37,7 +37,6 @@ class PlaceRepository extends ChangeNotifier {
           }
         case 400:
           {
-            debugPrint('response.data = ${response.data.toString()}');
             throw CustomException400();
           }
         case 409:
@@ -79,9 +78,6 @@ class PlaceRepository extends ChangeNotifier {
                     : placesLocalDataElement.wantVisitDateToDatetime(),
               );
 
-              debugPrint(
-                'placesLocalDataElement.visitedDate = ${placesLocalDataElement.visitedDate}',
-              );
               placeOne.copyWith(
                 visitedDate: placesLocalDataElement.visitedDate == 0
                     ? null
@@ -112,7 +108,6 @@ class PlaceRepository extends ChangeNotifier {
       searchString,
     );
     await createMocks(placesDtoFilter);
-    debugPrint('repositoryMocks.length = ${repositoryMocks.length}');
 
     mocksFiltered = repositoryMocks;
 
@@ -150,10 +145,8 @@ class PlaceRepository extends ChangeNotifier {
     repositoryMocks.clear();
     final placesLocalData = await DBProvider.dbProvider.getPlacesLocal();
     bool? isFavorites = false;
-    debugPrint('Теперь циклы');
     DateTime? wantVisitDate;
     DateTime? visitedDate;
-    debugPrint('placesDto = ${placesDtoFilter.length}');
     for (final placeDto in placesDto) {
       isFavorites = false;
       wantVisitDate = null;
@@ -185,7 +178,6 @@ class PlaceRepository extends ChangeNotifier {
         visitedDate: visitedDate,
       );
       repositoryMocks.add(place);
-      debugPrint('place.name = ${place.name}');
     }
 
     return;
@@ -233,12 +225,9 @@ class PlaceRepository extends ChangeNotifier {
     try {
       String mapString;
 
-      //debugPrint('Получить место по иденитификатору placeId = ${placeId}');
       final response = await apiClient.get('$pathUrlListPlaces/$placeId');
 
       mapString = response.toString();
-
-      debugPrint('mapString = $mapString');
 
       final mapFull = json.decode(mapString) as Map<String, dynamic>;
 
@@ -269,7 +258,6 @@ class PlaceRepository extends ChangeNotifier {
     List<String>? category,
     String? searchString,
   }) {
-    debugPrint('category = ${category.toString()}');
     // Текущие координаты
     const lat = 55.753605;
     const lon = 37.619773;
@@ -285,22 +273,20 @@ class PlaceRepository extends ChangeNotifier {
       nameFilter: searchString,
     ).toJson();
 
-    debugPrint('filterJson = $filterJson');
-
     return filterJson;
   }
 
   ///--------------------------------------------------------------
   /// Установить что место посетили
   Future<void> updatePlaceLocalDB(Place place) async {
-    debugPrint('place id = ${place.id}  '
-        'isFavorites  = ${place.isFavorites}  '
-        'wantVisitDate  = ${place.wantVisitDate}  '
-        'visitedDate  = ${place.visitedDate}');
+    // debugPrint('place id = ${place.id}  '
+    //     'isFavorites  = ${place.isFavorites}  '
+    //     'wantVisitDate  = ${place.wantVisitDate}  '
+    //     'visitedDate  = ${place.visitedDate}');
     final countUpdate = await DBProvider.dbProvider.updatePlacesLocalData(
       place,
     );
-    debugPrint('updatePlaceLocalDB количество обновленных мест = $countUpdate');
+    //    debugPrint('updatePlaceLocalDB количество обновленных мест = $countUpdate');
   }
 
   ///--------------------------------------------------------------

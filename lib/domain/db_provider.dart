@@ -53,18 +53,16 @@ class DBProvider {
     final documentsDirectory = await getApplicationDocumentsDirectory();
     final path = '${documentsDirectory.path}$_databaseName';
 
-    // var f = File(path);
-    // await f.delete();
-    // debugPrint('path = ${path}');
-
     return openDatabase(
       path,
       version: 10,
       onOpen: (db) async {
         debugPrint('Открать базу данных');
       },
-      onCreate: (final database,
-          final version,) async {
+      onCreate: (
+        final database,
+        final version,
+      ) async {
         debugPrint('Создать базу данных');
         await onCreate(database);
       },
@@ -115,7 +113,7 @@ class DBProvider {
     );
 
     final list =
-    res.isNotEmpty ? res.map(History.fromMap).toList() : <History>[];
+        res.isNotEmpty ? res.map(History.fromMap).toList() : <History>[];
 
     return list;
   }
@@ -135,6 +133,7 @@ class DBProvider {
       return res;
     } catch (e) {
       debugPrint('Скорее всего найден дублер');
+
       return 0;
     }
   }
@@ -158,7 +157,8 @@ class DBProvider {
   ///--------------------------------------------------------------
   /// Соохранить настройки фильтра категории в базу
   Future<void> updateSettingsFilterCategoryInDb(
-      final FilterCategory filter,) async {
+    final FilterCategory filter,
+  ) async {
     _database = await database;
     final res = await _database!.update(
       'FilterCategory',
@@ -176,7 +176,7 @@ class DBProvider {
       'FilterDistance',
     );
 
-    debugPrint('res = ${res.toString()}');
+    debugPrint('res 1 = ${res.toString()}');
     final list = res.isNotEmpty
         ? res.map(FilterDistance.fromMap).toList()
         : <FilterDistance>[];
@@ -189,7 +189,7 @@ class DBProvider {
     final res = await _database!.query(
       'SettingsApp',
     );
-    debugPrint('res = ${res.toString()}');
+    debugPrint('res 2 = ${res.toString()}');
     final list = res.isNotEmpty
         ? res.map(SettingsApp.fromMap).toList()
         : <SettingsApp>[];
@@ -200,8 +200,8 @@ class DBProvider {
   ///--------------------------------------------------------------
   /// Соохранить настройки фильтра растояния в базу
   Future<void> updateSettingsFilterDistanceInDb(
-      final FilterDistance filter,) async {
-    debugPrint('filter.toMap() = ${filter.toMap().toString()}');
+    final FilterDistance filter,
+  ) async {
     _database = await database;
     final res = await _database!.update(
       'FilterDistance',
@@ -211,7 +211,9 @@ class DBProvider {
     );
   }
 
-  Future<void> updateSettingsThemeColorInDb(final String settingsApp,) async {
+  Future<void> updateSettingsThemeColorInDb(
+    final String settingsApp,
+  ) async {
     debugPrint('SettingsApp.toMap() = $settingsApp');
     _database = await database;
     final res = await _database!.update(
@@ -278,7 +280,7 @@ class DBProvider {
       where: 'id = ?',
       whereArgs: [placeId],
     );
-    debugPrint('res = ${res.toString()}');
+    debugPrint('res 3 = ${res.toString()}');
 
     return res.isNotEmpty;
   }
@@ -310,12 +312,12 @@ class DBProvider {
       place.id,
       isFavorites: place.isFavorites ? 1 : 0,
       wantVisitDate:
-      place.wantVisitDate == null ? 0 : place.wantVisitDate as int,
+          place.wantVisitDate == null ? 0 : place.wantVisitDate as int,
       visitedDate: place.visitedDate == null ? 0 : place.visitedDate as int,
     );
 
     final res =
-    await _database!.insert('placesLocal', newPlacesLocalData.toMap());
+        await _database!.insert('placesLocal', newPlacesLocalData.toMap());
 
     return res;
   }
@@ -326,18 +328,22 @@ class DBProvider {
     if (place.id.isNaN) {
       return 0;
     }
-
-    debugPrint('place.visitedDate.toString() = ${place.visitedDate}');
     _database = await database;
     final newPlacesLocalData = PlacesLocalData(
       place.id,
       isFavorites: place.isFavorites ? 1 : 0,
       wantVisitDate: place.wantVisitDate == null
           ? null
-          : int.tryParse(place.wantVisitDate.toString()),
+          : int.tryParse(
+              place.wantVisitDate!.millisecondsSinceEpoch.toString(),
+            ),
       visitedDate: place.visitedDate == null
           ? null
           : int.tryParse(place.visitedDate!.millisecondsSinceEpoch.toString()),
+    );
+
+    debugPrint(
+      'newPlacesLocalData.wantVisitDate = ${newPlacesLocalData.wantVisitDate}',
     );
 
     debugPrint(
