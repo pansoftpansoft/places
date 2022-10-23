@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:places/data/interactor/filters_screen_interactor.dart';
 import 'package:places/ui/res/color_palette.dart';
 import 'package:places/ui/res/labels.dart';
 import 'package:places/ui/screen/filters_screen/bloc/filter_bloc.dart';

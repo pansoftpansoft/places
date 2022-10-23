@@ -4,16 +4,34 @@ abstract class VisitedTabEvent extends Equatable {
   const VisitedTabEvent();
 }
 
-class VisitedTabLoad extends VisitedTabEvent {
+class VisitedTabLoadEvent extends VisitedTabEvent {
   @override
   List<Object> get props => [];
 }
 
-class VisitedTabEventRemovePlace extends VisitedTabEvent {
+class VisitedTabRemovePlaceEvent extends VisitedTabEvent {
   final Place place;
 
   @override
   List<Object> get props => [place];
 
-  const VisitedTabEventRemovePlace(this.place);
+  const VisitedTabRemovePlaceEvent(this.place);
+}
+
+class VisitedTabSelectedPlaceEvent extends VisitedTabEvent {
+  final Place place;
+
+  @override
+  List<Object> get props => [];
+
+  const VisitedTabSelectedPlaceEvent(this.place);
+}
+
+class VisitedTabNewSelectedPlaceEvent extends VisitedTabEvent {
+  final Place place;
+
+  @override
+  List<Object> get props => [];
+
+  const VisitedTabNewSelectedPlaceEvent(this.place);
 }

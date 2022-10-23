@@ -4,7 +4,7 @@ import 'package:places/data/interactor/filters_screen_interactor.dart';
 import 'package:places/data/model/filter_distance.dart';
 import 'package:places/ui/res/color_palette.dart';
 import 'package:places/ui/screen/filters_screen/bloc/filter_bloc.dart';
-import 'package:provider/provider.dart';
+
 
 class FiltersScreenBodySlider extends StatefulWidget {
   const FiltersScreenBodySlider({Key? key}) : super(key: key);

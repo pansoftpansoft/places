@@ -11,6 +11,6 @@ class PlaceBlocObserver extends BlocObserver {
   @override
   void onEvent(Bloc bloc, Object? event) {
     super.onEvent(bloc, event);
-    debugPrint('event = ${event.toString()}');
+    debugPrint('Observer event = ${event.toString()}');
   }
 }

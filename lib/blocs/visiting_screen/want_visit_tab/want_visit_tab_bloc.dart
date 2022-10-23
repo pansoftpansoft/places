@@ -15,23 +15,29 @@ class WantVisitTabBloc extends Bloc<WantVisitTabEvent, WantVisitTabState> {
   WantVisitTabBloc(this.visitingInteractor)
       : super(WantVisitTabLoadInProgress()) {
     ///Обработка события загрузка экрана
-    on<WantVisitTabLoad>(
+    on<WantVisitTabLoadEvent>(
       (event, emit) async {
         await _wantVisitTabBLoadCheck();
       },
     );
 
     ///Обработка события удаление меств из списка "Хочу посетить"
-    on<WantVisitTabRemovePlace>(
+    on<WantVisitTabRemovePlaceEvent>(
       (event, emit) async {
         await _wantVisitTabRemovePlace(event);
       },
     );
 
     ///Обработка переноса события из "хочу посетить" в "посещенные"
-    on<WantVisitUpdateToVisited>(
+    on<WantVisitUpdateToVisitedEvent>(
       (event, emit) async {
         await _wantVisitUpdateToVisited(event);
+      },
+    );
+
+    on<WantVisitSelectedPlaceEvent>(
+          (event, emit) async {
+        await _selectedPlace(event);
       },
     );
   }
@@ -47,7 +53,7 @@ class WantVisitTabBloc extends Bloc<WantVisitTabEvent, WantVisitTabState> {
   }
 
   Future<void> _wantVisitTabRemovePlace(
-    WantVisitTabRemovePlace event,
+    WantVisitTabRemovePlaceEvent event,
   ) async {
     final future = visitingInteractor.deletePlaceWantVisit(event.place);
     await future.whenComplete(
@@ -58,7 +64,7 @@ class WantVisitTabBloc extends Bloc<WantVisitTabEvent, WantVisitTabState> {
   }
 
   Future<void> _wantVisitUpdateToVisited(
-      WantVisitUpdateToVisited event,
+      WantVisitUpdateToVisitedEvent event,
   ) async {
     final future = visitingInteractor.wantVisitUpdateToVisit(event.place);
 
@@ -66,6 +72,14 @@ class WantVisitTabBloc extends Bloc<WantVisitTabEvent, WantVisitTabState> {
       () => emit(
         WantVisitTabLoadInSuccess(mocksWantVisit),
       ),
+    );
+  }
+
+  Future<void> _selectedPlace(
+      WantVisitSelectedPlaceEvent event,
+      ) async {
+    emit(
+      WantVisitPlaceSelected(event.place),
     );
   }
 }

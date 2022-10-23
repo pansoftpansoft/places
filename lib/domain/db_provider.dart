@@ -323,7 +323,7 @@ class DBProvider {
   }
 
   ///--------------------------------------------------------------
-  /// Дизменить в базе, данные о месте
+  /// Изменить в базе, данные о месте
   Future<int> updatePlacesLocalData(Place place) async {
     if (place.id.isNaN) {
       return 0;

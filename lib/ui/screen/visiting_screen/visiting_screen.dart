@@ -5,7 +5,7 @@ import 'package:places/blocs/visiting_screen/want_visit_tab/want_visit_tab_bloc.
 import 'package:places/ui/res/img.dart';
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/screen/visiting_screen/widgets/app_bar_visiting.dart';
-import 'package:places/ui/screen/visiting_screen/widgets/tab1_widget.dart';
+import 'package:places/ui/screen/visiting_screen/widgets/tab1_want_visit_widget.dart';
 import 'package:places/ui/screen/visiting_screen/widgets/tab2_widget.dart';
 import 'package:places/ui/screen/widgets/bottom_navigation/bottom_navigation.dart';
 
@@ -24,9 +24,9 @@ class _VisitingScreenState extends State<VisitingScreen> {
   @override
   void initState() {
     super.initState();
-
-    context.read<WantVisitTabBloc>().add(WantVisitTabLoad());
-    context.read<VisitedTabBloc>().add(VisitedTabLoad());
+    debugPrint('super.initState');
+    context.read<WantVisitTabBloc>().add(WantVisitTabLoadEvent());
+    context.read<VisitedTabBloc>().add(VisitedTabLoadEvent());
   }
 
   @override
@@ -49,7 +49,7 @@ class _VisitingScreenState extends State<VisitingScreen> {
                       debugPrint('state 1= ${state.toString()}');
 
                       // ignore: prefer_const_constructors
-                      return Tab1Widget();
+                      return Tab1WantVisitWidget();
                     }
 
                     return Padding(

@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:places/data/interactor/filters_screen_interactor.dart';
 import 'package:places/data/model/place_type.dart';
 import 'package:places/ui/screen/filters_screen/bloc/filter_bloc.dart';
 import 'package:places/ui/screen/filters_screen/widgets/category_icon_svg_icon.dart';
-import 'package:places/ui/screen/search_places_screen/bloc/search_places_bloc.dart';
-import 'package:provider/provider.dart';
 
 ///Макет кнопки фильтра
 class CategoryIcon extends StatefulWidget {

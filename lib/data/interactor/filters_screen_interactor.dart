@@ -7,7 +7,6 @@ import 'package:places/data/model/filter_distance.dart';
 import 'package:places/data/model/place.dart';
 import 'package:places/data/repository/filter_repository.dart';
 import 'package:places/type_place.dart';
-import 'package:places/ui/res/labels.dart';
 
 class FiltersScreenInteractor extends ChangeNotifier {
   ///Список истории фильтров

@@ -57,28 +57,23 @@ class PlaceRepository extends ChangeNotifier {
   Future<List<Place>> getAllPlace() async {
     try {
       final placesLocalData = await DBProvider.dbProvider.getPlacesLocal();
-      final listPlaceAll = ((await apiClient.get(pathUrlListPlaces)).data
-              as List)
+      var listPlaceAll = ((await apiClient.get(pathUrlListPlaces)).data as List)
           // ignore: avoid_annotating_with_dynamic
           .map<Place>((dynamic e) => Place.fromJson(e as Map<String, dynamic>))
           .toList();
 
+      var i = 0;
       for (final placeOne in listPlaceAll) {
         if (placesLocalData.isNotEmpty) {
           for (final placesLocalDataElement in placesLocalData) {
             if (placesLocalDataElement.id == placeOne.id) {
-              placeOne.copyWith(
+              listPlaceAll[i] = placeOne.copyWith(
                 isFavorites:
                     // ignore: avoid_bool_literals_in_conditional_expressions
                     placesLocalDataElement.isFavorites == 1 ? true : false,
-              );
-              placeOne.copyWith(
                 wantVisitDate: placesLocalDataElement.wantVisitDate == null
                     ? null
                     : placesLocalDataElement.wantVisitDateToDatetime(),
-              );
-
-              placeOne.copyWith(
                 visitedDate: placesLocalDataElement.visitedDate == 0
                     ? null
                     : placesLocalDataElement.visitedDateToDatetime(),
@@ -86,6 +81,7 @@ class PlaceRepository extends ChangeNotifier {
             }
           }
         }
+        i++;
       }
 
       return listPlaceAll;
@@ -124,7 +120,8 @@ class PlaceRepository extends ChangeNotifier {
     List<Place> listAllPlaces,
   ) async {
     final returnListWantVisit = listAllPlaces
-        .where((element) => element.visitedDate == null && element.isFavorites)
+        //.where((element) => element.visitedDate == null && element.isFavorites)
+        .where((element) => element.isFavorites)
         .toList();
 
     return returnListWantVisit;

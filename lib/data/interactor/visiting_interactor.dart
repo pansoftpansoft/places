@@ -21,7 +21,7 @@ class VisitingInteractor extends ChangeNotifier {
       place,
       //streamControllerListPlace,
     );
-    notifyListeners();
+    // notifyListeners();
   }
 
   ///Удаление из мест которые уже посетил
@@ -54,7 +54,7 @@ class VisitingInteractor extends ChangeNotifier {
   }
 
   Future<void> getListWantVisitAndVisited() async {
-    await placeRepository.getAllPlace();
+
 
     final listAllPlace = await placeRepository.getAllPlace();
     debugPrint('listAllPlace = ${listAllPlace.length}');
@@ -62,5 +62,6 @@ class VisitingInteractor extends ChangeNotifier {
     debugPrint('mocksWantVisit = ${mocksWantVisit.length}');
 
     mocksVisited = await placeRepository.getPlacesVisited(listAllPlace);
+    debugPrint('mocksVisited = ${mocksVisited.length}');
   }
 }

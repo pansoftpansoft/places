@@ -92,11 +92,10 @@ class _CardPlaceDragState extends State<CardPlaceDrag> {
     debugPrint('Нажата кнопка actionOnDelete = ${index.toString()}');
     context
         .read<WantVisitTabBloc>()
-        .add(WantVisitTabRemovePlace(mocksWantVisit[index]));
+        .add(WantVisitTabRemovePlaceEvent(mocksWantVisit[index]));
   }
 
   void _actionOnSelectData(BuildContext context, DateTime dateTimeCupertino) {
-    debugPrint(dateTimeCupertino.toString());
     context.read<VisitingInteractor>().dateWantVisit(
           widget.index,
           dateTimeCupertino,

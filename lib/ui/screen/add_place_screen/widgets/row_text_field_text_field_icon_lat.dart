@@ -5,7 +5,6 @@ import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/res/svg_icons.dart';
 import 'package:places/ui/screen/add_place_screen/bloc/add_place_bloc.dart';
 import 'package:places/ui/screen/widgets/text_field_icon/text_field_icon.dart';
-import 'package:provider/provider.dart';
 
 class RowTextFieldTextFieldIconLat extends StatelessWidget {
   final TextEditingController _textEditingControllerLat;

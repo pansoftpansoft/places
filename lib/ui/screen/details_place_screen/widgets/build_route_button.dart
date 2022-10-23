@@ -28,6 +28,12 @@ class BuildRouteButton extends StatelessWidget {
   void _onPress(BuildContext context) {
     // так же эта кнопка переводит маршрут в посещенные
     debugPrint('Это кнопка "Построить маршрут"');
-    context.read<WantVisitTabBloc>().add(WantVisitUpdateToVisited(_place));
+    context.read<WantVisitTabBloc>().add(
+          WantVisitUpdateToVisitedEvent(
+            _place.copyWith(
+              visitedDate: DateTime.now(),
+            ),
+          ),
+        );
   }
 }

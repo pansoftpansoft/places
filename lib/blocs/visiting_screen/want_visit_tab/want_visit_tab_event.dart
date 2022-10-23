@@ -4,35 +4,35 @@ abstract class WantVisitTabEvent extends Equatable {
   const WantVisitTabEvent();
 }
 
-class WantVisitTabLoad extends WantVisitTabEvent {
+class WantVisitTabLoadEvent extends WantVisitTabEvent {
   @override
   List<Object> get props => [];
 }
 
-class WantVisitTabRemovePlace extends WantVisitTabEvent {
+class WantVisitTabRemovePlaceEvent extends WantVisitTabEvent {
   final Place place;
 
   @override
   List<Object> get props => [place];
 
-  const WantVisitTabRemovePlace(this.place);
+  const WantVisitTabRemovePlaceEvent(this.place);
 }
 
-class WantVisitUpdateToVisited extends WantVisitTabEvent {
+class WantVisitUpdateToVisitedEvent extends WantVisitTabEvent {
   final Place place;
 
   @override
   List<Object> get props => [place];
 
-  const WantVisitUpdateToVisited(this.place);
+  const WantVisitUpdateToVisitedEvent(this.place);
 }
 
 // Выбор места для показа деталей о места
-class SelectedWantVisitPlace extends WantVisitTabEvent {
+class WantVisitSelectedPlaceEvent extends WantVisitTabEvent {
   final Place place;
 
   @override
   List<Object> get props => [place];
 
-  const SelectedWantVisitPlace(this.place);
+  const WantVisitSelectedPlaceEvent(this.place);
 }

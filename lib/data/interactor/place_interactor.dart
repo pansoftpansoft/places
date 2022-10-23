@@ -47,34 +47,38 @@ class PlaceInteractor extends ChangeNotifier {
   ) async {
     // Пробуем обновить место
 
+    late Place newPlace;
+
     if (place.isFavorites) {
-      place.copyWith(isFavorites: false);
+      newPlace = place.copyWith(isFavorites: false);
       debugPrint('Это кнопка "В избранное" remove');
     } else {
-      place.copyWith(isFavorites: true);
+      newPlace = place.copyWith(isFavorites: true);
       debugPrint('Это кнопка "В избранное" add');
     }
 
     // проверяем есть токое место в лакальной базе, если нет добавляем.
     final addInLocalDB = await DBProvider.dbProvider.checkPlacesInLocalDataId(
-      place.id,
+      newPlace.id,
     );
 
     debugPrint('addInLocalDB = $addInLocalDB');
 
     if (addInLocalDB) {
       final countUpdate = await DBProvider.dbProvider.updatePlacesLocalData(
-        place,
+        newPlace,
       );
       debugPrint('countUpdate = $countUpdate');
     } else {
       final countInsert = await DBProvider.dbProvider.insertPlacesLocalData(
-        place,
+        newPlace,
       );
       debugPrint('countInsert = $countInsert');
     }
 
-    debugPrint('place id = ${place.id} isFavorites = ${place.isFavorites}');
+    debugPrint(
+      'newPlace id = ${newPlace.id} isFavorites = ${newPlace.isFavorites}',
+    );
 
     mocksFiltered = (await placeRepository.updateMocksFiltered())!;
     await getListWantVisitAndVisitedBloc();
@@ -121,15 +125,19 @@ class PlaceInteractor extends ChangeNotifier {
       place.id,
     );
 
+    late int countUpdate;
+    late int countInsert;
     if (addInLocalDB) {
-      final countUpdate = await DBProvider.dbProvider.updatePlacesLocalData(
+      countUpdate = await DBProvider.dbProvider.updatePlacesLocalData(
         place,
       );
     } else {
-      final countInsert = await DBProvider.dbProvider.insertPlacesLocalData(
+      countInsert = await DBProvider.dbProvider.insertPlacesLocalData(
         place,
       );
     }
+
+    debugPrint('countUpdate = $countUpdate countInsert = $countInsert');
     debugPrint('place id = ${place.id} isFavorites = ${place.visitedDate}');
 
     await getListWantVisitAndVisitedBloc();

@@ -77,7 +77,7 @@ class ListHistoryItemBuilder extends StatelessWidget {
         context.read<SearchPlacesBloc>().state.listHistory[index].historyText;
 
 
-    debugPrint('stringSearch = ${stringSearch}');
+    debugPrint('stringSearch = $stringSearch');
     context
         .read<SearchPlacesBloc>()
         .add(SearchPlacesEvents.newSearch(stringSearch: stringSearch));

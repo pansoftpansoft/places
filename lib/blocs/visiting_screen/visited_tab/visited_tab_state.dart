@@ -1,9 +1,5 @@
 part of 'visited_tab_bloc.dart';
 
-
-
-
-
 abstract class VisitedTabState extends Equatable {
   const VisitedTabState();
 }
@@ -23,6 +19,20 @@ class VisitedTabLoadInSuccess extends VisitedTabState {
 
   @override
   String toString() {
-    return 'WantVisitTabLoadInSuccess $listPlaceWantVisit';
+    return 'VisitedTabLoadInSuccess $listPlaceWantVisit';
+  }
+}
+
+class VisitedPlaceSelected extends VisitedTabState {
+  final Place placeVisit;
+
+  @override
+  List<Object?> get props => [placeVisit];
+
+  const VisitedPlaceSelected(this.placeVisit);
+
+  @override
+  String toString() {
+    return 'VisitedTabSelected $placeVisit';
   }
 }

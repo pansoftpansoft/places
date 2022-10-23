@@ -24,7 +24,7 @@ class AddToFavoritesButton extends StatelessWidget {
           onPressed: () {
             context.read<DetailsPlaceBloc>().add(
                   DetailsPlaceEvents.onChangedFavorites(
-                    place: state.place!,
+                    place: state.place,
                     isFavorites: state.isFavorites,
                   ),
                 );

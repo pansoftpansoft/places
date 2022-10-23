@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:places/blocs/visiting_screen/visited_tab/visited_tab_bloc.dart';
+import 'package:places/blocs/visiting_screen/want_visit_tab/want_visit_tab_bloc.dart';
 import 'package:places/type_place.dart';
 import 'package:places/ui/screen/widgets/card_place/card_place.dart';
 import 'package:provider/provider.dart';
@@ -15,7 +15,7 @@ class ListViewTab2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) => ListView.builder(
 //        itemCount: mocksVisited.length,
-        itemCount: context.read<VisitedTabBloc>().state.props.length,
+        itemCount: context.read<WantVisitTabBloc>().state.props.length,
         itemBuilder: (context, index) => CardPlace(
           mocksVisited[index],
           iconDelete: true,
@@ -32,7 +32,7 @@ class ListViewTab2 extends StatelessWidget {
 
   void _actionOnDelete(BuildContext context, int index) {
     context
-        .read<VisitedTabBloc>()
-        .add(VisitedTabEventRemovePlace(mocksVisited[index]));
+        .read<WantVisitTabBloc>()
+        .add(WantVisitTabRemovePlaceEvent(mocksVisited[index]));
   }
 }
