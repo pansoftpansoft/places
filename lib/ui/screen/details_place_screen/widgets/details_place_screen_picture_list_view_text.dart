@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:places/data/model/place.dart';
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/screen/details_place_screen/widgets/add_to_favorites_button.dart';
@@ -10,8 +11,10 @@ import 'package:places/ui/screen/widgets/sized_box_24.dart';
 class DetailsPlaceScreenPictureListViewText extends StatelessWidget {
   final Place _place;
 
+
   const DetailsPlaceScreenPictureListViewText(
-    this._place, {
+    this._place,
+ {
     Key? key,
   }) : super(key: key);
 

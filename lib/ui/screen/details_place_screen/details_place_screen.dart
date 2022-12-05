@@ -13,6 +13,7 @@ import 'package:places/ui/screen/details_place_screen/widgets/details_place_scre
 class DetailsPlaceScreen extends StatelessWidget {
   final Place? place;
 
+
   /// Конструктор экрана подробности о достопримечательности
   const DetailsPlaceScreen({this.place, Key? key}) : super(key: key);
 

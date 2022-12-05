@@ -18,6 +18,8 @@ const String completeRoute = 'Завершите маршрут,\n'
     'чтобы место попало сюда.';
 const String create = 'СОЗДАТЬ';
 const String darkTheme = 'Темная тема';
+const String goalBeen  = 'Цель достигнута';
+
 const String dataLoadingError = 'Ошибка загрузки данных';
 const String delete = 'Удалить';
 const String description = 'ОПИСАНИЕ';
@@ -54,6 +56,8 @@ const String specifyOnMap = 'Указать на карте';
 const String save = 'СОХРАНИТЬ';
 const String schedule = 'Запланировать';
 const String scheduled = 'Запланировано\nна ';
+const String scheduled2 = 'Запланировано на ';
+const String scheduleDateForVisit = 'Запланируйте дату для посещения';
 const String search = 'Поиск';
 const String settings = 'Настройки';
 const String shareMostInterestingOnes =

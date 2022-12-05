@@ -33,8 +33,7 @@ class Tab1WantVisitWidget extends StatelessWidget {
                 isDismissible: true,
                 useRootNavigator: true,
               );
-              context.read<VisitedTabBloc>().add(VisitedTabLoadEvent());
-              context.read<WantVisitTabBloc>().add(WantVisitTabLoadEvent());
+              debugPrint('Я уже сдесь');
 
               return;
             },

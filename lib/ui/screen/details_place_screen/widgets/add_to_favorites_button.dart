@@ -28,6 +28,7 @@ class AddToFavoritesButton extends StatelessWidget {
                     isFavorites: state.isFavorites,
                   ),
                 );
+            debugPrint('context.read<ListPlacesBloc>().state.toString() = ${context.read<ListPlacesBloc>().state.toString()}');
             context.read<ListPlacesBloc>().add(
                   const ListPlacesEvents.load(),
                 );

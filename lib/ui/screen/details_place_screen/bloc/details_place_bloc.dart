@@ -131,11 +131,6 @@ class DetailsPlaceBloc extends Bloc<DetailsPlaceEvents, DetailsPlaceState> {
     Emitter<DetailsPlaceState> emit,
   ) async {
     try {
-      // await _placeInteractor.setFavorites(
-      //   event.place!.copyWith(
-      //     isFavorites: !event.isFavorites,
-      //   ),
-      // );
       emit(
         DetailsPlaceState.selectedNewPageChanged(
           place: event.place,

@@ -6,6 +6,7 @@ import 'package:intl/intl.dart';
 import 'package:places/blocs/visiting_screen/want_visit_tab/want_visit_tab_bloc.dart';
 import 'package:places/data/interactor/visiting_interactor.dart';
 import 'package:places/type_place.dart';
+import 'package:places/ui/res/labels.dart';
 import 'package:places/ui/screen/widgets/card_place/card_place.dart';
 import 'package:provider/provider.dart';
 
@@ -28,10 +29,10 @@ class _CardPlaceDragState extends State<CardPlaceDrag> {
   @override
   Widget build(BuildContext context) => CardPlace(
         mocksWantVisit[widget.index],
-        goNeed: mocksWantVisit[widget.index].wantVisitDate == null
-            ? 'Запланируйте дату для посещения'
-            : 'Запланировано на '
-                '${DateFormat('dd-MM-yyyy').format(
+        goNeed: mocksWantVisit[widget.index].wantVisitDate == null ||
+            mocksWantVisit[widget.index].wantVisitDate.toString().substring(0,10)=='1970-01-01'
+            ? scheduleDateForVisit
+            : '$scheduled2 ${DateFormat('dd-MM-yyyy').format(
                 mocksWantVisit[widget.index].wantVisitDate!,
               )}',
         iconDelete: true,
@@ -42,11 +43,11 @@ class _CardPlaceDragState extends State<CardPlaceDrag> {
 
         /// Установка даты, когда хочу посетить
         wantToVisit: () async {
-          if (Platform.isAndroid) {
+          if (Platform.isIOS) {
             final dateTimeCupertino = DateTime.now();
 
             await wantToVisitAction(dateTimeCupertino, context);
-          } else if (Platform.isIOS) {
+          } else if (Platform.isAndroid) {
             final dateTime = await showDatePicker(
               context: context,
               initialDate: DateTime.now(),
