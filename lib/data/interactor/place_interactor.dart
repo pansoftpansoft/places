@@ -47,7 +47,6 @@ class PlaceInteractor extends ChangeNotifier {
   ) async {
     // Пробуем обновить место
 
-
     // проверяем есть токое место в лакальной базе, если нет добавляем.
     final addInLocalDB = await DBProvider.dbProvider.checkPlacesInLocalDataId(
       place.id,
@@ -56,6 +55,7 @@ class PlaceInteractor extends ChangeNotifier {
     debugPrint('addInLocalDB = $addInLocalDB');
 
     if (addInLocalDB) {
+      debugPrint('place = ${place.isFavorites}');
       final countUpdate = await DBProvider.dbProvider.updatePlacesLocalData(
         place,
       );
@@ -80,7 +80,6 @@ class PlaceInteractor extends ChangeNotifier {
   Future<void> setStatusPlaceVisited(
     Place place,
   ) async {
-
     // проверяем есть токое место в лакальной базе, если нет добавляем.
     final addInLocalDB = await DBProvider.dbProvider.checkPlacesInLocalDataId(
       place.id,

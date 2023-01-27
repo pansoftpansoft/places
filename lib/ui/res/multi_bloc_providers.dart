@@ -1,6 +1,4 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:places/blocs/visiting_screen/visited_tab/visited_tab_bloc.dart';
-import 'package:places/blocs/visiting_screen/want_visit_tab/want_visit_tab_bloc.dart';
 import 'package:places/data/interactor/add_place_interactor.dart';
 import 'package:places/data/interactor/details_place_interactor.dart';
 import 'package:places/data/interactor/filters_screen_interactor.dart';
@@ -18,16 +16,17 @@ import 'package:places/ui/screen/onboarding_screen/bloc/onboarding_bloc.dart';
 import 'package:places/ui/screen/search_places_screen/bloc/search_places_bloc.dart';
 import 'package:places/ui/screen/select_category/bloc/select_category_bloc.dart';
 import 'package:places/ui/screen/settings_screen/bloc/settings_bloc.dart';
+import 'package:places/ui/screen/visiting_screen/bloc/ListWantVisitBloc/list_want_visit_bloc.dart';
+
+import '../screen/visiting_screen/bloc/visiting_screen_bloc.dart';
 
 /// Список подключенных провадеров
 List<BlocProvider> listMultiBlocProviders = <BlocProvider>[
-  BlocProvider<WantVisitTabBloc>(
-    create: (context) => WantVisitTabBloc(
-      context.read<VisitingInteractor>(),
+  BlocProvider<VisitingScreenBloc>(
+    create: (context) => VisitingScreenBloc(
     ),
-  ),
-  BlocProvider<VisitedTabBloc>(
-    create: (context) => VisitedTabBloc(
+  ), BlocProvider<ListWantVisitBloc>(
+    create: (context) => ListWantVisitBloc(
       context.read<VisitingInteractor>(),
     ),
   ),

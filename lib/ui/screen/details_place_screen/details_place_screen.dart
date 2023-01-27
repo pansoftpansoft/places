@@ -25,9 +25,10 @@ class DetailsPlaceScreen extends StatelessWidget {
             index: 0,
             isFavorites: !place!.isFavorites,
             wantVisitDate:
+                place!.wantVisitDate.toString().length>9?
                 place!.wantVisitDate.toString().substring(0, 10) == '1970-01-01'
                     ? null
-                    : place!.wantVisitDate,
+                    : place!.wantVisitDate: null,
           ),
         );
 

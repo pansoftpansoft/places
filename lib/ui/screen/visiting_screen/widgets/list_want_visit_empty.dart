@@ -5,8 +5,8 @@ import 'package:places/ui/res/labels.dart';
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/res/svg_icons.dart';
 
-class Tab1WidgetEmptyList extends StatelessWidget {
-  const Tab1WidgetEmptyList({
+class ListWantVisitEmpty extends StatelessWidget {
+  const ListWantVisitEmpty({
     Key? key,
   }) : super(key: key);
 

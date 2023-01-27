@@ -3,10 +3,10 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:places/blocs/visiting_screen/want_visit_tab/want_visit_tab_bloc.dart';
 import 'package:places/data/interactor/visiting_interactor.dart';
 import 'package:places/type_place.dart';
 import 'package:places/ui/res/labels.dart';
+import 'package:places/ui/screen/visiting_screen/bloc/ListWantVisitBloc/list_want_visit_bloc.dart';
 import 'package:places/ui/screen/widgets/card_place/card_place.dart';
 import 'package:provider/provider.dart';
 
@@ -92,8 +92,8 @@ class _CardPlaceDragState extends State<CardPlaceDrag> {
   void _actionOnDelete(BuildContext context, int index) {
     debugPrint('Нажата кнопка actionOnDelete = ${index.toString()}');
     context
-        .read<WantVisitTabBloc>()
-        .add(WantVisitTabRemovePlaceEvent(mocksWantVisit[index]));
+        .read<ListWantVisitBloc>()
+        .add(WantVisitRemovePlaceEvent(mocksWantVisit[index]));
   }
 
   void _actionOnSelectData(BuildContext context, DateTime dateTimeCupertino) {

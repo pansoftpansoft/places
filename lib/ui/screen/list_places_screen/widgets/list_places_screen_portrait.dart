@@ -26,6 +26,7 @@ class ListPlacesScreenPortrait extends StatelessWidget {
         BlocListener<ListPlacesBloc, ListPlacesState>(
           listenWhen: (previousState, state) => state.selected,
           listener: (context, state) {
+            debugPrint('See details');
             showModalBottomSheet<Widget>(
               context: context,
               builder: (_) => DetailsPlaceScreen(place: state.place),

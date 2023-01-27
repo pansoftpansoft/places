@@ -32,7 +32,9 @@ class ListPlacesBloc extends Bloc<ListPlacesEvents, ListPlacesState> {
     _LoadListPlacesEvents event,
     Emitter<ListPlacesState> emit,
   ) async {
+    emit(const ListPlacesState.load(listPlaces: []));
     debugPrint('1 event = ${event.toString()}');
+    debugPrint('1 state = ${state.toString()}');
     debugPrint('1 emit = ${emit.toString()}');
     try {
 
@@ -166,6 +168,7 @@ class ListPlacesState with _$ListPlacesState {
         error: (_) => true,
       );
 
+  @override
   List<Place> get listPlaces => maybeWhen<List<Place>>(
         orElse: () => <Place>[],
         addNew: (listPlaces) => listPlaces,

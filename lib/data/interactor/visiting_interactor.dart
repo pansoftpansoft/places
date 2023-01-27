@@ -17,11 +17,10 @@ class VisitingInteractor extends ChangeNotifier {
     Place place,
     //StreamController<Place> streamControllerListPlace,
   ) async {
+    final placeNew= place.copyWith(isFavorites: false);
     await placeInteractor.setFavorites(
-      place,
-      //streamControllerListPlace,
+      placeNew,
     );
-    // notifyListeners();
   }
 
   ///Удаление из мест которые уже посетил

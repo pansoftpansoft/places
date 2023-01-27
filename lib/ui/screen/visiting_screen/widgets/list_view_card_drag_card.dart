@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:places/data/interactor/visiting_interactor.dart';
 import 'package:places/type_place.dart';
+import 'package:places/ui/screen/visiting_screen/bloc/ListWantVisitBloc/list_want_visit_bloc.dart';
 import 'package:places/ui/screen/visiting_screen/widgets/background_dismissible.dart';
 import 'package:places/ui/screen/visiting_screen/widgets/card_place_drag.dart';
 import 'package:provider/provider.dart';
@@ -28,8 +29,11 @@ class ListViewCardDragCard extends StatelessWidget {
   }
 
   void _onDismissed(BuildContext context) {
-    context.read<VisitingInteractor>().deletePlaceWantVisit(
-          mocksWantVisit[index],
+    debugPrint('Пробую удалить');
+    context.read<ListWantVisitBloc>().add(
+          WantVisitRemovePlaceEvent(
+            mocksWantVisit[index],
+          ),
         );
   }
 }
