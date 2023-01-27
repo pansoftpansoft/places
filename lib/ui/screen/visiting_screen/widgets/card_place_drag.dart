@@ -30,7 +30,11 @@ class _CardPlaceDragState extends State<CardPlaceDrag> {
   Widget build(BuildContext context) => CardPlace(
         mocksWantVisit[widget.index],
         goNeed: mocksWantVisit[widget.index].wantVisitDate == null ||
-            mocksWantVisit[widget.index].wantVisitDate.toString().substring(0,10)=='1970-01-01'
+                mocksWantVisit[widget.index]
+                        .wantVisitDate
+                        .toString()
+                        .substring(0, 10) ==
+                    '1970-01-01'
             ? scheduleDateForVisit
             : '$scheduled2 ${DateFormat('dd-MM-yyyy').format(
                 mocksWantVisit[widget.index].wantVisitDate!,
@@ -46,7 +50,7 @@ class _CardPlaceDragState extends State<CardPlaceDrag> {
           if (Platform.isIOS) {
             final dateTimeCupertino = DateTime.now();
 
-            await wantToVisitAction(dateTimeCupertino, context);
+            await wantToVisitAction(dateTimeCupertino, context,);
           } else if (Platform.isAndroid) {
             final dateTime = await showDatePicker(
               context: context,
@@ -60,7 +64,7 @@ class _CardPlaceDragState extends State<CardPlaceDrag> {
               if (!mounted) {
                 return;
               }
-              _actionOnSelectData(context, dateTime);
+              _actionOnSelectData(context, dateTime, widget.index);
             }
           }
         },
@@ -83,24 +87,28 @@ class _CardPlaceDragState extends State<CardPlaceDrag> {
             },
           ),
         ).then(
-          (value) => _actionOnSelectData(context, dateTimeCupertino),
+          (value) => _actionOnSelectData(context, dateTimeCupertino, widget.index),
         );
       },
     );
   }
 
   void _actionOnDelete(BuildContext context, int index) {
-    debugPrint('Нажата кнопка actionOnDelete = ${index.toString()}');
     context
         .read<ListWantVisitBloc>()
         .add(WantVisitRemovePlaceEvent(mocksWantVisit[index]));
   }
 
-  void _actionOnSelectData(BuildContext context, DateTime dateTimeCupertino) {
-    context.read<VisitingInteractor>().dateWantVisit(
-          widget.index,
-          dateTimeCupertino,
-        );
+  void _actionOnSelectData(
+    BuildContext context,
+    DateTime dateTimeCupertino,
+    int index,
+  ) {
+    debugPrint('Нажата кнопка Set date = ${index.toString()}');
+
+    context
+        .read<ListWantVisitBloc>()
+        .add(WantVisitUpdateDateEvent(mocksWantVisit[index],dateTimeCupertino));
   }
 
   Future<void> _showDialog(Widget child) async {

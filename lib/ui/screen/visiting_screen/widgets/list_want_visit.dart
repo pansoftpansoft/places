@@ -22,26 +22,7 @@ class ListWantVisit extends StatelessWidget {
         listeners: [
           BlocListener<ListWantVisitBloc, ListWantVisitState>(
             listenWhen: (previousState, state) {
-              return state is ListWantVisitPlaceSelected;
-            },
-            listener: (context, state) {
-              showModalBottomSheet<Widget>(
-                context: context,
-                builder: (_) => DetailsPlaceScreen(
-                  place: state.props.first as Place,
-                ),
-                isScrollControlled: true,
-                isDismissible: true,
-                useRootNavigator: true,
-              );
-              debugPrint('Я уже сдесь');
-
-              return;
-            },
-          ),
-          BlocListener<ListWantVisitBloc, ListWantVisitState>(
-            listenWhen: (previousState, state) {
-              return state is ListWantVisitPlaceSelected;
+              return state is ListWantVisitPlaceSelectedState;
             },
             listener: (context, state) {
               showModalBottomSheet<Widget>(

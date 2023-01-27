@@ -24,7 +24,10 @@ class ListWantVisitBloc extends Bloc<ListWantVisitEvent, ListWantVisitState> {
     on<WantVisitRemovePlaceEvent>(_onWantVisitRemovePlace);
 
     ///Обработка переноса события из "хочу посетить" в "посещенные"
-    on<WantVisitUpdateToVisitedEvent>(_onWantVisitUpdateToVisited);
+    on<WantVisitUpdateDateEvent>(_onWantVisitUpdateDate);
+
+    on<WantVisitSelectPlaceEvent>(_onWantVisitSelected);
+
   }
 
   Future<void> _onWantVisitLoad(
@@ -60,16 +63,30 @@ class ListWantVisitBloc extends Bloc<ListWantVisitEvent, ListWantVisitState> {
     );
   }
 
-  Future<void> _onWantVisitUpdateToVisited(
-    WantVisitUpdateToVisitedEvent event,
+  Future<void> _onWantVisitUpdateDate(
+    WantVisitUpdateDateEvent event,
     Emitter<ListWantVisitState> emit,
   ) async {
-    final future = visitingInteractor.wantVisitUpdateToVisit(event.place);
+    final future = visitingInteractor.dateWantVisit(
+      event.place,
+      event.newDate,
+    );
 
     await future.whenComplete(
       () => emit(
         ListWantVisitLoadedState(mocksWantVisit),
       ),
     );
+  }
+
+  Future<void> _onWantVisitSelected(
+      WantVisitSelectPlaceEvent event,
+      Emitter<ListWantVisitState> emit,
+      ) async {
+      emit(
+        ListWantVisitPlaceSelectedState(
+             event.place,
+        ),
+      );
   }
 }

@@ -25,12 +25,9 @@ class CardPlaceBodyRippleEffect extends StatelessWidget {
                     ),
                   );
 
-              // context.read<ListWantVisitBloc>().add(
-              //   ListWantVisitEvent
-              //     (
-              //     place: place,
-              //   ),
-              // );
+              context.read<ListWantVisitBloc>().add(
+                    WantVisitSelectPlaceEvent(place),
+                  );
               // context.read<WantVisitTabBloc>().add(
               //       WantVisitSelectedPlaceEvent(place),
               //     );

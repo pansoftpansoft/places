@@ -33,11 +33,12 @@ class WantVisitSelectPlaceEvent extends ListWantVisitEvent {
 }
 
 
-class WantVisitUpdateToVisitedEvent extends ListWantVisitEvent {
+class WantVisitUpdateDateEvent extends ListWantVisitEvent {
   final Place place;
+  final DateTime newDate;
 
   @override
   List<Object> get props => [place];
 
-  const WantVisitUpdateToVisitedEvent(this.place);
+  const WantVisitUpdateDateEvent(this.place, this.newDate);
 }

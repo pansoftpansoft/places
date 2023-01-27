@@ -42,10 +42,16 @@ class VisitingInteractor extends ChangeNotifier {
   }
 
   ///Установка или изменение даты заплонированного посещения интересног места
-  void dateWantVisit(int sours, DateTime dateWantVisitNew) {
-    mocksWantVisit[sours].copyWith(wantVisitDate: dateWantVisitNew);
-    notifyListeners();
+  Future<void> dateWantVisit(Place place, DateTime dateWantVisitNew) async {
+    final placeNew = place.copyWith(wantVisitDate: dateWantVisitNew);
+    await placeInteractor.setFavorites(
+      placeNew,
+    );
   }
+
+
+
+
 
   ///Установка места признака что оно посещено
   Future<void> wantVisitUpdateToVisit(Place place) async {
