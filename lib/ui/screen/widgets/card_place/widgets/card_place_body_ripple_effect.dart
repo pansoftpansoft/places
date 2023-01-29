@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:places/data/model/place.dart';
 import 'package:places/ui/res/color_palette.dart';
 import 'package:places/ui/screen/list_places_screen/bloc/list_places_bloc.dart';
+import 'package:places/ui/screen/visiting_screen/bloc/list_visited_bloc/list_visited_bloc.dart';
 import 'package:places/ui/screen/visiting_screen/bloc/list_want_visit_bloc/list_want_visit_bloc.dart';
 import 'package:provider/provider.dart';
 
@@ -28,13 +29,9 @@ class CardPlaceBodyRippleEffect extends StatelessWidget {
               context.read<ListWantVisitBloc>().add(
                     ListWantVisitSelectPlaceEvent(place),
                   );
-              // context.read<WantVisitTabBloc>().add(
-              //       WantVisitSelectedPlaceEvent(place),
-              //     );
-              //
-              // context.read<VisitedTabBloc>().add(
-              //    VisitedTabSelectedPlaceEvent(place),
-              // );
+              context.read<ListVisitedBloc>().add(
+                    ListVisitedSelectPlaceEvent(place),
+                  );
 
               debugPrint(place.name);
               debugPrint('Это кнопка "Вся карточка"');

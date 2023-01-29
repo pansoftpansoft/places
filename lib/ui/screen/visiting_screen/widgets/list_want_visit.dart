@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:places/data/model/place.dart';
 import 'package:places/type_place.dart';
 import 'package:places/ui/res/color_palette.dart';
 import 'package:places/ui/res/sizes.dart';
@@ -22,13 +21,16 @@ class ListWantVisit extends StatelessWidget {
         listeners: [
           BlocListener<ListWantVisitBloc, ListWantVisitState>(
             listenWhen: (previousState, state) {
+              debugPrint('зашли ${state.toString()}');
+
               return state is ListWantVisitPlaceSelectedState;
             },
             listener: (context, state) {
+              debugPrint('See details');
               showModalBottomSheet<Widget>(
                 context: context,
                 builder: (_) => DetailsPlaceScreen(
-                  place: state.props.first as Place,
+                  place: (state as ListWantVisitPlaceSelectedState).place,
                 ),
                 isScrollControlled: true,
                 isDismissible: true,

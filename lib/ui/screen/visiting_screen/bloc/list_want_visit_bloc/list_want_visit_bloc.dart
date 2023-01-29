@@ -88,6 +88,11 @@ class ListWantVisitBloc extends Bloc<ListWantVisitEvent, ListWantVisitState> {
     Emitter<ListWantVisitState> emit,
   ) async {
     emit(
+      ListWantVisitLoadedState(
+          mocksWantVisit,
+      ),
+    );
+    emit(
       ListWantVisitPlaceSelectedState(
         event.place,
       ),

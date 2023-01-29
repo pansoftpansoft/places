@@ -73,7 +73,7 @@ class ListPlacesBloc extends Bloc<ListPlacesEvents, ListPlacesState> {
     debugPrint('emitter = ${emit.toString()}');
     //Показываем экран загрузки
     emit(
-      ListPlacesState.load(
+      ListPlacesState.loaded(
         listPlaces: state.listPlaces,
       ),
     );

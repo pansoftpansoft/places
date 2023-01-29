@@ -71,6 +71,11 @@ class ListVisitedBloc extends Bloc<ListVisitedEvent, ListVisitedState> {
     debugPrint('_selectedPlace = 1');
 
     emit(
+      ListVisitedLoadedState(
+        mocksWantVisit,
+      ),
+    );
+    emit(
       ListVisitedPlaceSelectedState(
         event.place,
       ),
