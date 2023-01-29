@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:places/data/model/place.dart';
 import 'package:places/ui/screen/details_place_screen/widgets/details_place_screen_picture_list_view.dart';
 import 'package:places/ui/screen/details_place_screen/widgets/details_place_screen_picture_sliver_app_bar.dart';

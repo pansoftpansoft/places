@@ -1,6 +1,8 @@
 part of 'list_want_visit_bloc.dart';
 
-abstract class ListWantVisitState  extends Equatable  {}
+abstract class ListWantVisitState  extends Equatable  {
+  const ListWantVisitState();
+}
 
 class ListWantVisitLoadState extends ListWantVisitState {
   @override
@@ -13,7 +15,7 @@ class ListWantVisitLoadedState extends ListWantVisitState {
   @override
   List<Object?> get props => [listPlaceWantVisit];
 
-  ListWantVisitLoadedState(this.listPlaceWantVisit);
+  const ListWantVisitLoadedState(this.listPlaceWantVisit);
 
   @override
   String toString() {
@@ -27,7 +29,7 @@ class ListWantVisitPlaceSelectedState extends ListWantVisitState {
   @override
   List<Object?> get props => [place];
 
-  ListWantVisitPlaceSelectedState(this.place);
+  const ListWantVisitPlaceSelectedState(this.place);
 
   @override
   String toString() {

@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:places/ui/res/img.dart';
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/screen/visiting_screen/bloc/visiting_screen_bloc.dart';
 import 'package:places/ui/screen/visiting_screen/widgets/app_bar_visiting.dart';
-import 'package:places/ui/screen/visiting_screen/widgets/list_want_visit.dart';
 import 'package:places/ui/screen/visiting_screen/widgets/list_visited.dart';
+import 'package:places/ui/screen/visiting_screen/widgets/list_want_visit.dart';
 import 'package:places/ui/screen/widgets/bottom_navigation/bottom_navigation.dart';
 
 ///Окно в котором можно выбрать

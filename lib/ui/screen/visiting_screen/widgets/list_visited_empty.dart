@@ -6,9 +6,9 @@ import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/res/svg_icons.dart';
 
 ///
-class EmptyListTab2 extends StatelessWidget {
+class ListVisitedEmpty extends StatelessWidget {
   ///
-  const EmptyListTab2({
+  const ListVisitedEmpty({
     final Key? key,
   }) : super(key: key);
 

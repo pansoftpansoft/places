@@ -3,10 +3,9 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:places/data/interactor/visiting_interactor.dart';
 import 'package:places/type_place.dart';
 import 'package:places/ui/res/labels.dart';
-import 'package:places/ui/screen/visiting_screen/bloc/ListWantVisitBloc/list_want_visit_bloc.dart';
+import 'package:places/ui/screen/visiting_screen/bloc/list_want_visit_bloc/list_want_visit_bloc.dart';
 import 'package:places/ui/screen/widgets/card_place/card_place.dart';
 import 'package:provider/provider.dart';
 
@@ -50,7 +49,10 @@ class _CardPlaceDragState extends State<CardPlaceDrag> {
           if (Platform.isIOS) {
             final dateTimeCupertino = DateTime.now();
 
-            await wantToVisitAction(dateTimeCupertino, context,);
+            await wantToVisitAction(
+              dateTimeCupertino,
+              context,
+            );
           } else if (Platform.isAndroid) {
             final dateTime = await showDatePicker(
               context: context,
@@ -87,7 +89,8 @@ class _CardPlaceDragState extends State<CardPlaceDrag> {
             },
           ),
         ).then(
-          (value) => _actionOnSelectData(context, dateTimeCupertino, widget.index),
+          (value) =>
+              _actionOnSelectData(context, dateTimeCupertino, widget.index),
         );
       },
     );
@@ -96,7 +99,7 @@ class _CardPlaceDragState extends State<CardPlaceDrag> {
   void _actionOnDelete(BuildContext context, int index) {
     context
         .read<ListWantVisitBloc>()
-        .add(WantVisitRemovePlaceEvent(mocksWantVisit[index]));
+        .add(ListWantVisitRemovePlaceEvent(mocksWantVisit[index]));
   }
 
   void _actionOnSelectData(
@@ -106,9 +109,12 @@ class _CardPlaceDragState extends State<CardPlaceDrag> {
   ) {
     debugPrint('Нажата кнопка Set date = ${index.toString()}');
 
-    context
-        .read<ListWantVisitBloc>()
-        .add(WantVisitUpdateDateEvent(mocksWantVisit[index],dateTimeCupertino));
+    context.read<ListWantVisitBloc>().add(
+          ListWantVisitUpdateDateEvent(
+            mocksWantVisit[index],
+            dateTimeCupertino,
+          ),
+        );
   }
 
   Future<void> _showDialog(Widget child) async {

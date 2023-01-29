@@ -4,7 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:places/ui/res/route_name.dart';
 import 'package:places/ui/res/svg_icons.dart';
 import 'package:places/ui/screen/list_places_screen/bloc/list_places_bloc.dart';
-import 'package:places/ui/screen/visiting_screen/bloc/ListWantVisitBloc/list_want_visit_bloc.dart';
+import 'package:places/ui/screen/visiting_screen/bloc/list_want_visit_bloc/list_want_visit_bloc.dart';
 import 'package:provider/provider.dart';
 
 /// Нижнее главное меню
@@ -92,7 +92,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
           break;
         case 2:
           context.read<ListWantVisitBloc>().add(
-            WantVisitLoadEvent(),
+            ListWantVisitLoadEvent(),
           );
           Navigator.pushReplacementNamed(
             context,

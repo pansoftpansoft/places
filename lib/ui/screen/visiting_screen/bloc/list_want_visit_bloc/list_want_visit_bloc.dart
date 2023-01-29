@@ -1,7 +1,6 @@
-import 'package:bloc_concurrency/bloc_concurrency.dart' as bloc_concurrency;
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:places/data/interactor/list_places_screen_interactor.dart';
 import 'package:places/data/interactor/visiting_interactor.dart';
 import 'package:places/data/model/place.dart';
 import 'package:places/type_place.dart';
@@ -15,23 +14,28 @@ class ListWantVisitBloc extends Bloc<ListWantVisitEvent, ListWantVisitState> {
 
   ListWantVisitBloc(this.visitingInteractor) : super(ListWantVisitLoadState()) {
     ///Обработка события загрузка экрана
-    on<WantVisitLoadEvent>(_onWantVisitLoad);
+    on<ListWantVisitLoadEvent>(_onListWantVisitLoad);
 
     ///Обработка события окончание загрузки экрана
-    on<WantVisitLoadedEvent>(_onWantVisitLoaded);
+    on<ListWantVisitLoadedEvent>(_onListWantVisitLoaded);
 
     ///Обработка события удаление меств из списка "Хочу посетить"
-    on<WantVisitRemovePlaceEvent>(_onWantVisitRemovePlace);
+    on<ListWantVisitRemovePlaceEvent>(_onListWantVisitRemovePlace);
+
+    ///Установка даты когда хочу посетить
+    on<ListWantVisitUpdateDateEvent>(_onListWantVisitUpdateDate);
 
     ///Обработка переноса события из "хочу посетить" в "посещенные"
-    on<WantVisitUpdateDateEvent>(_onWantVisitUpdateDate);
+    on<ListWantVisitPlaceUpdateToVisitedEvent>(
+      _onListWantVisitPlaceUpdateToVisited,
+    );
 
-    on<WantVisitSelectPlaceEvent>(_onWantVisitSelected);
-
+    ///Нажали на карточку места
+    on<ListWantVisitSelectPlaceEvent>(_onListWantVisitSelected);
   }
 
-  Future<void> _onWantVisitLoad(
-    WantVisitLoadEvent event,
+  Future<void> _onListWantVisitLoad(
+    ListWantVisitLoadEvent event,
     Emitter<ListWantVisitState> emit,
   ) async {
     emit(ListWantVisitLoadState());
@@ -43,15 +47,15 @@ class ListWantVisitBloc extends Bloc<ListWantVisitEvent, ListWantVisitState> {
     );
   }
 
-  Future<void> _onWantVisitLoaded(
-    WantVisitLoadedEvent event,
+  Future<void> _onListWantVisitLoaded(
+    ListWantVisitLoadedEvent event,
     Emitter<ListWantVisitState> emit,
   ) async {
     return;
   }
 
-  Future<void> _onWantVisitRemovePlace(
-    WantVisitRemovePlaceEvent event,
+  Future<void> _onListWantVisitRemovePlace(
+    ListWantVisitRemovePlaceEvent event,
     Emitter<ListWantVisitState> emit,
   ) async {
     emit(ListWantVisitLoadState());
@@ -63,8 +67,8 @@ class ListWantVisitBloc extends Bloc<ListWantVisitEvent, ListWantVisitState> {
     );
   }
 
-  Future<void> _onWantVisitUpdateDate(
-    WantVisitUpdateDateEvent event,
+  Future<void> _onListWantVisitUpdateDate(
+    ListWantVisitUpdateDateEvent event,
     Emitter<ListWantVisitState> emit,
   ) async {
     final future = visitingInteractor.dateWantVisit(
@@ -79,14 +83,27 @@ class ListWantVisitBloc extends Bloc<ListWantVisitEvent, ListWantVisitState> {
     );
   }
 
-  Future<void> _onWantVisitSelected(
-      WantVisitSelectPlaceEvent event,
-      Emitter<ListWantVisitState> emit,
-      ) async {
-      emit(
-        ListWantVisitPlaceSelectedState(
-             event.place,
-        ),
-      );
+  Future<void> _onListWantVisitSelected(
+    ListWantVisitSelectPlaceEvent event,
+    Emitter<ListWantVisitState> emit,
+  ) async {
+    emit(
+      ListWantVisitPlaceSelectedState(
+        event.place,
+      ),
+    );
+  }
+
+  Future<void> _onListWantVisitPlaceUpdateToVisited(
+    ListWantVisitPlaceUpdateToVisitedEvent event,
+    Emitter<ListWantVisitState> emit,
+  ) async {
+    final future = visitingInteractor.wantVisitUpdateToVisit(event.place);
+    debugPrint(event.toString());
+    await future.whenComplete(
+      () => emit(
+        ListWantVisitLoadedState(mocksWantVisit),
+      ),
+    );
   }
 }
