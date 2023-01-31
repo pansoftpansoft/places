@@ -57,17 +57,18 @@ class PlaceRepository extends ChangeNotifier {
   Future<List<Place>> getAllPlace() async {
     try {
       final placesLocalData = await DBProvider.dbProvider.getPlacesLocal();
-      var listPlaceAll = ((await apiClient.get(pathUrlListPlaces)).data as List)
+      final listPlaceAll = ((await apiClient.get(pathUrlListPlaces)).data
+              as List)
           // ignore: avoid_annotating_with_dynamic
           .map<Place>((dynamic e) => Place.fromJson(e as Map<String, dynamic>))
           .toList();
 
-      var i = 0;
+      var count = 0;
       for (final placeOne in listPlaceAll) {
         if (placesLocalData.isNotEmpty) {
           for (final placesLocalDataElement in placesLocalData) {
             if (placesLocalDataElement.id == placeOne.id) {
-              listPlaceAll[i] = placeOne.copyWith(
+              listPlaceAll[count] = placeOne.copyWith(
                 isFavorites:
                     // ignore: avoid_bool_literals_in_conditional_expressions
                     placesLocalDataElement.isFavorites == 1 ? true : false,
@@ -81,7 +82,7 @@ class PlaceRepository extends ChangeNotifier {
             }
           }
         }
-        i++;
+        count++;
       }
 
       return listPlaceAll;

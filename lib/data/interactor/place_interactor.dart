@@ -124,9 +124,6 @@ class PlaceInteractor extends ChangeNotifier {
       );
     }
 
-    //debugPrint('countUpdate = $countUpdate countInsert = $countInsert');
-    //debugPrint('place id = ${place.id} isFavorites = ${place.visitedDate}');
-
     await getListWantVisitAndVisitedBloc();
   }
 
@@ -139,19 +136,4 @@ class PlaceInteractor extends ChangeNotifier {
 
     return list;
   }
-
-// ///-----------------------------------------------
-// /// Отметить место как посещенное
-// Future<void> addToVisitingPlaces(
-//   Place place,
-//   StreamController<Place> streamControllerListPlace,
-// ) async {
-//   await placeRepository.postPlace(place, streamControllerListPlace);
-//   for (final element in mocks) {
-//     if (element.id == place.id) {
-//       element.visitedDate = DateTime.now();
-//     }
-//   }
-//   await getListWantVisitAndVisited();
-// }
 }

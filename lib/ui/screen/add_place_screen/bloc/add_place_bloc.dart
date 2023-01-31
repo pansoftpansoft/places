@@ -5,17 +5,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:places/data/api/network_exception.dart';
-import 'package:places/data/interactor/add_place_interactor.dart';
+
 import 'package:places/data/model/place.dart';
 
 part 'add_place_bloc.freezed.dart';
 
 class AddPlaceBloc extends Bloc<AddPlaceEvents, AddPlaceState> {
-  final AddPlaceInteractor _addPlaceInteractor;
-
-  AddPlaceBloc(
-    final this._addPlaceInteractor,
-  ) : super(
+  AddPlaceBloc()
+      : super(
           const AddPlaceState.load(place: Place()),
         ) {
     debugPrint('AddPlaceBloc ');
@@ -43,7 +40,7 @@ class AddPlaceBloc extends Bloc<AddPlaceEvents, AddPlaceState> {
       emit(AddPlaceState.showPage(place: event.place));
     } on NetworkException {
       // emit(const ListPlacesState.error(message: 'Ошибка загрузки из сети'));
-    } on Object catch (error, stackTrace) {
+    } on Object {
       rethrow;
     } finally {
       debugPrint('2 event = ${event.toString()}');
@@ -59,7 +56,7 @@ class AddPlaceBloc extends Bloc<AddPlaceEvents, AddPlaceState> {
     debugPrint('emitter = ${emitter.toString()}');
     try {
       emit(AddPlaceState.showPage(place: event.place.copyWith()));
-    } on Object catch (error, stackTrace) {
+    } on Object {
       rethrow;
     }
   }
@@ -74,7 +71,7 @@ class AddPlaceBloc extends Bloc<AddPlaceEvents, AddPlaceState> {
       if (state.addReadyCheck == 1) {
         emit(AddPlaceState.addedPlace(place: event.place.copyWith(id: 99993)));
       }
-    } on Object catch (error, stackTrace) {
+    } on Object catch (error) {
       debugPrint('error 10000 = ${error.toString()}');
       emit(AddPlaceState.errorAdd(place: event.place));
       //rethrow;
@@ -91,7 +88,7 @@ class AddPlaceBloc extends Bloc<AddPlaceEvents, AddPlaceState> {
       emit(AddPlaceState.selectPlaceType(place: state.place));
     } on NetworkException {
       // emit(const ListPlacesState.error(message: 'Ошибка загрузки из сети'));
-    } on Object catch (error, stackTrace) {
+    } on Object {
       rethrow;
     } finally {
       debugPrint('2 event = ${event.toString()}');
@@ -109,7 +106,7 @@ class AddPlaceBloc extends Bloc<AddPlaceEvents, AddPlaceState> {
       emit(AddPlaceState.showPage(place: state.place));
     } on NetworkException {
       // emit(const ListPlacesState.error(message: 'Ошибка загрузки из сети'));
-    } on Object catch (error, stackTrace) {
+    } on Object {
       rethrow;
     } finally {
       debugPrint('2 event = ${event.toString()}');
@@ -127,7 +124,7 @@ class AddPlaceBloc extends Bloc<AddPlaceEvents, AddPlaceState> {
       emit(AddPlaceState.showPage(place: state.place));
     } on NetworkException {
       // emit(const ListPlacesState.error(message: 'Ошибка загрузки из сети'));
-    } on Object catch (error, stackTrace) {
+    } on Object {
       rethrow;
     } finally {
       debugPrint('2 event = ${event.toString()}');

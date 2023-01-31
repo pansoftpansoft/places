@@ -1,7 +1,7 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:places/ui/res/sizes.dart';
-import 'package:places/ui/screen/visiting_screen/bloc/visiting_screen_bloc.dart';
 import 'package:places/ui/screen/visiting_screen/widgets/app_bar_visiting.dart';
 import 'package:places/ui/screen/visiting_screen/widgets/list_visited.dart';
 import 'package:places/ui/screen/visiting_screen/widgets/list_want_visit.dart';
@@ -37,20 +37,12 @@ class _VisitingScreenState extends State<VisitingScreen> {
           body: Padding(
             padding: const EdgeInsets.all(paddingPage),
             child: Column(
-              children: [
+              children: const [
                 Expanded(
                   child: TabBarView(
                     children: <Widget>[
-                      BlocBuilder<VisitingScreenBloc, int>(
-                        builder: (context, state) {
-                          return ListWantVisit();
-                        },
-                      ),
-                      BlocBuilder<VisitingScreenBloc, int>(
-                        builder: (context, state) {
-                          return ListVisited();
-                        },
-                      ),
+                      ListWantVisit(),
+                      ListVisited(),
                     ],
                   ),
                 ),

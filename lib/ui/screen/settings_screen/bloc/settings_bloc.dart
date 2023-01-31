@@ -42,7 +42,7 @@ class SettingsBloc extends Bloc<SettingsEvents, SettingsState> {
       }
 
       emit(SettingsState.newSettings(themeData: event.themeData));
-    } on Object catch (error, stackTrace) {
+    } on Object {
       rethrow;
     }
   }
@@ -60,7 +60,7 @@ class SettingsBloc extends Bloc<SettingsEvents, SettingsState> {
       } else {
         emit(const SettingsState.newSettings(themeData: true));
       }
-    } on Object catch (error, stackTrace) {
+    } on Object {
       rethrow;
     }
   }

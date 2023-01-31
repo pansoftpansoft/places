@@ -89,7 +89,7 @@ class ListWantVisitBloc extends Bloc<ListWantVisitEvent, ListWantVisitState> {
   ) async {
     emit(
       ListWantVisitLoadedState(
-          mocksWantVisit,
+        mocksWantVisit,
       ),
     );
     emit(

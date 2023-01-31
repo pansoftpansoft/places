@@ -4,27 +4,6 @@ import 'package:places/domain/onboarding_page.dart';
 import 'package:places/ui/res/labels.dart';
 import 'package:places/ui/res/svg_icons.dart';
 
-///Mock
-// enum TypePlace {
-//   ///
-//   hotel,
-//
-//   ///
-//   restaurant,
-//
-//   ///
-//   particularPlace,
-//
-//   ///
-//   park,
-//
-//   ///
-//   museum,
-//
-//   ///
-//   cafe,
-// }
-
 ///
 enum ScreenEnum {
   ///Экран загрузки

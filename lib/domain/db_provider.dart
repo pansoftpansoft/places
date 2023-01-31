@@ -1,9 +1,7 @@
 // ignore_for_file: cascade_invocations, unused_local_variable
 
 //import 'dart:io';
-
 import 'package:flutter/foundation.dart';
-
 import 'package:path_provider/path_provider.dart';
 import 'package:places/data/model/filter_category.dart';
 import 'package:places/data/model/filter_distance.dart';
@@ -133,9 +131,9 @@ class DBProvider {
       return res;
     } catch (e) {
       debugPrint('Скорее всего найден дублер');
-
-      return 0;
     }
+
+    return 0;
   }
 
   ///--------------------------------------------------------------

@@ -37,14 +37,11 @@ class ListPlacesBloc extends Bloc<ListPlacesEvents, ListPlacesState> {
     debugPrint('1 state = ${state.toString()}');
     debugPrint('1 emit = ${emit.toString()}');
     try {
-
       final listPlacesEmpty = await _listPlacesScreenInteractor.loadBloc();
       emit(ListPlacesState.loaded(listPlaces: listPlacesEmpty));
-
-
     } on NetworkException {
       emit(const ListPlacesState.error(message: 'Ошибка загрузки из сети'));
-    } on Object catch (error, stackTrace) {
+    } on Object {
       rethrow;
     } finally {
       debugPrint('2 event = ${event.toString()}');
@@ -58,11 +55,6 @@ class ListPlacesBloc extends Bloc<ListPlacesEvents, ListPlacesState> {
   ) async {
     debugPrint('event = ${event.toString()}');
     debugPrint('emitter = ${emitter.toString()}');
-    try {
-      //
-    } on Object catch (error, stackTrace) {
-      rethrow;
-    }
   }
 
   Future<void> _selected(
@@ -85,7 +77,7 @@ class ListPlacesBloc extends Bloc<ListPlacesEvents, ListPlacesState> {
         ),
       );
       //
-    } on Object catch (error, stackTrace) {
+    } on Object {
       rethrow;
     }
   }
@@ -99,10 +91,8 @@ class ListPlacesBloc extends Bloc<ListPlacesEvents, ListPlacesState> {
     try {
       emit(ListPlacesState.addNew(listPlaces: state.listPlaces));
       //
-    } on Object catch (error, stackTrace) {
+    } on Object {
       rethrow;
-    } finally {
-      //
     }
   }
 
@@ -112,13 +102,6 @@ class ListPlacesBloc extends Bloc<ListPlacesEvents, ListPlacesState> {
   ) async {
     debugPrint('event = ${event.toString()}');
     debugPrint('emitter = ${emitter.toString()}');
-    try {
-      //
-    } on Object catch (error, stackTrace) {
-      rethrow;
-    } finally {
-      //
-    }
   }
 }
 
@@ -127,8 +110,7 @@ class ListPlacesBloc extends Bloc<ListPlacesEvents, ListPlacesState> {
 class ListPlacesEvents with _$ListPlacesEvents {
   const ListPlacesEvents._();
 
-  const factory ListPlacesEvents.
-  load() = _LoadListPlacesEvents;
+  const factory ListPlacesEvents.load() = _LoadListPlacesEvents;
 
   const factory ListPlacesEvents.loaded() = _LoadedListPlacesEvents;
 

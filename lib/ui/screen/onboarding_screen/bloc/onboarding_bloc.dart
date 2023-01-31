@@ -41,7 +41,7 @@ class OnboardingBloc extends Bloc<OnboardingEvents, OnboardingState> {
       ));
     } on NetworkException {
       // emit(const ListPlacesState.error(message: 'Ошибка загрузки из сети'));
-    } on Object catch (error, stackTrace) {
+    } on Object {
       rethrow;
     } finally {
       debugPrint('2 event = ${event.toString()}');
@@ -51,16 +51,16 @@ class OnboardingBloc extends Bloc<OnboardingEvents, OnboardingState> {
 
   Future<void> _onPageChanged(
     _onPageChangedOnboardingEvents event,
-    Emitter<OnboardingState> emitter,
+    Emitter<OnboardingState> emit,
   ) async {
     debugPrint('event = ${event.toString()}');
-    debugPrint('emitter = ${emitter.toString()}');
+    debugPrint('emitter = ${emit.toString()}');
     try {
       emit(OnboardingState.showPage(
         listPage: event.listPage,
         currentPage: event.currentPage,
       ));
-    } on Object catch (error, stackTrace) {
+    } on Object {
       rethrow;
     }
   }

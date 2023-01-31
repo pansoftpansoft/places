@@ -79,7 +79,7 @@ class SearchPlacesBloc extends Bloc<SearchPlacesEvents, SearchPlacesState> {
       );
     } on NetworkException {
       // emit(const ListPlacesState.error(message: 'Ошибка загрузки из сети'));
-    } on Object catch (error, stackTrace) {
+    } on Object {
       rethrow;
     } finally {
       debugPrint('2 event = ${event.toString()}');
@@ -122,7 +122,7 @@ class SearchPlacesBloc extends Bloc<SearchPlacesEvents, SearchPlacesState> {
           ),
         );
       }
-    } on Object catch (error, stackTrace) {
+    } on Object {
       rethrow;
     }
   }
@@ -161,7 +161,7 @@ class SearchPlacesBloc extends Bloc<SearchPlacesEvents, SearchPlacesState> {
           ),
         );
       }
-    } on Object catch (error, stackTrace) {
+    } on Object {
       rethrow;
     }
   }
@@ -181,14 +181,14 @@ class SearchPlacesBloc extends Bloc<SearchPlacesEvents, SearchPlacesState> {
       emit(
         const SearchPlacesState.showEmpty(),
       );
-    } on Object catch (error, stackTrace) {
+    } on Object {
       rethrow;
     }
   }
 
   Future<void> _onDeleteHistoryWord(
     _onDeleteHistoryWordEvents event,
-    Emitter<SearchPlacesState> emitter,
+    Emitter<SearchPlacesState> emit,
   ) async {
     try {
       //Удаляем слово из истории поиска
@@ -204,7 +204,7 @@ class SearchPlacesBloc extends Bloc<SearchPlacesEvents, SearchPlacesState> {
           const SearchPlacesState.showEmpty(),
         );
       }
-    } on Object catch (error, stackTrace) {
+    } on Object {
       rethrow;
     }
   }

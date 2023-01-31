@@ -64,11 +64,11 @@ class ScheduleButton extends StatelessWidget {
                   const ListPlacesEvents.load(),
                 );
             context.read<ListPlacesBloc>().add(
-              const ListPlacesEvents.load(),
-            );
+                  const ListPlacesEvents.load(),
+                );
             context.read<ListPlacesBloc>().add(
-              const ListPlacesEvents.load(),
-            );
+                  const ListPlacesEvents.load(),
+                );
           },
         );
       },

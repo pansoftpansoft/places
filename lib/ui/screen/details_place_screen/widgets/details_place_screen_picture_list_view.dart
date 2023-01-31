@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:places/data/model/place.dart';
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/screen/details_place_screen/widgets/details_place_screen_picture_list_view_text.dart';
@@ -7,11 +6,8 @@ import 'package:places/ui/screen/details_place_screen/widgets/details_place_scre
 class DetailsPlaceScreenPictureListView extends StatelessWidget {
   final Place _place;
 
-
   const DetailsPlaceScreenPictureListView(
-    this._place,
-
-      {
+    this._place, {
     Key? key,
   }) : super(key: key);
 
@@ -23,7 +19,7 @@ class DetailsPlaceScreenPictureListView extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.fromLTRB(
             paddingPage,
-            24,
+            padding24,
             paddingPage,
             0,
           ),

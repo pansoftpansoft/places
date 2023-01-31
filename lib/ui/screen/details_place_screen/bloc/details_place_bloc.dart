@@ -46,7 +46,7 @@ class DetailsPlaceBloc extends Bloc<DetailsPlaceEvents, DetailsPlaceState> {
           index: event.index,
         ),
       );
-    } on Object catch (error, stackTrace) {
+    } on Object {
       rethrow;
     }
   }
@@ -63,7 +63,7 @@ class DetailsPlaceBloc extends Bloc<DetailsPlaceEvents, DetailsPlaceState> {
           index: event.index,
         ),
       );
-    } on Object catch (error, stackTrace) {
+    } on Object {
       rethrow;
     }
   }
@@ -86,7 +86,7 @@ class DetailsPlaceBloc extends Bloc<DetailsPlaceEvents, DetailsPlaceState> {
           wantVisitDate: state.wantVisitDate,
         ),
       );
-    } on Object catch (error, stackTrace) {
+    } on Object {
       rethrow;
     }
   }
@@ -121,7 +121,7 @@ class DetailsPlaceBloc extends Bloc<DetailsPlaceEvents, DetailsPlaceState> {
           wantVisitDate: dateTimeNew,
         ),
       );
-    } on Object catch (error, stackTrace) {
+    } on Object {
       rethrow;
     }
   }
@@ -139,7 +139,7 @@ class DetailsPlaceBloc extends Bloc<DetailsPlaceEvents, DetailsPlaceState> {
           wantVisitDate: event.wantVisitDate,
         ),
       );
-    } on Object catch (error, stackTrace) {
+    } on Object {
       rethrow;
     }
   }

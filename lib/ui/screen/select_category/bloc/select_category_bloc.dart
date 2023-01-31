@@ -36,7 +36,7 @@ class SelectCategoryBloc
       );
     } on NetworkException {
       // emit(const ListPlacesState.error(message: 'Ошибка загрузки из сети'));
-    } on Object catch (error, stackTrace) {
+    } on Object {
       rethrow;
     } finally {
       debugPrint('2 event = ${event.toString()}');
@@ -66,7 +66,7 @@ class SelectCategoryBloc
       }
     } on NetworkException {
       // emit(const ListPlacesState.error(message: 'Ошибка загрузки из сети'));
-    } on Object catch (error, stackTrace) {
+    } on Object {
       rethrow;
     } finally {
       debugPrint('2 event = ${event.toString()}');

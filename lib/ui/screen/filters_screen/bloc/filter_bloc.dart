@@ -51,7 +51,7 @@ class FilterBloc extends Bloc<FilterEvents, FilterState> {
       final listFilterCategory =
           await _filtersScreenInteractor.getSettingsFilterCategory();
 
-      var filterMap = <String, bool>{};
+      final filterMap = <String, bool>{};
 
       debugPrint('filterMap = ${filterMap.length}');
 
@@ -81,7 +81,7 @@ class FilterBloc extends Bloc<FilterEvents, FilterState> {
       return;
     } on NetworkException {
       // emit(const ListPlacesState.error(message: 'Ошибка загрузки из сети'));
-    } on Object catch (error, stackTrace) {
+    } on Object {
       rethrow;
     } finally {
       debugPrint('2 event = ${event.toString()}');
@@ -107,7 +107,7 @@ class FilterBloc extends Bloc<FilterEvents, FilterState> {
       return;
     } on NetworkException {
       // emit(const ListPlacesState.error(message: 'Ошибка загрузки из сети'));
-    } on Object catch (error, stackTrace) {
+    } on Object {
       rethrow;
     } finally {
       debugPrint('2 event = ${event.toString()}');
@@ -125,8 +125,7 @@ class FilterBloc extends Bloc<FilterEvents, FilterState> {
     try {
       //Взводим галочку на кнопке категорий
 
-      Map<String, bool> filterMap = {};
-      filterMap.addAll(state.filterMap);
+      final filterMap = <String, bool>{}..addAll(state.filterMap);
 
       if (filterMap[event.selectedCategory]!) {
         filterMap[event.selectedCategory] = false;
@@ -147,7 +146,7 @@ class FilterBloc extends Bloc<FilterEvents, FilterState> {
           filterDistance: state.filterDistance,
         ),
       );
-    } on Object catch (error, stackTrace) {
+    } on Object {
       rethrow;
     }
   }
@@ -171,7 +170,7 @@ class FilterBloc extends Bloc<FilterEvents, FilterState> {
           filterDistance: event.filterDistance,
         ),
       );
-    } on Object catch (error, stackTrace) {
+    } on Object {
       rethrow;
     }
   }
@@ -193,14 +192,14 @@ class FilterBloc extends Bloc<FilterEvents, FilterState> {
       emit(
         const FilterState.showResult(),
       );
-    } on Object catch (error, stackTrace) {
+    } on Object {
       rethrow;
     }
   }
 
   Future<void> _onShowResult(
     _onShowResultEvents event,
-    Emitter<FilterState> emitter,
+    Emitter<FilterState> emit,
   ) async {
     debugPrint('event = ${event.toString()}');
     //Просто возвращаемся на предыдущий экран
@@ -228,7 +227,7 @@ class FilterBloc extends Bloc<FilterEvents, FilterState> {
           filterDistance: filterDistance,
         ),
       );
-    } on Object catch (error, stackTrace) {
+    } on Object {
       rethrow;
     }
   }
