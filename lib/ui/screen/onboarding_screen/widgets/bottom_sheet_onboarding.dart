@@ -20,10 +20,12 @@ class BottomSheetOnboarding extends StatelessWidget {
           width: double.maxFinite,
         ),
         child: Column(
+
           mainAxisAlignment: MainAxisAlignment.end,
           children: <Widget>[
             const RowWidget(),
-            const SizedBox(height: heightSizeBox12),
+
+            const SizedBox(height: heightSizeBox12, child: ColoredBox(color: Colors.black54),),
             FooterPageButtonStart(
               buttonOnStartVisible:
                   state.currentPage == state.listPage.length-1,

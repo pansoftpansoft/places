@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:places/ui/res/color_palette.dart';
 import 'package:places/ui/res/img.dart';
 import 'package:places/ui/res/route_name.dart';
+import 'package:places/ui/screen/onboarding_screen/bloc/onboarding_bloc.dart';
+import 'package:provider/provider.dart';
 
 /// Экран затавка при загрузке приложения
 class SplashScreen extends StatefulWidget {
@@ -94,12 +96,15 @@ class SplashScreenState extends State<SplashScreen> {
         finishGetNetData(isComplete: true),
         debugPrint('Переход на следующий экран ${RouteName.onboardingScreen}'),
 
+        context.read<OnboardingBloc>().add(
+              const OnboardingEvents.load(),
+            ),
+
         Navigator.pushReplacementNamed(
           context,
           RouteName.onboardingScreen,
           arguments: {'callingFromSettings': false},
         ),
-
       },
     );
 
