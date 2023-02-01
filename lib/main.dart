@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 //import 'package:places/blocs/place_bloc_observer.dart';
 import 'package:places/data/api/api_client.dart';
+import 'package:places/ui/res/labels.dart';
 import 'package:places/ui/res/multi_bloc_providers.dart';
 import 'package:places/ui/res/multi_providers.dart';
 import 'package:places/ui/res/route_map.dart';
@@ -58,7 +59,7 @@ class Main extends StatelessWidget {
           builder: (context, state) {
             return MaterialApp(
               theme: state.theme,
-              title: 'Мои путешествия',
+              title: appTitle,
               routes: mapRoutes,
               initialRoute: RouteName.splashScreen,
             );

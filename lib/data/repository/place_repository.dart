@@ -69,9 +69,7 @@ class PlaceRepository extends ChangeNotifier {
           for (final placesLocalDataElement in placesLocalData) {
             if (placesLocalDataElement.id == placeOne.id) {
               listPlaceAll[count] = placeOne.copyWith(
-                isFavorites:
-                    // ignore: avoid_bool_literals_in_conditional_expressions
-                    placesLocalDataElement.isFavorites == 1 ? true : false,
+                isFavorites: placesLocalDataElement.isFavorites == 1,
                 wantVisitDate: placesLocalDataElement.wantVisitDate == null
                     ? null
                     : placesLocalDataElement.wantVisitDateToDatetime(),

@@ -2,6 +2,7 @@
 const String addToFavoritesString = 'В избранное';
 const String alreadyInFavoritesString = 'Уже в избранном';
 const String addPlacesYouFoundYourself = 'Добавляй места,\nкоторые нашёл сам';
+const String appTitle = 'Мои путешествия';
 const String buildRoute = 'ПОСТРОИТЬ МАРШРУТ';
 const String buildRouteAndRoad = 'Построй маршрут\nи отправляйся в путь';
 const String cafe = 'Кафе';
@@ -38,7 +39,7 @@ const String photo = 'Фотография';
 const String reachGoalQuicklyComfortablyPossible =
     'Достигай цели максимально\nбыстро и комфортно.';
 const String lat = 'ШИРОТА';
-const String lightTheme = 'Светлая тема';
+//const String lightTheme = 'Светлая тема';
 const String listInterestingPlaces = 'Список интересных мест';
 const String listInterestingPlacesTwoLine = 'Список\nинтересных мест';
 const String lookNewLocations = 'Ищи новые локации\nи сохраняй самые любимые.';
