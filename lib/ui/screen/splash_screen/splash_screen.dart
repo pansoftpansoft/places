@@ -17,12 +17,33 @@ class SplashScreen extends StatefulWidget {
 }
 
 ///
-class SplashScreenState extends State<SplashScreen> {
+class SplashScreenState extends State<SplashScreen>
+    with SingleTickerProviderStateMixin {
   /// Индикатор завершения загрузки
   final Completer<bool> _isInitialized = Completer<bool>();
 
+  late AnimationController _animationController;
+  late Animation<double> _rotateTurns;
+
   @override
   void initState() {
+    _animationController = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 3),
+    );
+
+    _rotateTurns = Tween<double>(
+      begin: 0,
+      end: -1,
+    ).animate(
+      CurvedAnimation(
+        parent: _animationController,
+        curve: Curves.easeInOut,
+      ),
+    );
+
+    _animationController.repeat();
+
     super.initState();
 
     debugPrint('Старт программы');
@@ -30,6 +51,12 @@ class SplashScreenState extends State<SplashScreen> {
     _navigateToNextAsync();
 
     debugPrint('Стоп программы');
+  }
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
   }
 
   @override
@@ -45,17 +72,20 @@ class SplashScreenState extends State<SplashScreen> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Container(
-              width: 160,
-              height: 160,
-              decoration: const BoxDecoration(
-                color: Colors.white,
-                shape: BoxShape.circle,
-              ),
-              child: Image.asset(
-                loader,
-                height: 120,
-                width: 122,
+            RotationTransition(
+              turns: _rotateTurns,
+              child: Container(
+                width: 160,
+                height: 160,
+                decoration: const BoxDecoration(
+                  color: Colors.white,
+                  shape: BoxShape.circle,
+                ),
+                child: Image.asset(
+                  loader,
+                  height: 120,
+                  width: 122,
+                ),
               ),
             ),
           ],
@@ -70,14 +100,6 @@ class SplashScreenState extends State<SplashScreen> {
     //debugPrint('Завершилась GetNetData().');
   }
 
-  /// Запуск анимации на заставке
-  Future<void> startAnimation(int numberCycle) async {
-    debugPrint('Анимация запустилась $numberCycle раз.');
-    await Future.delayed(const Duration(seconds: 1), () {
-      debugPrint('Ждем две секунды!');
-    });
-  }
-
   /// Произошло завершение плучения дынных
   void finishGetNetData({required final bool isComplete}) {
     //Произыодим первую фильтрацию мест перед открытием экрана
@@ -90,8 +112,13 @@ class SplashScreenState extends State<SplashScreen> {
     //Запускаем получение данных из сети
 
     await getNetData().then(
-      (value) => {
+      (value) async => {
         debugPrint('value = 1'),
+        await Future<dynamic>.delayed(
+          const Duration(
+            seconds: 5,
+          ),
+        ),
         // Завершение инициалзации
         finishGetNetData(isComplete: true),
         debugPrint('Переход на следующий экран ${RouteName.onboardingScreen}'),
@@ -107,19 +134,6 @@ class SplashScreenState extends State<SplashScreen> {
         ),
       },
     );
-
-    /// Запускаем анимацию в цикле
-    /// Задаем максимальное количество анимаций 5, по 1 секунде
-    /// если за 5 секунд данные не пришли то выдаем ошибку
-    for (var iCount = 0; iCount < 5; iCount++) {
-      if (_isInitialized.isCompleted) {
-        return true;
-      } else {
-        await startAnimation(iCount + 1);
-      }
-    }
-
-    debugPrint('Истекло время получения данных ');
 
     return false;
   }
