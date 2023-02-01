@@ -1,26 +1,17 @@
 import 'dart:async';
 
-import 'package:flutter/foundation.dart';
+
+import 'package:flutter/material.dart';
 import 'package:places/data/interactor/filters_screen_interactor.dart';
 import 'package:places/data/interactor/place_interactor.dart';
+import 'package:places/data/model/filter_distance.dart';
 import 'package:places/data/model/place.dart';
 
-///Модель для добавления фотографий в карточку места
 class ListPlacesScreenInteractor extends ChangeNotifier {
-  StreamController<Place> streamControllerListPlace =
-      StreamController<Place>.broadcast();
+  final FiltersScreenInteractor _filtersScreenInteractor =
+      FiltersScreenInteractor();
 
-  PlaceInteractor placeInteractor = PlaceInteractor();
-
-  void openStream() {
-    debugPrint('Открыть стрим');
-    streamControllerListPlace = StreamController<Place>();
-  }
-
-  void closeStream() {
-    debugPrint('Закрываем стрим');
-    streamControllerListPlace.close();
-  }
+  final PlaceInteractor _placeInteractor = PlaceInteractor();
 
   ///Управление кнопкой создать
   void updatePlacesList() {
@@ -28,14 +19,33 @@ class ListPlacesScreenInteractor extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> load() async {
-    openStream();
-    await placeInteractor.getPlacesInteractor(
-      radiusRange: FiltersScreenInteractor.rangeDistance,
-      category: FiltersScreenInteractor.listCategory.isEmpty
-          ? null
-          : FiltersScreenInteractor.listCategory,
+  Future<List<Place>> loadBloc() async {
+    FilterDistance? filterDistance;
+    List<String>? listCategory = [];
+
+    final listFilterCategory =
+        await _filtersScreenInteractor.getSettingsFilterCategory();
+
+    if (listFilterCategory.isNotEmpty) {
+      for (final item in listFilterCategory) {
+        if (item.categoryValue==1){
+        listCategory.add(item.category);
+        }
+      }
+    }else{
+      listCategory = null;
+    }
+
+    filterDistance = await _filtersScreenInteractor.getSettingsFilterDistance();
+
+    final list = await _placeInteractor.getPlacesInteractor(
+      radiusRange: RangeValues(
+        filterDistance.distanceStart,
+        filterDistance.distanceEnd,
+      ),
+      category: listCategory,
     );
-    await placeInteractor.getListWantVisitAndVisited();
+
+    return list;
   }
 }

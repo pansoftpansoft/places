@@ -17,11 +17,10 @@ class VisitingInteractor extends ChangeNotifier {
     Place place,
     //StreamController<Place> streamControllerListPlace,
   ) async {
+    final placeNew= place.copyWith(isFavorites: false);
     await placeInteractor.setFavorites(
-      place,
-      //streamControllerListPlace,
+      placeNew,
     );
-    notifyListeners();
   }
 
   ///Удаление из мест которые уже посетил
@@ -43,10 +42,16 @@ class VisitingInteractor extends ChangeNotifier {
   }
 
   ///Установка или изменение даты заплонированного посещения интересног места
-  void dateWantVisit(int sours, DateTime dateWantVisitNew) {
-    mocksWantVisit[sours].wantVisitDate = dateWantVisitNew;
-    notifyListeners();
+  Future<void> dateWantVisit(Place place, DateTime dateWantVisitNew) async {
+    final placeNew = place.copyWith(wantVisitDate: dateWantVisitNew);
+    await placeInteractor.setFavorites(
+      placeNew,
+    );
   }
+
+
+
+
 
   ///Установка места признака что оно посещено
   Future<void> wantVisitUpdateToVisit(Place place) async {
@@ -54,7 +59,7 @@ class VisitingInteractor extends ChangeNotifier {
   }
 
   Future<void> getListWantVisitAndVisited() async {
-    await placeRepository.getAllPlace();
+
 
     final listAllPlace = await placeRepository.getAllPlace();
     debugPrint('listAllPlace = ${listAllPlace.length}');
@@ -62,5 +67,6 @@ class VisitingInteractor extends ChangeNotifier {
     debugPrint('mocksWantVisit = ${mocksWantVisit.length}');
 
     mocksVisited = await placeRepository.getPlacesVisited(listAllPlace);
+    debugPrint('mocksVisited = ${mocksVisited.length}');
   }
 }

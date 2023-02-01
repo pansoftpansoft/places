@@ -1,9 +1,7 @@
 // ignore_for_file: cascade_invocations, unused_local_variable
 
 //import 'dart:io';
-
 import 'package:flutter/foundation.dart';
-
 import 'package:path_provider/path_provider.dart';
 import 'package:places/data/model/filter_category.dart';
 import 'package:places/data/model/filter_distance.dart';
@@ -52,10 +50,6 @@ class DBProvider {
   static Future<Database> initDB() async {
     final documentsDirectory = await getApplicationDocumentsDirectory();
     final path = '${documentsDirectory.path}$_databaseName';
-
-    // var f = File(path);
-    // await f.delete();
-    // debugPrint('path = ${path}');
 
     return openDatabase(
       path,
@@ -128,12 +122,18 @@ class DBProvider {
     if (historyText.isEmpty) {
       return 0;
     }
-    //ToDo сделать проверку на совпадение
-    _database = await database;
-    final newHistory = History(historyText: historyText);
-    final res = await _database!.insert('history', newHistory.toMap());
+    try {
+      //ToDo сделать проверку на совпадение
+      _database = await database;
+      final newHistory = History(historyText: historyText);
+      final res = await _database!.insert('history', newHistory.toMap());
 
-    return res;
+      return res;
+    } catch (e) {
+      debugPrint('Скорее всего найден дублер');
+    }
+
+    return 0;
   }
 
   ///--------------------------------------------------------------
@@ -174,7 +174,7 @@ class DBProvider {
       'FilterDistance',
     );
 
-    debugPrint('res = ${res.toString()}');
+    debugPrint('res 1 = ${res.toString()}');
     final list = res.isNotEmpty
         ? res.map(FilterDistance.fromMap).toList()
         : <FilterDistance>[];
@@ -187,7 +187,7 @@ class DBProvider {
     final res = await _database!.query(
       'SettingsApp',
     );
-    debugPrint('res = ${res.toString()}');
+    debugPrint('res 2 = ${res.toString()}');
     final list = res.isNotEmpty
         ? res.map(SettingsApp.fromMap).toList()
         : <SettingsApp>[];
@@ -200,13 +200,12 @@ class DBProvider {
   Future<void> updateSettingsFilterDistanceInDb(
     final FilterDistance filter,
   ) async {
-    debugPrint('filter.toMap() = ${filter.toMap().toString()}');
     _database = await database;
     final res = await _database!.update(
       'FilterDistance',
       filter.toMap(),
       where: 'distanceCode=?',
-      whereArgs: [1],
+      whereArgs: [0],
     );
   }
 
@@ -279,7 +278,7 @@ class DBProvider {
       where: 'id = ?',
       whereArgs: [placeId],
     );
-    debugPrint('res = ${res.toString()}');
+    debugPrint('res 3 = ${res.toString()}');
 
     return res.isNotEmpty;
   }
@@ -322,23 +321,27 @@ class DBProvider {
   }
 
   ///--------------------------------------------------------------
-  /// Дизменить в базе, данные о месте
+  /// Изменить в базе, данные о месте
   Future<int> updatePlacesLocalData(Place place) async {
     if (place.id.isNaN) {
       return 0;
     }
-
-    debugPrint('place.visitedDate.toString() = ${place.visitedDate}');
     _database = await database;
     final newPlacesLocalData = PlacesLocalData(
       place.id,
       isFavorites: place.isFavorites ? 1 : 0,
       wantVisitDate: place.wantVisitDate == null
           ? null
-          : int.tryParse(place.wantVisitDate.toString()),
+          : int.tryParse(
+              place.wantVisitDate!.millisecondsSinceEpoch.toString(),
+            ),
       visitedDate: place.visitedDate == null
           ? null
           : int.tryParse(place.visitedDate!.millisecondsSinceEpoch.toString()),
+    );
+
+    debugPrint(
+      'newPlacesLocalData.wantVisitDate = ${newPlacesLocalData.wantVisitDate}',
     );
 
     debugPrint(

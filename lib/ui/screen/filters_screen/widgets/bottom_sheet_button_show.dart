@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:places/data/interactor/filters_screen_interactor.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:places/type_place.dart';
 import 'package:places/ui/res/labels.dart';
 import 'package:places/ui/res/sizes.dart';
+import 'package:places/ui/screen/filters_screen/bloc/filter_bloc.dart';
 import 'package:places/ui/screen/widgets/elevated_button_green_big.dart';
-import 'package:provider/provider.dart';
+
 
 ///Кнопка "показать"
 class BottomSheetButtonShow extends StatelessWidget {
@@ -13,13 +14,8 @@ class BottomSheetButtonShow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<FiltersScreenInteractor>(
-      builder: (
-        final context,
-        final cart,
-        final child,
-      ) =>
-          Padding(
+    return BlocBuilder<FilterBloc, FilterState>(
+      builder: (context, state) => Padding(
         padding: const EdgeInsets.symmetric(
           horizontal: paddingPage,
           vertical: paddingPage_2,
@@ -40,7 +36,6 @@ class BottomSheetButtonShow extends StatelessWidget {
   }
 
   void _onPressed(BuildContext context) {
-    context.read<FiltersScreenInteractor>().saveFilterSettings();
-    Navigator.pop(context);
+    context.read<FilterBloc>().add(const FilterEvents.saveSetting());
   }
 }

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:places/data/interactor/add_place_interactor.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:places/ui/res/labels.dart';
+import 'package:places/ui/screen/add_place_screen/bloc/add_place_bloc.dart';
+import 'package:places/ui/screen/select_category/bloc/select_category_bloc.dart';
 import 'package:places/ui/screen/widgets/elevated_button_green_big.dart';
-import 'package:provider/provider.dart';
 
 class SelectCategoryBottomSheetBody extends StatelessWidget {
   const SelectCategoryBottomSheetBody({Key? key}) : super(key: key);
@@ -11,17 +12,16 @@ class SelectCategoryBottomSheetBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return ConstrainedBox(
       constraints: const BoxConstraints.tightFor(height: 48),
-      child: Consumer<AddPlaceInteractor>(
+      child: BlocBuilder<SelectCategoryBloc, SelectCategoryState>(
         builder: (
-          final context,
-          final place,
-          final child,
+          context,
+          state,
         ) =>
             ElevatedButtonGreenBig(
           title: save,
-          onPressed: context.read<AddPlaceInteractor>().selectTypePlace != null
+          onPressed: state.currentSelectCategory.isNotEmpty
               ? () {
-                  _onPressed(context);
+                  _onPressed(context, state.currentSelectCategory);
                 }
               : null,
         ),
@@ -29,16 +29,21 @@ class SelectCategoryBottomSheetBody extends StatelessWidget {
     );
   }
 
-  void _onPressed(BuildContext context) {
-    if (context.read<AddPlaceInteractor>().selectTypePlace != null) {
-      _navigator(context);
-    }
+  void _onPressed(BuildContext context, String placeType) {
+    context.read<AddPlaceBloc>().add(
+          AddPlaceEvents.onChangedFields(
+            place: context.read<AddPlaceBloc>().state.place.copyWith(
+                  placeType: placeType,
+                ),
+          ),
+        );
+
+    _navigator(context);
   }
 
   void _navigator(BuildContext context) {
     Navigator.pop(
       context,
-      context.read<AddPlaceInteractor>().selectTypePlace,
     );
   }
 }

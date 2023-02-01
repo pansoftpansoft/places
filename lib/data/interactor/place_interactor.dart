@@ -12,7 +12,7 @@ class PlaceInteractor extends ChangeNotifier {
 
   ///--------------------------------------------------------------
   /// Получить список отфильтрованных мест
-  Future<List<Place>?> getPlacesInteractor({
+  Future<List<Place>> getPlacesInteractor({
     RangeValues? radiusRange,
     List<String>? category,
     String? searchString,
@@ -30,9 +30,8 @@ class PlaceInteractor extends ChangeNotifier {
 
   Future<Place?> getPlaceDetails(
     int placeId,
-    StreamController<Place> streamControllerListPlace,
   ) async {
-    return placeRepository.getPlaceId(placeId, streamControllerListPlace);
+    return placeRepository.getPlaceId(placeId);
   }
 
   Future<Place?> postPlace(
@@ -48,14 +47,6 @@ class PlaceInteractor extends ChangeNotifier {
   ) async {
     // Пробуем обновить место
 
-    if (place.isFavorites) {
-      place.isFavorites = false;
-      debugPrint('Это кнопка "В избранное" remove');
-    } else {
-      place.isFavorites = true;
-      debugPrint('Это кнопка "В избранное" add');
-    }
-
     // проверяем есть токое место в лакальной базе, если нет добавляем.
     final addInLocalDB = await DBProvider.dbProvider.checkPlacesInLocalDataId(
       place.id,
@@ -64,6 +55,7 @@ class PlaceInteractor extends ChangeNotifier {
     debugPrint('addInLocalDB = $addInLocalDB');
 
     if (addInLocalDB) {
+      debugPrint('place = ${place.isFavorites}');
       final countUpdate = await DBProvider.dbProvider.updatePlacesLocalData(
         place,
       );
@@ -75,10 +67,12 @@ class PlaceInteractor extends ChangeNotifier {
       debugPrint('countInsert = $countInsert');
     }
 
-    debugPrint('place id = ${place.id} isFavorites = ${place.isFavorites}');
+    debugPrint(
+      'newPlace id = ${place.id} isFavorites = ${place.isFavorites}',
+    );
 
     mocksFiltered = (await placeRepository.updateMocksFiltered())!;
-    await getListWantVisitAndVisited();
+    await getListWantVisitAndVisitedBloc();
   }
 
   ///-----------------------------------------------
@@ -86,8 +80,6 @@ class PlaceInteractor extends ChangeNotifier {
   Future<void> setStatusPlaceVisited(
     Place place,
   ) async {
-    place.visitedDate = place.visitedDate == null ? DateTime.now() : null;
-
     // проверяем есть токое место в лакальной базе, если нет добавляем.
     final addInLocalDB = await DBProvider.dbProvider.checkPlacesInLocalDataId(
       place.id,
@@ -108,30 +100,40 @@ class PlaceInteractor extends ChangeNotifier {
     }
     debugPrint('place id = ${place.id} isFavorites = ${place.visitedDate}');
 
-    await getListWantVisitAndVisited();
+    await getListWantVisitAndVisitedBloc();
   }
 
-  Future<void> getListWantVisitAndVisited() async {
+  /// Добавить место в посещенные
+  Future<void> setStatusPlaceWantVisitDate(
+    Place place,
+  ) async {
+    // проверяем есть токое место в лакальной базе, если нет добавляем.
+    final addInLocalDB = await DBProvider.dbProvider.checkPlacesInLocalDataId(
+      place.id,
+    );
+
+    late int countUpdate;
+    late int countInsert;
+    if (addInLocalDB) {
+      countUpdate = await DBProvider.dbProvider.updatePlacesLocalData(
+        place,
+      );
+    } else {
+      countInsert = await DBProvider.dbProvider.insertPlacesLocalData(
+        place,
+      );
+    }
+
+    await getListWantVisitAndVisitedBloc();
+  }
+
+  Future<List<Place>> getListWantVisitAndVisitedBloc() async {
     final listAllPlace = await placeRepository.getAllPlace();
     debugPrint('listAllPlace = ${listAllPlace.length}');
     mocksWantVisit = await placeRepository.getPlacesWantVisit(listAllPlace);
     debugPrint('mocksWantVisit = ${mocksWantVisit.length}');
+    final list = await placeRepository.getPlacesVisited(listAllPlace);
 
-    mocksVisited = await placeRepository.getPlacesVisited(listAllPlace);
+    return list;
   }
-
-// ///-----------------------------------------------
-// /// Отметить место как посещенное
-// Future<void> addToVisitingPlaces(
-//   Place place,
-//   StreamController<Place> streamControllerListPlace,
-// ) async {
-//   await placeRepository.postPlace(place, streamControllerListPlace);
-//   for (final element in mocks) {
-//     if (element.id == place.id) {
-//       element.visitedDate = DateTime.now();
-//     }
-//   }
-//   await getListWantVisitAndVisited();
-// }
 }

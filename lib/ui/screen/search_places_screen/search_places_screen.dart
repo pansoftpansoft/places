@@ -1,76 +1,29 @@
 import 'package:flutter/material.dart';
-import 'package:places/data/interactor/search_screen_interactor.dart';
 import 'package:places/ui/res/sizes.dart';
+import 'package:places/ui/screen/search_places_screen/widgets/app_bar_widget.dart';
 import 'package:places/ui/screen/search_places_screen/widgets/search_places_screen_body_switch.dart';
 import 'package:places/ui/screen/widgets/bottom_navigation/bottom_navigation.dart';
-import 'package:places/ui/screen/widgets/search_bar.dart';
-import 'package:places/ui/screen/widgets/title_app_big_or_small.dart';
-
-
 
 ///Окно поиска мест
-class SearchPlacesScreen extends StatefulWidget {
+class SearchPlacesScreen extends StatelessWidget {
   ///
   const SearchPlacesScreen({Key? key}) : super(key: key);
 
   @override
-  SearchPlacesScreenState createState() => SearchPlacesScreenState();
-}
-
-///
-class SearchPlacesScreenState extends State<SearchPlacesScreen> {
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) => Scaffold(
-        appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(110),
-          child: AppBar(
-            iconTheme: IconThemeData(
-              color: Theme.of(context).iconTheme.color,
-            ),
-            toolbarHeight: double.infinity,
-            centerTitle: false,
-            elevation: 0,
-            title: const TitleAppBigOrSmall(small: true),
-            bottom: PreferredSize(
-              preferredSize: const Size.fromHeight(60),
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(
-                  paddingPage,
-                  0,
-                  paddingPage,
-                  paddingPage,
-                ),
-                child: Stack(
-                  children: <Widget>[
-                    SearchBar(
-                      textEditingController:
-                          SearchScreenInteractor.textEditingControllerFind,
-                      autofocus: true,
-                      focusNode: FocusNode(),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: const PreferredSize(
+        preferredSize: Size.fromHeight(110),
+        child: AppBarWidget(),
+      ),
+      bottomNavigationBar: BottomNavigation(0),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      body: const Padding(
+        padding: EdgeInsets.symmetric(
+          horizontal: paddingPage,
         ),
-        bottomNavigationBar: BottomNavigation(0),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-        body: const Padding(
-          padding: EdgeInsets.symmetric(
-            horizontal: paddingPage,
-          ),
-          child: SearchPlacesScreenBodySwitch(),
-        ),
-      );
+        child: SearchPlacesScreenBodySwitch(),
+      ),
+    );
+  }
 }

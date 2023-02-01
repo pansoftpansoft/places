@@ -1,41 +1,36 @@
-import 'package:elementary/elementary.dart';
 import 'package:flutter/material.dart';
 import 'package:places/data/model/place.dart';
-import 'package:places/ui/screen/add_place_screen/add_place_screen_widget_model.dart';
+import 'package:places/ui/screen/add_place_screen/bloc/add_place_bloc.dart';
 import 'package:places/ui/screen/add_place_screen/widgets/add_place_app_bar.dart';
-import 'package:places/ui/screen/add_place_screen/widgets/add_place_error_widget.dart';
 import 'package:places/ui/screen/add_place_screen/widgets/add_place_form.dart';
 import 'package:places/ui/screen/add_place_screen/widgets/bottom_sheet_create_button.dart';
-import 'package:places/ui/screen/add_place_screen/widgets/loading_widget.dart';
-
+import 'package:provider/provider.dart';
 
 ///Экран добавления карточек
-class AddPlaceScreen extends ElementaryWidget<IAddPlaceScreenWidgetModel> {
+class AddPlaceScreen extends StatelessWidget {
   /// Конструктор add_place_screen_widget_model
   const AddPlaceScreen({
     Key? key,
-    WidgetModelFactory wmFactory = addPlaceScreenWidgetModelFactory,
-  }) : super(wmFactory, key: key);
+  }) : super(key: key);
 
   @override
-  Widget build(IAddPlaceScreenWidgetModel wm) {
+  Widget build(BuildContext context) {
     debugPrint('Start AddPlaceScreen');
+
+    context.read<AddPlaceBloc>().add(
+      const AddPlaceEvents.load(
+        place: Place(),
+      ),
+    );
 
     return Scaffold(
       resizeToAvoidBottomInset: true,
-      bottomSheet: BottomSheetCreateButton(wm: wm),
+      bottomSheet: const BottomSheetCreateButton(),
       appBar: const PreferredSize(
         preferredSize: Size(double.infinity, kToolbarHeight),
         child: AddPlaceAppBar(),
       ),
-      body: EntityStateNotifierBuilder<Place>(
-        listenableEntityState: wm.placeState,
-        loadingBuilder: (_, __) => const LoadingWidget(),
-        errorBuilder: (_, __, ___) => const AddPlaceErrorWidget(),
-        builder: (_, place) {
-          return AddPlaceForm(place: place, wm: wm,); //_AddPlaceScreen();
-        },
-      ),
+      body: AddPlaceForm(), //_AddPlaceScreen();
     );
   }
 }

@@ -19,7 +19,7 @@ class DetailsPlaceScreenPictureListView extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.fromLTRB(
             paddingPage,
-            24,
+            padding24,
             paddingPage,
             0,
           ),

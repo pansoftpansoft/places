@@ -4,27 +4,6 @@ import 'package:places/domain/onboarding_page.dart';
 import 'package:places/ui/res/labels.dart';
 import 'package:places/ui/res/svg_icons.dart';
 
-///Mock
-enum TypePlace {
-  ///
-  hotel,
-
-  ///
-  restaurant,
-
-  ///
-  particularPlace,
-
-  ///
-  park,
-
-  ///
-  museum,
-
-  ///
-  cafe,
-}
-
 ///
 enum ScreenEnum {
   ///Экран загрузки
@@ -46,7 +25,16 @@ enum ScreenEnum {
   cleanScreen,
 }
 
+List<String> typePlace = <String>[
+  'Hotel',
+  'Ресторан',
+  'Интересные места',
+  'Парк',
+  'Музей',
+  'Кафе',
+];
 
+Map<String, bool> typePlaceSelectMap = <String, bool>{};
 
 ///Тестовые данные самая главная очередь
 List<Place> mocks = <Place>[];
@@ -132,14 +120,19 @@ List<Place> mocks = <Place>[];
 
 /// Очередь для главного экрана
 List<Place> mocksFiltered = [];
+
 /// Списик для экрана Поиска по тексту
 List<Place> mocksSearchText = [];
+
 /// Список для экрана Хочу посетить
 List<Place> mocksWantVisit = [];
+
 /// Список для экрана Посетил
 List<Place> mocksVisited = [];
+
 /// Список данных полученных с сервера с применением фильтра
 List<PlaceDto> placesDtoFilter = [];
+
 /// Список всех данных полученных с сервера
 List<PlaceDto> placesDtoAll = [];
 

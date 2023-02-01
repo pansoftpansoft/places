@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:places/data/model/app_model.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:places/ui/res/labels.dart';
-import 'package:provider/provider.dart';
+import 'package:places/ui/screen/settings_screen/bloc/settings_bloc.dart';
 
 class SettingsScreenThemeSwitch extends StatelessWidget {
   const SettingsScreenThemeSwitch({
@@ -11,22 +11,26 @@ class SettingsScreenThemeSwitch extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: <Widget>[
-        Text(
-          darkTheme,
-          style: Theme.of(context).textTheme.headline2,
-        ),
-        CupertinoSwitch(
-          value: context.select<AppModel, bool>(
-            (a) => AppModel.isThemeColor,
-          ),
-          onChanged: (value) {
-            context.read<AppModel>().changeTheme();
-          },
-        ),
-      ],
+    return BlocBuilder<SettingsBloc, SettingsState>(
+      builder: (context, state) {
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            Text(
+              darkTheme,
+              style: Theme.of(context).textTheme.headline2,
+            ),
+            CupertinoSwitch(
+              value: state.themeData,
+              onChanged: (value) {
+                context.read<SettingsBloc>().add(
+                      SettingsEvents.updateSettings(themeData: value),
+                    );
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 }

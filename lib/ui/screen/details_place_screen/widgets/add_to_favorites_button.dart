@@ -1,51 +1,41 @@
 import 'package:flutter/material.dart';
-import 'package:places/data/interactor/details_place_interactor.dart';
-import 'package:places/data/model/place.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:places/ui/res/labels.dart';
+import 'package:places/ui/res/svg_icons.dart';
+import 'package:places/ui/screen/details_place_screen/bloc/details_place_bloc.dart';
+import 'package:places/ui/screen/list_places_screen/bloc/list_places_bloc.dart';
 import 'package:places/ui/screen/widgets/text_button_small.dart';
-import 'package:provider/provider.dart';
 
 /// Кнопка 'В избранное'
 class AddToFavoritesButton extends StatelessWidget {
-  final Place _place;
-
   /// Конструктор кнопки 'В избранное'
-  const AddToFavoritesButton(
-    this._place, {
+  const AddToFavoritesButton({
     final Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    context.read<DetailsPlaceInteractor>().openStream();
-
-    return StreamBuilder(
-      stream:
-          context.read<DetailsPlaceInteractor>().streamControllerDetailsPlace.stream,
-      builder: (context, snapshot) {
-        if (snapshot.data == null) {
-          context
-              .read<DetailsPlaceInteractor>()
-              .streamControllerDetailsPlace
-              .sink
-              .add(
-                context
-                    .read<DetailsPlaceInteractor>()
-                    .iconList[_place.isFavorites ? 1 : 0],
-              );
-        }
-
+    return BlocBuilder<DetailsPlaceBloc, DetailsPlaceState>(
+      builder: (context, state) {
         return TextButtonSmall(
-          title: _place.isFavorites
+          title: state.isFavorites
               ? alreadyInFavoritesString
               : addToFavoritesString,
           onPressed: () {
-            context.read<DetailsPlaceInteractor>().onPressed(
-                  _place,
-                  context,
+            context.read<DetailsPlaceBloc>().add(
+                  DetailsPlaceEvents.onChangedFavorites(
+                    place: state.place,
+                    isFavorites: state.isFavorites,
+                  ),
+                );
+            debugPrint('context.read<ListPlacesBloc>().state.toString() = ${context.read<ListPlacesBloc>().state.toString()}');
+            context.read<ListPlacesBloc>().add(
+                  const ListPlacesEvents.load(),
                 );
           },
-          svgIconNamePrefix: snapshot.data.toString(),
+          svgIconNamePrefix: state.isFavorites
+              ? SvgIcons.heartFull
+              : SvgIcons.heartTransparent,
         );
       },
     );

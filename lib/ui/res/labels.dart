@@ -1,9 +1,8 @@
-import 'package:places/type_place.dart';
-
 ///Текстовые константы
 const String addToFavoritesString = 'В избранное';
 const String alreadyInFavoritesString = 'Уже в избранном';
 const String addPlacesYouFoundYourself = 'Добавляй места,\nкоторые нашёл сам';
+const String appTitle = 'Мои путешествия';
 const String buildRoute = 'ПОСТРОИТЬ МАРШРУТ';
 const String buildRouteAndRoad = 'Построй маршрут\nи отправляйся в путь';
 const String cafe = 'Кафе';
@@ -20,6 +19,8 @@ const String completeRoute = 'Завершите маршрут,\n'
     'чтобы место попало сюда.';
 const String create = 'СОЗДАТЬ';
 const String darkTheme = 'Темная тема';
+const String goalBeen  = 'Цель достигнута';
+
 const String dataLoadingError = 'Ошибка загрузки данных';
 const String delete = 'Удалить';
 const String description = 'ОПИСАНИЕ';
@@ -38,7 +39,7 @@ const String photo = 'Фотография';
 const String reachGoalQuicklyComfortablyPossible =
     'Достигай цели максимально\nбыстро и комфортно.';
 const String lat = 'ШИРОТА';
-const String lightTheme = 'Светлая тема';
+//const String lightTheme = 'Светлая тема';
 const String listInterestingPlaces = 'Список интересных мест';
 const String listInterestingPlacesTwoLine = 'Список\nинтересных мест';
 const String lookNewLocations = 'Ищи новые локации\nи сохраняй самые любимые.';
@@ -46,6 +47,7 @@ const String lon = 'ДОЛГОТА';
 const String museum = 'Музей';
 const String meters = 'метров';
 const String newPlace = 'Новое место';
+const String placeAdd = 'Место добавлено';
 const String newPlaceAdd = 'Добавлено новое место';
 const String namePlace = 'НАЗВАНИЕ';
 const String notSelected = 'Не выбрано';
@@ -54,12 +56,16 @@ const String restaurant = 'Ресторан';
 const String specifyOnMap = 'Указать на карте';
 const String save = 'СОХРАНИТЬ';
 const String schedule = 'Запланировать';
+const String scheduled = 'Запланировано\nна ';
+const String scheduled2 = 'Запланировано на ';
+const String scheduleDateForVisit = 'Запланируйте дату для посещения';
 const String search = 'Поиск';
 const String settings = 'Настройки';
 const String shareMostInterestingOnes =
     'Делись самыми интересными\nи помоги нам стать лучше!';
 const String shortDescription = 'краткое описание';
 const String show = 'ПОКАЗАТЬ';
+const String showList = 'Показать список';
 const String skip = 'Пропустить';
 const String somethingWentWrong = 'Что то пошло не так\nпопробуйте позже.';
 const String toto = 'до';
@@ -87,31 +93,31 @@ const details = '''
                         Московского дома. 
                     ''';
 
-String typePlaceString(TypePlace enumString) {
-  switch (enumString) {
-    case TypePlace.hotel:
-      {
-        return hotel;
-      }
-    case TypePlace.restaurant:
-      {
-        return restaurant;
-      }
-    case TypePlace.particularPlace:
-      {
-        return particularPlace;
-      }
-    case TypePlace.park:
-      {
-        return park;
-      }
-    case TypePlace.museum:
-      {
-        return museum;
-      }
-    case TypePlace.cafe:
-      {
-        return cafe;
-      }
-  }
-}
+// String typePlaceString(TypePlace enumString) {
+//   switch (enumString) {
+//     case TypePlace.hotel:
+//       {
+//         return hotel;
+//       }
+//     case TypePlace.restaurant:
+//       {
+//         return restaurant;
+//       }
+//     case TypePlace.particularPlace:
+//       {
+//         return particularPlace;
+//       }
+//     case TypePlace.park:
+//       {
+//         return park;
+//       }
+//     case TypePlace.museum:
+//       {
+//         return museum;
+//       }
+//     case TypePlace.cafe:
+//       {
+//         return cafe;
+//       }
+//   }
+// }

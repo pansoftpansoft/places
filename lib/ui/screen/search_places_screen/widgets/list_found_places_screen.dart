@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:places/data/interactor/search_screen_interactor.dart';
-import 'package:places/type_place.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:places/ui/res/sizes.dart';
+import 'package:places/ui/screen/search_places_screen/bloc/search_places_bloc.dart';
 import 'package:places/ui/screen/search_places_screen/widgets/search_card_place.dart';
-import 'package:provider/provider.dart';
 
 ///Список найденых мест
 class ListFoundPlacesScreen extends StatelessWidget {
@@ -14,34 +13,23 @@ class ListFoundPlacesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    debugPrint('100 ListOfFoundPlacesScreen ${mocksFiltered.length}');
-
-    return Consumer<SearchScreenInteractor>(builder: (
-      final context,
-      final cart,
-      final child,
-    ) {
-      return ListView.separated(
-        itemCount: mocksSearchText.length,
-        shrinkWrap: true,
-        itemBuilder: (context, index) =>
-            SearchCardPlace(mocksSearchText[index]),
-        separatorBuilder: (
-          final context,
-          final index,
-        ) =>
-            const Padding(
-          padding: EdgeInsets.fromLTRB(
-            paddingPage + 56,
-            0,
-            0,
-            0,
+    return BlocBuilder<SearchPlacesBloc, SearchPlacesState>(
+      builder: (context, state) {
+        return ListView.separated(
+          itemCount: state.listSearch.length,
+          shrinkWrap: true,
+          itemBuilder: (context, index) =>
+              SearchCardPlace(state.listSearch[index]),
+          separatorBuilder: (
+            final context,
+            final index,
+          ) =>
+              const Padding(
+            padding: EdgeInsets.fromLTRB(paddingPage + 56, 0, 0, 0),
+            child: Divider(height: 0.8),
           ),
-          child: Divider(
-            height: 0.8,
-          ),
-        ),
-      );
-    });
+        );
+      },
+    );
   }
 }

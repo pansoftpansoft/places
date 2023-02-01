@@ -16,7 +16,6 @@ class EmptyScreen extends StatefulWidget {
   ///
   final Color? colorTextAll;
 
-
   ///
   const EmptyScreen({
     required this.textHeader,
@@ -25,7 +24,6 @@ class EmptyScreen extends StatefulWidget {
     this.colorTextAll,
     final Key? key,
   }) : super(key: key);
-
 
   @override
   State<EmptyScreen> createState() => _EmptyScreenState();

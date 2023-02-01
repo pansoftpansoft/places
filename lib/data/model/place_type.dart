@@ -19,6 +19,7 @@ class PlaceType {
     'cafe': ['Cafe', 'Кафе'],
   };
 
+  //Здесь заложена возсможность сделать разные иконки для разных тем. Тесной и светлой
   Map<String, List<String>> iconDictionaryPlaceType = {
     'hotel': ['hotel.svg', 'hotel.svg'],
     'restaurant': ['restaurant.svg', 'restaurant.svg'],
@@ -34,10 +35,11 @@ class PlaceType {
 
     index = dictionaryPlaceType.keys.toList().indexOf(namePlaceDB);
 
+    //Здесь заложена возсможность сделать разные иконки для разных тем. Тесной и светлой
     svgIcons = '${SvgIcons.catalog}'
         '${(iconDictionaryPlaceType[namePlaceDB] ?? <String>[
-              'particular_place.svg',
-              'particular_place.svg',
-            ])[themeColor == darkTheme ?  1: 0]}';
+              'particular_place.svg',  //Светлая тема
+              'particular_place.svg',  //Темная тема, пока все одинаково
+            ])[themeColor == darkTheme ? 1 : 0]}';
   }
 }

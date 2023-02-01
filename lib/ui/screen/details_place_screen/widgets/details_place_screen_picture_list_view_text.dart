@@ -43,9 +43,9 @@ class DetailsPlaceScreenPictureListViewText extends StatelessWidget {
           height: heightSizeBox48,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              const ScheduleButton(),
-              AddToFavoritesButton(_place),
+            children: const <Widget>[
+              ScheduleButton(),
+              AddToFavoritesButton(),
             ],
           ),
         ),

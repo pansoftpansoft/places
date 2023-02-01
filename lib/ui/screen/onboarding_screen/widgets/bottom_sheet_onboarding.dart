@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:places/data/interactor/onboarding_screen_interactor.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:places/ui/res/sizes.dart';
+import 'package:places/ui/screen/onboarding_screen/bloc/onboarding_bloc.dart';
 import 'package:places/ui/screen/onboarding_screen/widgets/footer_page_button_start.dart';
 import 'package:places/ui/screen/onboarding_screen/widgets/row_widget.dart';
-import 'package:provider/provider.dart';
 
 ///Подвал шаблон страници Onboard
 class BottomSheetOnboarding extends StatelessWidget {
@@ -13,29 +13,22 @@ class BottomSheetOnboarding extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    debugPrint(
-      '${OnboardingScreenInteractor.numberPage} '
-      '${context.read<OnboardingScreenInteractor>().fileName}',
-    );
-
-    return Consumer<OnboardingScreenInteractor>(
-      builder: (
-        final context,
-        final cart,
-        final child,
-      ) =>
-          ConstrainedBox(
+    return BlocBuilder<OnboardingBloc, OnboardingState>(
+      builder: (context, state) => ConstrainedBox(
         constraints: const BoxConstraints.tightFor(
           height: heightBottomSheetOnboarding,
           width: double.maxFinite,
         ),
         child: Column(
+
           mainAxisAlignment: MainAxisAlignment.end,
           children: <Widget>[
             const RowWidget(),
-            const SizedBox(height: heightSizeBox12),
+
+            const SizedBox(height: heightSizeBox12, child: ColoredBox(color: Colors.black54),),
             FooterPageButtonStart(
-              buttonOnStartVisible: OnboardingScreenInteractor.buttonOnVisible,
+              buttonOnStartVisible:
+                  state.currentPage == state.listPage.length-1,
             ),
           ],
         ),

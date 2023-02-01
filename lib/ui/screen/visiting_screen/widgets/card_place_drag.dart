@@ -3,9 +3,9 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:places/blocs/visiting_screen/want_visit_tab/want_visit_tab_bloc.dart';
-import 'package:places/data/interactor/visiting_interactor.dart';
 import 'package:places/type_place.dart';
+import 'package:places/ui/res/labels.dart';
+import 'package:places/ui/screen/visiting_screen/bloc/list_want_visit_bloc/list_want_visit_bloc.dart';
 import 'package:places/ui/screen/widgets/card_place/card_place.dart';
 import 'package:provider/provider.dart';
 
@@ -28,10 +28,14 @@ class _CardPlaceDragState extends State<CardPlaceDrag> {
   @override
   Widget build(BuildContext context) => CardPlace(
         mocksWantVisit[widget.index],
-        goNeed: mocksWantVisit[widget.index].wantVisitDate == null
-            ? 'Запланируйте дату для посещения'
-            : 'Запланировано на '
-                '${DateFormat('dd-MM-yyyy').format(
+        goNeed: mocksWantVisit[widget.index].wantVisitDate == null ||
+                mocksWantVisit[widget.index]
+                        .wantVisitDate
+                        .toString()
+                        .substring(0, 10) ==
+                    '1970-01-01'
+            ? scheduleDateForVisit
+            : '$scheduled2 ${DateFormat('dd-MM-yyyy').format(
                 mocksWantVisit[widget.index].wantVisitDate!,
               )}',
         iconDelete: true,
@@ -42,11 +46,14 @@ class _CardPlaceDragState extends State<CardPlaceDrag> {
 
         /// Установка даты, когда хочу посетить
         wantToVisit: () async {
-          if (Platform.isAndroid) {
+          if (Platform.isIOS) {
             final dateTimeCupertino = DateTime.now();
 
-            await wantToVisitAction(dateTimeCupertino, context);
-          } else if (Platform.isIOS) {
+            await wantToVisitAction(
+              dateTimeCupertino,
+              context,
+            );
+          } else if (Platform.isAndroid) {
             final dateTime = await showDatePicker(
               context: context,
               initialDate: DateTime.now(),
@@ -59,7 +66,7 @@ class _CardPlaceDragState extends State<CardPlaceDrag> {
               if (!mounted) {
                 return;
               }
-              _actionOnSelectData(context, dateTime);
+              _actionOnSelectData(context, dateTime, widget.index);
             }
           }
         },
@@ -82,24 +89,31 @@ class _CardPlaceDragState extends State<CardPlaceDrag> {
             },
           ),
         ).then(
-          (value) => _actionOnSelectData(context, dateTimeCupertino),
+          (value) =>
+              _actionOnSelectData(context, dateTimeCupertino, widget.index),
         );
       },
     );
   }
 
   void _actionOnDelete(BuildContext context, int index) {
-    debugPrint('Нажата кнопка actionOnDelete = ${index.toString()}');
     context
-        .read<WantVisitTabBloc>()
-        .add(WantVisitTabRemovePlace(mocksWantVisit[index]));
+        .read<ListWantVisitBloc>()
+        .add(ListWantVisitRemovePlaceEvent(mocksWantVisit[index]));
   }
 
-  void _actionOnSelectData(BuildContext context, DateTime dateTimeCupertino) {
-    debugPrint(dateTimeCupertino.toString());
-    context.read<VisitingInteractor>().dateWantVisit(
-          widget.index,
-          dateTimeCupertino,
+  void _actionOnSelectData(
+    BuildContext context,
+    DateTime dateTimeCupertino,
+    int index,
+  ) {
+    debugPrint('Нажата кнопка Set date = ${index.toString()}');
+
+    context.read<ListWantVisitBloc>().add(
+          ListWantVisitUpdateDateEvent(
+            mocksWantVisit[index],
+            dateTimeCupertino,
+          ),
         );
   }
 

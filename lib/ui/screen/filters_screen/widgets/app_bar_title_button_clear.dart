@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:places/data/interactor/filters_screen_interactor.dart';
 import 'package:places/ui/res/color_palette.dart';
 import 'package:places/ui/res/labels.dart';
+import 'package:places/ui/screen/filters_screen/bloc/filter_bloc.dart';
 import 'package:provider/provider.dart';
 
 class AppBarTitleButtonClear extends StatelessWidget {
@@ -24,9 +24,6 @@ class AppBarTitleButtonClear extends StatelessWidget {
   }
 
   void _clearFilterValue(BuildContext context) {
-    for (final item in FiltersScreenInteractor.filterMap.entries) {
-      FiltersScreenInteractor.filterMap[item.key] = false;
-    }
-    context.read<FiltersScreenInteractor>().notifyListenersFiltersScreen();
+    context.read<FilterBloc>().add(const FilterEvents.clear());
   }
 }

@@ -27,7 +27,7 @@ class PlaceRepository extends ChangeNotifier {
     try {
       final response = await apiClient.post(
         pathUrlCreatePlace,
-        place.toJson().toString(),
+        json.encode(place.toJson()),
       );
 
       switch (response.statusCode) {
@@ -46,12 +46,10 @@ class PlaceRepository extends ChangeNotifier {
       }
 
       return Place.fromJson(response.data as Map<String, dynamic>);
-
     } on DioError catch (e) {
       //streamControllerListPlace.addError(NetworkException);
       throw NetworkException(e);
     }
-
   }
 
   ///--------------------------------------------------------------
@@ -65,27 +63,24 @@ class PlaceRepository extends ChangeNotifier {
           .map<Place>((dynamic e) => Place.fromJson(e as Map<String, dynamic>))
           .toList();
 
+      var count = 0;
       for (final placeOne in listPlaceAll) {
         if (placesLocalData.isNotEmpty) {
           for (final placesLocalDataElement in placesLocalData) {
             if (placesLocalDataElement.id == placeOne.id) {
-              placeOne.isFavorites =
-                  // ignore: avoid_bool_literals_in_conditional_expressions
-                  placesLocalDataElement.isFavorites == 1 ? true : false;
-              placeOne.wantVisitDate =
-                  placesLocalDataElement.wantVisitDate == null
-                      ? null
-                      : placesLocalDataElement.wantVisitDateToDatetime();
-
-              debugPrint(
-                'placesLocalDataElement.visitedDate = ${placesLocalDataElement.visitedDate}',
+              listPlaceAll[count] = placeOne.copyWith(
+                isFavorites: placesLocalDataElement.isFavorites == 1,
+                wantVisitDate: placesLocalDataElement.wantVisitDate == null
+                    ? null
+                    : placesLocalDataElement.wantVisitDateToDatetime(),
+                visitedDate: placesLocalDataElement.visitedDate == 0
+                    ? null
+                    : placesLocalDataElement.visitedDateToDatetime(),
               );
-              placeOne.visitedDate = placesLocalDataElement.visitedDate == 0
-                  ? null
-                  : placesLocalDataElement.visitedDateToDatetime();
             }
           }
         }
+        count++;
       }
 
       return listPlaceAll;
@@ -108,7 +103,6 @@ class PlaceRepository extends ChangeNotifier {
       searchString,
     );
     await createMocks(placesDtoFilter);
-    debugPrint('repositoryMocks.length = ${repositoryMocks.length}');
 
     mocksFiltered = repositoryMocks;
 
@@ -116,7 +110,7 @@ class PlaceRepository extends ChangeNotifier {
   }
 
   Future<List<Place>?> updateMocksFiltered() async {
-    await createMocks(placesDtoFilter);
+    //await createMocks(placesDtoFilter);
 
     return repositoryMocks;
   }
@@ -125,7 +119,8 @@ class PlaceRepository extends ChangeNotifier {
     List<Place> listAllPlaces,
   ) async {
     final returnListWantVisit = listAllPlaces
-        .where((element) => element.visitedDate == null && element.isFavorites)
+        //.where((element) => element.visitedDate == null && element.isFavorites)
+        .where((element) => element.isFavorites)
         .toList();
 
     return returnListWantVisit;
@@ -146,10 +141,8 @@ class PlaceRepository extends ChangeNotifier {
     repositoryMocks.clear();
     final placesLocalData = await DBProvider.dbProvider.getPlacesLocal();
     bool? isFavorites = false;
-    debugPrint('Теперь циклы');
     DateTime? wantVisitDate;
     DateTime? visitedDate;
-    debugPrint('placesDto = ${placesDtoFilter.length}');
     for (final placeDto in placesDto) {
       isFavorites = false;
       wantVisitDate = null;
@@ -171,7 +164,7 @@ class PlaceRepository extends ChangeNotifier {
       final place = Place(
         id: placeDto.id,
         lat: placeDto.lat,
-        lon: placeDto.lon,
+        lng: placeDto.lon,
         name: placeDto.name,
         urls: placeDto.urls,
         placeType: placeDto.placeType,
@@ -181,7 +174,6 @@ class PlaceRepository extends ChangeNotifier {
         visitedDate: visitedDate,
       );
       repositoryMocks.add(place);
-      debugPrint('place.name = ${place.name}');
     }
 
     return;
@@ -225,17 +217,13 @@ class PlaceRepository extends ChangeNotifier {
   /// Получить место по идентификатору
   Future<Place> getPlaceId(
     int placeId,
-    StreamController<Place> streamControllerListPlace,
   ) async {
     try {
       String mapString;
 
-      //debugPrint('Получить место по иденитификатору placeId = ${placeId}');
       final response = await apiClient.get('$pathUrlListPlaces/$placeId');
 
       mapString = response.toString();
-
-      debugPrint('mapString = $mapString');
 
       final mapFull = json.decode(mapString) as Map<String, dynamic>;
 
@@ -248,14 +236,13 @@ class PlaceRepository extends ChangeNotifier {
 
       if (placeLocalData != null) {
         //place.id =  placeLocalData.id;
-        place.isFavorites = placeLocalData.isFavoritesToBool();
-        place.wantVisitDate = placeLocalData.wantVisitDateToDatetime();
-        place.visitedDate = placeLocalData.visitedDateToDatetime();
+        place.copyWith(isFavorites: placeLocalData.isFavoritesToBool());
+        place.copyWith(wantVisitDate: placeLocalData.wantVisitDateToDatetime());
+        place.copyWith(visitedDate: placeLocalData.visitedDateToDatetime());
       }
 
       return place;
     } on DioError catch (e) {
-      streamControllerListPlace.addError(NetworkException);
       throw NetworkException(e);
     }
   }
@@ -267,7 +254,6 @@ class PlaceRepository extends ChangeNotifier {
     List<String>? category,
     String? searchString,
   }) {
-    debugPrint('category = ${category.toString()}');
     // Текущие координаты
     const lat = 55.753605;
     const lon = 37.619773;
@@ -283,22 +269,20 @@ class PlaceRepository extends ChangeNotifier {
       nameFilter: searchString,
     ).toJson();
 
-    debugPrint('filterJson = $filterJson');
-
     return filterJson;
   }
 
   ///--------------------------------------------------------------
   /// Установить что место посетили
   Future<void> updatePlaceLocalDB(Place place) async {
-    debugPrint('place id = ${place.id}  '
-        'isFavorites  = ${place.isFavorites}  '
-        'wantVisitDate  = ${place.wantVisitDate}  '
-        'visitedDate  = ${place.visitedDate}');
+    // debugPrint('place id = ${place.id}  '
+    //     'isFavorites  = ${place.isFavorites}  '
+    //     'wantVisitDate  = ${place.wantVisitDate}  '
+    //     'visitedDate  = ${place.visitedDate}');
     final countUpdate = await DBProvider.dbProvider.updatePlacesLocalData(
       place,
     );
-    debugPrint('updatePlaceLocalDB количество обновленных мест = $countUpdate');
+    //    debugPrint('updatePlaceLocalDB количество обновленных мест = $countUpdate');
   }
 
   ///--------------------------------------------------------------
