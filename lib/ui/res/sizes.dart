@@ -41,13 +41,15 @@ const double iconSize50 = 50;
 const double iconSize29 = 29;
 
 ///
-const double heightSizeBox32 = 32;
+const double heightSizeBox8 = 8;
 const double heightSizeBox12 = 12;
 const double heightSizeBox24 = 24;
 const double heightSizeBox26 = 26;
+const double heightSizeBox32 = 32;
 const double heightSizeBox40 = 40;
 const double heightSizeBox48 = 48;
 const double heightSizeBox72 = 72;
+
 
 const int maxLines5 = 5;
 const int maxLines2 = 2;
@@ -60,3 +62,6 @@ const double heightBottomSheetOnboarding = 105;
 /// Минимальная высота экрана до которого,
 /// экраны считаются маленькими.(на пример на старых телефонах)
 const int maxHeightSmallScreen = 550;
+
+///Размеры шрифтоф
+const double fontSize24 = 24;

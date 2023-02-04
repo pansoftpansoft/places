@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:places/data/model/place.dart';
 import 'package:places/ui/res/img.dart';
 
-class CardPlaceBodyPicture extends StatelessWidget {
+class CardPlaceBodyPicture extends StatefulWidget {
   final double heightImage;
   final Place _place;
 
@@ -14,22 +14,52 @@ class CardPlaceBodyPicture extends StatelessWidget {
         super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  State<CardPlaceBodyPicture> createState() => _CardPlaceBodyPictureState();
+}
 
-    return SizedBox(
-      width: double.infinity,
-      height: heightImage,
-      child: (_place.urls.length == 1 && _place.urls.first == noPhoto)
-          ? Image.asset(
-              noPhoto,
-              height: 120,
-              width: 122,
-              fit: BoxFit.cover,
-            )
-          : Image.network(
-              _place.urls.first,
-              fit: BoxFit.fitWidth,
-            ),
+class _CardPlaceBodyPictureState extends State<CardPlaceBodyPicture>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _controllerOpacity = AnimationController(
+    duration: const Duration(milliseconds: 1000),
+    vsync: this,
+  )..forward();
+
+  late final Animation<double> _animationOpacity = Tween<double>(
+    begin: 0,
+    end: 1,
+  ).animate(
+    CurvedAnimation(
+      parent: _controllerOpacity,
+      curve: Curves.easeIn,
+    ),
+  );
+
+  @override
+  void dispose() {
+    _controllerOpacity.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return FadeTransition(
+      opacity: _animationOpacity,
+      child: SizedBox(
+        width: double.infinity,
+        height: widget.heightImage,
+        child: (widget._place.urls.length == 1 &&
+                widget._place.urls.first == noPhoto)
+            ? Image.asset(
+                noPhoto,
+                height: 120,
+                width: 122,
+                fit: BoxFit.cover,
+              )
+            : Image.network(
+                widget._place.urls.first,
+                fit: BoxFit.fitWidth,
+              ),
+      ),
     );
   }
 }
