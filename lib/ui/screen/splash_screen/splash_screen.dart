@@ -123,15 +123,17 @@ class SplashScreenState extends State<SplashScreen>
         finishGetNetData(isComplete: true),
         debugPrint('Переход на следующий экран ${RouteName.onboardingScreen}'),
 
-        context.read<OnboardingBloc>().add(
-              const OnboardingEvents.load(),
+        if (mounted)
+          {
+            context.read<OnboardingBloc>().add(
+                  const OnboardingEvents.load(),
+                ),
+            Navigator.pushReplacementNamed(
+              context,
+              RouteName.onboardingScreen,
+              arguments: {'callingFromSettings': false},
             ),
-
-        Navigator.pushReplacementNamed(
-          context,
-          RouteName.onboardingScreen,
-          arguments: {'callingFromSettings': false},
-        ),
+          },
       },
     );
   }
