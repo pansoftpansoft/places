@@ -108,10 +108,10 @@ class SplashScreenState extends State<SplashScreen>
   }
 
   /// Логика перехода на следующий экран
-  Future<bool> _navigateToNextAsync() async {
+  void _navigateToNextAsync() {
     //Запускаем получение данных из сети
 
-    await getNetData().then(
+    getNetData().then(
       (value) async => {
         debugPrint('value = 1'),
         await Future<dynamic>.delayed(
@@ -134,7 +134,5 @@ class SplashScreenState extends State<SplashScreen>
         ),
       },
     );
-
-    return false;
   }
 }
