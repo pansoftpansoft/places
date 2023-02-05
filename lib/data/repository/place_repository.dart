@@ -275,14 +275,9 @@ class PlaceRepository extends ChangeNotifier {
   ///--------------------------------------------------------------
   /// Установить что место посетили
   Future<void> updatePlaceLocalDB(Place place) async {
-    // debugPrint('place id = ${place.id}  '
-    //     'isFavorites  = ${place.isFavorites}  '
-    //     'wantVisitDate  = ${place.wantVisitDate}  '
-    //     'visitedDate  = ${place.visitedDate}');
     final countUpdate = await DBProvider.dbProvider.updatePlacesLocalData(
       place,
     );
-    //    debugPrint('updatePlaceLocalDB количество обновленных мест = $countUpdate');
   }
 
   ///--------------------------------------------------------------
