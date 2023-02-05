@@ -50,7 +50,7 @@ class CardPlaceBodyIconDelete extends StatelessWidget {
                 );
 
               },
-              duration: 500,
+              animationDuration: 500,
             ),
     );
   }

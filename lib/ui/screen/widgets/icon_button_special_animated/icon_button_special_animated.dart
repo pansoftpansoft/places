@@ -3,13 +3,17 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:places/ui/screen/widgets/circle_avatar_special.dart';
 import 'package:places/ui/screen/widgets/icon_button_special_animated/bloc/icon_button_special_animated_bloc.dart';
 
-///
+///Кнопка с implicit анимацией
 class IconButtonSpecialAnimated extends StatefulWidget {
-  ///
+  ///Начальное состояние false и true
   final bool initialState;
+  /// Картинка при initialState = false
   final String iconFirst;
+  /// Картинка при initialState = true
   final String iconSecond;
-  final int duration;
+  /// продолжительность анимации
+  final int animationDuration;
+  /// Функция обратного вызова при нажатии на кнопку
   final VoidCallback? onPressed;
 
   ///
@@ -17,7 +21,7 @@ class IconButtonSpecialAnimated extends StatefulWidget {
     required this.initialState,
     required this.iconFirst,
     required this.iconSecond,
-    required this.duration,
+    required this.animationDuration,
     this.onPressed,
     Key? key,
   }) : super(key: key);
@@ -33,7 +37,9 @@ class _IconButtonSpecialAnimatedState extends State<IconButtonSpecialAnimated> {
   @override
   void initState() {
     super.initState();
+    // Сохраняем пришедшее состояние
     _stateIcon = widget.initialState;
+    // Задаем направление анимации
     _crossFadeState =
         _stateIcon ? CrossFadeState.showSecond : CrossFadeState.showFirst;
   }
@@ -45,12 +51,16 @@ class _IconButtonSpecialAnimatedState extends State<IconButtonSpecialAnimated> {
       builder: (context, state) {
         return GestureDetector(
           onTap: () {
-            setState(() {
-              _stateIcon = !_stateIcon;
-              _crossFadeState = _stateIcon
-                  ? CrossFadeState.showSecond
-                  : CrossFadeState.showFirst;
-            });
+            // поменяем состояние
+            setState(
+              () {
+                _stateIcon = !_stateIcon;
+                _crossFadeState = _stateIcon
+                    ? CrossFadeState.showSecond
+                    : CrossFadeState.showFirst;
+              },
+            );
+
 
             if (widget.onPressed != null) {
               widget.onPressed!();
@@ -64,7 +74,7 @@ class _IconButtonSpecialAnimatedState extends State<IconButtonSpecialAnimated> {
             child: AnimatedCrossFade(
               firstChild: CircleAvatarSpecial(iconName: widget.iconFirst),
               secondChild: CircleAvatarSpecial(iconName: widget.iconSecond),
-              duration: Duration(milliseconds: widget.duration),
+              duration: Duration(milliseconds: widget.animationDuration),
               crossFadeState: _crossFadeState,
             ),
           ),

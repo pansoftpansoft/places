@@ -23,7 +23,6 @@ class ListPlacesScreenPortrait extends StatelessWidget {
             return;
           },
         ),
-
         BlocListener<ListPlacesBloc, ListPlacesState>(
           listenWhen: (previousState, state) => state.addNew,
           listener: (context, state) {
