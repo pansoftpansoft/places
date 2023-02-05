@@ -19,6 +19,8 @@ class ListPlacesBloc extends Bloc<ListPlacesEvents, ListPlacesState> {
     on<ListPlacesEvents>(
       (event, emitter) => event.map<Future<void>>(
         load: (event) => _load(event, emitter),
+        loadDataWithoutReloadingList: (event) =>
+            _loadDataWithoutReloadingList(event, emitter),
         loaded: (event) => _loaded(event, emitter),
         selected: (event) => _selected(event, emitter),
         addNew: (event) => _addNew(event, emitter),
@@ -36,6 +38,23 @@ class ListPlacesBloc extends Bloc<ListPlacesEvents, ListPlacesState> {
     debugPrint('1 event = ${event.toString()}');
     debugPrint('1 state = ${state.toString()}');
     debugPrint('1 emit = ${emit.toString()}');
+    try {
+      final listPlacesEmpty = await _listPlacesScreenInteractor.loadBloc();
+      emit(ListPlacesState.loaded(listPlaces: listPlacesEmpty));
+    } on NetworkException {
+      emit(const ListPlacesState.error(message: 'Ошибка загрузки из сети'));
+    } on Object {
+      rethrow;
+    } finally {
+      debugPrint('2 event = ${event.toString()}');
+      debugPrint('2 emitter = ${emit.toString()}');
+    }
+  }
+
+  Future<void> _loadDataWithoutReloadingList(
+    _LoadDataWithoutReloadingListEvents event,
+    Emitter<ListPlacesState> emit,
+  ) async {
     try {
       final listPlacesEmpty = await _listPlacesScreenInteractor.loadBloc();
       emit(ListPlacesState.loaded(listPlaces: listPlacesEmpty));
@@ -112,6 +131,9 @@ class ListPlacesEvents with _$ListPlacesEvents {
 
   const factory ListPlacesEvents.load() = _LoadListPlacesEvents;
 
+  const factory ListPlacesEvents.loadDataWithoutReloadingList() =
+      _LoadDataWithoutReloadingListEvents;
+
   const factory ListPlacesEvents.loaded() = _LoadedListPlacesEvents;
 
   const factory ListPlacesEvents.selected({required Place place}) =
@@ -168,6 +190,10 @@ class ListPlacesState with _$ListPlacesState {
   const factory ListPlacesState.load({
     @Default(<Place>[]) final List<Place> listPlaces,
   }) = _InLoadListPlacesState;
+
+  const factory ListPlacesState.loadDataWithoutReloadingList({
+    @Default(<Place>[]) final List<Place> listPlaces,
+  }) = _LoadDataWithoutReloadingList;
 
   // Список загружен
   const factory ListPlacesState.loaded({

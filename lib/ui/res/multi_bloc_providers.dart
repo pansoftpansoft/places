@@ -17,6 +17,7 @@ import 'package:places/ui/screen/select_category/bloc/select_category_bloc.dart'
 import 'package:places/ui/screen/settings_screen/bloc/settings_bloc.dart';
 import 'package:places/ui/screen/visiting_screen/bloc/list_visited_bloc/list_visited_bloc.dart';
 import 'package:places/ui/screen/visiting_screen/bloc/list_want_visit_bloc/list_want_visit_bloc.dart';
+import 'package:places/ui/screen/widgets/icon_button_special_animated/bloc/icon_button_special_animated_bloc.dart';
 
 /// Список подключенных провадеров
 List<BlocProvider> listMultiBlocProviders = <BlocProvider>[
@@ -66,5 +67,8 @@ List<BlocProvider> listMultiBlocProviders = <BlocProvider>[
     create: (context) => FilterBloc(
       context.read<FiltersScreenInteractor>(),
     ),
+  ),
+  BlocProvider<IconButtonSpecialAnimatedBloc>(
+    create: (context) => IconButtonSpecialAnimatedBloc(),
   ),
 ];

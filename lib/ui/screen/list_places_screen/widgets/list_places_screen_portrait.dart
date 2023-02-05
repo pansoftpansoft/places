@@ -16,6 +16,15 @@ class ListPlacesScreenPortrait extends StatelessWidget {
     return MultiBlocListener(
       listeners: [
         BlocListener<ListPlacesBloc, ListPlacesState>(
+          listenWhen: (previousState, state) => state.loaded,
+          listener: (context, state) {
+            debugPrint('Ни чего не делвем');
+
+            return;
+          },
+        ),
+
+        BlocListener<ListPlacesBloc, ListPlacesState>(
           listenWhen: (previousState, state) => state.addNew,
           listener: (context, state) {
             Navigator.pushNamed(context, RouteName.addPlaceScreen);
