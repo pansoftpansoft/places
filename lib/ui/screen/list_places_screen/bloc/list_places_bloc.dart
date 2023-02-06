@@ -72,8 +72,8 @@ class ListPlacesBloc extends Bloc<ListPlacesEvents, ListPlacesState> {
     _LoadedListPlacesEvents event,
     Emitter<ListPlacesState> emitter,
   ) async {
-    debugPrint('event = ${event.toString()}');
-    debugPrint('emitter = ${emitter.toString()}');
+    debugPrint('_loaded event = ${event.toString()}');
+    debugPrint('_loaded emitter = ${emitter.toString()}');
   }
 
   Future<void> _selected(
@@ -89,6 +89,8 @@ class ListPlacesBloc extends Bloc<ListPlacesEvents, ListPlacesState> {
       ),
     );
     try {
+      //Получить место с реальными данными из базы
+      //final listPlacesEmpty = await _listPlacesScreenInteractor.;
       emit(
         ListPlacesState.selected(
           listPlaces: state.listPlaces,

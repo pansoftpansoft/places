@@ -24,7 +24,7 @@ class ApiClient {
   /// Сделать запрос POST на сервер
   Future<Response> post(String url, String json) async {
     final response = await _dio.post<dynamic>(url, data: json);
-    debugPrint('response = ${response.data.toString()}');
+    //debugPrint('response = ${response.data.toString()}');
 
     return response;
   }

@@ -20,6 +20,8 @@ class CardPlaceBodyRippleEffect extends StatelessWidget {
           child: InkWell(
             splashColor: ColorPalette.whiteMain.withOpacity(0.4),
             onTap: () {
+
+
               context.read<ListPlacesBloc>().add(
                     ListPlacesEvents.selected(
                       place: place,

@@ -48,4 +48,7 @@ class ListPlacesScreenInteractor extends ChangeNotifier {
 
     return list;
   }
+
+
+
 }

@@ -18,7 +18,7 @@ class ListPlacesScreenPortrait extends StatelessWidget {
         BlocListener<ListPlacesBloc, ListPlacesState>(
           listenWhen: (previousState, state) => state.loaded,
           listener: (context, state) {
-            debugPrint('Ни чего не делвем');
+            debugPrint('Ни чего не делаем');
 
             return;
           },

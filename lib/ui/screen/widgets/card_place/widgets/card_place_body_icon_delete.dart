@@ -5,7 +5,7 @@ import 'package:places/ui/res/svg_icons.dart';
 import 'package:places/ui/screen/details_place_screen/bloc/details_place_bloc.dart';
 import 'package:places/ui/screen/list_places_screen/bloc/list_places_bloc.dart';
 import 'package:places/ui/screen/widgets/icon_button_special.dart';
-import 'package:places/ui/screen/widgets/icon_button_special_animated/icon_button_special_animated.dart';
+import 'package:places/ui/screen/widgets/icon_button_special_animated.dart';
 
 class CardPlaceBodyIconDelete extends StatelessWidget {
   final bool iconDelete;
@@ -33,7 +33,8 @@ class CardPlaceBodyIconDelete extends StatelessWidget {
               initialState: _place.isFavorites,
               iconFirst: SvgIcons.heartTransparent,
               iconSecond: SvgIcons.heartFull,
-              onPressed: () {
+              onPressed: () async {
+                debugPrint('--------------------------------------------------------------------------------------------------');
                 debugPrint(
                   'context.read<ListPlacesBloc>().state.toString() ='
                       ' ${_place.isFavorites}',
