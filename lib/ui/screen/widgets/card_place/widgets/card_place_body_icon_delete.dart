@@ -34,22 +34,16 @@ class CardPlaceBodyIconDelete extends StatelessWidget {
               iconFirst: SvgIcons.heartTransparent,
               iconSecond: SvgIcons.heartFull,
               onPressed: () async {
-                debugPrint('--------------------------------------------------------------------------------------------------');
-                debugPrint(
-                  'context.read<ListPlacesBloc>().state.toString() ='
-                      ' ${_place.isFavorites}',
-                );
                 context.read<DetailsPlaceBloc>().add(
-                  DetailsPlaceEvents.onChangedFavorites(
-                    place: _place,
-                    isFavorites: _place.isFavorites,
-                  ),
-                );
+                      DetailsPlaceEvents.onChangedFavorites(
+                        place: _place,
+                        isFavorites: _place.isFavorites,
+                      ),
+                    );
 
                 context.read<ListPlacesBloc>().add(
-                   const ListPlacesEvents.loadDataWithoutReloadingList(),
-                );
-
+                      const ListPlacesEvents.loadDataWithoutReloadingList(),
+                    );
               },
               animationDuration: 500,
             ),
