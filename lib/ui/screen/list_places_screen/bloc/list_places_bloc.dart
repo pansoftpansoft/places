@@ -92,10 +92,11 @@ class ListPlacesBloc extends Bloc<ListPlacesEvents, ListPlacesState> {
       emit(
         ListPlacesState.selected(
           listPlaces: state.listPlaces,
-          place: event.place,
+          place: state.listPlaces.singleWhere(
+            (element) => element.id == event.place.id,
+          ),
         ),
       );
-      //
     } on Object {
       rethrow;
     }
