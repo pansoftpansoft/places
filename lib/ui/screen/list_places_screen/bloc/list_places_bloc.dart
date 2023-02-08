@@ -39,7 +39,7 @@ class ListPlacesBloc extends Bloc<ListPlacesEvents, ListPlacesState> {
     debugPrint('1 state = ${state.toString()}');
     debugPrint('1 emit = ${emit.toString()}');
     try {
-      final listPlacesEmpty = await _listPlacesScreenInteractor.loadBloc();
+      final listPlacesEmpty = await _listPlacesScreenInteractor.loadListPlaces();
       emit(ListPlacesState.loaded(listPlaces: listPlacesEmpty));
     } on NetworkException {
       emit(const ListPlacesState.error(message: 'Ошибка загрузки из сети'));
@@ -56,7 +56,7 @@ class ListPlacesBloc extends Bloc<ListPlacesEvents, ListPlacesState> {
     Emitter<ListPlacesState> emit,
   ) async {
     try {
-      final listPlacesEmpty = await _listPlacesScreenInteractor.loadBloc();
+      final listPlacesEmpty = await _listPlacesScreenInteractor.loadListPlaces();
       emit(ListPlacesState.loaded(listPlaces: listPlacesEmpty));
     } on NetworkException {
       emit(const ListPlacesState.error(message: 'Ошибка загрузки из сети'));
@@ -94,7 +94,9 @@ class ListPlacesBloc extends Bloc<ListPlacesEvents, ListPlacesState> {
       emit(
         ListPlacesState.selected(
           listPlaces: state.listPlaces,
-          place: event.place,
+          place: state.listPlaces.singleWhere(
+                (element) => element.id == event.place.id,
+          ),
         ),
       );
       //
