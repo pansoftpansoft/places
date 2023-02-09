@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:places/data/model/place.dart';
+import 'package:places/ui/screen/widgets/card_place/widgets/card_place_body_background.dart';
 import 'package:places/ui/screen/widgets/card_place/widgets/card_place_body_icon_calendar.dart';
 import 'package:places/ui/screen/widgets/card_place/widgets/card_place_body_icon_delete.dart';
 import 'package:places/ui/screen/widgets/card_place/widgets/card_place_body_icon_goal.dart';
@@ -44,6 +45,8 @@ class CardPlaceBody extends StatelessWidget {
       children: <Widget>[
         //Картинка
         CardPlaceBodyPicture(heightImage: heightImage, place: _place),
+        //
+        const CardPlaceBodyBackground(heightImage: heightImage,),
         //Надпись "категория" места
         CardPlaceBodyTextType(_place),
         CardPlaceBodyText(

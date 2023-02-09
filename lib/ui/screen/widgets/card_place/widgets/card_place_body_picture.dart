@@ -58,6 +58,24 @@ class _CardPlaceBodyPictureState extends State<CardPlaceBodyPicture>
             : Image.network(
                 widget._place.urls.first,
                 fit: BoxFit.fitWidth,
+                opacity: _animationOpacity,
+                loadingBuilder: (
+                  context,
+                  child,
+                  loadingProgress,
+                ) {
+                  if (loadingProgress == null) {
+                    return child;
+                  }
+
+                  return Center(
+                    child: Image.asset(
+                      placeholder,
+                      height: 120,
+                      width: 122,
+                    ),
+                  );
+                },
               ),
       ),
     );

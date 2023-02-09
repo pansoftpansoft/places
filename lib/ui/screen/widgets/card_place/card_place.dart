@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:places/data/model/place.dart';
+import 'package:places/ui/res/color_palette.dart';
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/screen/widgets/card_place/widgets/card_place_body.dart';
 
@@ -47,7 +48,7 @@ class CardPlace extends StatelessWidget {
           child: AspectRatio(
             aspectRatio: 3 / 2,
             child: Container(
-              color: Theme.of(context).cardTheme.color,
+              color: ColorPalette.placeholder,
               child: CardPlaceBody(
                 _place,
                 goNeed,
