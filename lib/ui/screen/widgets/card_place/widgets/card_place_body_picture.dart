@@ -64,17 +64,7 @@ class _CardPlaceBodyPictureState extends State<CardPlaceBodyPicture>
                   child,
                   loadingProgress,
                 ) {
-                  if (loadingProgress == null) {
-                    return child;
-                  }
-
-                  return Center(
-                    child: Image.asset(
-                      placeholder,
-                      height: 120,
-                      width: 122,
-                    ),
-                  );
+                  return child;
                 },
               ),
       ),
