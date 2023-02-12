@@ -55,6 +55,7 @@ class DetailsPlaceBloc extends Bloc<DetailsPlaceEvents, DetailsPlaceState> {
         DetailsPlaceState.loaded(
           place: place,
           isFavorites: place.isFavorites,
+          wantVisitDate: place.wantVisitDate,
         ),
       );
       _detailsPlaceInteractor.changeScrollIndicator(event.index);
@@ -70,9 +71,12 @@ class DetailsPlaceBloc extends Bloc<DetailsPlaceEvents, DetailsPlaceState> {
     try {
       _detailsPlaceInteractor.changeScrollIndicator(event.index);
       emit(
-        DetailsPlaceState.selectedNewPageChanged(
+        //DetailsPlaceState.selectedNewPageChanged(
+        DetailsPlaceState.loaded(
           place: event.place,
           index: event.index,
+          isFavorites: state.isFavorites,
+          wantVisitDate: state.wantVisitDate,
         ),
       );
     } on Object {
@@ -99,7 +103,7 @@ class DetailsPlaceBloc extends Bloc<DetailsPlaceEvents, DetailsPlaceState> {
         ),
       );
       emit(
-        DetailsPlaceState.selectedNewPageChanged(
+        DetailsPlaceState.loaded(
           place: event.place,
           index: state.index,
           isFavorites: !event.isFavorites,
@@ -134,7 +138,8 @@ class DetailsPlaceBloc extends Bloc<DetailsPlaceEvents, DetailsPlaceState> {
       );
 
       emit(
-        DetailsPlaceState.selectedNewPageChanged(
+        //DetailsPlaceState.selectedNewPageChanged(
+        DetailsPlaceState.loaded(
           place: state.place,
           index: state.index,
           isFavorites: state.isFavorites,
@@ -191,10 +196,6 @@ class DetailsPlaceEvents with _$DetailsPlaceEvents {
 /// Состояния
 @freezed
 class DetailsPlaceState with _$DetailsPlaceState {
-  bool get selectedNewPageChanged => maybeMap<bool>(
-        orElse: () => false,
-        selectedNewPageChanged: (_) => true,
-      );
 
   bool get load => maybeMap<bool>(
         orElse: () => false,
@@ -207,20 +208,6 @@ class DetailsPlaceState with _$DetailsPlaceState {
       );
 
   const DetailsPlaceState._();
-
-  const factory DetailsPlaceState.selectedNewPageChanged({
-    Place? place,
-    @Default(0) final int index,
-    @Default(false) final bool isFavorites,
-    final DateTime? wantVisitDate,
-  }) = _SelectedNewPageChanged;
-
-  const factory DetailsPlaceState.selectedNewPlace({
-    Place? place,
-    @Default(0) final int index,
-    @Default(false) final bool isFavorites,
-    final DateTime? wantVisitDate,
-  }) = _SelectedNewPlace;
 
   const factory DetailsPlaceState.loaded({
     Place? place,

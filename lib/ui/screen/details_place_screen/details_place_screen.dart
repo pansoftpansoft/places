@@ -30,9 +30,6 @@ class DetailsPlaceScreen extends StatelessWidget {
       ],
       child: BlocBuilder<DetailsPlaceBloc, DetailsPlaceState>(
         builder: (context, state) {
-          debugPrint('1111111111111@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@');
-          debugPrint(state.load.toString());
-
           return state.load
               ? const Padding(
                   padding: EdgeInsets.only(
