@@ -1,0 +1,1 @@
+enum LoaderSize { small, large }

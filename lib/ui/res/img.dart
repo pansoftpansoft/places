@@ -3,3 +3,7 @@ const String loader = 'res/img/loader.png';
 const String noPhoto = 'res/img/no_photo.png';
 const String ellipse107 = 'res/img/ellipse_107.png';
 const String placeholder = 'res/img/placeholder_1.jpg';
+const String loaderDarkLarge = 'res/img/loader_dark_large.png';
+const String loaderDarkSmall = 'res/img/loader_dark_small.png';
+const String loaderLightLarge = 'res/img/loader_light_large.png';
+const String loaderLightSmall = 'res/img/loader_light_small.png';
