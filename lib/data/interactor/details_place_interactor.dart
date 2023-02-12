@@ -32,11 +32,13 @@ class DetailsPlaceInteractor extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> getPlace(
+  Future<Place?> getPlace(
     int placeId,
   ) async {
     detailsPlace = await placeInteractor.getPlaceDetails(
       placeId,
     );
+
+    return detailsPlace;
   }
 }

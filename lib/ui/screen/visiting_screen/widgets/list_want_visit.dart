@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:places/type_place.dart';
 import 'package:places/ui/res/loader_size.dart';
 import 'package:places/ui/res/sizes.dart';
+import 'package:places/ui/screen/details_place_screen/bloc/details_place_bloc.dart';
 import 'package:places/ui/screen/details_place_screen/details_place_screen.dart';
 import 'package:places/ui/screen/visiting_screen/bloc/list_want_visit_bloc/list_want_visit_bloc.dart';
 import 'package:places/ui/screen/visiting_screen/widgets/list_view_card_drag.dart';
@@ -30,9 +31,17 @@ class ListWantVisit extends StatelessWidget {
               debugPrint('See details');
               showModalBottomSheet<Widget>(
                 context: context,
-                builder: (_) => DetailsPlaceScreen(
-                  place: (state as ListWantVisitPlaceSelectedState).place,
-                ),
+                builder: (_) {
+                  context.read<DetailsPlaceBloc>().add(
+                        DetailsPlaceEvents.onLoad(
+                          place:
+                              (state as ListWantVisitPlaceSelectedState).place,
+                          index: 0,
+                        ),
+                      );
+
+                  return const DetailsPlaceScreen();
+                },
                 isScrollControlled: true,
                 isDismissible: true,
                 useRootNavigator: true,

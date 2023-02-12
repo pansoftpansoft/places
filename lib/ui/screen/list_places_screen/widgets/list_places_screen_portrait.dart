@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:places/ui/res/loader_size.dart';
 import 'package:places/ui/res/route_name.dart';
 import 'package:places/ui/res/sizes.dart';
+import 'package:places/ui/screen/details_place_screen/bloc/details_place_bloc.dart';
 import 'package:places/ui/screen/details_place_screen/details_place_screen.dart';
 import 'package:places/ui/screen/list_places_screen/bloc/list_places_bloc.dart';
 import 'package:places/ui/screen/list_places_screen/widgets/sticky_header.dart';
@@ -38,7 +39,16 @@ class ListPlacesScreenPortrait extends StatelessWidget {
             debugPrint('See details');
             showModalBottomSheet<Widget>(
               context: context,
-              builder: (_) => DetailsPlaceScreen(place: state.place),
+              builder: (_) {
+                context.read<DetailsPlaceBloc>().add(
+                      DetailsPlaceEvents.onLoad(
+                        place: state.place,
+                        index: 0,
+                      ),
+                    );
+
+                return const DetailsPlaceScreen();
+              },
               isScrollControlled: true,
               isDismissible: true,
               useRootNavigator: true,

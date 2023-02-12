@@ -20,6 +20,10 @@ class PlacesLocalData {
     this.visitedDate,
   });
 
+
+
+
+
   factory PlacesLocalData.fromSqlite(
     final Map<String, dynamic> localData,
   ) =>
@@ -35,7 +39,7 @@ class PlacesLocalData {
       );
 
   // ignore: avoid_bool_literals_in_conditional_expressions
-  bool isFavoritesToBool() => isFavorites == 1 ? true : false;
+  bool isFavoritesToBool(int? favorites) => favorites == 1 ? true : false;
 
   DateTime? wantVisitDateToDatetime() => wantVisitDate == null
       ? null
