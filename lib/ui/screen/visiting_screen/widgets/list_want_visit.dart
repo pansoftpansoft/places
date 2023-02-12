@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:places/type_place.dart';
-import 'package:places/ui/res/color_palette.dart';
+import 'package:places/ui/res/loader_size.dart';
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/screen/details_place_screen/details_place_screen.dart';
 import 'package:places/ui/screen/visiting_screen/bloc/list_want_visit_bloc/list_want_visit_bloc.dart';
 import 'package:places/ui/screen/visiting_screen/widgets/list_view_card_drag.dart';
 import 'package:places/ui/screen/visiting_screen/widgets/list_want_visit_empty.dart';
+import 'package:places/ui/screen/widgets/loader.dart';
 import 'package:places/ui/screen/widgets/sized_box_12.dart';
 
 /// Вкладка запланированные места
@@ -56,9 +57,7 @@ class ListWantVisit extends StatelessWidget {
                       SizedBox(
                         height: height95,
                         width: height95,
-                        child: CircularProgressIndicator(
-                          color: ColorPalette.greenColorLightGradient,
-                        ),
+                        child: Loader(LoaderSize.small),
                       ),
                     ],
                   )

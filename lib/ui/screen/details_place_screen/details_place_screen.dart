@@ -13,7 +13,6 @@ import 'package:places/ui/screen/details_place_screen/widgets/details_place_scre
 class DetailsPlaceScreen extends StatelessWidget {
   final Place? place;
 
-
   /// Конструктор экрана подробности о достопримечательности
   const DetailsPlaceScreen({this.place, Key? key}) : super(key: key);
 
@@ -24,11 +23,12 @@ class DetailsPlaceScreen extends StatelessWidget {
             place: place,
             index: 0,
             isFavorites: !place!.isFavorites,
-            wantVisitDate:
-                place!.wantVisitDate.toString().length>9?
-                place!.wantVisitDate.toString().substring(0, 10) == '1970-01-01'
+            wantVisitDate: place!.wantVisitDate.toString().length > 9
+                ? place!.wantVisitDate.toString().substring(0, 10) ==
+                        '1970-01-01'
                     ? null
-                    : place!.wantVisitDate: null,
+                    : place!.wantVisitDate
+                : null,
           ),
         );
 

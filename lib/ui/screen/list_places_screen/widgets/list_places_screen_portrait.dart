@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:places/ui/res/img.dart';
+import 'package:places/ui/res/loader_size.dart';
 import 'package:places/ui/res/route_name.dart';
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/screen/details_place_screen/details_place_screen.dart';
 import 'package:places/ui/screen/list_places_screen/bloc/list_places_bloc.dart';
 import 'package:places/ui/screen/list_places_screen/widgets/sticky_header.dart';
 import 'package:places/ui/screen/widgets/card_place/card_place.dart';
+import 'package:places/ui/screen/widgets/loader.dart';
 
 class ListPlacesScreenPortrait extends StatelessWidget {
   const ListPlacesScreenPortrait({Key? key}) : super(key: key);
@@ -60,17 +61,13 @@ class ListPlacesScreenPortrait extends StatelessWidget {
                   pinned: true,
                 ),
                 if (state.load)
-                  SliverToBoxAdapter(
+                  const SliverToBoxAdapter(
                     child: Padding(
-                      padding: const EdgeInsets.only(
+                      padding: EdgeInsets.only(
                         top: heightSizeBox12,
                         bottom: iconSize29,
                       ),
-                      child: Image.asset(
-                        ellipse107,
-                        height: iconSize29,
-                        width: iconSize29,
-                      ),
+                      child: Loader(LoaderSize.large),
                     ),
                   )
                 else

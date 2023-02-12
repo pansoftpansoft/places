@@ -35,11 +35,12 @@ class ListPlacesBloc extends Bloc<ListPlacesEvents, ListPlacesState> {
     Emitter<ListPlacesState> emit,
   ) async {
     emit(const ListPlacesState.load(listPlaces: []));
-    debugPrint('1 event = ${event.toString()}');
-    debugPrint('1 state = ${state.toString()}');
-    debugPrint('1 emit = ${emit.toString()}');
+
+    await Future<void>.delayed(const Duration(seconds: 1));
+
     try {
-      final listPlacesEmpty = await _listPlacesScreenInteractor.loadListPlaces();
+      final listPlacesEmpty =
+          await _listPlacesScreenInteractor.loadListPlaces();
       emit(ListPlacesState.loaded(listPlaces: listPlacesEmpty));
     } on NetworkException {
       emit(const ListPlacesState.error(message: 'Ошибка загрузки из сети'));
@@ -56,7 +57,8 @@ class ListPlacesBloc extends Bloc<ListPlacesEvents, ListPlacesState> {
     Emitter<ListPlacesState> emit,
   ) async {
     try {
-      final listPlacesEmpty = await _listPlacesScreenInteractor.loadListPlaces();
+      final listPlacesEmpty =
+          await _listPlacesScreenInteractor.loadListPlaces();
       emit(ListPlacesState.loaded(listPlaces: listPlacesEmpty));
     } on NetworkException {
       emit(const ListPlacesState.error(message: 'Ошибка загрузки из сети'));
@@ -95,7 +97,7 @@ class ListPlacesBloc extends Bloc<ListPlacesEvents, ListPlacesState> {
         ListPlacesState.selected(
           listPlaces: state.listPlaces,
           place: state.listPlaces.singleWhere(
-                (element) => element.id == event.place.id,
+            (element) => element.id == event.place.id,
           ),
         ),
       );

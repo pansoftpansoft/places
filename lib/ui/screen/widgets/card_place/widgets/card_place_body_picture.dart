@@ -20,7 +20,7 @@ class CardPlaceBodyPicture extends StatefulWidget {
 class _CardPlaceBodyPictureState extends State<CardPlaceBodyPicture>
     with SingleTickerProviderStateMixin {
   late final AnimationController _controllerOpacity = AnimationController(
-    duration: const Duration(milliseconds: 1000),
+    duration: const Duration(milliseconds: 2000),
     vsync: this,
   )..forward();
 
