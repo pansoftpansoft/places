@@ -1,6 +1,5 @@
 import 'dart:async';
 
-
 import 'package:flutter/material.dart';
 import 'package:places/data/interactor/filters_screen_interactor.dart';
 import 'package:places/data/interactor/place_interactor.dart';
@@ -19,7 +18,7 @@ class ListPlacesScreenInteractor extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<List<Place>> loadBloc() async {
+  Future<List<Place>> loadListPlaces() async {
     FilterDistance? filterDistance;
     List<String>? listCategory = [];
 
@@ -28,11 +27,11 @@ class ListPlacesScreenInteractor extends ChangeNotifier {
 
     if (listFilterCategory.isNotEmpty) {
       for (final item in listFilterCategory) {
-        if (item.categoryValue==1){
-        listCategory.add(item.category);
+        if (item.categoryValue == 1) {
+          listCategory.add(item.category);
         }
       }
-    }else{
+    } else {
       listCategory = null;
     }
 

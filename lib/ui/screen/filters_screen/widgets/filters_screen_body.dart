@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:places/ui/res/labels.dart';
-import 'package:places/ui/res/route_name.dart';
 import 'package:places/ui/res/svg_icons.dart';
 import 'package:places/ui/screen/filters_screen/bloc/filter_bloc.dart';
 import 'package:places/ui/screen/filters_screen/bloc/filter_state_enum.dart';
@@ -26,11 +25,8 @@ class FiltersScreenBody extends StatelessWidget {
         BlocListener<FilterBloc, FilterState>(
           listenWhen: (previousState, state) =>
               state.current == FilterStateEnum.showResult,
-          listener: (context, state) async {
-            await Navigator.pushReplacementNamed(
-              context,
-              RouteName.listPlacesScreen,
-            );
+          listener: (context, state) {
+            Navigator.pop(context);
 
             return;
           },

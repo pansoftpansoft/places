@@ -259,6 +259,7 @@ class DBProvider {
     );
 
     final placesLocalData = PlacesLocalData(placeId);
+
     if (res.isNotEmpty) {
       placesLocalData.isFavorites = res.first['isFavorites'] as int;
       placesLocalData.wantVisitDate = res.first['wantVisitDate'] as int?;

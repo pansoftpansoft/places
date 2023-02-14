@@ -12,6 +12,7 @@ class ColorPalette {
   static const Color redColor = Color(0xFFEF4343);
   static const Color whiteColor = Color(0xFFFFFFFF);
   static const Color whiteMain = Color(0xFF252849);
+  static const Color placeholder = Color(0xFF2E2E2E);
 
   /// Цвет для градиентной заливки Сплеш экрана
   static const Color gradientGreenLight = Color(0xFF4CAF50);

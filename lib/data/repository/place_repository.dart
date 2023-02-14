@@ -220,6 +220,7 @@ class PlaceRepository extends ChangeNotifier {
   ) async {
     try {
       String mapString;
+      Place placeReturn;
 
       final response = await apiClient.get('$pathUrlListPlaces/$placeId');
 
@@ -234,14 +235,24 @@ class PlaceRepository extends ChangeNotifier {
         place.id,
       );
 
+      placeReturn = place;
       if (placeLocalData != null) {
         //place.id =  placeLocalData.id;
-        place.copyWith(isFavorites: placeLocalData.isFavoritesToBool());
-        place.copyWith(wantVisitDate: placeLocalData.wantVisitDateToDatetime());
-        place.copyWith(visitedDate: placeLocalData.visitedDateToDatetime());
+        debugPrint('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
+        debugPrint(placeLocalData.isFavorites.toString());
+        debugPrint(placeLocalData.isFavoritesToBool(placeLocalData.isFavorites).toString());
+
+        placeReturn =  place.copyWith(
+          isFavorites:
+              placeLocalData.isFavoritesToBool(placeLocalData.isFavorites),
+          wantVisitDate: placeLocalData.wantVisitDateToDatetime(),
+          visitedDate: placeLocalData.visitedDateToDatetime(),
+        );
       }
 
-      return place;
+      debugPrint(placeReturn.toString());
+
+      return placeReturn;
     } on DioError catch (e) {
       throw NetworkException(e);
     }
@@ -275,14 +286,9 @@ class PlaceRepository extends ChangeNotifier {
   ///--------------------------------------------------------------
   /// Установить что место посетили
   Future<void> updatePlaceLocalDB(Place place) async {
-    // debugPrint('place id = ${place.id}  '
-    //     'isFavorites  = ${place.isFavorites}  '
-    //     'wantVisitDate  = ${place.wantVisitDate}  '
-    //     'visitedDate  = ${place.visitedDate}');
     final countUpdate = await DBProvider.dbProvider.updatePlacesLocalData(
       place,
     );
-    //    debugPrint('updatePlaceLocalDB количество обновленных мест = $countUpdate');
   }
 
   ///--------------------------------------------------------------

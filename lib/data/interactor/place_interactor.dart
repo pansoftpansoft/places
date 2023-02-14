@@ -55,7 +55,7 @@ class PlaceInteractor extends ChangeNotifier {
     debugPrint('addInLocalDB = $addInLocalDB');
 
     if (addInLocalDB) {
-      debugPrint('place = ${place.isFavorites}');
+      debugPrint('addInLocalDB place.isFavorites = ${place.isFavorites}');
       final countUpdate = await DBProvider.dbProvider.updatePlacesLocalData(
         place,
       );

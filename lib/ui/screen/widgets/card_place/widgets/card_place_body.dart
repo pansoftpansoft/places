@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:places/data/model/place.dart';
+import 'package:places/ui/screen/widgets/card_place/widgets/card_place_body_background.dart';
 import 'package:places/ui/screen/widgets/card_place/widgets/card_place_body_icon_calendar.dart';
 import 'package:places/ui/screen/widgets/card_place/widgets/card_place_body_icon_delete.dart';
 import 'package:places/ui/screen/widgets/card_place/widgets/card_place_body_icon_goal.dart';
@@ -7,6 +8,7 @@ import 'package:places/ui/screen/widgets/card_place/widgets/card_place_body_pict
 import 'package:places/ui/screen/widgets/card_place/widgets/card_place_body_ripple_effect.dart';
 import 'package:places/ui/screen/widgets/card_place/widgets/card_place_body_text.dart';
 import 'package:places/ui/screen/widgets/card_place/widgets/card_place_body_text_type.dart';
+import 'package:places/ui/screen/widgets/card_place/widgets/card_placeholder_picture.dart';
 
 class CardPlaceBody extends StatelessWidget {
   /// Высота картинки
@@ -42,8 +44,14 @@ class CardPlaceBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: <Widget>[
+        //Плейсхолдер
+        const CardPlaceholderPicture(),
         //Картинка
         CardPlaceBodyPicture(heightImage: heightImage, place: _place),
+        //
+        const CardPlaceBodyBackground(
+          heightImage: heightImage,
+        ),
         //Надпись "категория" места
         CardPlaceBodyTextType(_place),
         CardPlaceBodyText(

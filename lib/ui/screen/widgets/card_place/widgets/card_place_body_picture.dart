@@ -20,7 +20,7 @@ class CardPlaceBodyPicture extends StatefulWidget {
 class _CardPlaceBodyPictureState extends State<CardPlaceBodyPicture>
     with SingleTickerProviderStateMixin {
   late final AnimationController _controllerOpacity = AnimationController(
-    duration: const Duration(milliseconds: 1000),
+    duration: const Duration(milliseconds: 2000),
     vsync: this,
   )..forward();
 
@@ -42,24 +42,29 @@ class _CardPlaceBodyPictureState extends State<CardPlaceBodyPicture>
 
   @override
   Widget build(BuildContext context) {
-    return FadeTransition(
-      opacity: _animationOpacity,
-      child: SizedBox(
-        width: double.infinity,
-        height: widget.heightImage,
-        child: (widget._place.urls.length == 1 &&
-                widget._place.urls.first == noPhoto)
-            ? Image.asset(
-                noPhoto,
-                height: 120,
-                width: 122,
-                fit: BoxFit.cover,
-              )
-            : Image.network(
-                widget._place.urls.first,
-                fit: BoxFit.fitWidth,
-              ),
-      ),
+    return SizedBox(
+      width: double.infinity,
+      height: widget.heightImage,
+      child: (widget._place.urls.length == 1 &&
+              widget._place.urls.first == noPhoto)
+          ? Image.asset(
+              noPhoto,
+              height: 120,
+              width: 122,
+              fit: BoxFit.cover,
+            )
+          : Image.network(
+              widget._place.urls.first,
+              fit: BoxFit.fitWidth,
+              opacity: _animationOpacity,
+              loadingBuilder: (
+                context,
+                child,
+                loadingProgress,
+              ) {
+                return child;
+              },
+            ),
     );
   }
 }

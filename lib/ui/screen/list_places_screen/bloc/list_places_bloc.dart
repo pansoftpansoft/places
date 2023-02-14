@@ -19,6 +19,8 @@ class ListPlacesBloc extends Bloc<ListPlacesEvents, ListPlacesState> {
     on<ListPlacesEvents>(
       (event, emitter) => event.map<Future<void>>(
         load: (event) => _load(event, emitter),
+        loadDataWithoutReloadingList: (event) =>
+            _loadDataWithoutReloadingList(event, emitter),
         loaded: (event) => _loaded(event, emitter),
         selected: (event) => _selected(event, emitter),
         addNew: (event) => _addNew(event, emitter),
@@ -33,11 +35,30 @@ class ListPlacesBloc extends Bloc<ListPlacesEvents, ListPlacesState> {
     Emitter<ListPlacesState> emit,
   ) async {
     emit(const ListPlacesState.load(listPlaces: []));
-    debugPrint('1 event = ${event.toString()}');
-    debugPrint('1 state = ${state.toString()}');
-    debugPrint('1 emit = ${emit.toString()}');
+
+    await Future<void>.delayed(const Duration(seconds: 1));
+
     try {
-      final listPlacesEmpty = await _listPlacesScreenInteractor.loadBloc();
+      final listPlacesEmpty =
+          await _listPlacesScreenInteractor.loadListPlaces();
+      emit(ListPlacesState.loaded(listPlaces: listPlacesEmpty));
+    } on NetworkException {
+      emit(const ListPlacesState.error(message: 'Ошибка загрузки из сети'));
+    } on Object {
+      rethrow;
+    } finally {
+      debugPrint('2 event = ${event.toString()}');
+      debugPrint('2 emitter = ${emit.toString()}');
+    }
+  }
+
+  Future<void> _loadDataWithoutReloadingList(
+    _LoadDataWithoutReloadingListEvents event,
+    Emitter<ListPlacesState> emit,
+  ) async {
+    try {
+      final listPlacesEmpty =
+          await _listPlacesScreenInteractor.loadListPlaces();
       emit(ListPlacesState.loaded(listPlaces: listPlacesEmpty));
     } on NetworkException {
       emit(const ListPlacesState.error(message: 'Ошибка загрузки из сети'));
@@ -53,8 +74,8 @@ class ListPlacesBloc extends Bloc<ListPlacesEvents, ListPlacesState> {
     _LoadedListPlacesEvents event,
     Emitter<ListPlacesState> emitter,
   ) async {
-    debugPrint('event = ${event.toString()}');
-    debugPrint('emitter = ${emitter.toString()}');
+    debugPrint('_loaded event = ${event.toString()}');
+    debugPrint('_loaded emitter = ${emitter.toString()}');
   }
 
   Future<void> _selected(
@@ -70,10 +91,14 @@ class ListPlacesBloc extends Bloc<ListPlacesEvents, ListPlacesState> {
       ),
     );
     try {
+      //Получить место с реальными данными из базы
+      //final listPlacesEmpty = await _listPlacesScreenInteractor.;
       emit(
         ListPlacesState.selected(
           listPlaces: state.listPlaces,
-          place: event.place,
+          place: state.listPlaces.singleWhere(
+            (element) => element.id == event.place.id,
+          ),
         ),
       );
       //
@@ -111,6 +136,9 @@ class ListPlacesEvents with _$ListPlacesEvents {
   const ListPlacesEvents._();
 
   const factory ListPlacesEvents.load() = _LoadListPlacesEvents;
+
+  const factory ListPlacesEvents.loadDataWithoutReloadingList() =
+      _LoadDataWithoutReloadingListEvents;
 
   const factory ListPlacesEvents.loaded() = _LoadedListPlacesEvents;
 
@@ -168,6 +196,10 @@ class ListPlacesState with _$ListPlacesState {
   const factory ListPlacesState.load({
     @Default(<Place>[]) final List<Place> listPlaces,
   }) = _InLoadListPlacesState;
+
+  const factory ListPlacesState.loadDataWithoutReloadingList({
+    @Default(<Place>[]) final List<Place> listPlaces,
+  }) = _LoadDataWithoutReloadingList;
 
   // Список загружен
   const factory ListPlacesState.loaded({

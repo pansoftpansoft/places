@@ -1,4 +1,5 @@
 import 'package:bloc_concurrency/bloc_concurrency.dart' as bloc_concurrency;
+import 'package:flutter/material.dart';
 
 //import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -17,21 +18,50 @@ class DetailsPlaceBloc extends Bloc<DetailsPlaceEvents, DetailsPlaceState> {
     final this._detailsPlaceInteractor,
     final this._placeInteractor,
   ) : super(
-          const DetailsPlaceState.selectedNewPlace(
-            index: 0,
-          ),
+          const DetailsPlaceState.load(),
         ) {
     on<DetailsPlaceEvents>(
       (event, emitter) => event.map<Future<void>>(
-        onSelectNewPlace: (event) => _onSelectNewPlace(event, emitter),
         onPageChanged: (event) => _onPageChanged(event, emitter),
         onChangedFavorites: (event) => _onChangedFavorites(event, emitter),
         onChangedWantVisitDate: (event) =>
             _onChangedWantVisitDate(event, emitter),
         onLoaded: (event) => _onLoaded(event, emitter),
+        onLoad: (event) => _onLoad(event, emitter),
       ),
       transformer: bloc_concurrency.sequential(),
     );
+  }
+
+  Future<void> _onLoad(
+    _OnLoadEvents event,
+    Emitter<DetailsPlaceState> emit,
+  ) async {
+    try {
+      debugPrint('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@');
+      debugPrint(event.place.toString());
+      emit(DetailsPlaceState.load(place: event.place));
+
+      final place = await _detailsPlaceInteractor.getPlace(state.place!.id);
+
+      debugPrint(place!.name);
+      debugPrint('place!.isFavorites = ${place.isFavorites.toString()}');
+
+      await Future<void>.delayed(const Duration(seconds: 2));
+      debugPrint('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@');
+      debugPrint(place.toString());
+
+      emit(
+        DetailsPlaceState.loaded(
+          place: place,
+          isFavorites: place.isFavorites,
+          wantVisitDate: place.wantVisitDate,
+        ),
+      );
+      _detailsPlaceInteractor.changeScrollIndicator(event.index);
+    } on Object {
+      rethrow;
+    }
   }
 
   Future<void> _onPageChanged(
@@ -41,9 +71,12 @@ class DetailsPlaceBloc extends Bloc<DetailsPlaceEvents, DetailsPlaceState> {
     try {
       _detailsPlaceInteractor.changeScrollIndicator(event.index);
       emit(
-        DetailsPlaceState.selectedNewPageChanged(
+        //DetailsPlaceState.selectedNewPageChanged(
+        DetailsPlaceState.loaded(
           place: event.place,
           index: event.index,
+          isFavorites: state.isFavorites,
+          wantVisitDate: state.wantVisitDate,
         ),
       );
     } on Object {
@@ -51,21 +84,12 @@ class DetailsPlaceBloc extends Bloc<DetailsPlaceEvents, DetailsPlaceState> {
     }
   }
 
-  Future<void> _onSelectNewPlace(
-    _OnSelectNewPlaceEvents event,
+  Future<void> _onLoaded(
+    _OnLoadedEvents event,
     Emitter<DetailsPlaceState> emit,
   ) async {
-    try {
-      _detailsPlaceInteractor.changeScrollIndicator(event.index);
-      emit(
-        DetailsPlaceState.selectedNewPageChanged(
-          place: event.place,
-          index: event.index,
-        ),
-      );
-    } on Object {
-      rethrow;
-    }
+    debugPrint('_loaded event = ${event.toString()}');
+    debugPrint('_loaded emitter = ${emit.toString()}');
   }
 
   Future<void> _onChangedFavorites(
@@ -79,7 +103,7 @@ class DetailsPlaceBloc extends Bloc<DetailsPlaceEvents, DetailsPlaceState> {
         ),
       );
       emit(
-        DetailsPlaceState.selectedNewPageChanged(
+        DetailsPlaceState.loaded(
           place: event.place,
           index: state.index,
           isFavorites: !event.isFavorites,
@@ -114,29 +138,12 @@ class DetailsPlaceBloc extends Bloc<DetailsPlaceEvents, DetailsPlaceState> {
       );
 
       emit(
-        DetailsPlaceState.selectedNewPageChanged(
+        //DetailsPlaceState.selectedNewPageChanged(
+        DetailsPlaceState.loaded(
           place: state.place,
           index: state.index,
           isFavorites: state.isFavorites,
           wantVisitDate: dateTimeNew,
-        ),
-      );
-    } on Object {
-      rethrow;
-    }
-  }
-
-  Future<void> _onLoaded(
-    _OnLoadedEvents event,
-    Emitter<DetailsPlaceState> emit,
-  ) async {
-    try {
-      emit(
-        DetailsPlaceState.selectedNewPageChanged(
-          place: event.place,
-          index: event.index,
-          isFavorites: !event.isFavorites,
-          wantVisitDate: event.wantVisitDate,
         ),
       );
     } on Object {
@@ -156,13 +163,6 @@ class DetailsPlaceEvents with _$DetailsPlaceEvents {
     @Default(false) final bool isFavorites,
     final DateTime? wantVisitDate,
   }) = _OnPageChangedEvents;
-
-  const factory DetailsPlaceEvents.onSelectNewPlace({
-    Place? place,
-    @Default(0) final int index,
-    @Default(false) final bool isFavorites,
-    final DateTime? wantVisitDate,
-  }) = _OnSelectNewPlaceEvents;
 
   const factory DetailsPlaceEvents.onChangedFavorites({
     Place? place,
@@ -184,31 +184,30 @@ class DetailsPlaceEvents with _$DetailsPlaceEvents {
     @Default(false) final bool isFavorites,
     final DateTime? wantVisitDate,
   }) = _OnLoadedEvents;
+
+  const factory DetailsPlaceEvents.onLoad({
+    Place? place,
+    @Default(0) final int index,
+    @Default(false) final bool isFavorites,
+    final DateTime? wantVisitDate,
+  }) = _OnLoadEvents;
 }
 
 /// Состояния
 @freezed
 class DetailsPlaceState with _$DetailsPlaceState {
-  bool get selectedNewPageChanged => maybeMap<bool>(
+
+  bool get load => maybeMap<bool>(
         orElse: () => false,
-        selectedNewPageChanged: (_) => true,
+        load: (_) => true,
+      );
+
+  bool get loaded => maybeMap<bool>(
+        orElse: () => false,
+        loaded: (_) => true,
       );
 
   const DetailsPlaceState._();
-
-  const factory DetailsPlaceState.selectedNewPageChanged({
-    Place? place,
-    @Default(0) final int index,
-    @Default(false) final bool isFavorites,
-    final DateTime? wantVisitDate,
-  }) = _SelectedNewPageChanged;
-
-  const factory DetailsPlaceState.selectedNewPlace({
-    Place? place,
-    @Default(0) final int index,
-    @Default(false) final bool isFavorites,
-    final DateTime? wantVisitDate,
-  }) = _SelectedNewPlace;
 
   const factory DetailsPlaceState.loaded({
     Place? place,
@@ -216,4 +215,11 @@ class DetailsPlaceState with _$DetailsPlaceState {
     @Default(false) final bool isFavorites,
     final DateTime? wantVisitDate,
   }) = _Loaded;
+
+  const factory DetailsPlaceState.load({
+    Place? place,
+    @Default(0) final int index,
+    @Default(false) final bool isFavorites,
+    final DateTime? wantVisitDate,
+  }) = _Load;
 }
