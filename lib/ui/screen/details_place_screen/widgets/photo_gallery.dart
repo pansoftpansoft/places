@@ -53,7 +53,7 @@ class PhotoGallery extends StatelessWidget {
               ),
             ),
             Positioned(
-              bottom: 32,
+              bottom: 0,
               child: ScrollIndicator(
                 countElements: place.urls.length,
                 index: state.index,
