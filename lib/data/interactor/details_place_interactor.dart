@@ -24,12 +24,7 @@ class DetailsPlaceInteractor extends ChangeNotifier {
   void changeScrollIndicator(
     final int indexIndicator,
   ) {
-    debugPrint('notifyListeners()');
     index = indexIndicator;
-  }
-
-  void updateScreen() {
-    notifyListeners();
   }
 
   Future<Place?> getPlace(

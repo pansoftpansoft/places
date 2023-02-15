@@ -32,18 +32,5 @@ class AppBarTitleButtonCancel extends StatelessWidget {
     //Востановить состояние фильтра
     context.read<FilterBloc>().add(const FilterEvents.updateFilterCategory());
     Navigator.pop(context);
-
-    // context.read<FiltersScreenInteractor>().restoreFilterSettings().then(
-    //       (value) => context
-    //           .read<FiltersScreenInteractor>()
-    //           .getDataFromRepository()
-    //           .then(
-    //         (value) {
-    //           context.read<FiltersScreenInteractor>().notifyListenersFiltersScreen();
-    //           Navigator.pop(context);
-    //         },
-    //       ),
-    //     );
-
   }
 }

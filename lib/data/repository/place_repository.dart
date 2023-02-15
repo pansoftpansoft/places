@@ -47,7 +47,6 @@ class PlaceRepository extends ChangeNotifier {
 
       return Place.fromJson(response.data as Map<String, dynamic>);
     } on DioError catch (e) {
-      //streamControllerListPlace.addError(NetworkException);
       throw NetworkException(e);
     }
   }
@@ -85,7 +84,6 @@ class PlaceRepository extends ChangeNotifier {
 
       return listPlaceAll;
     } on DioError catch (e) {
-      //streamControllerListPlace.addError(NetworkException);
       throw NetworkException(e);
     }
   }
@@ -110,7 +108,6 @@ class PlaceRepository extends ChangeNotifier {
   }
 
   Future<List<Place>?> updateMocksFiltered() async {
-    //await createMocks(placesDtoFilter);
 
     return repositoryMocks;
   }
@@ -119,7 +116,6 @@ class PlaceRepository extends ChangeNotifier {
     List<Place> listAllPlaces,
   ) async {
     final returnListWantVisit = listAllPlaces
-        //.where((element) => element.visitedDate == null && element.isFavorites)
         .where((element) => element.isFavorites)
         .toList();
 

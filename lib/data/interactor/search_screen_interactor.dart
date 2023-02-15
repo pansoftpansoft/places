@@ -122,7 +122,6 @@ class SearchScreenInteractor extends ChangeNotifier {
   Future<void> deleteHistory(String historyText) async {
     await DBProvider.deleteHistory(historyText);
     await getListHistory(); //Обновляем список после удаления всей истории
-    notifyListeners();
   }
 
   ///Здесь мы устанавливаем какой экран хотим получить и корректируем

@@ -17,7 +17,7 @@ class VisitingInteractor extends ChangeNotifier {
     Place place,
     //StreamController<Place> streamControllerListPlace,
   ) async {
-    final placeNew= place.copyWith(isFavorites: false);
+    final placeNew = place.copyWith(isFavorites: false);
     await placeInteractor.setFavorites(
       placeNew,
     );
@@ -30,7 +30,6 @@ class VisitingInteractor extends ChangeNotifier {
     await placeInteractor.setStatusPlaceVisited(
       place,
     );
-    notifyListeners();
   }
 
   ///Перемещение карточек внутри списка
@@ -38,7 +37,6 @@ class VisitingInteractor extends ChangeNotifier {
     final placeTarget = mocksWantVisit[target];
     mocksWantVisit[target] = mocksWantVisit[sours];
     mocksWantVisit[sours] = placeTarget;
-    notifyListeners();
   }
 
   ///Установка или изменение даты заплонированного посещения интересног места
@@ -49,18 +47,12 @@ class VisitingInteractor extends ChangeNotifier {
     );
   }
 
-
-
-
-
   ///Установка места признака что оно посещено
   Future<void> wantVisitUpdateToVisit(Place place) async {
     await placeInteractor.setStatusPlaceVisited(place);
   }
 
   Future<void> getListWantVisitAndVisited() async {
-
-
     final listAllPlace = await placeRepository.getAllPlace();
     debugPrint('listAllPlace = ${listAllPlace.length}');
     mocksWantVisit = await placeRepository.getPlacesWantVisit(listAllPlace);

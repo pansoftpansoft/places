@@ -12,12 +12,6 @@ class ListPlacesScreenInteractor extends ChangeNotifier {
 
   final PlaceInteractor _placeInteractor = PlaceInteractor();
 
-  ///Управление кнопкой создать
-  void updatePlacesList() {
-    debugPrint('PlacesListScreenModel');
-    notifyListeners();
-  }
-
   Future<List<Place>> loadListPlaces() async {
     FilterDistance? filterDistance;
     List<String>? listCategory = [];
