@@ -4,7 +4,7 @@ import 'package:places/ui/res/loader_size.dart';
 import 'package:places/ui/res/route_name.dart';
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/screen/details_place_screen/bloc/details_place_bloc.dart';
-import 'package:places/ui/screen/details_place_screen/details_place_screen.dart';
+//import 'package:places/ui/screen/details_place_screen/details_place_screen.dart';
 import 'package:places/ui/screen/list_places_screen/bloc/list_places_bloc.dart';
 import 'package:places/ui/screen/list_places_screen/widgets/sticky_header.dart';
 import 'package:places/ui/screen/widgets/card_place/card_place.dart';
@@ -36,25 +36,37 @@ class ListPlacesScreenPortrait extends StatelessWidget {
         BlocListener<ListPlacesBloc, ListPlacesState>(
           listenWhen: (previousState, state) => state.selected,
           listener: (context, state) {
-            debugPrint('See details');
-            showModalBottomSheet<Widget>(
-              context: context,
-              builder: (_) {
-                context.read<DetailsPlaceBloc>().add(
-                      DetailsPlaceEvents.onLoad(
-                        place: state.place,
-                        index: 0,
-                      ),
-                    );
 
-                return const DetailsPlaceScreen();
-              },
-              isScrollControlled: true,
-              isDismissible: true,
-              useRootNavigator: true,
+            context.read<DetailsPlaceBloc>().add(
+              DetailsPlaceEvents.onLoad(
+                place: state.place,
+                index: 0,
+              ),
             );
 
-            return;
+            Navigator.pushNamed(context, RouteName.detailsPlaceScreen);
+
+
+
+            // debugPrint('See details BottomSheet');
+            // showModalBottomSheet<Widget>(
+            //   context: context,
+            //   builder: (_) {
+            //     context.read<DetailsPlaceBloc>().add(
+            //           DetailsPlaceEvents.onLoad(
+            //             place: state.place,
+            //             index: 0,
+            //           ),
+            //         );
+            //
+            //     return const DetailsPlaceScreen();
+            //   },
+            //   isScrollControlled: true,
+            //   isDismissible: true,
+            //   useRootNavigator: true,
+            // );
+
+            // return;
           },
         ),
       ],

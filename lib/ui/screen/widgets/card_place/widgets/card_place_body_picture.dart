@@ -45,26 +45,29 @@ class _CardPlaceBodyPictureState extends State<CardPlaceBodyPicture>
     return SizedBox(
       width: double.infinity,
       height: widget.heightImage,
-      child: (widget._place.urls.length == 1 &&
-              widget._place.urls.first == noPhoto)
-          ? Image.asset(
-              noPhoto,
-              height: 120,
-              width: 122,
-              fit: BoxFit.cover,
-            )
-          : Image.network(
-              widget._place.urls.first,
-              fit: BoxFit.fitWidth,
-              opacity: _animationOpacity,
-              loadingBuilder: (
-                context,
-                child,
-                loadingProgress,
-              ) {
-                return child;
-              },
-            ),
+      child: Hero(
+        tag: widget._place.urls.first,
+        child: (widget._place.urls.length == 1 &&
+                widget._place.urls.first == noPhoto)
+            ? Image.asset(
+                noPhoto,
+                height: 120,
+                width: 122,
+                fit: BoxFit.cover,
+              )
+            : Image.network(
+                widget._place.urls.first,
+                fit: BoxFit.fitWidth,
+                opacity: _animationOpacity,
+                loadingBuilder: (
+                  context,
+                  child,
+                  loadingProgress,
+                ) {
+                  return child;
+                },
+              ),
+      ),
     );
   }
 }

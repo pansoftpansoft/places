@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:places/type_place.dart';
+import 'package:places/ui/res/route_name.dart';
 import 'package:places/ui/screen/details_place_screen/bloc/details_place_bloc.dart';
-import 'package:places/ui/screen/details_place_screen/details_place_screen.dart';
+//import 'package:places/ui/screen/details_place_screen/details_place_screen.dart';
 import 'package:places/ui/screen/visiting_screen/bloc/list_visited_bloc/list_visited_bloc.dart';
 import 'package:places/ui/screen/visiting_screen/widgets/list_visited_empty.dart';
 import 'package:places/ui/screen/visiting_screen/widgets/list_visited_filled.dart';
@@ -25,25 +26,34 @@ class ListVisited extends StatelessWidget {
             return state is ListVisitedPlaceSelectedState;
           },
           listener: (context, state) {
-            showModalBottomSheet<Widget>(
-              context: context,
-              builder: (_) {
-                context.read<DetailsPlaceBloc>().add(
-                      DetailsPlaceEvents.onLoad(
-                        place:
-                            (state as ListVisitedPlaceSelectedState).placeVisit,
-                        index: 0,
-                      ),
-                    );
+            context.read<DetailsPlaceBloc>().add(
+                  DetailsPlaceEvents.onLoad(
+                    place: (state as ListVisitedPlaceSelectedState).placeVisit,
+                    index: 0,
+                  ),
+                );
 
-                return const DetailsPlaceScreen();
-              },
-              isScrollControlled: true,
-              isDismissible: true,
-              useRootNavigator: true,
-            );
+            Navigator.pushNamed(context, RouteName.detailsPlaceScreen);
 
-            return;
+            // showModalBottomSheet<Widget>(
+            //   context: context,
+            //   builder: (_) {
+            //     context.read<DetailsPlaceBloc>().add(
+            //           DetailsPlaceEvents.onLoad(
+            //             place:
+            //                 (state as ListVisitedPlaceSelectedState).placeVisit,
+            //             index: 0,
+            //           ),
+            //         );
+            //
+            //     return const DetailsPlaceScreen();
+            //   },
+            //   isScrollControlled: true,
+            //   isDismissible: true,
+            //   useRootNavigator: true,
+            // );
+            //
+            // return;
           },
         ),
       ],

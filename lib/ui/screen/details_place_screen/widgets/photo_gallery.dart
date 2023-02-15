@@ -29,25 +29,28 @@ class PhotoGallery extends StatelessWidget {
               height: 360,
               width: double.infinity,
               color: Colors.green,
-              child: place.urls.length == 1 && place.urls.first == noPhoto
-                  ? Image.asset(
-                      noPhoto,
-                      height: 120,
-                      width: 122,
-                    )
-                  : PageView.builder(
-                      onPageChanged: (index) {
-                        context.read<DetailsPlaceBloc>().add(
-                              DetailsPlaceEvents.onPageChanged(
-                                place: place,
-                                index: index,
-                              ),
-                            );
-                      },
-                      itemCount: place.urls.length,
-                      itemBuilder: (context, index) =>
-                          PhotoGalleryPicture(place.urls[index]),
-                    ),
+              child: Hero(
+                tag: place.urls.first,
+                child: place.urls.length == 1 && place.urls.first == noPhoto
+                    ? Image.asset(
+                        noPhoto,
+                        height: 120,
+                        width: 122,
+                      )
+                    : PageView.builder(
+                        onPageChanged: (index) {
+                          context.read<DetailsPlaceBloc>().add(
+                                DetailsPlaceEvents.onPageChanged(
+                                  place: place,
+                                  index: index,
+                                ),
+                              );
+                        },
+                        itemCount: place.urls.length,
+                        itemBuilder: (context, index) =>
+                            PhotoGalleryPicture(place.urls[index]),
+                      ),
+              ),
             ),
             Positioned(
               bottom: 0,

@@ -42,12 +42,13 @@ class DetailsPlaceBloc extends Bloc<DetailsPlaceEvents, DetailsPlaceState> {
       debugPrint(event.place.toString());
       emit(DetailsPlaceState.load(place: event.place));
 
-      final place = await _detailsPlaceInteractor.getPlace(state.place!.id);
+      //final place = await _detailsPlaceInteractor.getPlace(state.place!.id);
+      final place = event.place;
 
       debugPrint(place!.name);
       debugPrint('place!.isFavorites = ${place.isFavorites.toString()}');
 
-      await Future<void>.delayed(const Duration(seconds: 2));
+      // await Future<void>.delayed(const Duration(seconds: 2));
       debugPrint('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@');
       debugPrint(place.toString());
 
