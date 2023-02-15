@@ -28,6 +28,7 @@ dependencies:
   json_annotation: ^4.6.0
   path_provider: any
   provider: ^6.0.0
+  shared_preferences: ^2.0.17
   sqflite: any
   surf_lint_rules: ^1.5.0
 

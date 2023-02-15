@@ -53,7 +53,6 @@ class _FiltersScreenBodySliderState extends State<FiltersScreenBodySlider> {
     setState(() {
       debugPrint('newRange = ${newRange.end}');
       FiltersScreenInteractor.rangeDistance = newRange;
-      context.read<FiltersScreenInteractor>().notifyListenersFiltersScreen();
     });
   }
 
@@ -65,11 +64,5 @@ class _FiltersScreenBodySliderState extends State<FiltersScreenBodySlider> {
             filterDistance: FilterDistance(0, newRange.start, newRange.end),
           ),
         );
-
-    // context
-    //     .read<FiltersScreenInteractor>()
-    //     .getDataFromRepository()
-    //     .then((value) =>
-    //         context.read<FiltersScreenInteractor>().notifyListenersFiltersScreen());
   }
 }

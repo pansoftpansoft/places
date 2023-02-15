@@ -54,15 +54,5 @@ class _CategoryIconSvgIconState extends State<CategoryIconSvgIcon> {
             selectedCategory: widget.placeType.namePlaceDB,
           ),
         );
-
-    // context.read<FiltersScreenInteractor>().setTypePlaceSelected(
-    //       widget.placeType.namePlaceDB,
-    //     );
-    //
-    // context
-    //     .read<FiltersScreenInteractor>()
-    //     .getDataFromRepository()
-    //     .then((value) =>
-    //         context.read<FiltersScreenInteractor>().notifyListenersFiltersScreen());
   }
 }

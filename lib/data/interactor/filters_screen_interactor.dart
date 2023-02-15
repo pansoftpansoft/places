@@ -117,18 +117,11 @@ class FiltersScreenInteractor extends ChangeNotifier {
       ));
     }
 
+    // Сохраняем нажатые иконки
     await updateListFilterCategory(listCategory);
 
     // Сохраняем дистанцию
     await updateListFilterDistance(filterDistance);
-  }
-
-  void notifyListenersFiltersScreen() {
-    notifyListeners();
-  }
-
-  void countFilteredPlacesSet() {
-    notifyListeners();
   }
 
   /// Получить настройки фильтра дистанции до места

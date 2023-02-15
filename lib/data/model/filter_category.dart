@@ -3,8 +3,12 @@ class FilterCategory {
   final int orderCategory;
   int categoryValue;
 
-  FilterCategory(this.category, this.orderCategory, this.categoryValue,);
-//filter_interactor
+  FilterCategory(
+    this.category,
+    this.orderCategory,
+    this.categoryValue,
+  );
+
   factory FilterCategory.fromMap(
     final Map<String, dynamic> mapFilter,
   ) =>

@@ -182,7 +182,6 @@ class FilterBloc extends Bloc<FilterEvents, FilterState> {
     debugPrint('event = ${event.toString()}');
     debugPrint('emitter = ${emitter.toString()}');
     try {
-      // Сохранить настройки фильтров
 
       await _filtersScreenInteractor.saveFilterSettings(
         filterMap: state.filterMap,

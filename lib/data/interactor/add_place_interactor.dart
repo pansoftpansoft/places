@@ -14,9 +14,6 @@ class AddPlaceInteractor extends ChangeNotifier {
     String pathPhoto,
   ) {
     debugPrint('tempPhotoPlace.add $pathPhoto');
-
-    //tempPhotoPlace.add(pathPhoto);
-    notifyListeners();
   }
 
   ///Удаляем фотографию
@@ -25,20 +22,8 @@ class AddPlaceInteractor extends ChangeNotifier {
       return;
     } //Не удаляем кнопку добавить
 
-    // if (tempPhotoPlace.length == 1) {
-    //   return;
-    // } //Не удаляем кнопку добавить
-    //
-    // if (index > tempPhotoPlace.length - 1) {
-    //   tempPhotoPlace.removeLast();
-    // } else {
-    //   tempPhotoPlace.removeAt(index);
-    // }
-    notifyListeners();
   }
-
      Future<Place?> addPlace(Place place) async {
-
      final newPlace = await placeRepository.postPlace(place);
 
      return newPlace;
