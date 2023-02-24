@@ -115,7 +115,7 @@ class FilterBloc extends Bloc<FilterEvents, FilterState> {
     }
   }
 
-  //Введено слово, начикаем поиск
+  //Запоминаем отмеченную категорию
   Future<void> _onUpdateFilterCategory(
     _onUpdateFilterCategoryEvents event,
     Emitter<FilterState> emitter,
