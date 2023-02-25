@@ -8,9 +8,9 @@ import 'package:places/ui/screen/widgets/elevated_button_green_big.dart';
 
 
 ///Кнопка "показать"
-class BottomSheetButtonShow extends StatelessWidget {
+class ButtonShow extends StatelessWidget {
   ///Кнопка "показать"
-  const BottomSheetButtonShow({Key? key}) : super(key: key);
+  const ButtonShow({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

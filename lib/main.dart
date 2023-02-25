@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 //import 'package:places/blocs/place_bloc_observer.dart';
 import 'package:places/data/api/api_client.dart';
 import 'package:places/ui/res/labels.dart';
@@ -55,6 +56,10 @@ class Main extends StatelessWidget {
   Widget build(BuildContext context) {
     return Builder(
       builder: (context) {
+        context.read<SettingsBloc>().add(
+              const SettingsEvents.loadSettings(),
+            );
+
         return BlocBuilder<SettingsBloc, SettingsState>(
           builder: (context, state) {
             return MaterialApp(
