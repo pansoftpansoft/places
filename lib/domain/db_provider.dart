@@ -182,7 +182,7 @@ class DBProvider {
     return list;
   }
 
-  Future<List<SettingsApp>> getListSettingsAppFromDb() async {
+  Future<int> getThemeColor() async {
     _database = await database;
     final res = await _database!.query(
       'SettingsApp',
@@ -192,7 +192,7 @@ class DBProvider {
         ? res.map(SettingsApp.fromMap).toList()
         : <SettingsApp>[];
 
-    return list;
+    return 0;
   }
 
   ///--------------------------------------------------------------
@@ -210,7 +210,7 @@ class DBProvider {
   }
 
   Future<void> updateSettingsThemeColorInDb(
-    final String settingsApp,
+    final int settingsApp,
   ) async {
     debugPrint('SettingsApp.toMap() = $settingsApp');
     _database = await database;

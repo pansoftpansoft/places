@@ -52,7 +52,7 @@ class SettingsBloc extends Bloc<SettingsEvents, SettingsState> {
     debugPrint('event = ${event.toString()}');
     debugPrint('emitter = ${emit.toString()}');
     try {
-      final saveTheme = await _settingsInteractor.getSettingsTheme('themesColor');
+      final saveTheme = await _settingsInteractor.getSettingsThemeColor();
       if (saveTheme == lightTheme) {
         emit(const SettingsState.newSettings(themeData: false));
       } else {

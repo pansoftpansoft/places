@@ -3,9 +3,23 @@ import 'package:shared_preferences/shared_preferences.dart';
 ///SharedPreferences
 ///функции для доступа
 class SPProvider {
+  static const String _keyThemeColor = 'keyThemeColor';
   static late SharedPreferences? _prefs;
 
-  //Получение данных из SharedPreferences
+  static Future<int?> getThemeColor() async {
+    final param = await getFromSP<int>(_keyThemeColor);
+
+    return param;
+  }
+
+  static Future<void> updateThemeColorInSP(int themeData) async {
+    await updateInSP<int>(
+      _keyThemeColor,
+      themeData,
+    );
+  }
+
+  ///Получение данных из SharedPreferences
   static Future<T?> getFromSP<T>(String keyValue) async {
     await _initPrefs();
 

@@ -20,12 +20,6 @@ class DetailsPlaceInteractor extends ChangeNotifier {
 
   Place? detailsPlace;
 
-  ///Изменнение положения индикатора
-  void changeScrollIndicator(
-    final int indexIndicator,
-  ) {
-    index = indexIndicator;
-  }
 
   Future<Place?> getPlace(
     int placeId,
@@ -35,5 +29,12 @@ class DetailsPlaceInteractor extends ChangeNotifier {
     );
 
     return detailsPlace;
+  }
+
+  ///Изменнение положения индикатора
+  void changeScrollIndicator(
+    final int indexIndicator,
+  ) {
+    index = indexIndicator;
   }
 }
