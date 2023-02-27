@@ -56,9 +56,6 @@ class Main extends StatelessWidget {
   Widget build(BuildContext context) {
     return Builder(
       builder: (context) {
-        context.read<SettingsBloc>().add(
-              const SettingsEvents.loadSettings(),
-            );
 
         return BlocBuilder<SettingsBloc, SettingsState>(
           builder: (context, state) {

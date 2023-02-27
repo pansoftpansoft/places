@@ -5,6 +5,7 @@ import 'package:places/ui/res/color_palette.dart';
 import 'package:places/ui/res/img.dart';
 import 'package:places/ui/res/route_name.dart';
 import 'package:places/ui/screen/onboarding_screen/bloc/onboarding_bloc.dart';
+import 'package:places/ui/screen/settings_screen/bloc/settings_bloc.dart';
 import 'package:provider/provider.dart';
 
 /// Экран затавка при загрузке приложения
@@ -111,6 +112,9 @@ class SplashScreenState extends State<SplashScreen>
   void _navigateToNextAsync() {
     //Запускаем получение данных из сети
 
+    bool showOnboarding;
+
+    bool themeData;
     getNetData().then(
       (value) async => {
         debugPrint('value = 1'),
@@ -126,14 +130,33 @@ class SplashScreenState extends State<SplashScreen>
 
         if (mounted)
           {
-            context.read<OnboardingBloc>().add(
-                  const OnboardingEvents.load(),
-                ),
-            Navigator.pushReplacementNamed(
-              context,
-              RouteName.onboardingScreen,
-              arguments: {'callingFromSettings': false},
+            showOnboarding = context.read<SettingsBloc>().state.firstStart,
+            debugPrint(
+              'Переход на следующий экран showOnboarding =  ${showOnboarding.toString()}',
             ),
+            if (showOnboarding)
+              {
+                Navigator.pushReplacementNamed(
+                  context,
+                  RouteName.listPlacesScreen,
+                ),
+              }
+            else
+              {
+                themeData = context.read<SettingsBloc>().state.themeData,
+                context.read<SettingsBloc>().add(SettingsEvents.updateSettings(
+                      themeData: themeData,
+                      firstStart: true,
+                    )),
+                context.read<OnboardingBloc>().add(
+                      const OnboardingEvents.load(),
+                    ),
+                Navigator.pushReplacementNamed(
+                  context,
+                  RouteName.onboardingScreen,
+                  arguments: {'callingFromSettings': false},
+                ),
+              },
           },
       },
     );

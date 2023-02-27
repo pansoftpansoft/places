@@ -38,4 +38,15 @@ class SettingsRepository {
       await SPProvider.updateThemeColorInSP(saveTheme);
     }
   }
+
+  ///Проверяем показ Туториала
+  static Future<bool> getShowOnboarding() async {
+    final param = await SPProvider.getShowOnboarding() ?? false;
+
+    return param;
+  }
+  ///Сохраняем показ Туториала
+  static Future<void> updateShowOnboarding() async {
+    await SPProvider.updateShowOnboarding();
+  }
 }

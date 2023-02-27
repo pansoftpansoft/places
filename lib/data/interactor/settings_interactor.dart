@@ -9,4 +9,11 @@ class SettingsInteractor extends ChangeNotifier {
   Future<void> updateSettingsThemeColor(ThemeData themeData) async {
     await SettingsRepository.updateSettingsThemeColor(themeData);
   }
+
+  Future<bool> getShowOnboarding() async {
+    return SettingsRepository.getShowOnboarding();
+  }
+  Future<void> updateShowOnboarding() async {
+    await SettingsRepository.updateShowOnboarding();
+  }
 }

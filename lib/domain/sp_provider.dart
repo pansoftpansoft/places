@@ -4,6 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 ///функции для доступа
 class SPProvider {
   static const String _keyThemeColor = 'keyThemeColor';
+  static const String _keyShowTutorial = 'keyShowTutorial';
   static late SharedPreferences? _prefs;
 
   static Future<int?> getThemeColor() async {
@@ -16,6 +17,19 @@ class SPProvider {
     await updateInSP<int>(
       _keyThemeColor,
       themeData,
+    );
+  }
+
+  static Future<bool?> getShowOnboarding() async {
+    final param = await getFromSP<bool>(_keyShowTutorial);
+
+    return param;
+  }
+
+  static Future<void> updateShowOnboarding() async {
+    await updateInSP<bool>(
+      _keyShowTutorial,
+      true,
     );
   }
 
@@ -32,13 +46,12 @@ class SPProvider {
     }
 
     if (T == int) {
-      value = _prefs!.getInt(keyValue) as T;
+      value = (_prefs?.getInt(keyValue) ?? 0) as T;
 
       return value;
     }
-
     if (T == bool) {
-      value = _prefs!.getBool(keyValue) as T;
+      value = (_prefs?.getBool(keyValue) ?? false) as T;
 
       return value;
     }

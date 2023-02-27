@@ -24,7 +24,10 @@ class SettingsScreenThemeSwitch extends StatelessWidget {
               value: state.themeData,
               onChanged: (value) {
                 context.read<SettingsBloc>().add(
-                      SettingsEvents.updateSettings(themeData: value),
+                      SettingsEvents.updateSettings(
+                        themeData: value,
+                        firstStart: state.firstStart,
+                      ),
                     );
               },
             ),

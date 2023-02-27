@@ -14,7 +14,10 @@ class SettingsBloc extends Bloc<SettingsEvents, SettingsState> {
   SettingsBloc(
     final this._settingsInteractor,
   ) : super(
-          const SettingsState.loadSettings(themeData: false),
+          const SettingsState.loadSettings(
+            themeData: false,
+            firstStart: false,
+          ),
         ) {
     debugPrint('ListPlacesBloc ');
     on<SettingsEvents>(
@@ -33,13 +36,19 @@ class SettingsBloc extends Bloc<SettingsEvents, SettingsState> {
     debugPrint('event = ${event.toString()}');
     debugPrint('emitter = ${emit.toString()}');
     try {
+
       if (event.themeData) {
         await _settingsInteractor.updateSettingsThemeColor(darkTheme);
       } else {
         await _settingsInteractor.updateSettingsThemeColor(lightTheme);
       }
 
-      emit(SettingsState.newSettings(themeData: event.themeData));
+      await _settingsInteractor.updateShowOnboarding();
+
+      emit(SettingsState.newSettings(
+        themeData: event.themeData,
+        firstStart: event.firstStart,
+      ));
     } on Object {
       rethrow;
     }
@@ -53,10 +62,17 @@ class SettingsBloc extends Bloc<SettingsEvents, SettingsState> {
     debugPrint('emitter = ${emit.toString()}');
     try {
       final saveTheme = await _settingsInteractor.getSettingsThemeColor();
+      final showOnboarding = await _settingsInteractor.getShowOnboarding();
       if (saveTheme == lightTheme) {
-        emit(const SettingsState.newSettings(themeData: false));
+        emit(SettingsState.newSettings(
+          themeData: false,
+          firstStart: showOnboarding,
+        ));
       } else {
-        emit(const SettingsState.newSettings(themeData: true));
+        emit(SettingsState.newSettings(
+          themeData: true,
+          firstStart: showOnboarding,
+        ));
       }
     } on Object {
       rethrow;
@@ -71,8 +87,10 @@ class SettingsEvents with _$SettingsEvents {
 
   const factory SettingsEvents.loadSettings() = _LoadSettingsEvents;
 
-  const factory SettingsEvents.updateSettings({required bool themeData}) =
-      _UpdateSettingsEvents;
+  const factory SettingsEvents.updateSettings({
+    required bool themeData,
+    required bool firstStart,
+  }) = _UpdateSettingsEvents;
 }
 
 /// Состояния
@@ -80,15 +98,21 @@ class SettingsEvents with _$SettingsEvents {
 class SettingsState with _$SettingsState {
   ThemeData get theme => maybeWhen<ThemeData>(
         orElse: () => lightTheme,
-        loadSettings: (themeData) => themeData ? darkTheme : lightTheme,
-        newSettings: (themeData) => themeData ? darkTheme : lightTheme,
+        loadSettings: (themeData, firstStart) =>
+            themeData ? darkTheme : lightTheme,
+        newSettings: (themeData, firstStart) =>
+            themeData ? darkTheme : lightTheme,
       );
 
   const SettingsState._();
 
-  const factory SettingsState.loadSettings({required bool themeData}) =
-      _LoadSettings;
+  const factory SettingsState.loadSettings({
+    required bool themeData,
+    required bool firstStart,
+  }) = _LoadSettings;
 
-  const factory SettingsState.newSettings({required bool themeData}) =
-      _NewSettings;
+  const factory SettingsState.newSettings({
+    required bool themeData,
+    required bool firstStart,
+  }) = _NewSettings;
 }
