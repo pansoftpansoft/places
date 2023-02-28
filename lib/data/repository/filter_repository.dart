@@ -83,29 +83,29 @@ class FilterRepository {
   static Future<T?> getFromSharedPreferences<T>(String keyValue) async {
     final prefs = await SharedPreferences.getInstance();
 
-    Future<T> value;
+    T value;
 
-    if (T is String) {
-      value = prefs.getString(keyValue) as Future<T>;
+    if (T == String) {
+      value = prefs.getString(keyValue) as T;
 
       return value;
     }
 
-    if (T is int) {
-      value = prefs.getInt(keyValue) as Future<T>;
+    if (T == int) {
+      value = prefs.getInt(keyValue) as T;
       debugPrint('value = ${value.toString()}');
 
       return value;
     }
 
-    if (T is bool) {
-      value = prefs.getBool(keyValue) as Future<T>;
+    if (T == bool) {
+      value = prefs.getBool(keyValue) as T;
 
       return value;
     }
 
-    if (T is List<String>) {
-      value = prefs.getBool(keyValue) as Future<T>;
+    if (T == List<String>) {
+      value = prefs.getBool(keyValue) as T;
 
       return value;
     }
