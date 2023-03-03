@@ -3,6 +3,9 @@ class FilterCategory {
   final int orderCategory;
   int categoryValue;
 
+
+
+
   FilterCategory(
     this.category,
     this.orderCategory,

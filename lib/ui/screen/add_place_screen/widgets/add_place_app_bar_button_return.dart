@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:places/ui/res/labels.dart';
+import 'package:places/ui/screen/filters_screen/bloc/filter_bloc.dart';
 import 'package:places/ui/screen/list_places_screen/bloc/list_places_bloc.dart';
 import 'package:provider/provider.dart';
 
@@ -19,7 +20,9 @@ class AddPlaceAppBarButtonReturn extends StatelessWidget {
           ),
         ),
         onPressed: () {
-          context.read<ListPlacesBloc>().add(const ListPlacesEvents.load());
+          context.read<ListPlacesBloc>().add(ListPlacesEvents.load(
+              context.read<FilterBloc>().state.selectedCategory
+          ));
           Navigator.pop(context);
         },
         child: Text(

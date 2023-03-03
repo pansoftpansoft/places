@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:places/data/interactor/filters_screen_interactor.dart';
 import 'package:places/data/interactor/place_interactor.dart';
 import 'package:places/data/model/filter_distance.dart';
+import 'package:places/data/model/filter_set.dart';
 import 'package:places/data/model/place.dart';
 
 class ListPlacesScreenInteractor extends ChangeNotifier {
@@ -12,7 +13,9 @@ class ListPlacesScreenInteractor extends ChangeNotifier {
 
   final PlaceInteractor _placeInteractor = PlaceInteractor();
 
-  Future<List<Place>> loadListPlaces() async {
+  Future<List<Place>> loadListPlaces(
+    FilterSet filterSet,
+  ) async {
     FilterDistance? filterDistance;
     List<String>? listCategory = [];
 
@@ -36,7 +39,7 @@ class ListPlacesScreenInteractor extends ChangeNotifier {
         filterDistance.distanceStart,
         filterDistance.distanceEnd,
       ),
-      category: listCategory,
+      category: filterSet.selectedCategory.toList(),
     );
 
     return list;

@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:places/data/api/network_exception.dart';
 import 'package:places/data/interactor/list_places_screen_interactor.dart';
+import 'package:places/data/model/filter_set.dart';
 import 'package:places/data/model/place.dart';
 
 part 'list_places_bloc.freezed.dart';
@@ -14,7 +15,7 @@ class ListPlacesBloc extends Bloc<ListPlacesEvents, ListPlacesState> {
   ListPlacesBloc(
     final this._listPlacesScreenInteractor,
   ) : super(
-          const ListPlacesState.load(listPlaces: <Place>[]),
+          const ListPlacesState.loaded(listPlaces: <Place>[]),
         ) {
     on<ListPlacesEvents>(
       (event, emitter) => event.map<Future<void>>(
@@ -34,13 +35,16 @@ class ListPlacesBloc extends Bloc<ListPlacesEvents, ListPlacesState> {
     _LoadListPlacesEvents event,
     Emitter<ListPlacesState> emit,
   ) async {
-    emit(const ListPlacesState.load(listPlaces: []));
+    emit(ListPlacesState.load(
+      listPlaces: [],
+      filterSet: event.filterSet,
+    ));
 
     await Future<void>.delayed(const Duration(seconds: 1));
 
     try {
       final listPlacesEmpty =
-          await _listPlacesScreenInteractor.loadListPlaces();
+          await _listPlacesScreenInteractor.loadListPlaces(event.filterSet);
       emit(ListPlacesState.loaded(listPlaces: listPlacesEmpty));
     } on NetworkException {
       emit(const ListPlacesState.error(message: 'Ошибка загрузки из сети'));
@@ -58,7 +62,7 @@ class ListPlacesBloc extends Bloc<ListPlacesEvents, ListPlacesState> {
   ) async {
     try {
       final listPlacesEmpty =
-          await _listPlacesScreenInteractor.loadListPlaces();
+          await _listPlacesScreenInteractor.loadListPlaces(event.filterSet);
       emit(ListPlacesState.loaded(listPlaces: listPlacesEmpty));
     } on NetworkException {
       emit(const ListPlacesState.error(message: 'Ошибка загрузки из сети'));
@@ -135,10 +139,13 @@ class ListPlacesBloc extends Bloc<ListPlacesEvents, ListPlacesState> {
 class ListPlacesEvents with _$ListPlacesEvents {
   const ListPlacesEvents._();
 
-  const factory ListPlacesEvents.load() = _LoadListPlacesEvents;
+  const factory ListPlacesEvents.load({
+    required final FilterSet filterSet,
+  }) = _LoadListPlacesEvents;
 
-  const factory ListPlacesEvents.loadDataWithoutReloadingList() =
-      _LoadDataWithoutReloadingListEvents;
+  const factory ListPlacesEvents.loadDataWithoutReloadingList({
+    required final FilterSet filterSet,
+  }) = _LoadDataWithoutReloadingListEvents;
 
   const factory ListPlacesEvents.loaded() = _LoadedListPlacesEvents;
 
@@ -195,10 +202,12 @@ class ListPlacesState with _$ListPlacesState {
   // Идет загрузка
   const factory ListPlacesState.load({
     @Default(<Place>[]) final List<Place> listPlaces,
+    required final FilterSet filterSet,
   }) = _InLoadListPlacesState;
 
   const factory ListPlacesState.loadDataWithoutReloadingList({
     @Default(<Place>[]) final List<Place> listPlaces,
+    required final FilterSet filterSet,
   }) = _LoadDataWithoutReloadingList;
 
   // Список загружен

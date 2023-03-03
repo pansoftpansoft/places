@@ -7,6 +7,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:places/data/api/network_exception.dart';
 import 'package:places/data/interactor/filters_screen_interactor.dart';
 import 'package:places/data/model/filter_distance.dart';
+import 'package:places/data/model/filter_set.dart';
 import 'package:places/ui/screen/filters_screen/bloc/filter_state_enum.dart';
 
 part 'filter_bloc.freezed.dart';
@@ -40,13 +41,9 @@ class FilterBloc extends Bloc<FilterEvents, FilterState> {
     _onLoadFilterEvents event,
     Emitter<FilterState> emit,
   ) async {
-    debugPrint('1 event = ${event.toString()}');
-    debugPrint('1 emit = ${emit.toString()}');
     try {
       //Показываем экран загрузки
-      emit(
-        const FilterState.load(),
-      );
+      emit(const FilterState.load());
 
       final listFilterCategory =
           await _filtersScreenInteractor.getSettingsFilterCategory();
@@ -63,6 +60,8 @@ class FilterBloc extends Bloc<FilterEvents, FilterState> {
 
       final filterDistance =
           await _filtersScreenInteractor.getSettingsFilterDistance();
+
+      final FilterSet filterSet =FilterSet()
 
       debugPrint('filterDistance filterDistance = ${filterDistance.toMap()}');
 
@@ -182,7 +181,6 @@ class FilterBloc extends Bloc<FilterEvents, FilterState> {
     debugPrint('event = ${event.toString()}');
     debugPrint('emitter = ${emitter.toString()}');
     try {
-
       await _filtersScreenInteractor.saveFilterSettings(
         filterMap: state.filterMap,
         filterDistance: state.filterDistance ?? FilterDistance(0, 100, 1000),
@@ -293,41 +291,23 @@ class FilterState with _$FilterState {
   const FilterState._();
 
   // Идет загрузка
-  const factory FilterState.load({
-    @Default(<String, bool>{}) final Map<String, bool> filterMap,
-    final FilterDistance? filterDistance,
-    @Default('') final String selectedCategory,
-  }) = _LoadFilterState;
+  const factory FilterState.load() = _LoadFilterState;
 
-  const factory FilterState.loaded({
-    @Default(<String, bool>{}) final Map<String, bool> filterMap,
-    final FilterDistance? filterDistance,
-    @Default('') final String selectedCategory,
-  }) = _LoadedFilterState;
+  const factory FilterState.loaded({required final FilterSet filterSet}) =
+      _LoadedFilterState;
 
   const factory FilterState.updateFilterCategory({
-    @Default(<String, bool>{}) final Map<String, bool> filterMap,
-    final FilterDistance? filterDistance,
-    @Default('') final String selectedCategory,
+    required final String selectedCategory,
   }) = _UpdateFilterCategoryState;
 
   // Список историй поиска
   const factory FilterState.updateFilterDistance({
-    @Default(<String, bool>{}) final Map<String, bool> filterMap,
-    final FilterDistance? filterDistance,
-    @Default('') final String selectedCategory,
+    required final FilterDistance? filterDistance,
   }) = _UpdateFilterDistanceState;
 
   // Показ пустого окна когда нет истории поиска
-  const factory FilterState.saveSetting({
-    @Default(<String, bool>{}) final Map<String, bool> filterMap,
-    final FilterDistance? filterDistance,
-    @Default('') final String selectedCategory,
-  }) = _SaveSettingState;
+  const factory FilterState.saveSetting({required final FilterSet filterSet}) =
+      _SaveSettingState;
 
-  const factory FilterState.showResult({
-    @Default(<String, bool>{}) final Map<String, bool> filterMap,
-    final FilterDistance? filterDistance,
-    @Default('') final String selectedCategory,
-  }) = _ShowResultState;
+  const factory FilterState.showResult() = _ShowResultState;
 }
