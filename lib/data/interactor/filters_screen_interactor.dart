@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:places/data/interactor/place_interactor.dart';
-import 'package:places/data/model/filter_category.dart';
 import 'package:places/data/model/filter_set.dart';
 import 'package:places/data/model/place.dart';
 import 'package:places/data/repository/filter_repository.dart';
@@ -54,15 +53,6 @@ class FiltersScreenInteractor extends ChangeNotifier {
   Future<void> saveFilterSettings({
     required FilterSet filterSet,
   }) async {
-    final listCategory = <FilterCategory>[];
-
-    for (final item in filterMap.keys.toList()) {
-      listCategory.add(FilterCategory(
-        item,
-        1,
-        filterMap[item] ?? false ? 1 : 0,
-      ));
-    }
 
     // Сохраняем нажатые иконки
     await updateListFilterCategory(filterSet.selectedCategory);

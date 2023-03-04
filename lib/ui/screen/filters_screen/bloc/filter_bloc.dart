@@ -6,7 +6,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:places/data/api/network_exception.dart';
 import 'package:places/data/interactor/filters_screen_interactor.dart';
-import 'package:places/data/model/filter_distance.dart';
 import 'package:places/data/model/filter_set.dart';
 import 'package:places/ui/screen/filters_screen/bloc/filter_state_enum.dart';
 
@@ -247,7 +246,7 @@ class FilterState with _$FilterState {
 
   const factory FilterState.updateFilterDistance({
     required final FilterSet filterSet,
-    required final FilterDistance? filterDistance,
+    required final RangeValues filterDistance,
   }) = _UpdateFilterDistanceState;
 
   // Показ пустого окна когда нет истории поиска
