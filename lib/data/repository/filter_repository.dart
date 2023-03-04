@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:places/data/model/filter_category.dart';
-import 'package:places/data/model/filter_distance.dart';
 import 'package:places/domain/db_provider.dart';
-import 'package:places/type_place.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 ///--------------------------------------------------------------
@@ -10,15 +7,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 class FilterRepository {
   ///--------------------------------------------------------------
   ///Получаем список настроек фильтра категорий
-  static Future<List<FilterCategory>> getListFilterCategory() async {
-    final listFilter = <FilterCategory>[];
-    for (var i = 0; i < typePlace.length; i++) {
-      final val = await getFromSharedPreferences<int>(typePlace[i]) ?? 0;
-      debugPrint('val = ${val.toString()}');
-      listFilter.add(
-        FilterCategory(typePlace[i], i, val),
-      );
-    }
+  static Future<List<String>> getListFilterCategory() async {
+    final listFilter =
+        await getFromSharedPreferences<List<String>>('FilterCategory') ??
+            <String>[];
 
     debugPrint('listFilter = ${listFilter.toString()}');
     //Убрал до следующего Урока
@@ -30,26 +22,36 @@ class FilterRepository {
 
   ///--------------------------------------------------------------
   ///Получаем список настроек фильтра дистанции
-  static Future<FilterDistance> getListFilterDistance() async {
-    final listFilter =
-        await DBProvider.dbProvider.getListFilterDistanceFromDb();
+  static Future<RangeValues> getListFilterDistance() async {
+    final distanceStart =
+        await getFromSharedPreferences<double>('DistanceStart') ?? 100;
 
-    return listFilter.first;
+    final distanceEnd =
+        await getFromSharedPreferences<double>('distanceEnd') ?? 10000;
+
+    // final listFilter =
+    //     await DBProvider.dbProvider.getListFilterDistanceFromDb();
+
+    return RangeValues(distanceStart, distanceEnd);
   }
 
   ///--------------------------------------------------------------
   ///Обновляем список настроек фильтра категорий в базе данных
-  static Future<void> updateFilterCategory(FilterCategory filter) async {
-    debugPrint('filter = ${filter.toMap().toString()}');
-    await saveToSharedPreferences(filter.category, filter.categoryValue);
+  static Future<void> updateFilterCategory(Set<String> filterCategory) async {
+
+    await saveToSharedPreferences('filterCategory', filterCategory.toList());
+
     //Убрал до следующего Урока
     //await DBProvider.dbProvider.updateSettingsFilterCategoryInDb(filter);
   }
 
   ///--------------------------------------------------------------
   ///Обновляем список настроек фильтра в базе данных
-  static Future<void> updateFilterDistance(FilterDistance filter) async {
-    await DBProvider.dbProvider.updateSettingsFilterDistanceInDb(filter);
+  static Future<void> updateFilterDistance(RangeValues filterDistance) async {
+    await saveToSharedPreferences('DistanceStart', filterDistance.start);
+    await saveToSharedPreferences('DistanceStart', filterDistance.end);
+
+    //await DBProvider.dbProvider.updateSettingsFilterDistanceInDb(filter);
   }
 
   static Future<void> saveToSharedPreferences<T>(
@@ -63,7 +65,6 @@ class FilterRepository {
     }
 
     if (T == int) {
-
       await prefs.setInt(keyValue, value as int);
     }
 
@@ -105,7 +106,7 @@ class FilterRepository {
     }
 
     if (T == List<String>) {
-      value = prefs.getBool(keyValue) as T;
+      value = prefs.getStringList(keyValue) as T;
 
       return value;
     }

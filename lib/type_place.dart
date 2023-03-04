@@ -4,27 +4,6 @@ import 'package:places/domain/onboarding_page.dart';
 import 'package:places/ui/res/labels.dart';
 import 'package:places/ui/res/svg_icons.dart';
 
-///
-enum ScreenEnum {
-  ///Экран загрузки
-  loadScreen,
-
-  ///Список слов по которым производился поиск
-  listSearchWords,
-
-  ///Пустой экран
-  emptyScreen,
-
-  ///Список с найдеными местами
-  listFoundPlacesScreen,
-
-  ///Экран ошибки
-  errorScreen,
-
-  ///Чистый экран
-  cleanScreen,
-}
-
 List<String> typePlace = <String>[
   'Hotel',
   'Ресторан',
@@ -163,4 +142,23 @@ List<OnboardingPage> mocksOnboardingScreen = <OnboardingPage>[
   ),
 ];
 
-//List<Place> mocks = <Place>[];
+///
+enum ScreenEnum {
+  ///Экран загрузки
+  loadScreen,
+
+  ///Список слов по которым производился поиск
+  listSearchWords,
+
+  ///Пустой экран
+  emptyScreen,
+
+  ///Список с найдеными местами
+  listFoundPlacesScreen,
+
+  ///Экран ошибки
+  errorScreen,
+
+  ///Чистый экран
+  cleanScreen,
+}

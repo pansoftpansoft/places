@@ -1,10 +1,9 @@
+
+// Todo
 class FilterCategory {
   final String category;
   final int orderCategory;
   int categoryValue;
-
-
-
 
   FilterCategory(
     this.category,

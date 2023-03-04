@@ -45,35 +45,20 @@ class FilterBloc extends Bloc<FilterEvents, FilterState> {
       //Показываем экран загрузки
       emit(const FilterState.load());
 
-      final listFilterCategory =
+      final selectedCategory =
           await _filtersScreenInteractor.getSettingsFilterCategory();
 
-      final filterMap = <String, bool>{};
-
-      debugPrint('filterMap = ${filterMap.length}');
-
-      if (listFilterCategory.isNotEmpty) {
-        for (final item in listFilterCategory) {
-          filterMap[item.category] = item.categoryValue == 1;
-        }
-      }
-
-      final filterDistance =
+      final rangeDistance =
           await _filtersScreenInteractor.getSettingsFilterDistance();
 
-      final FilterSet filterSet =FilterSet()
-
-      debugPrint('filterDistance filterDistance = ${filterDistance.toMap()}');
-
-      await _filtersScreenInteractor.getDataFromRepository(
-        filterMap: filterMap,
-        rangeDistance: filterDistance,
+      final filterSet = FilterSet(
+        selectedCategory: selectedCategory.toSet(),
+        rangeDistance: rangeDistance,
       );
 
       emit(
         FilterState.loaded(
-          filterMap: filterMap,
-          filterDistance: filterDistance,
+          filterSet: filterSet,
         ),
       );
 
@@ -97,10 +82,7 @@ class FilterBloc extends Bloc<FilterEvents, FilterState> {
     debugPrint('1 emit = ${emit.toString()}');
     try {
       emit(
-        FilterState.loaded(
-          filterMap: state.filterMap,
-          filterDistance: state.filterDistance,
-        ),
+        FilterState.loaded(filterSet: event.filterSet),
       );
 
       return;
@@ -122,27 +104,18 @@ class FilterBloc extends Bloc<FilterEvents, FilterState> {
     debugPrint('event = ${event.toString()}');
     debugPrint('emitter = ${emitter.toString()}');
     try {
-      //Взводим галочку на кнопке категорий
+      //Взводим галочку  на кнопке категорий или убираем
+      final setCategory = state.filterSet.selectedCategory;
 
-      final filterMap = <String, bool>{}..addAll(state.filterMap);
-
-      if (filterMap[event.selectedCategory]!) {
-        filterMap[event.selectedCategory] = false;
+      if (setCategory.contains(event.selectedCategory)) {
+        setCategory.remove(event.selectedCategory);
       } else {
-        filterMap[event.selectedCategory] = true;
+        setCategory.add(event.selectedCategory);
       }
-
-      //Обновляем количество отобранных объектов на кнопке
-
-      await _filtersScreenInteractor.getDataFromRepository(
-        filterMap: filterMap,
-        rangeDistance: state.filterDistance,
-      );
 
       emit(
         FilterState.loaded(
-          filterMap: filterMap,
-          filterDistance: state.filterDistance,
+          filterSet: state.filterSet.copyWith(selectedCategory: setCategory),
         ),
       );
     } on Object {
@@ -158,15 +131,11 @@ class FilterBloc extends Bloc<FilterEvents, FilterState> {
     debugPrint('emitter = ${emitter.toString()}');
 
     try {
-      await _filtersScreenInteractor.getDataFromRepository(
-        filterMap: state.filterMap,
-        rangeDistance: event.filterDistance,
-      );
+      final setDistance = state.filterSet.rangeDistance;
 
       emit(
         FilterState.loaded(
-          filterMap: state.filterMap,
-          filterDistance: event.filterDistance,
+          filterSet: state.filterSet.copyWith(rangeDistance: setDistance),
         ),
       );
     } on Object {
@@ -182,8 +151,7 @@ class FilterBloc extends Bloc<FilterEvents, FilterState> {
     debugPrint('emitter = ${emitter.toString()}');
     try {
       await _filtersScreenInteractor.saveFilterSettings(
-        filterMap: state.filterMap,
-        filterDistance: state.filterDistance ?? FilterDistance(0, 100, 1000),
+        filterSet: state.filterSet,
       );
 
       emit(
@@ -209,20 +177,10 @@ class FilterBloc extends Bloc<FilterEvents, FilterState> {
     debugPrint('event = ${event.toString()}');
     debugPrint('emitter = ${emitter.toString()}');
     try {
-      final filterMap = <String, bool>{};
-      for (final item in state.filterMap.keys.toList()) {
-        filterMap[item] = false;
-      }
-
-      final filterDistance = FilterDistance(0, 100, 1000);
-
-      await _filtersScreenInteractor.getDataFromRepository();
+      const filterSet = FilterSet();
 
       emit(
-        FilterState.loaded(
-          filterMap: filterMap,
-          filterDistance: filterDistance,
-        ),
+        const FilterState.loaded(filterSet: filterSet),
       );
     } on Object {
       rethrow;
@@ -235,52 +193,38 @@ class FilterBloc extends Bloc<FilterEvents, FilterState> {
 class FilterEvents with _$FilterEvents {
   const FilterEvents._();
 
-  const factory FilterEvents.load({
-    @Default(<String, bool>{}) final Map<String, bool> filterMap,
-    final FilterDistance? filterDistance,
-    @Default('') final String selectedCategory,
-  }) = _onLoadFilterEvents;
+  const factory FilterEvents.load() = _onLoadFilterEvents;
 
   const factory FilterEvents.loaded({
-    @Default(<String, bool>{}) final Map<String, bool> filterMap,
-    final FilterDistance? filterDistance,
-    @Default('') final String selectedCategory,
+    required final FilterSet filterSet,
   }) = _onLoadedFilterEvents;
 
   const factory FilterEvents.updateFilterCategory({
-    @Default(<String, bool>{}) final Map<String, bool> filterMap,
-    final FilterDistance? filterDistance,
     @Default('') final String selectedCategory,
   }) = _onUpdateFilterCategoryEvents;
 
   const factory FilterEvents.updateFilterDistance({
-    @Default(<String, bool>{}) final Map<String, bool> filterMap,
-    final FilterDistance? filterDistance,
-    @Default('') final String selectedCategory,
+    final RangeValues? filterDistance,
   }) = _onUpdateFilterDistanceEvents;
 
-  const factory FilterEvents.saveSetting({
-    @Default(<String, bool>{}) final Map<String, bool> filterMap,
-    final FilterDistance? filterDistance,
-    @Default('') final String selectedCategory,
-  }) = _onSaveSettingEvents;
+  const factory FilterEvents.saveSetting() = _onSaveSettingEvents;
 
   const factory FilterEvents.showResult({
-    @Default(<String, bool>{}) final Map<String, bool> filterMap,
-    final FilterDistance? filterDistance,
-    @Default('') final String selectedCategory,
+    required final FilterSet filterSet,
   }) = _onShowResultEvents;
 
-  const factory FilterEvents.clear({
-    @Default(<String, bool>{}) final Map<String, bool> filterMap,
-    final FilterDistance? filterDistance,
-    @Default('') final String selectedCategory,
-  }) = _onClearEvents;
+  const factory FilterEvents.clear() = _onClearEvents;
 }
 
 /// Состояния
 @freezed
 class FilterState with _$FilterState {
+  FilterSet get filterSet => maybeWhen<FilterSet>(
+        orElse: () => filterSet,
+        load: () => filterSet,
+        loaded: (filterSet) => filterSet,
+      );
+
   FilterStateEnum get current => maybeMap<FilterStateEnum>(
         orElse: () => FilterStateEnum.error,
         load: (_) => FilterStateEnum.load,
@@ -297,11 +241,12 @@ class FilterState with _$FilterState {
       _LoadedFilterState;
 
   const factory FilterState.updateFilterCategory({
+    required final FilterSet filterSet,
     required final String selectedCategory,
   }) = _UpdateFilterCategoryState;
 
-  // Список историй поиска
   const factory FilterState.updateFilterDistance({
+    required final FilterSet filterSet,
     required final FilterDistance? filterDistance,
   }) = _UpdateFilterDistanceState;
 

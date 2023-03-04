@@ -30,7 +30,7 @@ class AppBarTitleButtonCancel extends StatelessWidget {
 
   void _onPressed(BuildContext context) {
     //Востановить состояние фильтра
-    context.read<FilterBloc>().add(const FilterEvents.updateFilterCategory());
+    context.read<FilterBloc>().add(const FilterEvents.load());
     Navigator.pop(context);
   }
 }

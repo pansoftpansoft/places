@@ -16,4 +16,12 @@ class SettingsInteractor extends ChangeNotifier {
   Future<void> updateShowOnboarding() async {
     await SettingsRepository.updateShowOnboarding();
   }
+
+  // Future<bool> getShowOnboarding() async {
+  //   return SettingsRepository.getShowOnboarding();
+  // }
+  //
+  // Future<void> updateShowOnboarding() async {
+  //   await SettingsRepository.updateShowOnboarding();
+  // }
 }

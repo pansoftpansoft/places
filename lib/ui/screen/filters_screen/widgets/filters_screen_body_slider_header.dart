@@ -20,9 +20,9 @@ class FiltersScreenBodySliderHeader extends StatelessWidget {
             const Text(distance),
             Text(
               '$from  '
-              '${state.filterDistance!.distanceStart.round().toString()}'
+              '${state.filterSet.rangeDistance.start.round().toString()}'
               ' $toto '
-              '${state.filterDistance!.distanceEnd.round().toString()}'
+              '${state.filterSet.rangeDistance.end.round().toString()}'
               '$meters',
             ),
           ],

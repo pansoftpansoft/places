@@ -20,9 +20,11 @@ class AddPlaceAppBarButtonReturn extends StatelessWidget {
           ),
         ),
         onPressed: () {
-          context.read<ListPlacesBloc>().add(ListPlacesEvents.load(
-              context.read<FilterBloc>().state.selectedCategory
-          ));
+          context.read<ListPlacesBloc>().add(
+                ListPlacesEvents.load(
+                  filterSet: context.read<FilterBloc>().state.filterSet,
+                ),
+              );
           Navigator.pop(context);
         },
         child: Text(

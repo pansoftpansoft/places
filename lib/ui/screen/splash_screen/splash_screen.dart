@@ -126,7 +126,7 @@ class SplashScreenState extends State<SplashScreen>
         // Завершение инициалзации
         finishGetNetData(isComplete: true),
 
-        debugPrint('Переход на следующий экран ${RouteName.onboardingScreen}'),
+
 
         if (mounted)
           {

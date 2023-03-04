@@ -11,7 +11,7 @@ class SettingsRepository {
   static int dbType = 1;
 
   ///--------------------------------------------------------------
-  ///Получаем список настроек приложения
+  ///Получаем темы из базы
   static Future<ThemeData> getSettingsThemeColor() async {
     var param = 0;
 
@@ -35,7 +35,7 @@ class SettingsRepository {
     }
 
     if (dbType == 1) {
-      await SPProvider.updateThemeColorInSP(saveTheme);
+      await SPProvider.updateThemeColor(saveTheme);
     }
   }
 
@@ -49,4 +49,16 @@ class SettingsRepository {
   static Future<void> updateShowOnboarding() async {
     await SPProvider.updateShowOnboarding();
   }
+
+  // ///Проверяем показ Туториала
+  // static Future<bool> getShowOnboarding() async {
+  //   final param = await SPProvider.getShowOnboarding() ?? false;
+  //
+  //   return param;
+  // }
+  //
+  // ///Сохраняем показ Туториала
+  // static Future<void> updateShowOnboarding() async {
+  //   await SPProvider.updateShowOnboarding();
+  // }
 }

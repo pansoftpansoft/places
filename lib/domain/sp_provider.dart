@@ -13,7 +13,7 @@ class SPProvider {
     return param;
   }
 
-  static Future<void> updateThemeColorInSP(int themeData) async {
+  static Future<void> updateThemeColor(int themeData) async {
     await updateInSP<int>(
       _keyThemeColor,
       themeData,
@@ -57,7 +57,7 @@ class SPProvider {
     }
 
     if (T == List<String>) {
-      value = _prefs!.getBool(keyValue) as T;
+      value = (_prefs?.getStringList(keyValue) ?? false) as T;
 
       return value;
     }

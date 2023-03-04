@@ -1,12 +1,10 @@
-// ignore_for_file: prefer_final_in_for_each
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:places/data/interactor/place_interactor.dart';
 import 'package:places/data/model/filter_category.dart';
-import 'package:places/data/model/filter_distance.dart';
+import 'package:places/data/model/filter_set.dart';
 import 'package:places/data/model/place.dart';
 import 'package:places/data/repository/filter_repository.dart';
-import 'package:places/type_place.dart';
 
 class FiltersScreenInteractor extends ChangeNotifier {
   ///Список истории фильтров
@@ -25,13 +23,6 @@ class FiltersScreenInteractor extends ChangeNotifier {
 
   PlaceInteractor placeInteractor = PlaceInteractor();
 
-  /// Обновить список настроек фильтра дистанции
-  static Future<void> updateListFilterDistance(
-    FilterDistance distance,
-  ) async {
-    debugPrint('distance distance = ${distance.distanceEnd}');
-    await FilterRepository.updateFilterDistance(distance);
-  }
 
   /// Фильтрация списка по категории
   static List<Place> filterListPlacesCategory(
@@ -45,7 +36,7 @@ class FiltersScreenInteractor extends ChangeNotifier {
   }
 
   /// Получить настройки фильтра категории
-  Future<List<FilterCategory>> getSettingsFilterCategory() async {
+  Future<List<String>> getSettingsFilterCategory() async {
     final listFilter = await FilterRepository.getListFilterCategory();
 
     return listFilter;
@@ -53,59 +44,15 @@ class FiltersScreenInteractor extends ChangeNotifier {
 
   ///Расставить сохраненные настройки фильтра
   Future<void> getFilterSettings() async {
-    final listFilterCategory = await getSettingsFilterCategory();
-    filterMap.clear();
-    for (final item in listFilterCategory) {
-      filterMap[item.category] = item.categoryValue == 1;
-    }
-
-    listCategory = <String>[];
-    for (final item in filterMap.keys.toList()) {
-      if (filterMap[item] ?? false) {
-        listCategory.add(item);
-      }
-    }
-
-    final listFilterDistance = await getSettingsFilterDistance();
-    rangeDistance = RangeValues(
-      listFilterDistance.distanceStart,
-      listFilterDistance.distanceEnd,
-    );
+    listCategory = await getSettingsFilterCategory();
+    rangeDistance = await getSettingsFilterDistance();
   }
+
 
   Future<void> restoreFilterSettings() => getFilterSettings();
 
-  Future<int> getDataFromRepository({
-    Map<String, bool>? filterMap,
-    FilterDistance? rangeDistance,
-  }) async {
-    mocksSearchText.clear();
-
-    listCategory = <String>[];
-    if (filterMap != null) {
-      for (final item in filterMap.keys.toList()) {
-        if (filterMap[item] ?? false) {
-          listCategory.add(item);
-        }
-      }
-    }
-
-    mocksFiltered = await placeInteractor.getPlacesInteractor(
-      radiusRange: RangeValues(
-        rangeDistance == null ? 100 : rangeDistance.distanceStart,
-        rangeDistance == null ? 1000 : rangeDistance.distanceEnd,
-      ),
-      category: listCategory.isEmpty ? null : listCategory,
-    );
-
-    debugPrint(' countPlace 3  = ${mocksFiltered.length}');
-
-    return mocksFiltered.length;
-  }
-
   Future<void> saveFilterSettings({
-    required Map<String, bool> filterMap,
-    required FilterDistance filterDistance,
+    required FilterSet filterSet,
   }) async {
     final listCategory = <FilterCategory>[];
 
@@ -118,14 +65,14 @@ class FiltersScreenInteractor extends ChangeNotifier {
     }
 
     // Сохраняем нажатые иконки
-    await updateListFilterCategory(listCategory);
+    await updateListFilterCategory(filterSet.selectedCategory);
 
     // Сохраняем дистанцию
-    await updateListFilterDistance(filterDistance);
+    await updateListFilterDistance(filterSet.rangeDistance);
   }
 
   /// Получить настройки фильтра дистанции до места
-  Future<FilterDistance> getSettingsFilterDistance() async {
+  Future<RangeValues> getSettingsFilterDistance() async {
     final listFilter = await FilterRepository.getListFilterDistance();
 
     return listFilter;
@@ -133,10 +80,16 @@ class FiltersScreenInteractor extends ChangeNotifier {
 
   /// Обновить список настроек фильтра
   Future<void> updateListFilterCategory(
-    List<FilterCategory> listFilter,
+    Set<String> listCategory,
   ) async {
-    for (final item in listFilter) {
-      await FilterRepository.updateFilterCategory(item);
-    }
+      await FilterRepository.updateFilterCategory(listCategory);
   }
+  /// Обновить список настроек фильтра дистанции
+  Future<void> updateListFilterDistance(
+      RangeValues distance,
+      ) async {
+    debugPrint('distance distance = ${distance.end}');
+    await FilterRepository.updateFilterDistance(distance);
+  }
+
 }

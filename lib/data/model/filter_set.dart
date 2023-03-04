@@ -1,21 +1,18 @@
-import 'package:places/data/model/filter_category.dart';
-import 'package:places/data/model/filter_distance.dart';
+import 'package:flutter/material.dart';
 
-class FilterSet {
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-  Set<String> selectedCategory={};
+part 'filter_set.freezed.dart';
 
 
-  late Set<FilterCategory> _savedCategoryFilter;
+@freezed
+class FilterSet  with _$FilterSet {
 
-  Set<FilterCategory> get savedCategoryFilter {
+  const factory FilterSet({
 
-  return _savedCategoryFilter;
-  }
+    @Default(<String>{}) Set<String> selectedCategory,
+    @Default(RangeValues(100, 1000)) RangeValues rangeDistance,
+  }) = _FilterSet;
 
-  set savedCategoryFilter(Set<FilterCategory> value) {
-    _savedCategoryFilter = value;
-  }
 
-  FilterSet(this.selectedCategory);
 }

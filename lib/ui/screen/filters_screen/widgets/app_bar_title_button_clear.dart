@@ -24,6 +24,6 @@ class AppBarTitleButtonClear extends StatelessWidget {
   }
 
   void _clearFilterValue(BuildContext context) {
-    context.read<FilterBloc>().add(const FilterEvents.clear());
+    context.read<FilterBloc>().add(FilterEvents.clear());
   }
 }

@@ -80,7 +80,8 @@ class SearchBar extends StatelessWidget {
             );
       }
     } else {
-      context.read<FiltersScreenInteractor>().getDataFromRepository();
+      //Todo
+      //context.read<FiltersScreenInteractor>().getDataFromRepository();
     }
   }
 
