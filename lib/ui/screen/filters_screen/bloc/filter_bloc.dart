@@ -115,7 +115,11 @@ class FilterBloc extends Bloc<FilterEvents, FilterState> {
     debugPrint('event = ${event.toString()}');
     try {
       //Взводим галочку  на кнопке категорий или убираем
+      FilterSet filterSetNew;
+
       var setCategoryNew = Set.of(state.filterSet.selectedCategory);
+
+      debugPrint('1 setCategoryNew = ${setCategoryNew.toString()}');
 
       if (setCategoryNew.contains(event.selectedCategory)) {
         setCategoryNew.remove(event.selectedCategory);
@@ -123,9 +127,23 @@ class FilterBloc extends Bloc<FilterEvents, FilterState> {
         setCategoryNew.add(event.selectedCategory);
       }
 
+      debugPrint('2 setCategoryNew = ${setCategoryNew.toString()}');
+
+      filterSetNew = state.filterSet.copyWith(
+        selectedCategory: setCategoryNew,
+      );
+
+      final listPlace = await _listPlacesScreenInteractor.loadListPlaces(
+        filterSetNew,
+      );
+
+      filterSetNew = filterSetNew.copyWith(
+        quantitySelectedPlaces: listPlace.length,
+      );
+
       emit(
         FilterState.loaded(
-          filterSet: state.filterSet.copyWith(selectedCategory: setCategoryNew),
+          filterSet: filterSetNew,
         ),
       );
     } on Object {
@@ -154,7 +172,7 @@ class FilterBloc extends Bloc<FilterEvents, FilterState> {
         '_onUpdateFilterDistanceEvents  listPlace.length = ${listPlace.length.toString()}',
       );
 
-      filterSetNew = state.filterSet.copyWith(
+      filterSetNew = filterSetNew.copyWith(
         quantitySelectedPlaces: listPlace.length,
       );
 
