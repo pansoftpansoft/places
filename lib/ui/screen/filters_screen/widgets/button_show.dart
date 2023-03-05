@@ -35,5 +35,6 @@ class ButtonShow extends StatelessWidget {
 
   void _onPressed(BuildContext context) {
     context.read<FilterBloc>().add(const FilterEvents.saveSetting());
+    Navigator.pop(context);
   }
 }

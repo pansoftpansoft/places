@@ -84,19 +84,6 @@ class SearchBarFirst extends StatelessWidget {
 
   void _go(BuildContext context) {
     debugPrint('Хочу перейти на поиск ${RouteName.searchPlacesScreen}');
-
-    // if (SearchScreenInteractor.listHistory.isEmpty) {
-    //   ///Чистим строку поиска
-    //   context.read<SearchScreenInteractor>()
-    //     ..setSearchText('')
-    //     ..managerSelectionScreen(numberScreen: ScreenEnum.cleanScreen);
-    // } else {
-    //   ///Чистим строку поиска
-    //   context.read<SearchScreenInteractor>()
-    //     ..setSearchText('')
-    //     ..managerSelectionScreen(numberScreen: ScreenEnum.listSearchWords);
-    // }
-
     Navigator.pushNamed(context, RouteName.searchPlacesScreen);
   }
 }

@@ -20,51 +20,38 @@ class FiltersScreenBody extends StatelessWidget {
           const FilterEvents.load(),
         );
 
-    return MultiBlocListener(
-      listeners: [
-        BlocListener<FilterBloc, FilterState>(
-          listenWhen: (previousState, state) =>
-              state.current == FilterStateEnum.showResult,
-          listener: (context, state) {
-            Navigator.pop(context);
+    return BlocBuilder<FilterBloc, FilterState>(
+      builder: (context, state) {
+        switch (state.current) {
+          case FilterStateEnum.load:
+            return const LoadScreen();
 
-            return;
-          },
-        ),
-      ],
-      child: BlocBuilder<FilterBloc, FilterState>(
-        builder: (context, state) {
-          switch (state.current) {
-            case FilterStateEnum.load:
-              return const LoadScreen();
-
-            case FilterStateEnum.loaded:
-              return SingleChildScrollView(
-                child: BlocBuilder<FilterBloc, FilterState>(
-                  builder: (context, state) => Column(
-                    children: const <Widget>[
-                      FiltersScreenBodyTextCategories(),
-                      SizedBox(height: 24),
-                      GridIcon(),
-                      SizedBox(height: 50),
-                      FiltersScreenBodySliderHeader(),
-                      FiltersScreenBodySlider(),
-                    ],
-                  ),
+          case FilterStateEnum.loaded:
+            return SingleChildScrollView(
+              child: BlocBuilder<FilterBloc, FilterState>(
+                builder: (context, state) => Column(
+                  children: const <Widget>[
+                    FiltersScreenBodyTextCategories(),
+                    SizedBox(height: 24),
+                    GridIcon(),
+                    SizedBox(height: 50),
+                    FiltersScreenBodySliderHeader(),
+                    FiltersScreenBodySlider(),
+                  ],
                 ),
-              );
-            default:
-              debugPrint(
-                'Почемуто попадаем сюда default  = ${state.current}',
-              );
-              return const EmptyScreen(
-                textHeader: unknownError,
-                textComment: tryAgain,
-                svgIcon: SvgIcons.delete,
-              );
-          }
-        },
-      ),
+              ),
+            );
+          default:
+            debugPrint(
+              'Почемуто попадаем сюда default  = ${state.current}',
+            );
+            return const EmptyScreen(
+              textHeader: unknownError,
+              textComment: tryAgain,
+              svgIcon: SvgIcons.delete,
+            );
+        }
+      },
     );
   }
 }

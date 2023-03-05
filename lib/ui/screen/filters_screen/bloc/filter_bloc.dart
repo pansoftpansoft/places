@@ -34,7 +34,6 @@ class FilterBloc extends Bloc<FilterEvents, FilterState> {
         updateFilterOnlyDistance: (event) =>
             _onUpdateFilterOnlyDistance(event, emitter),
         saveSetting: (event) => _onSaveSetting(event, emitter),
-        showResult: (event) => _onShowResult(event, emitter),
         clear: (event) => _onClear(event, emitter),
       ),
       transformer: bloc_concurrency.sequential(),
@@ -47,7 +46,6 @@ class FilterBloc extends Bloc<FilterEvents, FilterState> {
   ) async {
     try {
       //Показываем экран загрузки
-      //emit(const FilterState.load());
 
       final selectedCategory =
           await _filtersScreenInteractor.getSettingsFilterCategory();
@@ -203,21 +201,9 @@ class FilterBloc extends Bloc<FilterEvents, FilterState> {
       await _filtersScreenInteractor.saveFilterSettings(
         filterSet: state.filterSet,
       );
-
-      emit(
-        const FilterState.showResult(),
-      );
     } on Object {
       rethrow;
     }
-  }
-
-  Future<void> _onShowResult(
-    _onShowResultEvents event,
-    Emitter<FilterState> emit,
-  ) async {
-    debugPrint('event = ${event.toString()}');
-    //Просто возвращаемся на предыдущий экран
   }
 
   Future<void> _onClear(
@@ -263,10 +249,6 @@ class FilterEvents with _$FilterEvents {
 
   const factory FilterEvents.saveSetting() = _onSaveSettingEvents;
 
-  const factory FilterEvents.showResult({
-    required final FilterSet filterSet,
-  }) = _onShowResultEvents;
-
   const factory FilterEvents.clear() = _onClearEvents;
 }
 
@@ -283,7 +265,6 @@ class FilterState with _$FilterState {
         orElse: () => FilterStateEnum.error,
         load: (_) => FilterStateEnum.load,
         loaded: (_) => FilterStateEnum.loaded,
-        showResult: (_) => FilterStateEnum.showResult,
       );
 
   const FilterState._();
@@ -310,6 +291,4 @@ class FilterState with _$FilterState {
   // Показ пустого окна когда нет истории поиска
   const factory FilterState.saveSetting({required final FilterSet filterSet}) =
       _SaveSettingState;
-
-  const factory FilterState.showResult() = _ShowResultState;
 }

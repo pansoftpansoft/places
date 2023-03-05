@@ -19,7 +19,6 @@ class FiltersScreenInteractor extends ChangeNotifier {
 
   PlaceInteractor placeInteractor = PlaceInteractor();
 
-
   /// Фильтрация списка по категории
   static List<Place> filterListPlacesCategory(
     List<Place> placeList,
@@ -38,12 +37,9 @@ class FiltersScreenInteractor extends ChangeNotifier {
     return listFilter;
   }
 
-
-
   Future<void> saveFilterSettings({
     required FilterSet filterSet,
   }) async {
-
     // Сохраняем нажатые иконки
     await updateListFilterCategory(filterSet.selectedCategory);
 
@@ -53,23 +49,24 @@ class FiltersScreenInteractor extends ChangeNotifier {
 
   /// Получить настройки фильтра дистанции до места
   Future<RangeValues> getSettingsFilterDistance() async {
-    final listFilter = await FilterRepository.getListFilterDistance();
+    final rangeDistance = await FilterRepository.getListFilterDistance();
+    debugPrint('rangeDistance = ${rangeDistance.end.toString()}');
 
-    return listFilter;
+    return rangeDistance;
   }
 
   /// Обновить список настроек фильтра
   Future<void> updateListFilterCategory(
     Set<String> listCategory,
   ) async {
-      await FilterRepository.updateFilterCategory(listCategory);
+    await FilterRepository.updateFilterCategory(listCategory);
   }
+
   /// Обновить список настроек фильтра дистанции
   Future<void> updateListFilterDistance(
-      RangeValues distance,
-      ) async {
+    RangeValues distance,
+  ) async {
     debugPrint('distance distance = ${distance.end}');
     await FilterRepository.updateFilterDistance(distance);
   }
-
 }

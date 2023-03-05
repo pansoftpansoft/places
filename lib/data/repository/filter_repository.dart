@@ -10,7 +10,7 @@ class FilterRepository {
   ///Получаем список настроек фильтра категорий
   static Future<List<String>> getListFilterCategory() async {
     final listFilter =
-        await getFromSharedPreferences<List<String>>('FilterCategory') ??
+        await getFromSharedPreferences<List<String>>('listFilterCategory') ??
             <String>[];
 
     debugPrint('listFilter = ${listFilter.toString()}');
@@ -25,10 +25,10 @@ class FilterRepository {
   ///Получаем список настроек фильтра дистанции
   static Future<RangeValues> getListFilterDistance() async {
     final distanceStart =
-        await getFromSharedPreferences<double>('DistanceStart') ?? 100;
+        await getFromSharedPreferences<double>('distanceStart') ?? 100;
 
     final distanceEnd =
-        await getFromSharedPreferences<double>('distanceEnd') ?? 10000;
+        await getFromSharedPreferences<double>('distanceEnd') ?? 9000;
 
     // final listFilter =
     //     await DBProvider.dbProvider.getListFilterDistanceFromDb();
@@ -39,7 +39,10 @@ class FilterRepository {
   ///--------------------------------------------------------------
   ///Обновляем список настроек фильтра категорий в базе данных
   static Future<void> updateFilterCategory(Set<String> filterCategory) async {
-    await saveToSharedPreferences('filterCategory', filterCategory.toList());
+    await saveToSharedPreferences(
+      'listFilterCategory',
+      filterCategory.toList(),
+    );
 
     //Убрал до следующего Урока
     //await DBProvider.dbProvider.updateSettingsFilterCategoryInDb(filter);
@@ -48,8 +51,11 @@ class FilterRepository {
   ///--------------------------------------------------------------
   ///Обновляем список настроек фильтра в базе данных
   static Future<void> updateFilterDistance(RangeValues filterDistance) async {
-    await saveToSharedPreferences('DistanceStart', filterDistance.start);
-    await saveToSharedPreferences('DistanceStart', filterDistance.end);
+    await saveToSharedPreferences<double>(
+      'distanceStart',
+      filterDistance.start,
+    );
+    await saveToSharedPreferences<double>('distanceEnd', filterDistance.end);
 
     //await DBProvider.dbProvider.updateSettingsFilterDistanceInDb(filter);
   }
@@ -99,8 +105,16 @@ class FilterRepository {
       return value;
     }
 
+    if (T == double) {
+      value = prefs.getDouble(keyValue) as T;
+      debugPrint('value = ${value.toString()}');
+
+      return value;
+    }
+
     if (T == bool) {
       value = prefs.getBool(keyValue) as T;
+      debugPrint('bool value = ${value.toString()}');
 
       return value;
     }
