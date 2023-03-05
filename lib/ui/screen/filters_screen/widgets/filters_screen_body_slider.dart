@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:places/data/interactor/filters_screen_interactor.dart';
 import 'package:places/ui/res/color_palette.dart';
 import 'package:places/ui/screen/filters_screen/bloc/filter_bloc.dart';
 
@@ -31,7 +30,10 @@ class _FiltersScreenBodySliderState extends State<FiltersScreenBodySlider> {
             state.filterSet.rangeDistance.start,
             state.filterSet.rangeDistance.end,
           ),
-          onChanged: _onChange,
+          onChanged: (newRange) {
+            //Без определения этого свойства, бегунки не активны
+            _onChange(context, newRange);
+          },
           onChangeEnd: (newRange) {
             _onChangeEnd(context, newRange);
           },
@@ -44,10 +46,15 @@ class _FiltersScreenBodySliderState extends State<FiltersScreenBodySlider> {
     );
   }
 
-  void _onChange(RangeValues newRange) {
+  void _onChange(BuildContext context, RangeValues newRange) {
     setState(() {
       debugPrint('newRange = ${newRange.end}');
-      FiltersScreenInteractor.rangeDistance = newRange;
+
+      context.read<FilterBloc>().add(
+            FilterEvents.updateFilterOnlyDistance(
+              filterDistance: RangeValues(newRange.start, newRange.end),
+            ),
+          );
     });
   }
 

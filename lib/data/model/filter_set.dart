@@ -12,6 +12,7 @@ class FilterSet  with _$FilterSet {
 
     @Default(<String>{}) Set<String> selectedCategory,
     @Default(RangeValues(100, 1000)) RangeValues rangeDistance,
+    @Default(0) int quantitySelectedPlaces,
   }) = _FilterSet;
 
 

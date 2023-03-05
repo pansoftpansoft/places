@@ -66,9 +66,10 @@ List<BlocProvider> listMultiBlocProviders = <BlocProvider>[
   ),
   BlocProvider<FilterBloc>(
     create: (context) => FilterBloc(
+      context.read<ListPlacesScreenInteractor>(),
       context.read<FiltersScreenInteractor>(),
     )..add(
-        FilterEvents.load(),
+        const FilterEvents.load(),
       ),
   ),
 ];

@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:places/data/api/network_exception.dart';
 import 'package:places/data/interactor/filters_screen_interactor.dart';
+import 'package:places/data/interactor/list_places_screen_interactor.dart';
 import 'package:places/data/model/filter_set.dart';
 import 'package:places/ui/screen/filters_screen/bloc/filter_state_enum.dart';
 
@@ -13,9 +14,11 @@ part 'filter_bloc.freezed.dart';
 
 class FilterBloc extends Bloc<FilterEvents, FilterState> {
   final FiltersScreenInteractor _filtersScreenInteractor;
+  final ListPlacesScreenInteractor _listPlacesScreenInteractor;
 
   FilterBloc(
-    final this._filtersScreenInteractor,
+    this._listPlacesScreenInteractor,
+    this._filtersScreenInteractor,
   ) : super(
           const FilterState.load(),
         ) {
@@ -28,6 +31,8 @@ class FilterBloc extends Bloc<FilterEvents, FilterState> {
             _onUpdateFilterCategory(event, emitter),
         updateFilterDistance: (event) =>
             _onUpdateFilterDistance(event, emitter),
+        updateFilterOnlyDistance: (event) =>
+            _onUpdateFilterOnlyDistance(event, emitter),
         saveSetting: (event) => _onSaveSetting(event, emitter),
         showResult: (event) => _onShowResult(event, emitter),
         clear: (event) => _onClear(event, emitter),
@@ -42,22 +47,33 @@ class FilterBloc extends Bloc<FilterEvents, FilterState> {
   ) async {
     try {
       //Показываем экран загрузки
-      emit(const FilterState.load());
+      //emit(const FilterState.load());
 
       final selectedCategory =
           await _filtersScreenInteractor.getSettingsFilterCategory();
 
+      debugPrint('1 selectedCategory = ${selectedCategory.toString()}');
+
       final rangeDistance =
           await _filtersScreenInteractor.getSettingsFilterDistance();
 
-      final filterSet = FilterSet(
+      debugPrint('2 rangeDistance = ${rangeDistance.toString()}');
+
+      final filterSetNew = FilterSet(
         selectedCategory: selectedCategory.toSet(),
         rangeDistance: rangeDistance,
       );
 
+      final listPlace = await _listPlacesScreenInteractor.loadListPlaces(
+        filterSetNew,
+      );
+
+      debugPrint('3 listPlace.length = ${listPlace.length.toString()}');
       emit(
         FilterState.loaded(
-          filterSet: filterSet,
+          filterSet: filterSetNew.copyWith(
+            quantitySelectedPlaces: listPlace.length,
+          ),
         ),
       );
 
@@ -68,7 +84,6 @@ class FilterBloc extends Bloc<FilterEvents, FilterState> {
       rethrow;
     } finally {
       debugPrint('2 event = ${event.toString()}');
-      debugPrint('2 emitter = ${emit.toString()}');
     }
   }
 
@@ -78,7 +93,7 @@ class FilterBloc extends Bloc<FilterEvents, FilterState> {
     Emitter<FilterState> emit,
   ) async {
     debugPrint('1 event = ${event.toString()}');
-    debugPrint('1 emit = ${emit.toString()}');
+
     try {
       emit(
         FilterState.loaded(filterSet: event.filterSet),
@@ -91,7 +106,6 @@ class FilterBloc extends Bloc<FilterEvents, FilterState> {
       rethrow;
     } finally {
       debugPrint('2 event = ${event.toString()}');
-      debugPrint('2 emitter = ${emit.toString()}');
     }
   }
 
@@ -101,20 +115,19 @@ class FilterBloc extends Bloc<FilterEvents, FilterState> {
     Emitter<FilterState> emitter,
   ) async {
     debugPrint('event = ${event.toString()}');
-    debugPrint('emitter = ${emitter.toString()}');
     try {
       //Взводим галочку  на кнопке категорий или убираем
-      final setCategory = state.filterSet.selectedCategory;
+      var setCategoryNew = Set.of(state.filterSet.selectedCategory);
 
-      if (setCategory.contains(event.selectedCategory)) {
-        setCategory.remove(event.selectedCategory);
+      if (setCategoryNew.contains(event.selectedCategory)) {
+        setCategoryNew.remove(event.selectedCategory);
       } else {
-        setCategory.add(event.selectedCategory);
+        setCategoryNew.add(event.selectedCategory);
       }
 
       emit(
         FilterState.loaded(
-          filterSet: state.filterSet.copyWith(selectedCategory: setCategory),
+          filterSet: state.filterSet.copyWith(selectedCategory: setCategoryNew),
         ),
       );
     } on Object {
@@ -127,14 +140,52 @@ class FilterBloc extends Bloc<FilterEvents, FilterState> {
     Emitter<FilterState> emitter,
   ) async {
     debugPrint('event = ${event.toString()}');
-    debugPrint('emitter = ${emitter.toString()}');
 
     try {
-      final setDistance = state.filterSet.rangeDistance;
+      FilterSet filterSetNew;
+
+      filterSetNew = state.filterSet.copyWith(
+        rangeDistance: event.filterDistance!,
+      );
+
+      final listPlace = await _listPlacesScreenInteractor.loadListPlaces(
+        filterSetNew,
+      );
+
+      debugPrint(
+        '_onUpdateFilterDistanceEvents  listPlace.length = ${listPlace.length.toString()}',
+      );
+
+      filterSetNew = state.filterSet.copyWith(
+        quantitySelectedPlaces: listPlace.length,
+      );
 
       emit(
         FilterState.loaded(
-          filterSet: state.filterSet.copyWith(rangeDistance: setDistance),
+          filterSet: filterSetNew,
+        ),
+      );
+    } on Object {
+      rethrow;
+    }
+  }
+
+  Future<void> _onUpdateFilterOnlyDistance(
+    _onUpdateFilterOnlyDistanceEvents event,
+    Emitter<FilterState> emitter,
+  ) async {
+    debugPrint('event = ${event.toString()}');
+
+    try {
+      FilterSet filterSetNew;
+
+      filterSetNew = state.filterSet.copyWith(
+        rangeDistance: event.filterDistance!,
+      );
+
+      emit(
+        FilterState.loaded(
+          filterSet: filterSetNew,
         ),
       );
     } on Object {
@@ -147,7 +198,7 @@ class FilterBloc extends Bloc<FilterEvents, FilterState> {
     Emitter<FilterState> emitter,
   ) async {
     debugPrint('event = ${event.toString()}');
-    debugPrint('emitter = ${emitter.toString()}');
+
     try {
       await _filtersScreenInteractor.saveFilterSettings(
         filterSet: state.filterSet,
@@ -206,6 +257,10 @@ class FilterEvents with _$FilterEvents {
     final RangeValues? filterDistance,
   }) = _onUpdateFilterDistanceEvents;
 
+  const factory FilterEvents.updateFilterOnlyDistance({
+    final RangeValues? filterDistance,
+  }) = _onUpdateFilterOnlyDistanceEvents;
+
   const factory FilterEvents.saveSetting() = _onSaveSettingEvents;
 
   const factory FilterEvents.showResult({
@@ -219,8 +274,8 @@ class FilterEvents with _$FilterEvents {
 @freezed
 class FilterState with _$FilterState {
   FilterSet get filterSet => maybeWhen<FilterSet>(
-        orElse: () => filterSet,
-        load: () => filterSet,
+        orElse: () => const FilterSet(),
+        load: () => const FilterSet(),
         loaded: (filterSet) => filterSet,
       );
 
@@ -240,14 +295,17 @@ class FilterState with _$FilterState {
       _LoadedFilterState;
 
   const factory FilterState.updateFilterCategory({
-    required final FilterSet filterSet,
     required final String selectedCategory,
   }) = _UpdateFilterCategoryState;
 
   const factory FilterState.updateFilterDistance({
-    required final FilterSet filterSet,
     required final RangeValues filterDistance,
   }) = _UpdateFilterDistanceState;
+
+  ///Обновить только значение дистанции, чтобы не лезть в базу при движении слайдера
+  const factory FilterState.updateFilterOnlyDistance({
+    required final RangeValues filterDistance,
+  }) = _UpdateFilterDistanceOnlyState;
 
   // Показ пустого окна когда нет истории поиска
   const factory FilterState.saveSetting({required final FilterSet filterSet}) =

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:places/domain/db_provider.dart';
+
+//import 'package:places/domain/db_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 ///--------------------------------------------------------------
@@ -38,7 +39,6 @@ class FilterRepository {
   ///--------------------------------------------------------------
   ///Обновляем список настроек фильтра категорий в базе данных
   static Future<void> updateFilterCategory(Set<String> filterCategory) async {
-
     await saveToSharedPreferences('filterCategory', filterCategory.toList());
 
     //Убрал до следующего Урока
@@ -106,7 +106,7 @@ class FilterRepository {
     }
 
     if (T == List<String>) {
-      value = prefs.getStringList(keyValue) as T;
+      value = (prefs.getStringList(keyValue) ?? <String>[]) as T;
 
       return value;
     }

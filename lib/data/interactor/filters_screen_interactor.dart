@@ -8,16 +8,13 @@ import 'package:places/data/repository/filter_repository.dart';
 class FiltersScreenInteractor extends ChangeNotifier {
   ///Список истории фильтров
 
-  ///Мапа кнопок для фильтрации мест с изночальными значениями
-  static Map<String, bool> filterMap = <String, bool>{};
-
   //Запоминаем старые значения
   //Если нажата кнопка Показать то переписываем значения
   //Если пользователь вернулся на предыдущий
   //экран то востановим текущие значения
 
   ///
-  static RangeValues rangeDistance = const RangeValues(100, 1000);
+
   static List<String> listCategory = <String>[];
 
   PlaceInteractor placeInteractor = PlaceInteractor();
@@ -41,14 +38,7 @@ class FiltersScreenInteractor extends ChangeNotifier {
     return listFilter;
   }
 
-  ///Расставить сохраненные настройки фильтра
-  Future<void> getFilterSettings() async {
-    listCategory = await getSettingsFilterCategory();
-    rangeDistance = await getSettingsFilterDistance();
-  }
 
-
-  Future<void> restoreFilterSettings() => getFilterSettings();
 
   Future<void> saveFilterSettings({
     required FilterSet filterSet,

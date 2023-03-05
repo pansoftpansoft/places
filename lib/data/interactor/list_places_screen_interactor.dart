@@ -14,6 +14,7 @@ class ListPlacesScreenInteractor extends ChangeNotifier {
     final list = await _placeInteractor.getPlacesInteractor(
       filterSet: filterSet,
     );
+    debugPrint('!!!!!!!!!!!!!!!! = ${list.toString()}');
 
     return list;
   }
