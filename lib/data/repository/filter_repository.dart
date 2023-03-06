@@ -28,7 +28,7 @@ class FilterRepository {
         await getFromSharedPreferences<double>('distanceStart') ?? 100;
 
     final distanceEnd =
-        await getFromSharedPreferences<double>('distanceEnd') ?? 9000;
+        await getFromSharedPreferences<double>('distanceEnd') ?? 10000;
 
     // final listFilter =
     //     await DBProvider.dbProvider.getListFilterDistanceFromDb();
@@ -93,27 +93,27 @@ class FilterRepository {
     T value;
 
     if (T == String) {
-      value = prefs.getString(keyValue) as T;
+      value = (prefs.getString(keyValue) ?? '') as T;
 
       return value;
     }
 
     if (T == int) {
-      value = prefs.getInt(keyValue) as T;
+      value = (prefs.getInt(keyValue) ?? 0) as T;
       debugPrint('value = ${value.toString()}');
 
       return value;
     }
 
     if (T == double) {
-      value = prefs.getDouble(keyValue) as T;
+      value = (prefs.getDouble(keyValue) ?? 0.0) as T;
       debugPrint('value = ${value.toString()}');
 
       return value;
     }
 
     if (T == bool) {
-      value = prefs.getBool(keyValue) as T;
+      value = (prefs.getBool(keyValue) ?? false) as T;
       debugPrint('bool value = ${value.toString()}');
 
       return value;

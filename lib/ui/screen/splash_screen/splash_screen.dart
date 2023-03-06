@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:places/ui/res/color_palette.dart';
 import 'package:places/ui/res/img.dart';
 import 'package:places/ui/res/route_name.dart';
+import 'package:places/ui/screen/filters_screen/bloc/filter_bloc.dart';
+import 'package:places/ui/screen/list_places_screen/bloc/list_places_bloc.dart';
 import 'package:places/ui/screen/onboarding_screen/bloc/onboarding_bloc.dart';
 import 'package:places/ui/screen/settings_screen/bloc/settings_bloc.dart';
 import 'package:provider/provider.dart';
@@ -126,8 +128,6 @@ class SplashScreenState extends State<SplashScreen>
         // Завершение инициалзации
         finishGetNetData(isComplete: true),
 
-
-
         if (mounted)
           {
             showOnboarding = context.read<SettingsBloc>().state.firstStart,
@@ -136,6 +136,11 @@ class SplashScreenState extends State<SplashScreen>
             ),
             if (showOnboarding)
               {
+                context.read<ListPlacesBloc>().add(
+                      ListPlacesEvents.load(
+                        filterSet: context.read<FilterBloc>().state.filterSet,
+                      ),
+                    ),
                 Navigator.pushReplacementNamed(
                   context,
                   RouteName.listPlacesScreen,

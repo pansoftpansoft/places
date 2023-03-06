@@ -49,7 +49,11 @@ class FiltersScreenInteractor extends ChangeNotifier {
 
   /// Получить настройки фильтра дистанции до места
   Future<RangeValues> getSettingsFilterDistance() async {
-    final rangeDistance = await FilterRepository.getListFilterDistance();
+    var rangeDistance = await FilterRepository.getListFilterDistance();
+    //Проверяем если пришли из сохраненных значения 0
+    if (rangeDistance.start==0 && rangeDistance.end==0){
+      rangeDistance = const RangeValues(100, 1000);
+    }
     debugPrint('rangeDistance = ${rangeDistance.end.toString()}');
 
     return rangeDistance;

@@ -5,7 +5,7 @@ import 'package:places/ui/res/labels.dart';
 import 'package:places/ui/res/svg_icons.dart';
 
 List<String> typePlace = <String>[
-  'Hotel',
+  'Отель',
   'Ресторан',
   'Интересные места',
   'Парк',

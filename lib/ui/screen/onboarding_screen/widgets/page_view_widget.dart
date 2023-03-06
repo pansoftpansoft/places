@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:places/domain/onboarding_page.dart';
 import 'package:places/type_place.dart';
 import 'package:places/ui/res/route_name.dart';
+import 'package:places/ui/screen/filters_screen/bloc/filter_bloc.dart';
+import 'package:places/ui/screen/list_places_screen/bloc/list_places_bloc.dart';
 import 'package:places/ui/screen/onboarding_screen/bloc/onboarding_bloc.dart';
 import 'package:places/ui/screen/onboarding_screen/widgets/body_page.dart';
 
@@ -18,6 +20,11 @@ class PageViewWidget extends StatelessWidget {
         BlocListener<OnboardingBloc, OnboardingState>(
           listenWhen: (previousState, state) => true,
           listener: (context, state) {
+            context.read<ListPlacesBloc>().add(
+                  ListPlacesEvents.load(
+                    filterSet: context.read<FilterBloc>().state.filterSet,
+                  ),
+                );
             Navigator.pushReplacementNamed(context, RouteName.listPlacesScreen);
 
             return;
