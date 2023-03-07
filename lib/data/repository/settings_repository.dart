@@ -9,6 +9,8 @@ class SettingsRepository {
   //0 - просто SQL
   //1 - SharedPreferences
   //2 - Moor
+
+  static const _distanceEnd = 'distanceEnd';
   static int dbType = 1;
 
   ///--------------------------------------------------------------

@@ -3,8 +3,12 @@ import 'package:shared_preferences/shared_preferences.dart';
 ///SharedPreferences
 ///функции для доступа
 class SPProvider {
-  static const String _keyThemeColor = 'keyThemeColor';
-  static const String _keyShowTutorial = 'keyShowTutorial';
+  ///Ключи значений
+  static const _listFilterCategory = 'listFilterCategory';
+  static const _distanceStart = 'distanceStart';
+  static const _distanceEnd = 'distanceEnd';
+  static const _keyThemeColor = 'keyThemeColor';
+  static const _keyShowTutorial = 'keyShowTutorial';
   static late SharedPreferences? _prefs;
 
   static Future<int?> getThemeColor() async {
@@ -33,36 +37,48 @@ class SPProvider {
     );
   }
 
+  static Future<List<String>?> getListFilter() {
+    final param = getFromSP<List<String>>(_listFilterCategory);
+
+    return param;
+  }
+
+  static Future<double?> getDistanceStart() {
+    final param = getFromSP<double>(_distanceStart);
+
+    return param;
+  }
+
+  static Future<double?> getDistanceEnd() {
+    final param = getFromSP<double>(_distanceEnd);
+
+    return param;
+  }
+
+
   ///Получение данных из SharedPreferences
   static Future<T?> getFromSP<T>(String keyValue) async {
     await _initPrefs();
 
-    T value;
+    T? value;
 
-    if (T == String) {
-      value = _prefs!.getString(keyValue) as T;
-
-      return value;
+    if (value is String) {
+      value = (_prefs!.getString(keyValue) ?? '') as T;
     }
 
-    if (T == int) {
+    if (value is int) {
       value = (_prefs?.getInt(keyValue) ?? 0) as T;
-
-      return value;
     }
-    if (T == bool) {
+
+    if (value is bool) {
       value = (_prefs?.getBool(keyValue) ?? false) as T;
-
-      return value;
     }
 
-    if (T == List<String>) {
-      value = (_prefs?.getStringList(keyValue) ?? false) as T;
-
-      return value;
+    if (value is List<String>) {
+      value = (_prefs?.getStringList(keyValue) ?? <String>[]) as T;
     }
 
-    return null;
+    return value;
   }
 
   ///Обновление данных в SharedPreferences
@@ -72,24 +88,24 @@ class SPProvider {
   ) async {
     await _initPrefs();
 
-    if (T == String) {
-      await _prefs!.setString(keyValue, value as String);
+    if (value is String) {
+      await _prefs!.setString(keyValue, value);
     }
 
-    if (T == int) {
-      await _prefs!.setInt(keyValue, value as int);
+    if (value is int) {
+      await _prefs!.setInt(keyValue, value);
     }
 
-    if (T == double) {
-      await _prefs!.setDouble(keyValue, value as double);
+    if (value is double) {
+      await _prefs!.setDouble(keyValue, value);
     }
 
-    if (T == bool) {
-      await _prefs!.setBool(keyValue, value as bool);
+    if (value is bool) {
+      await _prefs!.setBool(keyValue, value);
     }
 
-    if (T == List<String>) {
-      await _prefs!.setStringList(keyValue, value as List<String>);
+    if (value is List<String>) {
+      await _prefs!.setStringList(keyValue, value);
     }
   }
 
