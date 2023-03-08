@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 //import 'package:places/domain/db_provider.dart';
 import 'package:places/domain/sp_provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 /// Слой получения данных
 class FilterRepository {
@@ -10,47 +9,41 @@ class FilterRepository {
   static Future<List<String>> getListFilterCategory() async {
     final listFilter = await SPProvider.getListFilter() ?? <String>[];
 
-    // ToDo - версия с SQLite
+    //Todo Сделать переключатеь выбора базы данных для сохранения
     // final listFilter =
     //     await DBProvider.dbProvider.getListFilterCategoryFromDb();
 
     return listFilter;
   }
 
-  ///--------------------------------------------------------------
   ///Получаем список настроек фильтра дистанции
   static Future<RangeValues> getListFilterDistance() async {
-    final distanceStart = await SPProvider.getDistanceStart() ?? 100;
-    final distanceEnd = await SPProvider.getDistanceEnd() ?? 1000;
+    final distance = await SPProvider.getDistance();
 
-    // ToDo - версия с SQLite
+    //Todo Сделать переключатеь выбора базы данных для сохранения
     // final listFilter =
     //     await DBProvider.dbProvider.getListFilterDistanceFromDb();
 
-    return RangeValues(distanceStart, distanceEnd);
+    return distance;
   }
 
-  ///--------------------------------------------------------------
   ///Обновляем список настроек фильтра категорий в базе данных
   static Future<void> updateFilterCategory(Set<String> filterCategory) async {
-    await saveToSharedPreferences(
-      _listFilterCategory,
-      filterCategory.toList(),
+    await SPProvider.updateFilterCategory(
+      filterCategory,
     );
 
-    //Убрал до следующего Урока
+    //Todo Сделать переключатеь выбора базы данных для сохранения
     //await DBProvider.dbProvider.updateSettingsFilterCategoryInDb(filter);
   }
 
-  ///--------------------------------------------------------------
   ///Обновляем список настроек фильтра в базе данных
   static Future<void> updateFilterDistance(RangeValues filterDistance) async {
-    await saveToSharedPreferences<double>(
-      _distanceStart,
-      filterDistance.start,
+    await SPProvider.updateDistance(
+      filterDistance,
     );
-    await saveToSharedPreferences<double>(_distanceEnd, filterDistance.end);
 
+    //Todo Сделать переключатеь выбора базы данных для сохранения
     //await DBProvider.dbProvider.updateSettingsFilterDistanceInDb(filter);
   }
 }

@@ -1,4 +1,6 @@
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter/material.dart';
+import 'package:places/data/api/api_sp.dart';
+import 'package:places/ui/res/sizes.dart';
 
 ///SharedPreferences
 ///функции для доступа
@@ -9,107 +11,64 @@ class SPProvider {
   static const _distanceEnd = 'distanceEnd';
   static const _keyThemeColor = 'keyThemeColor';
   static const _keyShowTutorial = 'keyShowTutorial';
-  static late SharedPreferences? _prefs;
 
   static Future<int?> getThemeColor() async {
-    final param = await getFromSP<int>(_keyThemeColor);
+    final param = await ApiSP.getFromSP<int>(_keyThemeColor);
 
     return param;
   }
 
+  static Future<List<String>?> getListFilter() async {
+    final param = await ApiSP.getFromSP<List<String>>(_listFilterCategory);
+
+    return param;
+  }
+
+  static Future<RangeValues> getDistance() async {
+    final distanceStart =
+        await ApiSP.getFromSP<double>(_distanceStart) ?? defaultDistanceStart;
+    final distanceEnd =
+        await ApiSP.getFromSP<double>(_distanceEnd) ?? defaultDistanceEnd;
+
+    return RangeValues(distanceStart, distanceEnd);
+  }
+
   static Future<void> updateThemeColor(int themeData) async {
-    await updateInSP<int>(
+    await ApiSP.updateInSP<int>(
       _keyThemeColor,
       themeData,
     );
   }
 
   static Future<bool?> getShowOnboarding() async {
-    final param = await getFromSP<bool>(_keyShowTutorial);
+    final param = await ApiSP.getFromSP<bool>(_keyShowTutorial);
 
     return param;
   }
 
   static Future<void> updateShowOnboarding() async {
-    await updateInSP<bool>(
+    await ApiSP.updateInSP<bool>(
       _keyShowTutorial,
       true,
     );
   }
 
-  static Future<List<String>?> getListFilter() {
-    final param = getFromSP<List<String>>(_listFilterCategory);
+  static Future<void> updateDistance(RangeValues filterDistance) async {
+    await ApiSP.updateInSP<double>(
+      _distanceStart,
+      filterDistance.start,
+    );
 
-    return param;
+    await ApiSP.updateInSP<double>(
+      _distanceEnd,
+      filterDistance.end,
+    );
   }
 
-  static Future<double?> getDistanceStart() {
-    final param = getFromSP<double>(_distanceStart);
-
-    return param;
-  }
-
-  static Future<double?> getDistanceEnd() {
-    final param = getFromSP<double>(_distanceEnd);
-
-    return param;
-  }
-
-
-  ///Получение данных из SharedPreferences
-  static Future<T?> getFromSP<T>(String keyValue) async {
-    await _initPrefs();
-
-    T? value;
-
-    if (value is String) {
-      value = (_prefs!.getString(keyValue) ?? '') as T;
-    }
-
-    if (value is int) {
-      value = (_prefs?.getInt(keyValue) ?? 0) as T;
-    }
-
-    if (value is bool) {
-      value = (_prefs?.getBool(keyValue) ?? false) as T;
-    }
-
-    if (value is List<String>) {
-      value = (_prefs?.getStringList(keyValue) ?? <String>[]) as T;
-    }
-
-    return value;
-  }
-
-  ///Обновление данных в SharedPreferences
-  static Future<void> updateInSP<T>(
-    String keyValue,
-    T value,
-  ) async {
-    await _initPrefs();
-
-    if (value is String) {
-      await _prefs!.setString(keyValue, value);
-    }
-
-    if (value is int) {
-      await _prefs!.setInt(keyValue, value);
-    }
-
-    if (value is double) {
-      await _prefs!.setDouble(keyValue, value);
-    }
-
-    if (value is bool) {
-      await _prefs!.setBool(keyValue, value);
-    }
-
-    if (value is List<String>) {
-      await _prefs!.setStringList(keyValue, value);
-    }
-  }
-
-  static Future<void> _initPrefs() async {
-    _prefs = await SharedPreferences.getInstance();
+  static Future<void> updateFilterCategory(Set<String> filterCategory) async {
+    await ApiSP.updateInSP<List<String>>(
+      _listFilterCategory,
+      filterCategory.toList(),
+    );
   }
 }
