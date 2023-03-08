@@ -7,6 +7,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:places/data/api/api_urls.dart';
 import 'package:places/data/api/network_exception.dart';
+import 'package:places/data/model/filter_set.dart';
 import 'package:places/data/model/place.dart';
 import 'package:places/data/model/place_dto.dart';
 import 'package:places/data/model/place_filter_request_dto.dart';
@@ -91,13 +92,11 @@ class PlaceRepository extends ChangeNotifier {
   ///--------------------------------------------------------------
   /// Получаем список отфильтрованных мест с сервера
   Future<List<Place>> getPlacesRepository({
-    RangeValues? radiusRange,
-    List<String>? category,
+    FilterSet? filterSet,
     String? searchString,
   }) async {
     placesDtoFilter = await getPlacesDto(
-      radiusRange,
-      category,
+      filterSet,
       searchString,
     );
     await createMocks(placesDtoFilter);
@@ -108,16 +107,14 @@ class PlaceRepository extends ChangeNotifier {
   }
 
   Future<List<Place>?> updateMocksFiltered() async {
-
     return repositoryMocks;
   }
 
   Future<List<Place>> getPlacesWantVisit(
     List<Place> listAllPlaces,
   ) async {
-    final returnListWantVisit = listAllPlaces
-        .where((element) => element.isFavorites)
-        .toList();
+    final returnListWantVisit =
+        listAllPlaces.where((element) => element.isFavorites).toList();
 
     return returnListWantVisit;
   }
@@ -178,15 +175,13 @@ class PlaceRepository extends ChangeNotifier {
   ///--------------------------------------------------------------
   /// Получаем список отфильтрованных мест с сервера
   Future<List<PlaceDto>> getPlacesDto(
-    RangeValues? radiusRange,
-    List<String>? category,
+    FilterSet? filterSet,
     String? searchString,
   ) async {
     try {
       // Создаем фильтр
       final filterJson = createFilter(
-        radiusRange: radiusRange,
-        category: category,
+        filterSet: filterSet,
         searchString: searchString,
       );
 
@@ -234,11 +229,12 @@ class PlaceRepository extends ChangeNotifier {
       placeReturn = place;
       if (placeLocalData != null) {
         //place.id =  placeLocalData.id;
-        debugPrint('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
         debugPrint(placeLocalData.isFavorites.toString());
-        debugPrint(placeLocalData.isFavoritesToBool(placeLocalData.isFavorites).toString());
+        debugPrint(placeLocalData
+            .isFavoritesToBool(placeLocalData.isFavorites)
+            .toString());
 
-        placeReturn =  place.copyWith(
+        placeReturn = place.copyWith(
           isFavorites:
               placeLocalData.isFavoritesToBool(placeLocalData.isFavorites),
           wantVisitDate: placeLocalData.wantVisitDateToDatetime(),
@@ -257,15 +253,15 @@ class PlaceRepository extends ChangeNotifier {
   ///--------------------------------------------------------------
   /// Создаем JSON фильтр
   String createFilter({
-    RangeValues? radiusRange,
-    List<String>? category,
+    FilterSet? filterSet,
     String? searchString,
   }) {
     // Текущие координаты
     const lat = 55.753605;
     const lon = 37.619773;
-    final radius = radiusRange == null ? 10000 : radiusRange.end;
-    final typeFilter = category ?? <String>[];
+    final radius = filterSet == null ? 10000 : filterSet.rangeDistance.end;
+    final typeFilter =
+        filterSet == null ? <String>[] : filterSet.selectedCategory.toList();
 
     final filterJson = PlaceFilterRequestDto(
       // Текущее местоположение телефона

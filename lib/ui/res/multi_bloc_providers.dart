@@ -18,7 +18,6 @@ import 'package:places/ui/screen/settings_screen/bloc/settings_bloc.dart';
 import 'package:places/ui/screen/visiting_screen/bloc/list_visited_bloc/list_visited_bloc.dart';
 import 'package:places/ui/screen/visiting_screen/bloc/list_want_visit_bloc/list_want_visit_bloc.dart';
 
-
 /// Список подключенных провадеров
 List<BlocProvider> listMultiBlocProviders = <BlocProvider>[
   BlocProvider<ListWantVisitBloc>(
@@ -34,7 +33,7 @@ List<BlocProvider> listMultiBlocProviders = <BlocProvider>[
   BlocProvider<ListPlacesBloc>(
     create: (context) => ListPlacesBloc(
       context.read<ListPlacesScreenInteractor>(),
-    )..add(const ListPlacesEvents.load()),
+    ),
   ),
   BlocProvider<DetailsPlaceBloc>(
     create: (context) => DetailsPlaceBloc(
@@ -45,7 +44,9 @@ List<BlocProvider> listMultiBlocProviders = <BlocProvider>[
   BlocProvider<SettingsBloc>(
     create: (context) => SettingsBloc(
       context.read<SettingsInteractor>(),
-    ),
+    )..add(
+        const SettingsEvents.loadSettings(),
+      ),
   ),
   BlocProvider<OnboardingBloc>(
     create: (context) => OnboardingBloc(
@@ -65,7 +66,10 @@ List<BlocProvider> listMultiBlocProviders = <BlocProvider>[
   ),
   BlocProvider<FilterBloc>(
     create: (context) => FilterBloc(
+      context.read<ListPlacesScreenInteractor>(),
       context.read<FiltersScreenInteractor>(),
-    ),
+    )..add(
+        const FilterEvents.load(),
+      ),
   ),
 ];

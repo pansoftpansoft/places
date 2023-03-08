@@ -50,7 +50,6 @@ const double heightSizeBox40 = 40;
 const double heightSizeBox48 = 48;
 const double heightSizeBox72 = 72;
 
-
 const int maxLines5 = 5;
 const int maxLines2 = 2;
 const double padding10 = 10;
@@ -65,3 +64,7 @@ const int maxHeightSmallScreen = 550;
 
 ///Размеры шрифтоф
 const double fontSize24 = 24;
+
+///Начальные настройки дистанции фильтрации
+const double defaultDistanceStart = 100;
+const double defaultDistanceEnd = 1000;

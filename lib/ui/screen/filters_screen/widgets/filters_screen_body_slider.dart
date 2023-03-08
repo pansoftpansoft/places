@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:places/data/interactor/filters_screen_interactor.dart';
-import 'package:places/data/model/filter_distance.dart';
 import 'package:places/ui/res/color_palette.dart';
 import 'package:places/ui/screen/filters_screen/bloc/filter_bloc.dart';
-
 
 class FiltersScreenBodySlider extends StatefulWidget {
   const FiltersScreenBodySlider({Key? key}) : super(key: key);
@@ -30,8 +27,8 @@ class _FiltersScreenBodySliderState extends State<FiltersScreenBodySlider> {
           min: 100,
           max: 10000,
           values: RangeValues(
-            state.filterDistance!.distanceStart,
-            state.filterDistance!.distanceEnd,
+            state.filterSet.rangeDistance.start,
+            state.filterSet.rangeDistance.end,
           ),
           onChanged: (newRange) {
             //Без определения этого свойства, бегунки не активны
@@ -41,8 +38,8 @@ class _FiltersScreenBodySliderState extends State<FiltersScreenBodySlider> {
             _onChangeEnd(context, newRange);
           },
           labels: RangeLabels(
-            state.filterDistance!.distanceStart.round().toString(),
-            state.filterDistance!.distanceEnd.round().toString(),
+            state.filterSet.rangeDistance.start.round().toString(),
+            state.filterSet.rangeDistance.end.round().toString(),
           ),
         ),
       ),
@@ -52,7 +49,12 @@ class _FiltersScreenBodySliderState extends State<FiltersScreenBodySlider> {
   void _onChange(BuildContext context, RangeValues newRange) {
     setState(() {
       debugPrint('newRange = ${newRange.end}');
-      FiltersScreenInteractor.rangeDistance = newRange;
+
+      context.read<FilterBloc>().add(
+            FilterEvents.updateFilterOnlyDistance(
+              filterDistance: RangeValues(newRange.start, newRange.end),
+            ),
+          );
     });
   }
 
@@ -61,7 +63,7 @@ class _FiltersScreenBodySliderState extends State<FiltersScreenBodySlider> {
 
     context.read<FilterBloc>().add(
           FilterEvents.updateFilterDistance(
-            filterDistance: FilterDistance(0, newRange.start, newRange.end),
+            filterDistance: RangeValues(newRange.start, newRange.end),
           ),
         );
   }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:places/ui/screen/filters_screen/widgets/app_bar_title.dart';
-import 'package:places/ui/screen/filters_screen/widgets/bottom_sheet_button_show.dart';
+import 'package:places/ui/screen/filters_screen/widgets/button_show.dart';
 import 'package:places/ui/screen/filters_screen/widgets/filters_screen_body.dart';
 
 ///Экран фильтров
@@ -17,7 +17,7 @@ class FiltersScreen extends StatelessWidget {
         centerTitle: false,
         title: const AppBarTitle(),
       ),
-      bottomSheet: const BottomSheetButtonShow(),
+      bottomSheet: const ButtonShow(),
       body: const FiltersScreenBody(),
     );
   }

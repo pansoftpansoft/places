@@ -16,7 +16,7 @@ class OnboardingBloc extends Bloc<OnboardingEvents, OnboardingState> {
   ) : super(
           const OnboardingState.load(),
         ) {
-    debugPrint('ListPlacesBloc ');
+
     on<OnboardingEvents>(
       (event, emitter) => event.map<Future<void>>(
         load: (event) => _load(event, emitter),

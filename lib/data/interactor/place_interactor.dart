@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:places/data/model/filter_set.dart';
 import 'package:places/data/model/place.dart';
 import 'package:places/data/repository/place_repository.dart';
 import 'package:places/domain/db_provider.dart';
@@ -13,13 +14,11 @@ class PlaceInteractor extends ChangeNotifier {
   ///--------------------------------------------------------------
   /// Получить список отфильтрованных мест
   Future<List<Place>> getPlacesInteractor({
-    RangeValues? radiusRange,
-    List<String>? category,
+    FilterSet? filterSet,
     String? searchString,
   }) async {
     final mocksFromRepository = await placeRepository.getPlacesRepository(
-      radiusRange: radiusRange,
-      category: category,
+      filterSet: filterSet,
       searchString: searchString,
     );
     mocksFiltered = mocksFromRepository;

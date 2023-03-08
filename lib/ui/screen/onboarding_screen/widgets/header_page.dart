@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:places/ui/res/labels.dart';
 import 'package:places/ui/res/route_name.dart';
+import 'package:places/ui/screen/filters_screen/bloc/filter_bloc.dart';
+import 'package:places/ui/screen/list_places_screen/bloc/list_places_bloc.dart';
 import 'package:places/ui/screen/onboarding_screen/bloc/onboarding_bloc.dart';
 import 'package:places/ui/screen/widgets/text_button_green_text.dart';
 
@@ -28,6 +30,12 @@ class HeaderPage extends StatelessWidget {
                       as Map)['callingFromSettings'] as bool) {
                     Navigator.pop(context);
                   } else {
+                    context.read<ListPlacesBloc>().add(
+                          ListPlacesEvents.load(
+                            filterSet:
+                                context.read<FilterBloc>().state.filterSet,
+                          ),
+                        );
                     Navigator.pushReplacementNamed(
                       context,
                       RouteName.listPlacesScreen,

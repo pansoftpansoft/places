@@ -3,8 +3,6 @@
 //import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:places/data/model/filter_category.dart';
-import 'package:places/data/model/filter_distance.dart';
 import 'package:places/data/model/place.dart';
 import 'package:places/data/model/places_local_data.dart';
 import 'package:places/data/model/settings_app.dart';
@@ -138,51 +136,51 @@ class DBProvider {
 
   ///--------------------------------------------------------------
   /// Получить настройки фильтра категории из бызы данных
-  Future<List<FilterCategory>> getListFilterCategoryFromDb() async {
-    _database = await database;
-    final res = await _database!.query(
-      'FilterCategory',
-      orderBy: 'orderCategory',
-    );
-
-    final list = res.isNotEmpty
-        ? res.map(FilterCategory.fromMap).toList()
-        : <FilterCategory>[];
-
-    return list;
-  }
+  // Future<List<FilterCategory>> getListFilterCategoryFromDb() async {
+  //   _database = await database;
+  //   final res = await _database!.query(
+  //     'FilterCategory',
+  //     orderBy: 'orderCategory',
+  //   );
+  //
+  //   final list = res.isNotEmpty
+  //       ? res.map(FilterCategory.fromMap).toList()
+  //       : <FilterCategory>[];
+  //
+  //   return list;
+  // }
 
   ///--------------------------------------------------------------
   /// Соохранить настройки фильтра категории в базу
-  Future<void> updateSettingsFilterCategoryInDb(
-    final FilterCategory filter,
-  ) async {
-    _database = await database;
-    final res = await _database!.update(
-      'FilterCategory',
-      filter.toMap(),
-      where: 'category=?',
-      whereArgs: [filter.category],
-    );
-  }
+  // Future<void> updateSettingsFilterCategoryInDb(
+  //   final FilterCategory filter,
+  // ) async {
+  //   _database = await database;
+  //   final res = await _database!.update(
+  //     'FilterCategory',
+  //     filter.toMap(),
+  //     where: 'category=?',
+  //     whereArgs: [filter.category],
+  //   );
+  // }
 
   ///--------------------------------------------------------------
   /// Получить настройки фильтра растояния из бызы данных
-  Future<List<FilterDistance>> getListFilterDistanceFromDb() async {
-    _database = await database;
-    final res = await _database!.query(
-      'FilterDistance',
-    );
+  // Future<List<FilterDistance>> getListFilterDistanceFromDb() async {
+  //   _database = await database;
+  //   final res = await _database!.query(
+  //     'FilterDistance',
+  //   );
+  //
+  //   debugPrint('res 1 = ${res.toString()}');
+  //   final list = res.isNotEmpty
+  //       ? res.map(FilterDistance.fromMap).toList()
+  //       : <FilterDistance>[];
+  //
+  //   return list;
+  // }
 
-    debugPrint('res 1 = ${res.toString()}');
-    final list = res.isNotEmpty
-        ? res.map(FilterDistance.fromMap).toList()
-        : <FilterDistance>[];
-
-    return list;
-  }
-
-  Future<List<SettingsApp>> getListSettingsAppFromDb() async {
+  Future<int> getThemeColor() async {
     _database = await database;
     final res = await _database!.query(
       'SettingsApp',
@@ -192,25 +190,25 @@ class DBProvider {
         ? res.map(SettingsApp.fromMap).toList()
         : <SettingsApp>[];
 
-    return list;
+    return 0;
   }
 
   ///--------------------------------------------------------------
   /// Соохранить настройки фильтра растояния в базу
-  Future<void> updateSettingsFilterDistanceInDb(
-    final FilterDistance filter,
-  ) async {
-    _database = await database;
-    final res = await _database!.update(
-      'FilterDistance',
-      filter.toMap(),
-      where: 'distanceCode=?',
-      whereArgs: [0],
-    );
-  }
+  // Future<void> updateSettingsFilterDistanceInDb(
+  //   final FilterDistance filter,
+  // ) async {
+  //   _database = await database;
+  //   final res = await _database!.update(
+  //     'FilterDistance',
+  //     filter.toMap(),
+  //     where: 'distanceCode=?',
+  //     whereArgs: [0],
+  //   );
+  // }
 
   Future<void> updateSettingsThemeColorInDb(
-    final String settingsApp,
+    final int settingsApp,
   ) async {
     debugPrint('SettingsApp.toMap() = $settingsApp');
     _database = await database;

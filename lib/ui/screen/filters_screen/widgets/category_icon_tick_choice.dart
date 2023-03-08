@@ -16,7 +16,7 @@ class CategoryIconTickChoice extends StatelessWidget {
         return Positioned(
           bottom: -4,
           right: -4,
-          child:  state.filterMap[nameKey]!
+          child: state.filterSet.selectedCategory.contains(nameKey)
               ? SvgPicture.asset(
                   SvgIcons.tickChoice,
                   height: 25,

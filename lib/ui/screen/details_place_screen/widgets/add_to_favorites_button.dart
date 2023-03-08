@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:places/ui/res/labels.dart';
 import 'package:places/ui/res/svg_icons.dart';
 import 'package:places/ui/screen/details_place_screen/bloc/details_place_bloc.dart';
+import 'package:places/ui/screen/filters_screen/bloc/filter_bloc.dart';
 import 'package:places/ui/screen/list_places_screen/bloc/list_places_bloc.dart';
 import 'package:places/ui/screen/widgets/text_button_small.dart';
 
@@ -28,9 +29,13 @@ class AddToFavoritesButton extends StatelessWidget {
                     isFavorites: state.isFavorites,
                   ),
                 );
-            debugPrint('context.read<ListPlacesBloc>().state.toString() = ${context.read<ListPlacesBloc>().state.toString()}');
+            debugPrint(
+              'context.read<ListPlacesBloc>().state.toString() = ${context.read<ListPlacesBloc>().state.toString()}',
+            );
             context.read<ListPlacesBloc>().add(
-                  const ListPlacesEvents.load(),
+                  ListPlacesEvents.load(
+                    filterSet: context.read<FilterBloc>().state.filterSet,
+                  ),
                 );
           },
           svgIconNamePrefix: state.isFavorites

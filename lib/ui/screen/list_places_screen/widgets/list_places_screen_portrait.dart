@@ -46,27 +46,6 @@ class ListPlacesScreenPortrait extends StatelessWidget {
 
             Navigator.pushNamed(context, RouteName.detailsPlaceScreen);
 
-
-
-            // debugPrint('See details BottomSheet');
-            // showModalBottomSheet<Widget>(
-            //   context: context,
-            //   builder: (_) {
-            //     context.read<DetailsPlaceBloc>().add(
-            //           DetailsPlaceEvents.onLoad(
-            //             place: state.place,
-            //             index: 0,
-            //           ),
-            //         );
-            //
-            //     return const DetailsPlaceScreen();
-            //   },
-            //   isScrollControlled: true,
-            //   isDismissible: true,
-            //   useRootNavigator: true,
-            // );
-
-            // return;
           },
         ),
       ],

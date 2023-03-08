@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-//import 'package:places/blocs/place_bloc_observer.dart';
+
 import 'package:places/data/api/api_client.dart';
 import 'package:places/ui/res/labels.dart';
 import 'package:places/ui/res/multi_bloc_providers.dart';
@@ -9,6 +9,7 @@ import 'package:places/ui/res/multi_providers.dart';
 import 'package:places/ui/res/route_map.dart';
 import 'package:places/ui/res/route_name.dart';
 import 'package:places/ui/res/themes.dart';
+import 'package:places/ui/screen/filters_screen/bloc/filter_bloc.dart';
 import 'package:places/ui/screen/settings_screen/bloc/settings_bloc.dart';
 import 'package:provider/provider.dart';
 
@@ -55,13 +56,17 @@ class Main extends StatelessWidget {
   Widget build(BuildContext context) {
     return Builder(
       builder: (context) {
-        return BlocBuilder<SettingsBloc, SettingsState>(
+        return BlocBuilder<FilterBloc, FilterState>(
           builder: (context, state) {
-            return MaterialApp(
-              theme: state.theme,
-              title: appTitle,
-              routes: mapRoutes,
-              initialRoute: RouteName.splashScreen,
+            return BlocBuilder<SettingsBloc, SettingsState>(
+              builder: (context, state) {
+                return MaterialApp(
+                  theme: state.theme,
+                  title: appTitle,
+                  routes: mapRoutes,
+                  initialRoute: RouteName.splashScreen,
+                );
+              },
             );
           },
         );

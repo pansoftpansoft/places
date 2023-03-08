@@ -1,44 +1,49 @@
-import 'package:places/data/model/filter_category.dart';
-import 'package:places/data/model/filter_distance.dart';
-import 'package:places/domain/db_provider.dart';
+import 'package:flutter/material.dart';
 
-///--------------------------------------------------------------
+//import 'package:places/domain/db_provider.dart';
+import 'package:places/domain/sp_provider.dart';
+
 /// Слой получения данных
 class FilterRepository {
-  ///--------------------------------------------------------------
   ///Получаем список настроек фильтра категорий
-  static Future<List<FilterCategory>> getListFilterCategory() async {
-    final listFilter =
-        await DBProvider.dbProvider.getListFilterCategoryFromDb();
+  static Future<List<String>> getListFilterCategory() async {
+    final listFilter = await SPProvider.getListFilter() ?? <String>[];
+
+    //Todo Сделать переключатеь выбора базы данных для сохранения
+    // final listFilter =
+    //     await DBProvider.dbProvider.getListFilterCategoryFromDb();
 
     return listFilter;
   }
 
-  ///--------------------------------------------------------------
   ///Получаем список настроек фильтра дистанции
-  static Future<FilterDistance> getListFilterDistance() async {
-    final listFilter =
-        await DBProvider.dbProvider.getListFilterDistanceFromDb();
-    // for (final item in listFilter) {
-    //   debugPrint(
-    //     'item = ${item.distanceCode} ${item.distanceStart} ${item.distanceEnd}',
-    //   );
-    // }
+  static Future<RangeValues> getListFilterDistance() async {
+    final distance = await SPProvider.getDistance();
 
-    //Возвращаем первую запись из списка, так как о на там одна
+    //Todo Сделать переключатеь выбора базы данных для сохранения
+    // final listFilter =
+    //     await DBProvider.dbProvider.getListFilterDistanceFromDb();
 
-    return listFilter.first;
+    return distance;
   }
 
-  ///--------------------------------------------------------------
   ///Обновляем список настроек фильтра категорий в базе данных
-  static Future<void> updateFilterCategory(FilterCategory filter) async {
-    await DBProvider.dbProvider.updateSettingsFilterCategoryInDb(filter);
+  static Future<void> updateFilterCategory(Set<String> filterCategory) async {
+    await SPProvider.updateFilterCategory(
+      filterCategory,
+    );
+
+    //Todo Сделать переключатеь выбора базы данных для сохранения
+    //await DBProvider.dbProvider.updateSettingsFilterCategoryInDb(filter);
   }
 
-  ///--------------------------------------------------------------
   ///Обновляем список настроек фильтра в базе данных
-  static Future<void> updateFilterDistance(FilterDistance filter) async {
-    await DBProvider.dbProvider.updateSettingsFilterDistanceInDb(filter);
+  static Future<void> updateFilterDistance(RangeValues filterDistance) async {
+    await SPProvider.updateDistance(
+      filterDistance,
+    );
+
+    //Todo Сделать переключатеь выбора базы данных для сохранения
+    //await DBProvider.dbProvider.updateSettingsFilterDistanceInDb(filter);
   }
 }
