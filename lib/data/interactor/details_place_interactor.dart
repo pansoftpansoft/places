@@ -1,12 +1,11 @@
 import 'dart:async';
 
-import 'package:flutter/material.dart';
 import 'package:places/data/interactor/place_interactor.dart';
 import 'package:places/data/model/place.dart';
 import 'package:places/ui/res/svg_icons.dart';
 
 ///Модель для DetailsPlaceModel
-class DetailsPlaceInteractor extends ChangeNotifier {
+class DetailsPlaceInteractor {
   PlaceInteractor placeInteractor = PlaceInteractor();
 
   ///Индекс отображаемой фотографии
@@ -19,7 +18,6 @@ class DetailsPlaceInteractor extends ChangeNotifier {
   ];
 
   Place? detailsPlace;
-
 
   Future<Place?> getPlace(
     int placeId,

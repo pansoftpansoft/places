@@ -5,7 +5,7 @@ import 'package:places/data/model/filter_set.dart';
 import 'package:places/data/model/place.dart';
 import 'package:places/data/repository/filter_repository.dart';
 
-class FiltersScreenInteractor extends ChangeNotifier {
+class FiltersScreenInteractor {
   ///Список истории фильтров
 
   //Запоминаем старые значения

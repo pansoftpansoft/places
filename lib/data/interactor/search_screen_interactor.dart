@@ -10,7 +10,7 @@ import 'package:places/domain/history.dart';
 import 'package:places/type_place.dart';
 
 ///Модель для поиска
-class SearchScreenInteractor extends ChangeNotifier {
+class SearchScreenInteractor{
   ///Список истории поисковых запросов
   static List<History> listHistory = <History>[];
 

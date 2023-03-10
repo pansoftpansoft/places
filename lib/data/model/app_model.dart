@@ -1,6 +1,3 @@
-import 'package:flutter/material.dart';
-
-///Модель для ChangeNotifierProvider
-class AppModel extends ChangeNotifier {
+class AppModel {
   static int language = 1;
 }

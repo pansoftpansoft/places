@@ -1,5 +1,4 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:places/data/database/app_db.dart';
 import 'package:places/data/interactor/details_place_interactor.dart';
 import 'package:places/data/interactor/filters_screen_interactor.dart';
 import 'package:places/data/interactor/list_places_screen_interactor.dart';

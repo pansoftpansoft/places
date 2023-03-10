@@ -13,19 +13,11 @@ import 'package:places/ui/screen/filters_screen/bloc/filter_bloc.dart';
 import 'package:places/ui/screen/settings_screen/bloc/settings_bloc.dart';
 import 'package:provider/provider.dart';
 
-
-import 'ui/res/multi_repository_provider.dart';
-
 ThemeData themeColor = lightTheme;
 ApiClient apiClient = ApiClient();
 
 void main() {
-  //Bloc.observer = PlaceBlocObserver();
-
   WidgetsFlutterBinding.ensureInitialized();
-
-  //loadSettings();
-
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent, // transparent status bar
@@ -33,14 +25,11 @@ void main() {
   );
 
   runApp(
-    MultiRepositoryProvider(
-      providers: listMultiRepositoryProvider,
-      child: MultiProvider(
-        providers: listMultiProviders,
-        child: MultiBlocProvider(
-          providers: listMultiBlocProviders,
-          child: const Main(),
-        ),
+    MultiProvider(
+      providers: listMultiProviders,
+      child: MultiBlocProvider(
+        providers: listMultiBlocProviders,
+        child: const Main(),
       ),
     ),
   );

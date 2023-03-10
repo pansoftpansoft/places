@@ -1,11 +1,8 @@
-// ignore_for_file: invalid_use_of_visible_for_testing_member
-
 import 'package:bloc_concurrency/bloc_concurrency.dart' as bloc_concurrency;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:places/data/api/network_exception.dart';
-import 'package:places/data/database/app_db.dart';
 import 'package:places/data/interactor/search_screen_interactor.dart';
 import 'package:places/data/model/place.dart';
 import 'package:places/domain/history.dart';

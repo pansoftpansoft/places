@@ -8,7 +8,7 @@ import 'package:places/data/repository/place_repository.dart';
 import 'package:places/type_place.dart';
 
 ///Модель для Visiting
-class VisitingInteractor extends ChangeNotifier {
+class VisitingInteractor{
   PlaceInteractor placeInteractor = PlaceInteractor();
   PlaceRepository placeRepository = PlaceRepository();
 

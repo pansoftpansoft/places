@@ -8,7 +8,7 @@ import 'package:places/domain/db_provider.dart';
 import 'package:places/type_place.dart';
 
 /// Слой бизнес логики
-class PlaceInteractor extends ChangeNotifier {
+class PlaceInteractor {
   PlaceRepository placeRepository = PlaceRepository();
 
   ///--------------------------------------------------------------

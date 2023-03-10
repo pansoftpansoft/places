@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:places/data/repository/settings_repository.dart';
 
-class SettingsInteractor extends ChangeNotifier {
+class SettingsInteractor {
   Future<ThemeData> getSettingsThemeColor() async {
     return SettingsRepository.getSettingsThemeColor();
   }
@@ -13,15 +13,8 @@ class SettingsInteractor extends ChangeNotifier {
   Future<bool> getShowOnboarding() async {
     return SettingsRepository.getShowOnboarding();
   }
+
   Future<void> updateShowOnboarding() async {
     await SettingsRepository.updateShowOnboarding();
   }
-
-  // Future<bool> getShowOnboarding() async {
-  //   return SettingsRepository.getShowOnboarding();
-  // }
-  //
-  // Future<void> updateShowOnboarding() async {
-  //   await SettingsRepository.updateShowOnboarding();
-  // }
 }

@@ -3,7 +3,7 @@ import 'package:places/data/model/place.dart';
 import 'package:places/data/repository/place_repository.dart';
 
 ///Модель для добавления фотографий в карточку места
-class AddPlaceInteractor extends ChangeNotifier {
+class AddPlaceInteractor{
   /// Первое значение бронируем,
   /// так как это будет кнопка "Добавить", которую удалять нельзя
 

@@ -5,7 +5,7 @@ import 'package:places/data/interactor/place_interactor.dart';
 import 'package:places/data/model/filter_set.dart';
 import 'package:places/data/model/place.dart';
 
-class ListPlacesScreenInteractor extends ChangeNotifier {
+class ListPlacesScreenInteractor {
   final PlaceInteractor _placeInteractor = PlaceInteractor();
 
   Future<List<Place>> loadListPlaces(

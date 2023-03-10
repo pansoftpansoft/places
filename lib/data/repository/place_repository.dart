@@ -19,7 +19,7 @@ final repositoryMocks = <Place>[];
 
 ///--------------------------------------------------------------
 /// Слой получения данных
-class PlaceRepository extends ChangeNotifier {
+class PlaceRepository{
   /// ---------------------------------------------------------------
   /// Создать новое место на сервере
   Future<Place?> postPlace(
