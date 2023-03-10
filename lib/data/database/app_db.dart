@@ -8,12 +8,23 @@ import 'package:places/data/database/table/search_query_history.dart';
 
 part 'app_db.g.dart';
 
-@DriftDatabase(tables: [SearchQueryHistory])
+@DriftDatabase(tables: [SearchQueryHistorys])
 class AppDb extends _$AppDb {
   @override
   int get schemaVersion => 1;
 
+  Future<List<SearchQueryHistory>> get allSearchQueryHistory =>
+      select(searchQueryHistorys).get();
+
   AppDb() : super(_openConnection());
+
+  Future<int> addSearchQueryHistory(
+    SearchQueryHistorysCompanion searchQueryHistory,
+  ) {
+    return into(searchQueryHistorys).insert(
+      searchQueryHistory,
+    );
+  }
 }
 
 LazyDatabase _openConnection() {

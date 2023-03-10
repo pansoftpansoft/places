@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:places/data/api/network_exception.dart';
+import 'package:places/data/database/app_db.dart';
 import 'package:places/data/interactor/search_screen_interactor.dart';
 import 'package:places/data/model/place.dart';
 import 'package:places/domain/history.dart';
@@ -17,7 +18,7 @@ class SearchPlacesBloc extends Bloc<SearchPlacesEvents, SearchPlacesState> {
   final SearchScreenInteractor _searchScreenInteractor;
 
   SearchPlacesBloc(
-    final this._searchScreenInteractor,
+    this._searchScreenInteractor,
   ) : super(
           const SearchPlacesState.load(),
         ) {

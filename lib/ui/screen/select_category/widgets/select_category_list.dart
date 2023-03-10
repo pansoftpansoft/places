@@ -5,6 +5,7 @@ import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/screen/select_category/widgets/select_element_list.dart';
 import 'package:provider/provider.dart';
 
+
 ///Создание списка категорий
 class SelectCategoryList extends StatelessWidget {
   const SelectCategoryList({

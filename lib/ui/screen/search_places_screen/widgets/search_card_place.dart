@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:places/data/interactor/search_screen_interactor.dart';
 import 'package:places/data/model/place.dart';
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/screen/search_places_screen/bloc/search_places_bloc.dart';
 import 'package:places/ui/screen/search_places_screen/widgets/search_card_place_text_span.dart';
-import 'package:provider/provider.dart';
 
 ///Карточка достопримечательностей из списка поиска
 class SearchCardPlace extends StatelessWidget {
