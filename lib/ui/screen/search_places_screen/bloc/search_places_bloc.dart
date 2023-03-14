@@ -196,10 +196,20 @@ class SearchPlacesBloc extends Bloc<SearchPlacesEvents, SearchPlacesState> {
       //Проверяем список слов в истории поиска
       final listHistoryNew = await _searchScreenInteractor.getListHistory();
 
+      debugPrint('listHistoryNew = ${listHistoryNew.toString()}');
+
       //Слов нет, чистим все.
       if (listHistoryNew.isEmpty) {
         emit(
           const SearchPlacesState.showEmpty(),
+        );
+      } else {
+        emit(
+          SearchPlacesState.showListHistory(
+            listHistory: listHistoryNew,
+            listSearch: event.listSearch,
+            stringSearch: event.stringSearch,
+          ),
         );
       }
     } on Object {

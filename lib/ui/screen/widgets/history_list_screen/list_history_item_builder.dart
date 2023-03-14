@@ -6,7 +6,6 @@ import 'package:places/ui/res/color_palette.dart';
 import 'package:places/ui/res/svg_icons.dart';
 import 'package:places/ui/screen/search_places_screen/bloc/search_places_bloc.dart';
 
-
 class ListHistoryItemBuilder extends StatelessWidget {
   final int index;
 
@@ -76,7 +75,6 @@ class ListHistoryItemBuilder extends StatelessWidget {
   ) {
     final stringSearch =
         context.read<SearchPlacesBloc>().state.listHistory[index].historyText;
-
 
     debugPrint('stringSearch = $stringSearch');
     context
