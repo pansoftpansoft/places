@@ -9,8 +9,7 @@ import 'package:places/domain/db_provider.dart';
 import 'package:places/domain/history.dart';
 import 'package:places/type_place.dart';
 
-///Модель для поиска
-class SearchScreenInteractor{
+class SearchInteractor {
   ///Список истории поисковых запросов
   static List<History> listHistory = <History>[];
 
@@ -29,7 +28,7 @@ class SearchScreenInteractor{
   ///Получаем список историй поиска
   Future<List<History>> getListHistory() async {
     listHistory.clear();
-    listHistory = (await DBProvider.dbProvider.getListHistoryFromDb())!;
+    listHistory = (await SqlProvider.dbProvider.getListHistoryFromDb())!;
 
     return listHistory;
   }
@@ -52,7 +51,7 @@ class SearchScreenInteractor{
 
   ///Получаем список историй поиска
   Future<void> addToListHistory(String value) async {
-    await DBProvider.dbProvider.addHistory(value);
+    await SqlProvider.dbProvider.addHistory(value);
   }
 
   Future<void> getListSearchText() async {
@@ -89,11 +88,11 @@ class SearchScreenInteractor{
     mocksSearchText.clear();
     if (searchString == '') {
       _searchString = '';
-      SearchScreenInteractor.textEditingControllerFind.clear();
+      SearchInteractor.textEditingControllerFind.clear();
     } else {
       _searchString = searchString;
 
-      SearchScreenInteractor.textEditingControllerFind.value = TextEditingValue(
+      SearchInteractor.textEditingControllerFind.value = TextEditingValue(
         text: searchString,
         selection: TextSelection.fromPosition(
           TextPosition(offset: searchString.length),
@@ -108,19 +107,19 @@ class SearchScreenInteractor{
     //Ищем текст
     setSearchText(searchString);
     //сохранить текст поиска
-    DBProvider.dbProvider.addHistory(searchString);
+    SqlProvider.dbProvider.addHistory(searchString);
   }
 
   ///Очищаем список историй поиска
   Future<void> clearHistory() async {
-    SearchScreenInteractor.listHistory.clear();
-    await DBProvider.dbProvider.deleteTheListOfSearchHistoryWords();
+    SearchInteractor.listHistory.clear();
+    await SqlProvider.dbProvider.deleteTheListOfSearchHistoryWords();
     await getListHistory(); //Обновляем список после удаления всех имторий
   }
 
   ///Удаляю одну запись из истории поиска
   Future<void> deleteHistory(String historyText) async {
-    await DBProvider.deleteHistory(historyText);
+    await SqlProvider.deleteHistory(historyText);
     await getListHistory(); //Обновляем список после удаления всей истории
   }
 

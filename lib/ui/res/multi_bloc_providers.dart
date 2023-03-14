@@ -1,10 +1,10 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:places/data/interactor/details_place_interactor.dart';
-import 'package:places/data/interactor/filters_screen_interactor.dart';
-import 'package:places/data/interactor/list_places_screen_interactor.dart';
-import 'package:places/data/interactor/onboarding_screen_interactor.dart';
+import 'package:places/data/interactor/filters_interactor.dart';
+import 'package:places/data/interactor/list_places_interactor.dart';
+import 'package:places/data/interactor/onboarding_interactor.dart';
 import 'package:places/data/interactor/place_interactor.dart';
-import 'package:places/data/interactor/search_screen_interactor.dart';
+import 'package:places/data/interactor/search_interactor.dart';
 import 'package:places/data/interactor/settings_interactor.dart';
 import 'package:places/data/interactor/visiting_interactor.dart';
 import 'package:places/ui/screen/add_place_screen/bloc/add_place_bloc.dart';
@@ -32,7 +32,7 @@ List<BlocProvider> listMultiBlocProviders = <BlocProvider>[
   ),
   BlocProvider<ListPlacesBloc>(
     create: (context) => ListPlacesBloc(
-      context.read<ListPlacesScreenInteractor>(),
+      context.read<ListPlacesInteractor>(),
     ),
   ),
   BlocProvider<DetailsPlaceBloc>(
@@ -50,7 +50,7 @@ List<BlocProvider> listMultiBlocProviders = <BlocProvider>[
   ),
   BlocProvider<OnboardingBloc>(
     create: (context) => OnboardingBloc(
-      context.read<OnboardingScreenInteractor>(),
+      context.read<OnboardingInteractor>(),
     ),
   ),
   BlocProvider<AddPlaceBloc>(
@@ -61,13 +61,13 @@ List<BlocProvider> listMultiBlocProviders = <BlocProvider>[
   ),
   BlocProvider<SearchPlacesBloc>(
     create: (context) => SearchPlacesBloc(
-      context.read<SearchScreenInteractor>(),
+      context.read<SearchInteractor>(),
     ),
   ),
   BlocProvider<FilterBloc>(
     create: (context) => FilterBloc(
-      context.read<ListPlacesScreenInteractor>(),
-      context.read<FiltersScreenInteractor>(),
+      context.read<ListPlacesInteractor>(),
+      context.read<FiltersInteractor>(),
     )..add(
         const FilterEvents.load(),
       ),

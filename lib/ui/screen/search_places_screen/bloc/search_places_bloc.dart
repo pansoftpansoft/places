@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:places/data/api/network_exception.dart';
-import 'package:places/data/interactor/search_screen_interactor.dart';
+import 'package:places/data/interactor/search_interactor.dart';
 import 'package:places/data/model/place.dart';
 import 'package:places/domain/history.dart';
 
@@ -12,7 +12,7 @@ import 'search_state_enum.dart';
 part 'search_places_bloc.freezed.dart';
 
 class SearchPlacesBloc extends Bloc<SearchPlacesEvents, SearchPlacesState> {
-  final SearchScreenInteractor _searchScreenInteractor;
+  final SearchInteractor _searchScreenInteractor;
 
   SearchPlacesBloc(
     this._searchScreenInteractor,
@@ -191,7 +191,7 @@ class SearchPlacesBloc extends Bloc<SearchPlacesEvents, SearchPlacesState> {
     try {
       //Удаляем слово из истории поиска
       await _searchScreenInteractor.deleteHistory(
-        SearchScreenInteractor.listHistory[event.indexHistoryText!].historyText,
+        SearchInteractor.listHistory[event.indexHistoryText!].historyText,
       );
       //Проверяем список слов в истории поиска
       final listHistoryNew = await _searchScreenInteractor.getListHistory();

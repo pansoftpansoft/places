@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:places/domain/onboarding_page.dart';
+import 'package:places/data/model/onboarding_page.dart';
 import 'package:places/type_place.dart';
 import 'package:places/ui/res/route_name.dart';
 import 'package:places/ui/screen/filters_screen/bloc/filter_bloc.dart';

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:places/data/interactor/search_screen_interactor.dart';
+import 'package:places/data/interactor/search_interactor.dart';
 import 'package:places/ui/res/color_palette.dart';
 import 'package:places/ui/res/svg_icons.dart';
 import 'package:places/ui/screen/search_places_screen/bloc/search_places_bloc.dart';
@@ -22,7 +22,7 @@ class ListHistoryItemBuilder extends StatelessWidget {
               _onSelectWord(index, context);
             },
             child: Text(
-              SearchScreenInteractor.listHistory[index].historyText,
+              SearchInteractor.listHistory[index].historyText,
               style: Theme.of(context)
                   .textTheme
                   .subtitle1!

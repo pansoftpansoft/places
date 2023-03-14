@@ -5,7 +5,7 @@ import 'package:places/data/model/filter_set.dart';
 import 'package:places/data/model/place.dart';
 import 'package:places/data/repository/filter_repository.dart';
 
-class FiltersScreenInteractor {
+class FiltersInteractor {
   ///Список истории фильтров
 
   //Запоминаем старые значения
@@ -51,7 +51,7 @@ class FiltersScreenInteractor {
   Future<RangeValues> getSettingsFilterDistance() async {
     var rangeDistance = await FilterRepository.getListFilterDistance();
     //Проверяем если пришли из сохраненных значения 0
-    if (rangeDistance.start==0 && rangeDistance.end==0){
+    if (rangeDistance.start == 0 && rangeDistance.end == 0) {
       rangeDistance = const RangeValues(100, 1000);
     }
     debugPrint('rangeDistance = ${rangeDistance.end.toString()}');

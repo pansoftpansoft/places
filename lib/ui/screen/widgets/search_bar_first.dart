@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:places/data/interactor/search_screen_interactor.dart';
+import 'package:places/data/interactor/search_interactor.dart';
 import 'package:places/ui/res/color_palette.dart';
 import 'package:places/ui/res/labels.dart';
 import 'package:places/ui/res/sizes.dart';
@@ -78,7 +78,7 @@ class SearchBarFirst extends StatelessWidget {
     BuildContext context,
   ) {
     ///Чистим строку поиска
-    SearchScreenInteractor.textEditingControllerFind.clear();
+    SearchInteractor.textEditingControllerFind.clear();
     Navigator.pushNamed(context, RouteName.filtersScreen);
   }
 

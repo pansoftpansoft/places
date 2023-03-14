@@ -25,6 +25,24 @@ class AppDb extends _$AppDb {
       searchQueryHistory,
     );
   }
+
+  Future<int> deleteSearchQueryHistory(
+      SearchQueryHistorysCompanion searchQueryHistory,
+      int idSearchQueryHistory,
+      ) {
+    return into(searchQueryHistorys).insert(
+      searchQueryHistory,
+    );
+  }
+
+  Future<int> clearSearchQueryHistory(
+      SearchQueryHistorysCompanion searchQueryHistory,
+      ) {
+    return into(searchQueryHistorys).insert(
+      searchQueryHistory,
+    );
+  }
+
 }
 
 LazyDatabase _openConnection() {
