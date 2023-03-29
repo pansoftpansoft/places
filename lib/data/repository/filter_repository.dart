@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-
-//import 'package:places/domain/db_provider.dart';
 import 'package:places/domain/sp_provider.dart';
 
 /// Слой получения данных

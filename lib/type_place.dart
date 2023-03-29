@@ -1,6 +1,6 @@
+import 'package:places/data/model/onboarding_page.dart';
 import 'package:places/data/model/place.dart';
 import 'package:places/data/model/place_dto.dart';
-import 'package:places/data/model/onboarding_page.dart';
 import 'package:places/ui/res/labels.dart';
 import 'package:places/ui/res/svg_icons.dart';
 

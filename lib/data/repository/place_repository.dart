@@ -1,5 +1,3 @@
-// ignore_for_file: cascade_invocations
-
 import 'dart:async';
 import 'dart:convert';
 
@@ -11,7 +9,7 @@ import 'package:places/data/model/filter_set.dart';
 import 'package:places/data/model/place.dart';
 import 'package:places/data/model/place_dto.dart';
 import 'package:places/data/model/place_filter_request_dto.dart';
-import 'package:places/domain/db_provider.dart';
+import 'package:places/domain/sql_provider.dart';
 import 'package:places/main.dart';
 import 'package:places/type_place.dart';
 
@@ -19,7 +17,7 @@ final repositoryMocks = <Place>[];
 
 ///--------------------------------------------------------------
 /// Слой получения данных
-class PlaceRepository{
+class PlaceRepository {
   /// ---------------------------------------------------------------
   /// Создать новое место на сервере
   Future<Place?> postPlace(
@@ -56,7 +54,7 @@ class PlaceRepository{
   /// Получаем список всех мест
   Future<List<Place>> getAllPlace() async {
     try {
-      final placesLocalData = await DBProvider.dbProvider.getPlacesLocal();
+      final placesLocalData = await SqlProvider.dbProvider.getPlacesLocal();
       final listPlaceAll = ((await apiClient.get(pathUrlListPlaces)).data
               as List)
           // ignore: avoid_annotating_with_dynamic
@@ -132,7 +130,7 @@ class PlaceRepository{
     List<PlaceDto> placesDto,
   ) async {
     repositoryMocks.clear();
-    final placesLocalData = await DBProvider.dbProvider.getPlacesLocal();
+    final placesLocalData = await SqlProvider.dbProvider.getPlacesLocal();
     bool? isFavorites = false;
     DateTime? wantVisitDate;
     DateTime? visitedDate;
@@ -222,7 +220,7 @@ class PlaceRepository{
       //Добавим значения из локальной базы данных
       final place = Place.fromJson(mapFull);
 
-      final placeLocalData = await DBProvider.dbProvider.getPlacesLocalDataId(
+      final placeLocalData = await SqlProvider.dbProvider.getPlacesLocalDataId(
         place.id,
       );
 
@@ -278,9 +276,10 @@ class PlaceRepository{
   ///--------------------------------------------------------------
   /// Установить что место посетили
   Future<void> updatePlaceLocalDB(Place place) async {
-    final countUpdate = await DBProvider.dbProvider.updatePlacesLocalData(
+    final countUpdate = await SqlProvider.dbProvider.updatePlacesLocalData(
       place,
     );
+    debugPrint('countUpdate = $countUpdate');
   }
 
   ///--------------------------------------------------------------

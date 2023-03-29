@@ -1,22 +1,18 @@
-// ignore_for_file: cascade_invocations, unused_local_variable
-
-//import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:places/data/model/history.dart';
 import 'package:places/data/model/place.dart';
 import 'package:places/data/model/places_local_data.dart';
-import 'package:places/data/model/settings_app.dart';
 import 'package:places/domain/db_sql_string_ddl.dart';
-import 'package:places/domain/history.dart';
 import 'package:sqflite/sqflite.dart';
 
 /// Класс для работы с SQLite Сохраняем историю поиска
-class DBProvider {
+class SqlProvider {
   ///
   static const String _databaseName = '/placeDB.db';
 
   ///
-  static final DBProvider dbProvider = DBProvider._();
+  static final SqlProvider dbProvider = SqlProvider._();
 
   ///
   static Database? _database;
@@ -30,7 +26,7 @@ class DBProvider {
     return initDB();
   }
 
-  DBProvider._();
+  SqlProvider._();
 
   /// Удалить поисковый запрос из истории поиска
   static Future<int> deleteHistory(String historyText) async {
@@ -120,92 +116,14 @@ class DBProvider {
     if (historyText.isEmpty) {
       return 0;
     }
-    try {
-      //ToDo сделать проверку на совпадение
-      _database = await database;
-      final newHistory = History(historyText: historyText);
-      final res = await _database!.insert('history', newHistory.toMap());
 
-      return res;
-    } catch (e) {
-      debugPrint('Скорее всего найден дублер');
-    }
-
-    return 0;
-  }
-
-  ///--------------------------------------------------------------
-  /// Получить настройки фильтра категории из бызы данных
-  // Future<List<FilterCategory>> getListFilterCategoryFromDb() async {
-  //   _database = await database;
-  //   final res = await _database!.query(
-  //     'FilterCategory',
-  //     orderBy: 'orderCategory',
-  //   );
-  //
-  //   final list = res.isNotEmpty
-  //       ? res.map(FilterCategory.fromMap).toList()
-  //       : <FilterCategory>[];
-  //
-  //   return list;
-  // }
-
-  ///--------------------------------------------------------------
-  /// Соохранить настройки фильтра категории в базу
-  // Future<void> updateSettingsFilterCategoryInDb(
-  //   final FilterCategory filter,
-  // ) async {
-  //   _database = await database;
-  //   final res = await _database!.update(
-  //     'FilterCategory',
-  //     filter.toMap(),
-  //     where: 'category=?',
-  //     whereArgs: [filter.category],
-  //   );
-  // }
-
-  ///--------------------------------------------------------------
-  /// Получить настройки фильтра растояния из бызы данных
-  // Future<List<FilterDistance>> getListFilterDistanceFromDb() async {
-  //   _database = await database;
-  //   final res = await _database!.query(
-  //     'FilterDistance',
-  //   );
-  //
-  //   debugPrint('res 1 = ${res.toString()}');
-  //   final list = res.isNotEmpty
-  //       ? res.map(FilterDistance.fromMap).toList()
-  //       : <FilterDistance>[];
-  //
-  //   return list;
-  // }
-
-  Future<int> getThemeColor() async {
+    //ToDo сделать проверку на совпадение
     _database = await database;
-    final res = await _database!.query(
-      'SettingsApp',
-    );
-    debugPrint('res 2 = ${res.toString()}');
-    final list = res.isNotEmpty
-        ? res.map(SettingsApp.fromMap).toList()
-        : <SettingsApp>[];
+    final newHistory = History(historyText: historyText);
+    final res = await _database!.insert('history', newHistory.toMap());
 
-    return 0;
+    return res;
   }
-
-  ///--------------------------------------------------------------
-  /// Соохранить настройки фильтра растояния в базу
-  // Future<void> updateSettingsFilterDistanceInDb(
-  //   final FilterDistance filter,
-  // ) async {
-  //   _database = await database;
-  //   final res = await _database!.update(
-  //     'FilterDistance',
-  //     filter.toMap(),
-  //     where: 'distanceCode=?',
-  //     whereArgs: [0],
-  //   );
-  // }
 
   Future<void> updateSettingsThemeColorInDb(
     final int settingsApp,
@@ -218,6 +136,7 @@ class DBProvider {
       where: 'settingsName=?',
       whereArgs: ['themes'],
     );
+    debugPrint('res = $res');
   }
 
   ///--------------------------------------------------------------
@@ -259,9 +178,10 @@ class DBProvider {
     final placesLocalData = PlacesLocalData(placeId);
 
     if (res.isNotEmpty) {
-      placesLocalData.isFavorites = res.first['isFavorites'] as int;
-      placesLocalData.wantVisitDate = res.first['wantVisitDate'] as int?;
-      placesLocalData.visitedDate = res.first['visitedDate'] as int?;
+      placesLocalData
+        ..isFavorites = res.first['isFavorites'] as int
+        ..wantVisitDate = res.first['wantVisitDate'] as int?
+        ..visitedDate = res.first['visitedDate'] as int?;
     }
 
     return placesLocalData;

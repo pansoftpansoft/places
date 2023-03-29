@@ -66,6 +66,6 @@ class SearchCardPlace extends StatelessWidget {
   Future<void> _onTap(BuildContext context) async {
     context
         .read<SearchPlacesBloc>()
-        .add(SearchPlacesEvents.selectSearch(place: place));
+        .add(SearchPlacesEvents.showSelectPlace(place: place));
   }
 }

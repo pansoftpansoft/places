@@ -193,7 +193,7 @@ class ListPlacesState with _$ListPlacesState {
       );
 
   Place get place => maybeWhen<Place>(
-        orElse: () => place,
+        orElse: () => const Place(),
         selected: (listPlaces, place) => place,
       );
 

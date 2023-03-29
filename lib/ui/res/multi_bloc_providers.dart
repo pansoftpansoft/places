@@ -62,6 +62,7 @@ List<BlocProvider> listMultiBlocProviders = <BlocProvider>[
   BlocProvider<SearchPlacesBloc>(
     create: (context) => SearchPlacesBloc(
       context.read<SearchInteractor>(),
+      context.read<ListPlacesInteractor>(),
     ),
   ),
   BlocProvider<FilterBloc>(

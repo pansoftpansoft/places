@@ -19,30 +19,22 @@ class AppDb extends _$AppDb {
   AppDb() : super(_openConnection());
 
   Future<int> addSearchQueryHistory(
-    SearchQueryHistorysCompanion searchQueryHistory,
+    String searchString,
   ) {
     return into(searchQueryHistorys).insert(
-      searchQueryHistory,
+      SearchQueryHistorysCompanion(searchQuery: Value(searchString)),
     );
   }
 
-  Future<int> deleteSearchQueryHistory(
-      SearchQueryHistorysCompanion searchQueryHistory,
-      int idSearchQueryHistory,
-      ) {
-    return into(searchQueryHistorys).insert(
-      searchQueryHistory,
-    );
+  Future<void> deleteSearchQueryHistory(
+    int id,
+  ) async {
+    await (delete(searchQueryHistorys)..where((tbl) => tbl.id.equals(id))).go();
   }
 
-  Future<int> clearSearchQueryHistory(
-      SearchQueryHistorysCompanion searchQueryHistory,
-      ) {
-    return into(searchQueryHistorys).insert(
-      searchQueryHistory,
-    );
+  Future<void> clearSearchQueryHistory() async {
+    await delete(searchQueryHistorys).go();
   }
-
 }
 
 LazyDatabase _openConnection() {

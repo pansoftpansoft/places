@@ -10,24 +10,22 @@ import 'package:places/data/interactor/settings_interactor.dart';
 import 'package:places/data/interactor/visiting_interactor.dart';
 import 'package:places/data/model/app_model.dart';
 import 'package:places/data/repository/place_repository.dart';
+import 'package:places/data/repository/search_repository.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 
 /// Список подключенных провадеров
 /// ToDo сюда переносим интеректоры из listMultiProvidersOLD
 List<SingleChildWidget> listMultiProviders = [
-  Provider(
+  Provider<AppDb>(
     create: (context) => AppDb(),
     //dispose: (context)=>AppDb.close(),
   ),
-  Provider(
+  Provider<AppModel>(
     create: (context) => AppModel(),
   ),
-  Provider(
-    create: (context) => SearchInteractor(),
-  ),
-  Provider(
-    create: (context) => ListPlacesInteractor(),
+  Provider<PlaceRepository>(
+    create: (context) => PlaceRepository(),
   ),
   Provider(
     create: (context) => FiltersInteractor(),
@@ -37,9 +35,6 @@ List<SingleChildWidget> listMultiProviders = [
   ),
   Provider(
     create: (context) => PlaceInteractor(),
-  ),
-  Provider(
-    create: (context) => PlaceRepository(),
   ),
   Provider(
     create: (context) => OnboardingInteractor(),
@@ -52,5 +47,20 @@ List<SingleChildWidget> listMultiProviders = [
   ),
   Provider(
     create: (context) => VisitingInteractor(),
+  ),
+  ProxyProvider<AppDb, SearchRepository>(
+    update: (context, appDb, previous) {
+      return SearchRepository(appDb);
+    },
+  ),
+  ProxyProvider<SearchRepository, SearchInteractor>(
+    update: (context, searchRepository, searchInteractor) {
+      return SearchInteractor(searchRepository);
+    },
+  ),
+  ProxyProvider<PlaceRepository, ListPlacesInteractor>(
+    update: (context, placeRepository, listPlacesInteractor) {
+      return ListPlacesInteractor(placeRepository);
+    },
   ),
 ];

@@ -1,20 +1,33 @@
-import 'package:places/domain/db_provider.dart';
-import 'package:places/domain/history.dart';
+import 'package:places/data/database/app_db.dart';
 
 /// Слой получения данных
 class SearchRepository {
-  final SqlProvider _dbProvider;
+  final AppDb _appDb;
 
-  SearchRepository(this._dbProvider);
+  SearchRepository(this._appDb);
 
   ///Получаем список слов по которым производился поиск
-  Future<List<History>> getListSearchHistory() async {
-    final listFilter = await _dbProvider.getListHistoryFromDb() ?? <History>[];
-
-    //Todo Сделать переключатеь выбора базы данных для сохранения
-    // final listFilter =
-    //   await SqlProvider.dbProvider.getListFilterCategoryFromDb();
+  Future<List<SearchQueryHistory>> getListSearchHistory() async {
+    final listFilter = await _appDb.allSearchQueryHistory;
 
     return listFilter;
+  }
+
+  /// Добавить, в список историй поиска, новый поисковый запрос
+  Future<void> addHistory(String historyText) async {
+    if (historyText.isEmpty) {
+      return;
+    }
+    await _appDb.addSearchQueryHistory(historyText);
+  }
+
+  /// Удаление всех поисковых запросов
+  Future<void> clearSearchHistory() async {
+    await _appDb.clearSearchQueryHistory();
+  }
+
+  /// Удаление поискового запроса
+  Future<void> deleteSearchRequest(int id) async {
+    await _appDb.deleteSearchQueryHistory(id);
   }
 }
