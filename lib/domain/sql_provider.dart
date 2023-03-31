@@ -94,7 +94,6 @@ class SqlProvider {
         .execute(DbSqlStringDdl.insertValueSettingsApp['SettingTheme']!);
   }
 
-  ///--------------------------------------------------------------
   /// Получить историю поиска из бызы данных
   Future<List<History>?> getListHistoryFromDb() async {
     _database = await database;
@@ -139,7 +138,6 @@ class SqlProvider {
     debugPrint('res = $res');
   }
 
-  ///--------------------------------------------------------------
   /// Удалить список слов истории поиска
   Future<int> deleteTheListOfSearchHistoryWords() async {
     _database = await database;
@@ -148,7 +146,6 @@ class SqlProvider {
     return res;
   }
 
-  ///--------------------------------------------------------------
   /// Получить список локальных данных из бызы данных
   Future<List<PlacesLocalData>> getPlacesLocal() async {
     _database = await database;
@@ -164,7 +161,6 @@ class SqlProvider {
     return list;
   }
 
-  ///--------------------------------------------------------------
   /// Получить локальных данных из бызы данных, для одного места
   Future<PlacesLocalData?> getPlacesLocalDataId(int placeId) async {
     _database = await database;
@@ -187,8 +183,7 @@ class SqlProvider {
     return placesLocalData;
   }
 
-  ///--------------------------------------------------------------
-  ///
+  ///Проверка на наличие места placeId в базе
   Future<bool> checkPlacesInLocalDataId(int placeId) async {
     _database = await database;
     final res = await _database!.query(
@@ -202,7 +197,6 @@ class SqlProvider {
     return res.isNotEmpty;
   }
 
-  ///--------------------------------------------------------------
   /// Получить список локальных данных из бызы данных
   Future<List<PlacesLocalData>> getPlacesLocalId() async {
     _database = await database;
@@ -218,7 +212,6 @@ class SqlProvider {
     return list;
   }
 
-  ///--------------------------------------------------------------
   /// Добавить в базу, данные о месте
   Future<int> insertPlacesLocalData(Place place) async {
     if (place.id.isNaN) {

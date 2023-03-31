@@ -3,11 +3,12 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:places/data/model/filter_set.dart';
 import 'package:places/data/model/place.dart';
-import 'package:places/data/repository/place_repository.dart';
+import 'package:places/data/repository/place_repository_moor.dart';
+import 'package:places/data/repository/place_repository_sql.dart';
 import 'package:places/type_place.dart';
 
 class ListPlacesInteractor {
-  final PlaceRepository _placeRepository;
+  final PlaceRepositoryMoor _placeRepository;
 
   ListPlacesInteractor(this._placeRepository);
 

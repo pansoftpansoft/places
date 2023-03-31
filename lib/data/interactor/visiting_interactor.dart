@@ -4,13 +4,15 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:places/data/interactor/place_interactor.dart';
 import 'package:places/data/model/place.dart';
-import 'package:places/data/repository/place_repository.dart';
+import 'package:places/data/repository/place_repository_moor.dart';
+import 'package:places/data/repository/place_repository_sql.dart';
 import 'package:places/type_place.dart';
 
 ///Модель для Visiting
-class VisitingInteractor{
-  PlaceInteractor placeInteractor = PlaceInteractor();
-  PlaceRepository placeRepository = PlaceRepository();
+class VisitingInteractor {
+  PlaceRepositoryMoor placeRepository;
+
+  VisitingInteractor(this.placeRepository);
 
   ///Удаление из мест которые хотел посетить
   Future<void> deletePlaceWantVisit(
@@ -18,8 +20,8 @@ class VisitingInteractor{
     //StreamController<Place> streamControllerListPlace,
   ) async {
     final placeNew = place.copyWith(isFavorites: false);
-    await placeInteractor.setFavorites(
-      placeNew,
+    await placeRepository.setIsFavorites(
+      placeNew.id,
     );
   }
 
@@ -27,9 +29,9 @@ class VisitingInteractor{
   Future<void> deletePlaceVisited(
     Place place,
   ) async {
-    await placeInteractor.setStatusPlaceVisited(
-      place,
-    );
+    // await placeInteractor.setStatusPlaceVisited(
+    //   place,
+    // );
   }
 
   ///Перемещение карточек внутри списка
@@ -42,14 +44,14 @@ class VisitingInteractor{
   ///Установка или изменение даты заплонированного посещения интересног места
   Future<void> dateWantVisit(Place place, DateTime dateWantVisitNew) async {
     final placeNew = place.copyWith(wantVisitDate: dateWantVisitNew);
-    await placeInteractor.setFavorites(
-      placeNew,
+    await placeRepository.setIsFavorites(
+      placeNew.id,
     );
   }
 
   ///Установка места признака что оно посещено
   Future<void> wantVisitUpdateToVisit(Place place) async {
-    await placeInteractor.setStatusPlaceVisited(place);
+    //await placeRepository.setPlacesVisited(place.id, int.tryParse(DateTime.now().toString()));
   }
 
   Future<void> getListWantVisitAndVisited() async {

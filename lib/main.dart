@@ -14,7 +14,6 @@ import 'package:places/ui/screen/settings_screen/bloc/settings_bloc.dart';
 import 'package:provider/provider.dart';
 
 ThemeData themeColor = lightTheme;
-ApiClient apiClient = ApiClient();
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();

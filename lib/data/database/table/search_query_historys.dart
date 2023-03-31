@@ -5,3 +5,4 @@ class SearchQueryHistorys extends Table {
 
   TextColumn get searchQuery => text().withLength(max: 50)();
 }
+

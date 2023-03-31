@@ -1,12 +1,12 @@
 import 'dart:async';
 
-import 'package:places/data/interactor/place_interactor.dart';
 import 'package:places/data/model/place.dart';
+import 'package:places/data/repository/place_repository_moor.dart';
 import 'package:places/ui/res/svg_icons.dart';
 
 ///Модель для DetailsPlaceModel
 class DetailsPlaceInteractor {
-  PlaceInteractor placeInteractor = PlaceInteractor();
+  PlaceRepositoryMoor placeRepository;
 
   ///Индекс отображаемой фотографии
   int index = 0;
@@ -19,10 +19,12 @@ class DetailsPlaceInteractor {
 
   Place? detailsPlace;
 
+  DetailsPlaceInteractor(this.placeRepository);
+
   Future<Place?> getPlace(
     int placeId,
   ) async {
-    detailsPlace = await placeInteractor.getPlaceDetails(
+    detailsPlace = await placeRepository.getPlaceId(
       placeId,
     );
 

@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:places/data/interactor/place_interactor.dart';
 import 'package:places/data/model/filter_set.dart';
 import 'package:places/data/model/place.dart';
 import 'package:places/data/repository/filter_repository.dart';
@@ -13,11 +12,7 @@ class FiltersInteractor {
   //Если пользователь вернулся на предыдущий
   //экран то востановим текущие значения
 
-  ///
-
   static List<String> listCategory = <String>[];
-
-  PlaceInteractor placeInteractor = PlaceInteractor();
 
   /// Фильтрация списка по категории
   static List<Place> filterListPlacesCategory(

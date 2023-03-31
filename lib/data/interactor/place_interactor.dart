@@ -2,13 +2,16 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:places/data/model/place.dart';
-import 'package:places/data/repository/place_repository.dart';
+import 'package:places/data/repository/place_repository_moor.dart';
 import 'package:places/domain/sql_provider.dart';
 import 'package:places/type_place.dart';
 
 /// Слой бизнес логики
 class PlaceInteractor {
-  PlaceRepository placeRepository = PlaceRepository();
+  PlaceRepositoryMoor placeRepository;
+
+
+  PlaceInteractor(this.placeRepository);
 
   ///--------------------------------------------------------------
 
@@ -27,36 +30,8 @@ class PlaceInteractor {
   /// Установка месту избранное или нет
   Future<void> setFavorites(
     Place place,
-    //StreamController<Place> streamControllerListPlace,
   ) async {
-    // Пробуем обновить место
-
-    // проверяем есть токое место в лакальной базе, если нет добавляем.
-    final addInLocalDB = await SqlProvider.dbProvider.checkPlacesInLocalDataId(
-      place.id,
-    );
-
-    debugPrint('addInLocalDB = $addInLocalDB');
-
-    if (addInLocalDB) {
-      debugPrint('addInLocalDB place.isFavorites = ${place.isFavorites}');
-      final countUpdate = await SqlProvider.dbProvider.updatePlacesLocalData(
-        place,
-      );
-      debugPrint('countUpdate = $countUpdate');
-    } else {
-      final countInsert = await SqlProvider.dbProvider.insertPlacesLocalData(
-        place,
-      );
-      debugPrint('countInsert = $countInsert');
-    }
-
-    debugPrint(
-      'newPlace id = ${place.id} isFavorites = ${place.isFavorites}',
-    );
-
-    mocksFiltered = (await placeRepository.updateMocksFiltered())!;
-    await getListWantVisitAndVisitedBloc();
+    await placeRepository.setIsFavorites(place.id);
   }
 
   ///-----------------------------------------------
