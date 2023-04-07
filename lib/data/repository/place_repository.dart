@@ -1,4 +1,5 @@
 import 'package:places/data/model/filter_set.dart';
+import 'package:places/data/model/place.dart';
 
 ///
 abstract class PlaceRepository<T> {
@@ -19,13 +20,11 @@ abstract class PlaceRepository<T> {
 
   /// Устанавливает и снимает признак фаворита
   Future<void> setIsFavorites(
-    int id,
+    Place place,
   );
 
   /// Получть список мест которые хочу посетить
-  Future<List<T>> getPlacesWantVisit(
-    List<T> listAllPlaces,
-  );
+  Future<List<T>> getPlacesWantVisit();
 
   /// Установить признак месту 'хочу посетить'
   Future<void> setWantVisit(

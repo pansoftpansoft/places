@@ -4,12 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:places/data/model/place.dart';
 import 'package:places/data/repository/place_repository_moor.dart';
 import 'package:places/domain/sql_provider.dart';
-import 'package:places/type_place.dart';
 
 /// Слой бизнес логики
 class PlaceInteractor {
   PlaceRepositoryMoor placeRepository;
-
 
   PlaceInteractor(this.placeRepository);
 
@@ -31,7 +29,7 @@ class PlaceInteractor {
   Future<void> setFavorites(
     Place place,
   ) async {
-    await placeRepository.setIsFavorites(place.id);
+    await placeRepository.setIsFavorites(place);
   }
 
   ///-----------------------------------------------
@@ -89,11 +87,7 @@ class PlaceInteractor {
   }
 
   Future<List<Place>> getListWantVisitAndVisitedBloc() async {
-    final listAllPlace = await placeRepository.getAllPlace();
-    debugPrint('listAllPlace = ${listAllPlace.length}');
-    mocksWantVisit = await placeRepository.getPlacesWantVisit(listAllPlace);
-    debugPrint('mocksWantVisit = ${mocksWantVisit.length}');
-    final list = await placeRepository.getPlacesVisited(listAllPlace);
+    final list = await placeRepository.getPlacesWantVisit();
 
     return list;
   }

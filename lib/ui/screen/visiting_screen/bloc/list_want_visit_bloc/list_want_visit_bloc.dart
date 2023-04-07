@@ -39,12 +39,11 @@ class ListWantVisitBloc extends Bloc<ListWantVisitEvent, ListWantVisitState> {
     Emitter<ListWantVisitState> emit,
   ) async {
     emit(ListWantVisitLoadState());
-    final future = visitingInteractor.getListWantVisitAndVisited();
-    await Future<void>.delayed(const Duration(seconds: 2));
-    await future.whenComplete(
-      () => emit(
-        ListWantVisitLoadedState(mocksWantVisit),
-      ),
+
+    final listWantVisit = await visitingInteractor.getListWantVisitAndVisited();
+
+    emit(
+      ListWantVisitLoadedState(listWantVisit),
     );
   }
 

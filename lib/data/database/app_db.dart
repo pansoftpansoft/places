@@ -2,10 +2,12 @@ import 'dart:io';
 
 import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
+import 'package:flutter/foundation.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:places/data/database/table/favorites.dart';
 import 'package:places/data/database/table/search_query_historys.dart';
+import 'package:places/data/model/place.dart';
 
 part 'app_db.g.dart';
 
@@ -40,12 +42,42 @@ class AppDb extends _$AppDb {
   }
 
   Future<bool> checkPlacesInLocalDataId(int id) async {
-    // bool count =
-    // return select(favorites)..where((tbl) => tbl.id.equals(id))).table.select(*).;
+    final query =
+        await (select(favorites)..where((tbl) => tbl.idPlace.equals(id))).get();
 
+    return query.isNotEmpty;
   }
 
+  Future<void> insertUpdateFavorite(Place place) async {
+    if (kDebugMode) {
+      print('insertUpdateFavorite = ${place.isFavorites}');
+    }
+    await into(favorites).insertOnConflictUpdate(
+      FavoritesCompanion(
+        idPlace: Value(place.id),
+        jsonPlace: Value(place),
+      ),
+    );
+  }
 
+  Future<void> deleteFavorite(Place place) async {
+    await (delete(favorites)
+          ..where(
+            (tbl) {
+              return tbl.idPlace.equals(place.id);
+            },
+          ))
+        .go();
+  }
+
+  ///Получим список мест из таблицы favorites
+  Future<List<Place>> getListFavorite() async {
+    final listFavorite = await select(favorites).get();
+
+    final listPlace = listFavorite.map((e) => e.jsonPlace).toList();
+
+    return listPlace;
+  }
 }
 
 LazyDatabase _openConnection() {

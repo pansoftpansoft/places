@@ -26,7 +26,6 @@ class PlaceRepositoryMoor implements PlaceRepository<Place> {
 
   PlaceRepositoryMoor(this.appDb, this.apiClient);
 
-  /// ---------------------------------------------------------------
   /// Создать новое место на сервере
   @override
   Future<Place?> postPlace(
@@ -59,12 +58,17 @@ class PlaceRepositoryMoor implements PlaceRepository<Place> {
     }
   }
 
-  ///--------------------------------------------------------------
   /// Получаем список всех мест
   @override
   Future<List<Place>> getAllPlace() async {
     try {
-      final placesLocalData = await SqlProvider.dbProvider.getPlacesLocal();
+      final placesLocalData = await appDb.getListFavorite();
+
+      for (final placesLocalDataElement in placesLocalData) {
+        debugPrint('placesLocalDataElement = ${placesLocalDataElement.toString()}');
+      }
+
+
 
       final listPlaceAll = ((await apiClient.get(pathUrlListPlaces)).data
               as List)
@@ -78,13 +82,9 @@ class PlaceRepositoryMoor implements PlaceRepository<Place> {
           for (final placesLocalDataElement in placesLocalData) {
             if (placesLocalDataElement.id == placeOne.id) {
               listPlaceAll[count] = placeOne.copyWith(
-                isFavorites: placesLocalDataElement.isFavorites == 1,
-                wantVisitDate: placesLocalDataElement.wantVisitDate == null
-                    ? null
-                    : placesLocalDataElement.wantVisitDateToDatetime(),
-                visitedDate: placesLocalDataElement.visitedDate == 0
-                    ? null
-                    : placesLocalDataElement.visitedDateToDatetime(),
+                isFavorites: placesLocalDataElement.isFavorites,
+                wantVisitDate: placesLocalDataElement.wantVisitDate,
+                visitedDate: placesLocalDataElement.visitedDate,
               );
             }
           }
@@ -118,35 +118,19 @@ class PlaceRepositoryMoor implements PlaceRepository<Place> {
     throw UnimplementedError();
   }
 
+  ///Устанавливаем или удаляем место из фаворитов
   @override
-  Future<void> setIsFavorites(int id) async {
-
-    // проверяем есть токое место в лакальной базе, если нет добавляем.
-    final addInLocalDB = await appDb.checkPlacesInLocalDataId(
-      id,
+  Future<void> setIsFavorites(Place place) async {
+    await appDb.insertUpdateFavorite(
+      place,
     );
-
-    debugPrint('addInLocalDB = $addInLocalDB');
-
-    if (addInLocalDB) {
-      debugPrint('addInLocalDB place.isFavorites = ${place.isFavorites}');
-      final countUpdate = await SqlProvider.dbProvider.updatePlacesLocalData(
-        place,
-      );
-      debugPrint('countUpdate = $countUpdate');
-    } else {
-      final countInsert = await SqlProvider.dbProvider.insertPlacesLocalData(
-        place,
-      );
-      debugPrint('countInsert = $countInsert');
-    }
 
     debugPrint(
       'newPlace id = ${place.id} isFavorites = ${place.isFavorites}',
     );
 
-    mocksFiltered = (await placeRepository.updateMocksFiltered())!;
-    await getListWantVisitAndVisitedBloc();
+    //mocksFiltered = (await placeRepository.updateMocksFiltered())!;
+    //await getListWantVisitAndVisitedBloc();
   }
 
   @override
@@ -180,13 +164,12 @@ class PlaceRepositoryMoor implements PlaceRepository<Place> {
   }
 
   @override
-  Future<List<Place>> getPlacesWantVisit(
-    List<Place> listAllPlaces,
-  ) async {
-    final returnListWantVisit =
-        listAllPlaces.where((element) => element.isFavorites).toList();
+  Future<List<Place>> getPlacesWantVisit() async {
+    final listWantVisit = await appDb.getListFavorite();
 
-    return returnListWantVisit;
+    listWantVisit.removeWhere((element) => element.visitedDate == null);
+
+    return listWantVisit;
   }
 
   @override
@@ -290,7 +273,6 @@ class PlaceRepositoryMoor implements PlaceRepository<Place> {
     return;
   }
 
-  ///--------------------------------------------------------------
   /// Получаем список отфильтрованных мест с сервера
   Future<List<PlaceDto>> getPlacesDto(
     FilterSet? filterSet,
@@ -345,12 +327,10 @@ class PlaceRepositoryMoor implements PlaceRepository<Place> {
 
     return filterJson;
   }
+
   Future<List<Place>?> updateMocksFiltered() async {
     return repositoryMocks;
   }
-
-
-
 }
 
 class CustomException400 implements Exception {

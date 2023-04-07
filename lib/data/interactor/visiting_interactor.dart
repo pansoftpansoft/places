@@ -1,11 +1,7 @@
 import 'dart:async';
 
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
-import 'package:places/data/interactor/place_interactor.dart';
 import 'package:places/data/model/place.dart';
 import 'package:places/data/repository/place_repository_moor.dart';
-import 'package:places/data/repository/place_repository_sql.dart';
 import 'package:places/type_place.dart';
 
 ///Модель для Visiting
@@ -21,18 +17,18 @@ class VisitingInteractor {
   ) async {
     final placeNew = place.copyWith(isFavorites: false);
     await placeRepository.setIsFavorites(
-      placeNew.id,
+      placeNew,
     );
   }
 
   ///Удаление из мест которые уже посетил
-  Future<void> deletePlaceVisited(
-    Place place,
-  ) async {
-    // await placeInteractor.setStatusPlaceVisited(
-    //   place,
-    // );
-  }
+  // Future<void> deletePlaceVisited(
+  //   Place place,
+  // ) async {
+  //   // await placeInteractor.setStatusPlaceVisited(
+  //   //   place,
+  //   // );
+  // }
 
   ///Перемещение карточек внутри списка
   void sortedPlaceWantVisit(int sours, int target) {
@@ -45,7 +41,7 @@ class VisitingInteractor {
   Future<void> dateWantVisit(Place place, DateTime dateWantVisitNew) async {
     final placeNew = place.copyWith(wantVisitDate: dateWantVisitNew);
     await placeRepository.setIsFavorites(
-      placeNew.id,
+      placeNew,
     );
   }
 
@@ -54,13 +50,9 @@ class VisitingInteractor {
     //await placeRepository.setPlacesVisited(place.id, int.tryParse(DateTime.now().toString()));
   }
 
-  Future<void> getListWantVisitAndVisited() async {
-    final listAllPlace = await placeRepository.getAllPlace();
-    debugPrint('listAllPlace = ${listAllPlace.length}');
-    mocksWantVisit = await placeRepository.getPlacesWantVisit(listAllPlace);
-    debugPrint('mocksWantVisit = ${mocksWantVisit.length}');
+  Future<List<Place>> getListWantVisitAndVisited() async {
+    mocksWantVisit = await placeRepository.getPlacesWantVisit();
 
-    mocksVisited = await placeRepository.getPlacesVisited(listAllPlace);
-    debugPrint('mocksVisited = ${mocksVisited.length}');
+    return mocksWantVisit;
   }
 }
