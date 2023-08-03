@@ -12,10 +12,11 @@ class ListWantVisitLoadState extends ListWantVisitState {
 class ListWantVisitLoadedState extends ListWantVisitState {
   final List<Place> listPlaceWantVisit;
 
-  @override
-  List<Object?> get props => [listPlaceWantVisit];
+  ListWantVisitLoadedState(this.listPlaceWantVisit);
 
-  const ListWantVisitLoadedState(this.listPlaceWantVisit);
+  @override
+  List<Object> get props => [listPlaceWantVisit];
+
 
   @override
   String toString() {
@@ -29,7 +30,7 @@ class ListWantVisitPlaceSelectedState extends ListWantVisitState {
   @override
   List<Object?> get props => [place];
 
-  const ListWantVisitPlaceSelectedState(this.place);
+  ListWantVisitPlaceSelectedState(this.place);
 
   @override
   String toString() {

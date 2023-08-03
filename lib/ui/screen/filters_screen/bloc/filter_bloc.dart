@@ -5,16 +5,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:places/data/api/network_exception.dart';
-import 'package:places/data/interactor/filters_screen_interactor.dart';
-import 'package:places/data/interactor/list_places_screen_interactor.dart';
+import 'package:places/data/interactor/filters_interactor.dart';
+import 'package:places/data/interactor/list_places_interactor.dart';
 import 'package:places/data/model/filter_set.dart';
 import 'package:places/ui/screen/filters_screen/bloc/filter_state_enum.dart';
 
 part 'filter_bloc.freezed.dart';
 
 class FilterBloc extends Bloc<FilterEvents, FilterState> {
-  final FiltersScreenInteractor _filtersScreenInteractor;
-  final ListPlacesScreenInteractor _listPlacesScreenInteractor;
+  final FiltersInteractor _filtersScreenInteractor;
+  final ListPlacesInteractor _listPlacesScreenInteractor;
 
   FilterBloc(
     this._listPlacesScreenInteractor,
@@ -110,14 +110,14 @@ class FilterBloc extends Bloc<FilterEvents, FilterState> {
   //Запоминаем отмеченную категорию
   Future<void> _onUpdateFilterCategory(
     _onUpdateFilterCategoryEvents event,
-    Emitter<FilterState> emitter,
+    Emitter<FilterState> emit,
   ) async {
     debugPrint('event = ${event.toString()}');
     try {
       //Взводим галочку  на кнопке категорий или убираем
       FilterSet filterSetNew;
 
-      var setCategoryNew = Set.of(state.filterSet.selectedCategory);
+      final setCategoryNew = Set.of(state.filterSet.selectedCategory);
 
       debugPrint('1 setCategoryNew = ${setCategoryNew.toString()}');
 
@@ -153,7 +153,7 @@ class FilterBloc extends Bloc<FilterEvents, FilterState> {
 
   Future<void> _onUpdateFilterDistance(
     _onUpdateFilterDistanceEvents event,
-    Emitter<FilterState> emitter,
+    Emitter<FilterState> emit,
   ) async {
     debugPrint('event = ${event.toString()}');
 
@@ -188,7 +188,7 @@ class FilterBloc extends Bloc<FilterEvents, FilterState> {
 
   Future<void> _onUpdateFilterOnlyDistance(
     _onUpdateFilterOnlyDistanceEvents event,
-    Emitter<FilterState> emitter,
+    Emitter<FilterState> emit,
   ) async {
     debugPrint('event = ${event.toString()}');
 
@@ -211,7 +211,7 @@ class FilterBloc extends Bloc<FilterEvents, FilterState> {
 
   Future<void> _onSaveSetting(
     _onSaveSettingEvents event,
-    Emitter<FilterState> emitter,
+    Emitter<FilterState> emit,
   ) async {
     debugPrint('event = ${event.toString()}');
 

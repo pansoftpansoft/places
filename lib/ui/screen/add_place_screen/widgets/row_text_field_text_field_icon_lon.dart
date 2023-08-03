@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/res/svg_icons.dart';
 import 'package:places/ui/screen/add_place_screen/bloc/add_place_bloc.dart';
 import 'package:places/ui/screen/widgets/text_field_icon/text_field_icon.dart';
-import 'package:provider/provider.dart';
 
 class RowTextFieldTextFieldIconLon extends StatelessWidget {
   final TextEditingController _textEditingControllerLon;
@@ -38,12 +38,12 @@ class RowTextFieldTextFieldIconLon extends StatelessWidget {
         actionOnSubmitted: (value) {
           _focusNodeDescription.requestFocus();
           context.read<AddPlaceBloc>().add(
-            AddPlaceEvents.onChangedFields(
-              place: context.read<AddPlaceBloc>().state.place.copyWith(
-                lng: double.parse(value),
-              ),
-            ),
-          );
+                AddPlaceEvents.onChangedFields(
+                  place: context.read<AddPlaceBloc>().state.place.copyWith(
+                        lng: double.parse(value),
+                      ),
+                ),
+              );
         },
       ),
     );

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:places/type_place.dart';
 import 'package:places/ui/screen/visiting_screen/bloc/list_want_visit_bloc/list_want_visit_bloc.dart';
 import 'package:places/ui/screen/visiting_screen/widgets/background_dismissible.dart';
 import 'package:places/ui/screen/visiting_screen/widgets/card_place_drag.dart';
-import 'package:provider/provider.dart';
 
 //Карточка отображения места в "Избранное"
 class ListViewCardDragCard extends StatelessWidget {

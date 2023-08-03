@@ -1,24 +1,17 @@
-// ignore_for_file: unnecessary_getters_setters
-
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:places/data/interactor/place_interactor.dart';
-import 'package:places/data/model/place.dart';
-import 'package:places/domain/db_provider.dart';
-import 'package:places/domain/history.dart';
+import 'package:places/data/database/app_db.dart';
+import 'package:places/data/repository/search_repository.dart';
+import 'package:places/domain/sql_provider.dart';
 import 'package:places/type_place.dart';
 
-///Модель для поиска
-class SearchScreenInteractor extends ChangeNotifier {
-  ///Список истории поисковых запросов
-  static List<History> listHistory = <History>[];
-
+class SearchInteractor {
   ///Контроллер поля поиска
   static TextEditingController textEditingControllerFind =
       TextEditingController();
 
-  PlaceInteractor placeInteractor = PlaceInteractor();
+  final SearchRepository _searchRepository;
 
   ScreenEnum? selectedScreen;
 
@@ -26,45 +19,26 @@ class SearchScreenInteractor extends ChangeNotifier {
 
   String _searchString = '';
 
-  ///Получаем список историй поиска
-  Future<List<History>> getListHistory() async {
-    listHistory.clear();
-    listHistory = (await DBProvider.dbProvider.getListHistoryFromDb())!;
-
-    return listHistory;
-  }
-
-  Future<Place?> getPlaceId(int placeId) async {
-    final place = await placeInteractor.getPlaceDetails(placeId);
-
-    return place;
-  }
-
-  /// Получить отфильтрованный список мест
-  /// И проверить на совподение со строкой поиска
-  Future<List<Place>> getFilteredList(String value) async {
-    final listPlace = await placeInteractor.getPlacesInteractor(
-      searchString: value,
-    );
-
-    return listPlace;
-  }
+  SearchInteractor(this._searchRepository);
 
   ///Получаем список историй поиска
+  Future<List<SearchQueryHistory>> getListHistory() async {
+    return _searchRepository.getListSearchHistory();
+  }
+
+  ///Очищаем список историй поиска
+  Future<void> clearHistory() async {
+    await _searchRepository.clearSearchHistory();
+  }
+
+  ///Добавить поисковый запрос в список историй поиска
   Future<void> addToListHistory(String value) async {
-    await DBProvider.dbProvider.addHistory(value);
+    await _searchRepository.addHistory(value);
   }
 
-  Future<void> getListSearchText() async {
-    mocksSearchText.clear();
-    if (_searchString.isNotEmpty) {
-      mocksSearchText = await placeInteractor.getPlacesInteractor(
-        searchString: _searchString,
-      );
-    }
-    debugPrint(' countPlace 4  = ${mocksSearchText.length}');
-
-    return;
+  ///Удаляю одну запись из истории поиска
+  Future<void> deleteHistoryWord(int id) async {
+    await _searchRepository.deleteSearchRequest(id);
   }
 
   ///Сообщить всем что список мест изменился
@@ -89,11 +63,11 @@ class SearchScreenInteractor extends ChangeNotifier {
     mocksSearchText.clear();
     if (searchString == '') {
       _searchString = '';
-      SearchScreenInteractor.textEditingControllerFind.clear();
+      SearchInteractor.textEditingControllerFind.clear();
     } else {
       _searchString = searchString;
 
-      SearchScreenInteractor.textEditingControllerFind.value = TextEditingValue(
+      SearchInteractor.textEditingControllerFind.value = TextEditingValue(
         text: searchString,
         selection: TextSelection.fromPosition(
           TextPosition(offset: searchString.length),
@@ -108,20 +82,7 @@ class SearchScreenInteractor extends ChangeNotifier {
     //Ищем текст
     setSearchText(searchString);
     //сохранить текст поиска
-    DBProvider.dbProvider.addHistory(searchString);
-  }
-
-  ///Очищаем список историй поиска
-  Future<void> clearHistory() async {
-    SearchScreenInteractor.listHistory.clear();
-    await DBProvider.dbProvider.deleteTheListOfSearchHistoryWords();
-    await getListHistory(); //Обновляем список после удаления всех имторий
-  }
-
-  ///Удаляю одну запись из истории поиска
-  Future<void> deleteHistory(String historyText) async {
-    await DBProvider.deleteHistory(historyText);
-    await getListHistory(); //Обновляем список после удаления всей истории
+    SqlProvider.dbProvider.addHistory(searchString);
   }
 
   ///Здесь мы устанавливаем какой экран хотим получить и корректируем

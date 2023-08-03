@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:places/type_place.dart';
+import 'package:places/data/model/place.dart';
 import 'package:places/ui/res/loader_size.dart';
 import 'package:places/ui/res/route_name.dart';
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/screen/details_place_screen/bloc/details_place_bloc.dart';
-//import 'package:places/ui/screen/details_place_screen/details_place_screen.dart';
+
 import 'package:places/ui/screen/visiting_screen/bloc/list_want_visit_bloc/list_want_visit_bloc.dart';
 import 'package:places/ui/screen/visiting_screen/widgets/list_view_card_drag.dart';
 import 'package:places/ui/screen/visiting_screen/widgets/list_want_visit_empty.dart';
@@ -38,33 +38,13 @@ class ListWantVisit extends StatelessWidget {
                   );
 
               Navigator.pushNamed(context, RouteName.detailsPlaceScreen);
-
-              // showModalBottomSheet<Widget>(
-              //   context: context,
-              //   builder: (_) {
-              //     context.read<DetailsPlaceBloc>().add(
-              //           DetailsPlaceEvents.onLoad(
-              //             place:
-              //                 (state as ListWantVisitPlaceSelectedState).place,
-              //             index: 0,
-              //           ),
-              //         );
-              //
-              //     return const DetailsPlaceScreen();
-              //   },
-              //   isScrollControlled: true,
-              //   isDismissible: true,
-              //   useRootNavigator: true,
-              // );
-              // debugPrint('Я уже сдесь');
-              //
-              // return;
             },
           ),
         ],
         child: BlocBuilder<ListWantVisitBloc, ListWantVisitState>(
           builder: (context, state) {
-            debugPrint('mocksWantVisit.length, =  ${mocksWantVisit.length}');
+            // debugPrint(
+            //     'mocksWantVisit.length, =  ${(state.props.first as List<Place>).length}');
             debugPrint('mocksWantVisit.length, =  ${state.toString()}');
 
             return state == ListWantVisitLoadState()
@@ -80,12 +60,12 @@ class ListWantVisit extends StatelessWidget {
                       ),
                     ],
                   )
-                : mocksWantVisit.isEmpty
+                : (state.props.first as List<Place>).isEmpty
                     ? const ListWantVisitEmpty()
                     : ListView.separated(
                         separatorBuilder: (context, index) =>
                             const SizedBox12(),
-                        itemCount: mocksWantVisit.length,
+                        itemCount: (state.props.first as List<Place>).length,
                         itemBuilder: (context, index) {
                           return ListViewCardDrag(index);
                         },

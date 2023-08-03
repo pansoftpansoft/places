@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:places/data/interactor/search_screen_interactor.dart';
+import 'package:places/data/interactor/search_interactor.dart';
 import 'package:places/ui/res/color_palette.dart';
 import 'package:places/ui/res/labels.dart';
 import 'package:places/ui/res/sizes.dart';
@@ -74,7 +74,7 @@ class SearchBar extends StatelessWidget {
       if (textEditingController.text
               .substring(textEditingController.text.length - 1) ==
           ' ') {
-        context.read<SearchScreenInteractor>().setSearchText(
+        context.read<SearchInteractor>().setSearchText(
               textEditingController.text,
             );
       }

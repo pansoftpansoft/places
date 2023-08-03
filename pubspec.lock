@@ -21,7 +21,7 @@ packages:
       name: analyzer_plugin
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.10.0"
+    version: "0.11.1"
   ansicolor:
     dependency: transitive
     description:
@@ -141,6 +141,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.1"
+  cli_util:
+    dependency: transitive
+    description:
+      name: cli_util
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.3.5"
   clock:
     dependency: transitive
     description:
@@ -196,7 +203,7 @@ packages:
       name: dart_code_metrics
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.19.2"
+    version: "4.18.0"
   dart_style:
     dependency: transitive
     description:
@@ -211,6 +218,20 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.0.6"
+  drift:
+    dependency: "direct main"
+    description:
+      name: drift
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.1.0"
+  drift_dev:
+    dependency: "direct dev"
+    description:
+      name: drift_dev
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.1.0"
   equatable:
     dependency: "direct main"
     description:
@@ -430,7 +451,7 @@ packages:
     source: hosted
     version: "2.1.0"
   path:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: path
       url: "https://pub.dartlang.org"
@@ -548,6 +569,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.2.1"
+  recase:
+    dependency: transitive
+    description:
+      name: recase
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "4.1.0"
   shared_preferences:
     dependency: "direct main"
     description:
@@ -651,6 +679,27 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.4.0"
+  sqlite3:
+    dependency: transitive
+    description:
+      name: sqlite3
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.8.0"
+  sqlite3_flutter_libs:
+    dependency: "direct main"
+    description:
+      name: sqlite3_flutter_libs
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.5.13"
+  sqlparser:
+    dependency: transitive
+    description:
+      name: sqlparser
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.23.3"
   stack_trace:
     dependency: transitive
     description:

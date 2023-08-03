@@ -10,23 +10,23 @@ class ApiSP {
 
     T? value;
 
-    if (value is String) {
+    if (T == String) {
       value = (_prefs?.getString(keyValue) ?? '') as T;
     }
 
-    if (value is int) {
+    if (T == int) {
       value = (_prefs?.getInt(keyValue) ?? 0) as T;
     }
 
-    if (value is bool) {
+    if (T == bool) {
       value = (_prefs?.getBool(keyValue) ?? false) as T;
     }
 
-    if (value is double) {
+    if (T == double) {
       value = (_prefs?.getDouble(keyValue) ?? 0.0) as T;
     }
 
-    if (value is List<String>) {
+    if (T == List<String>) {
       value = (_prefs?.getStringList(keyValue) ?? <String>[]) as T;
     }
 

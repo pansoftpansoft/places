@@ -50,13 +50,9 @@ class Place with _$Place {
     @Default(<String>[]) List<String> urls,
     @Default('') String placeType,
     @Default('') String description,
-    @JsonKey(ignore: true)
     @Default(false) bool isFavorites,
-    @JsonKey(ignore: true)
     DateTime? wantVisitDate,
-    @JsonKey(ignore: true)
     DateTime? visitedDate,
-    @JsonKey(ignore: true)
     @Default(0) double distance,
   }) = _Place;
 

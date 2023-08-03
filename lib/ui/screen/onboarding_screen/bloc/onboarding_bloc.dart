@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:places/data/api/network_exception.dart';
-import 'package:places/data/interactor/onboarding_screen_interactor.dart';
-import 'package:places/domain/onboarding_page.dart';
+import 'package:places/data/interactor/onboarding_interactor.dart';
+import 'package:places/data/model/onboarding_page.dart';
 
 part 'onboarding_bloc.freezed.dart';
 
 class OnboardingBloc extends Bloc<OnboardingEvents, OnboardingState> {
-  final OnboardingScreenInteractor _onboardingScreenInteractor;
+  final OnboardingInteractor _onboardingScreenInteractor;
 
   OnboardingBloc(
     final this._onboardingScreenInteractor,

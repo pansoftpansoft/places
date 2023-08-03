@@ -1,12 +1,13 @@
 // ignore_for_file: must_be_immutable
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:places/ui/res/route_name.dart';
 import 'package:places/ui/res/svg_icons.dart';
 import 'package:places/ui/screen/filters_screen/bloc/filter_bloc.dart';
 import 'package:places/ui/screen/list_places_screen/bloc/list_places_bloc.dart';
 import 'package:places/ui/screen/visiting_screen/bloc/list_want_visit_bloc/list_want_visit_bloc.dart';
-import 'package:provider/provider.dart';
+
 
 /// Нижнее главное меню
 class BottomNavigation extends StatefulWidget {

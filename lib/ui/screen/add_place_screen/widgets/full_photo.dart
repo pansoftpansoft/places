@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:places/data/interactor/add_place_interactor.dart';
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/screen/add_place_screen/widgets/full_photo_body.dart';
-import 'package:provider/provider.dart';
 
 /// Отображение фотографии
 class FullPhoto extends StatefulWidget {

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:places/data/interactor/search_screen_interactor.dart';
+import 'package:places/data/interactor/search_interactor.dart';
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/screen/widgets/search_bar.dart';
 import 'package:places/ui/screen/widgets/title_app_big_or_small.dart';
@@ -32,7 +32,7 @@ class AppBarWidget extends StatelessWidget {
             children: <Widget>[
               SearchBar(
                 textEditingController:
-                    SearchScreenInteractor.textEditingControllerFind,
+                    SearchInteractor.textEditingControllerFind,
                 autofocus: true,
                 focusNode: FocusNode(),
               ),

@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:places/data/api/network_exception.dart';
-import 'package:places/data/interactor/list_places_screen_interactor.dart';
+import 'package:places/data/interactor/list_places_interactor.dart';
 import 'package:places/data/model/filter_set.dart';
 import 'package:places/data/model/place.dart';
 
 part 'list_places_bloc.freezed.dart';
 
 class ListPlacesBloc extends Bloc<ListPlacesEvents, ListPlacesState> {
-  final ListPlacesScreenInteractor _listPlacesScreenInteractor;
+  final ListPlacesInteractor _listPlacesScreenInteractor;
 
   ListPlacesBloc(
     final this._listPlacesScreenInteractor,
@@ -193,7 +193,7 @@ class ListPlacesState with _$ListPlacesState {
       );
 
   Place get place => maybeWhen<Place>(
-        orElse: () => place,
+        orElse: () => const Place(),
         selected: (listPlaces, place) => place,
       );
 

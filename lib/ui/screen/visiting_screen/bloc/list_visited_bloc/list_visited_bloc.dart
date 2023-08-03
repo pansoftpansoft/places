@@ -19,8 +19,8 @@ class ListVisitedBloc extends Bloc<ListVisitedEvent, ListVisitedState> {
     ///Обработка события окончание загрузки экрана
     on<ListVisitedLoadedEvent>(_onWantVisitLoaded);
 
-    ///Обработка события удаление меств из списка "Посещенные"
-    on<ListVisitedRemovePlaceEvent>(_onListVisitedRemovePlace);
+    // ///Обработка события удаление меств из списка "Посещенные"
+    // on<ListVisitedRemovePlaceEvent>(_onListVisitedRemovePlace);
 
     ///Нажали на карточку места
     on<ListVisitedSelectPlaceEvent>(_onListVisitedSelectPlace);
@@ -48,21 +48,21 @@ class ListVisitedBloc extends Bloc<ListVisitedEvent, ListVisitedState> {
     return;
   }
 
-  Future<void> _onListVisitedRemovePlace(
-    ListVisitedRemovePlaceEvent event,
-    Emitter<ListVisitedState> emit,
-  ) async {
-    debugPrint('visitedTabRemovePlace = 1');
-    final future = visitingInteractor.deletePlaceVisited(event.place);
-    await future.whenComplete(
-      () => emit(
-        ListVisitedLoadedState(
-          mocksVisited,
-        ),
-      ),
-    );
-    debugPrint('visitedTabRemovePlace = 2');
-  }
+  // Future<void> _onListVisitedRemovePlace(
+  //   ListVisitedRemovePlaceEvent event,
+  //   Emitter<ListVisitedState> emit,
+  // ) async {
+  //   debugPrint('visitedTabRemovePlace = 1');
+  //   final future = visitingInteractor.deletePlaceVisited(event.place);
+  //   await future.whenComplete(
+  //     () => emit(
+  //       ListVisitedLoadedState(
+  //         mocksVisited,
+  //       ),
+  //     ),
+  //   );
+  //   debugPrint('visitedTabRemovePlace = 2');
+  // }
 
   Future<void> _onListVisitedSelectPlace(
     ListVisitedSelectPlaceEvent event,

@@ -1,16 +1,14 @@
 import 'dart:async';
 
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
-import 'package:places/data/interactor/place_interactor.dart';
 import 'package:places/data/model/place.dart';
-import 'package:places/data/repository/place_repository.dart';
+import 'package:places/data/repository/place_repository_moor.dart';
 import 'package:places/type_place.dart';
 
 ///Модель для Visiting
-class VisitingInteractor extends ChangeNotifier {
-  PlaceInteractor placeInteractor = PlaceInteractor();
-  PlaceRepository placeRepository = PlaceRepository();
+class VisitingInteractor {
+  PlaceRepositoryMoor placeRepository;
+
+  VisitingInteractor(this.placeRepository);
 
   ///Удаление из мест которые хотел посетить
   Future<void> deletePlaceWantVisit(
@@ -18,19 +16,19 @@ class VisitingInteractor extends ChangeNotifier {
     //StreamController<Place> streamControllerListPlace,
   ) async {
     final placeNew = place.copyWith(isFavorites: false);
-    await placeInteractor.setFavorites(
+    await placeRepository.setIsFavorites(
       placeNew,
     );
   }
 
   ///Удаление из мест которые уже посетил
-  Future<void> deletePlaceVisited(
-    Place place,
-  ) async {
-    await placeInteractor.setStatusPlaceVisited(
-      place,
-    );
-  }
+  // Future<void> deletePlaceVisited(
+  //   Place place,
+  // ) async {
+  //   // await placeInteractor.setStatusPlaceVisited(
+  //   //   place,
+  //   // );
+  // }
 
   ///Перемещение карточек внутри списка
   void sortedPlaceWantVisit(int sours, int target) {
@@ -42,23 +40,19 @@ class VisitingInteractor extends ChangeNotifier {
   ///Установка или изменение даты заплонированного посещения интересног места
   Future<void> dateWantVisit(Place place, DateTime dateWantVisitNew) async {
     final placeNew = place.copyWith(wantVisitDate: dateWantVisitNew);
-    await placeInteractor.setFavorites(
+    await placeRepository.setIsFavorites(
       placeNew,
     );
   }
 
   ///Установка места признака что оно посещено
   Future<void> wantVisitUpdateToVisit(Place place) async {
-    await placeInteractor.setStatusPlaceVisited(place);
+    //await placeRepository.setPlacesVisited(place.id, int.tryParse(DateTime.now().toString()));
   }
 
-  Future<void> getListWantVisitAndVisited() async {
-    final listAllPlace = await placeRepository.getAllPlace();
-    debugPrint('listAllPlace = ${listAllPlace.length}');
-    mocksWantVisit = await placeRepository.getPlacesWantVisit(listAllPlace);
-    debugPrint('mocksWantVisit = ${mocksWantVisit.length}');
+  Future<List<Place>> getListWantVisitAndVisited() async {
+    mocksWantVisit = await placeRepository.getPlacesWantVisit();
 
-    mocksVisited = await placeRepository.getPlacesVisited(listAllPlace);
-    debugPrint('mocksVisited = ${mocksVisited.length}');
+    return mocksWantVisit;
   }
 }

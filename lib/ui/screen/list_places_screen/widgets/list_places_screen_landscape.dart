@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:places/data/interactor/search_screen_interactor.dart';
+import 'package:places/data/interactor/search_interactor.dart';
 import 'package:places/type_place.dart';
 import 'package:places/ui/screen/list_places_screen/widgets/sticky_header.dart';
 import 'package:places/ui/screen/widgets/card_place/card_place.dart';
@@ -12,7 +12,7 @@ class ListPlacesScreenLandscape extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<SearchScreenInteractor>(builder: (
+    return Consumer<SearchInteractor>(builder: (
       final context,
       final cart,
       final child,
