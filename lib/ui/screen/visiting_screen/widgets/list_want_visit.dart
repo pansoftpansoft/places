@@ -38,14 +38,15 @@ class ListWantVisit extends StatelessWidget {
                   );
 
               Navigator.pushNamed(context, RouteName.detailsPlaceScreen);
+
+              return;
+
             },
           ),
         ],
         child: BlocBuilder<ListWantVisitBloc, ListWantVisitState>(
           builder: (context, state) {
-            // debugPrint(
-            //     'mocksWantVisit.length, =  ${(state.props.first as List<Place>).length}');
-            debugPrint('mocksWantVisit.length, =  ${state.toString()}');
+            debugPrint('state.toString() 111 = ${state.toString()}');
 
             return state == ListWantVisitLoadState()
                 ? Column(

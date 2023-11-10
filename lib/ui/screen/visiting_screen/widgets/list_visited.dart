@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:places/type_place.dart';
+import 'package:places/data/model/place.dart';
 import 'package:places/ui/res/route_name.dart';
 import 'package:places/ui/screen/details_place_screen/bloc/details_place_bloc.dart';
+
 //import 'package:places/ui/screen/details_place_screen/details_place_screen.dart';
 import 'package:places/ui/screen/visiting_screen/bloc/list_visited_bloc/list_visited_bloc.dart';
 import 'package:places/ui/screen/visiting_screen/widgets/list_visited_empty.dart';
@@ -35,33 +36,20 @@ class ListVisited extends StatelessWidget {
 
             Navigator.pushNamed(context, RouteName.detailsPlaceScreen);
 
-            // showModalBottomSheet<Widget>(
-            //   context: context,
-            //   builder: (_) {
-            //     context.read<DetailsPlaceBloc>().add(
-            //           DetailsPlaceEvents.onLoad(
-            //             place:
-            //                 (state as ListVisitedPlaceSelectedState).placeVisit,
-            //             index: 0,
-            //           ),
-            //         );
-            //
-            //     return const DetailsPlaceScreen();
-            //   },
-            //   isScrollControlled: true,
-            //   isDismissible: true,
-            //   useRootNavigator: true,
-            // );
-            //
-            // return;
+
+            return;
           },
         ),
       ],
       child: BlocBuilder<ListVisitedBloc, ListVisitedState>(
         builder: (context, state) {
-          return mocksVisited.isEmpty
+          debugPrint('state.toString() = ${state.toString()}');
+
+          return state.props.isEmpty
               ? const ListVisitedEmpty()
-              : const ListVisitedFilled();
+              : (state.props.first as List<Place>).isEmpty
+                  ? const ListVisitedEmpty()
+                  : const ListVisitedFilled();
         },
       ),
     );

@@ -8,8 +8,9 @@ import 'package:places/ui/res/svg_icons.dart';
 import 'package:places/ui/screen/search_places_screen/bloc/search_places_bloc.dart';
 import 'package:places/ui/screen/widgets/text_field_icon/text_field_icon.dart';
 
+
 ///Поле поиска
-class SearchBar extends StatelessWidget {
+class SearchBarCustom extends StatelessWidget {
   ///
   final TextEditingController? textEditingController;
 
@@ -19,7 +20,7 @@ class SearchBar extends StatelessWidget {
   final FocusNode? focusNode;
 
   ///
-  const SearchBar({
+  const SearchBarCustom({
     Key? key,
     this.textEditingController,
     this.autofocus = false,

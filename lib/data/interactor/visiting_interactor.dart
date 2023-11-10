@@ -13,10 +13,9 @@ class VisitingInteractor {
   ///Удаление из мест которые хотел посетить
   Future<void> deletePlaceWantVisit(
     Place place,
-    //StreamController<Place> streamControllerListPlace,
   ) async {
     final placeNew = place.copyWith(isFavorites: false);
-    await placeRepository.setIsFavorites(
+    await placeRepository.deleteFromFavorites(
       placeNew,
     );
   }
@@ -38,16 +37,17 @@ class VisitingInteractor {
   }
 
   ///Установка или изменение даты заплонированного посещения интересног места
-  Future<void> dateWantVisit(Place place, DateTime dateWantVisitNew) async {
-    final placeNew = place.copyWith(wantVisitDate: dateWantVisitNew);
-    await placeRepository.setIsFavorites(
-      placeNew,
+  Future<void> dateWantVisit(Place place) async {
+    await placeRepository.insertUpdateFavorites(
+      place,
     );
   }
 
   ///Установка места признака что оно посещено
   Future<void> wantVisitUpdateToVisit(Place place) async {
-    //await placeRepository.setPlacesVisited(place.id, int.tryParse(DateTime.now().toString()));
+
+    await placeRepository.setPlacesVisited(place);
+
   }
 
   Future<List<Place>> getListWantVisitAndVisited() async {

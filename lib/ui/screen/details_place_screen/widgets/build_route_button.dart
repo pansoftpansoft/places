@@ -32,14 +32,17 @@ class BuildRouteButton extends StatelessWidget {
 
     context.read<ListWantVisitBloc>().add(
           ListWantVisitUpdateDateEvent(
-            _place,
-            DateTime.now(),
+            _place.copyWith(
+                visitedDate: DateTime.now(),
+                isFavorites: false,
+            ),
           ),
         );
     context.read<ListWantVisitBloc>().add(
           ListWantVisitPlaceUpdateToVisitedEvent(
             _place.copyWith(
               visitedDate: DateTime.now(),
+              isFavorites: false,
             ),
           ),
         );

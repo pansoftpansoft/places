@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:places/data/interactor/visiting_interactor.dart';
 import 'package:places/data/model/place.dart';
-import 'package:places/type_place.dart';
 
 part 'list_want_visit_state.dart';
 
@@ -59,27 +58,24 @@ class ListWantVisitBloc extends Bloc<ListWantVisitEvent, ListWantVisitState> {
     Emitter<ListWantVisitState> emit,
   ) async {
     emit(ListWantVisitLoadState());
-    final future = visitingInteractor.deletePlaceWantVisit(event.place);
-    await future.whenComplete(
-      () => emit(
-        ListWantVisitLoadedState(mocksWantVisit),
-      ),
-    );
+
+    final listWantVisit = await visitingInteractor.getListWantVisitAndVisited();
+
+    emit(ListWantVisitLoadedState(listWantVisit));
   }
 
   Future<void> _onListWantVisitUpdateDate(
     ListWantVisitUpdateDateEvent event,
     Emitter<ListWantVisitState> emit,
   ) async {
-    final future = visitingInteractor.dateWantVisit(
+
+    await visitingInteractor.dateWantVisit(
       event.place,
-      event.newDate,
     );
 
-    await future.whenComplete(
-      () => emit(
-        ListWantVisitLoadedState(mocksWantVisit),
-      ),
+    final listWantVisit = await visitingInteractor.getListWantVisitAndVisited();
+    emit(
+      ListWantVisitLoadedState(listWantVisit),
     );
   }
 
@@ -87,13 +83,16 @@ class ListWantVisitBloc extends Bloc<ListWantVisitEvent, ListWantVisitState> {
     ListWantVisitSelectPlaceEvent event,
     Emitter<ListWantVisitState> emit,
   ) async {
+    //Показываем экран загрузки
     emit(
       ListWantVisitLoadedState(
-        mocksWantVisit,
+        state.props.first as List<Place>,
       ),
     );
+
     emit(
       ListWantVisitPlaceSelectedState(
+        state.props.first as List<Place>,
         event.place,
       ),
     );
@@ -103,11 +102,15 @@ class ListWantVisitBloc extends Bloc<ListWantVisitEvent, ListWantVisitState> {
     ListWantVisitPlaceUpdateToVisitedEvent event,
     Emitter<ListWantVisitState> emit,
   ) async {
-    final future = visitingInteractor.wantVisitUpdateToVisit(event.place);
+    final future = visitingInteractor.wantVisitUpdateToVisit(
+      event.place,
+    );
     debugPrint(event.toString());
+
+    final listWantVisit = await visitingInteractor.getListWantVisitAndVisited();
     await future.whenComplete(
       () => emit(
-        ListWantVisitLoadedState(mocksWantVisit),
+        ListWantVisitLoadedState(listWantVisit),
       ),
     );
   }

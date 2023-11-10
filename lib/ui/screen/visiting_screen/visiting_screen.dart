@@ -1,7 +1,10 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:places/ui/res/sizes.dart';
+import 'package:places/ui/screen/visiting_screen/bloc/list_visited_bloc/list_visited_bloc.dart';
+import 'package:places/ui/screen/visiting_screen/bloc/list_want_visit_bloc/list_want_visit_bloc.dart';
 import 'package:places/ui/screen/visiting_screen/widgets/app_bar_visiting.dart';
 import 'package:places/ui/screen/visiting_screen/widgets/list_visited.dart';
 import 'package:places/ui/screen/visiting_screen/widgets/list_want_visit.dart';
@@ -10,7 +13,6 @@ import 'package:places/ui/screen/widgets/bottom_navigation/bottom_navigation.dar
 ///Окно в котором можно выбрать
 ///места которые хочешь посетить и которые уже посетил
 class VisitingScreen extends StatefulWidget {
-  ///
   const VisitingScreen({Key? key}) : super(key: key);
 
   @override
@@ -26,29 +28,50 @@ class _VisitingScreenState extends State<VisitingScreen> {
   }
 
   @override
-  Widget build(BuildContext context) => DefaultTabController(
-        length: 2,
-        child: Scaffold(
-          appBar: const PreferredSize(
-            preferredSize: Size.fromHeight(120),
-            child: AppBarVisiting(),
-          ),
-          bottomNavigationBar: BottomNavigation(2),
-          body: Padding(
-            padding: const EdgeInsets.all(paddingPage),
-            child: Column(
-              children: const [
-                Expanded(
-                  child: TabBarView(
-                    children: <Widget>[
-                      ListWantVisit(),
-                      ListVisited(),
-                    ],
-                  ),
-                ),
-              ],
+  Widget build(BuildContext context) {
+    return DefaultTabController(
+      length: 2,
+      child: Builder(
+        builder: (context) {
+          final controller = DefaultTabController.of(context);
+          controller.addListener(() {
+            if (!controller.indexIsChanging) {
+              if (controller.index == 0) {
+                context.read<ListWantVisitBloc>().add(
+                      ListWantVisitLoadEvent(),
+                    );
+              } else {
+                context.read<ListVisitedBloc>().add(
+                      ListVisitedLoadEvent(),
+                    );
+              }
+            }
+          });
+
+          return Scaffold(
+            appBar: const PreferredSize(
+              preferredSize: Size.fromHeight(120),
+              child: AppBarVisiting(),
             ),
-          ),
-        ),
-      );
+            bottomNavigationBar: BottomNavigation(2),
+            body: Padding(
+              padding: const EdgeInsets.all(paddingPage),
+              child: Column(
+                children: const [
+                  Expanded(
+                    child: TabBarView(
+                      children: <Widget>[
+                        ListWantVisit(),
+                        ListVisited(),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
 }

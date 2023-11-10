@@ -12,28 +12,29 @@ class ListWantVisitLoadState extends ListWantVisitState {
 class ListWantVisitLoadedState extends ListWantVisitState {
   final List<Place> listPlaceWantVisit;
 
-  ListWantVisitLoadedState(this.listPlaceWantVisit);
-
   @override
   List<Object> get props => [listPlaceWantVisit];
 
+  const ListWantVisitLoadedState(this.listPlaceWantVisit);
 
   @override
   String toString() {
-    return 'WantVisitTabLoadInSuccess listPlaceWantVisit.length ${listPlaceWantVisit.length}';
+    return 'ListWantVisitLoadedState listPlaceWantVisit.length ${listPlaceWantVisit.length}';
   }
 }
 
 class ListWantVisitPlaceSelectedState extends ListWantVisitState {
+  final List<Place> listPlaceWantVisit;
   final Place place;
 
   @override
-  List<Object?> get props => [place];
+  List<Object?> get props => [listPlaceWantVisit,place];
 
-  ListWantVisitPlaceSelectedState(this.place);
+  const ListWantVisitPlaceSelectedState(this.listPlaceWantVisit,this.place);
 
   @override
   String toString() {
-    return 'WantVisitTabLoadInSuccess listPlaceWantVisit.length ${place.name}';
+    return 'ListWantVisitPlaceSelectedState listPlaceWantVisit.length ${place.name}';
   }
+
 }

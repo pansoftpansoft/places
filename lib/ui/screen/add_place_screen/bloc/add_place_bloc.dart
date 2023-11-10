@@ -33,8 +33,8 @@ class AddPlaceBloc extends Bloc<AddPlaceEvents, AddPlaceState> {
     _LoadAddPlaceEvents event,
     Emitter<AddPlaceState> emit,
   ) async {
-    debugPrint('1 event = ${event.toString()}');
-    debugPrint('1 emit = ${emit.toString()}');
+    debugPrint('1 event = $event');
+    debugPrint('1 emit = $emit');
     try {
       //final listPage = _addPlaceInteractor.selectCategory();
       emit(AddPlaceState.showPage(place: event.place));
@@ -43,8 +43,8 @@ class AddPlaceBloc extends Bloc<AddPlaceEvents, AddPlaceState> {
     } on Object {
       rethrow;
     } finally {
-      debugPrint('2 event = ${event.toString()}');
-      debugPrint('2 emitter = ${emit.toString()}');
+      debugPrint('2 event = $event');
+      debugPrint('2 emitter = $emit');
     }
   }
 
@@ -52,8 +52,8 @@ class AddPlaceBloc extends Bloc<AddPlaceEvents, AddPlaceState> {
     _onPageChangedAddPlaceEvents event,
     Emitter<AddPlaceState> emitter,
   ) async {
-    debugPrint('event = ${event.toString()}');
-    debugPrint('emitter = ${emitter.toString()}');
+    debugPrint('event = $event');
+    debugPrint('emitter = $emitter');
     try {
       emit(AddPlaceState.showPage(place: event.place.copyWith()));
     } on Object {
@@ -65,14 +65,14 @@ class AddPlaceBloc extends Bloc<AddPlaceEvents, AddPlaceState> {
     _onCreatePlaceEvents event,
     Emitter<AddPlaceState> emitter,
   ) async {
-    debugPrint('event = ${event.toString()}');
-    debugPrint('emitter = ${emitter.toString()}');
+    debugPrint('event = $event');
+    debugPrint('emitter = $emitter');
     try {
       if (state.addReadyCheck == 1) {
         emit(AddPlaceState.addedPlace(place: event.place.copyWith(id: 99993)));
       }
     } on Object catch (error) {
-      debugPrint('error 10000 = ${error.toString()}');
+      debugPrint('error 10000 = $error');
       emit(AddPlaceState.errorAdd(place: event.place));
       //rethrow;
     }
@@ -82,8 +82,8 @@ class AddPlaceBloc extends Bloc<AddPlaceEvents, AddPlaceState> {
     _onSelectPlaceTypeEvents event,
     Emitter<AddPlaceState> emit,
   ) async {
-    debugPrint('1 event = ${event.toString()}');
-    debugPrint('1 emit = ${emit.toString()}');
+    debugPrint('1 event = $event');
+    debugPrint('1 emit = $emit');
     try {
       emit(AddPlaceState.selectPlaceType(place: state.place));
     } on NetworkException {
@@ -91,8 +91,8 @@ class AddPlaceBloc extends Bloc<AddPlaceEvents, AddPlaceState> {
     } on Object {
       rethrow;
     } finally {
-      debugPrint('2 event = ${event.toString()}');
-      debugPrint('2 emitter = ${emit.toString()}');
+      debugPrint('2 event = $event');
+      debugPrint('2 emitter = $emit');
     }
   }
 
@@ -100,8 +100,8 @@ class AddPlaceBloc extends Bloc<AddPlaceEvents, AddPlaceState> {
     _onSelectedPlaceTypeEvents event,
     Emitter<AddPlaceState> emit,
   ) async {
-    debugPrint('1 event = ${event.toString()}');
-    debugPrint('1 emit = ${emit.toString()}');
+    debugPrint('1 event = $event');
+    debugPrint('1 emit = $emit');
     try {
       emit(AddPlaceState.showPage(place: state.place));
     } on NetworkException {
@@ -109,8 +109,8 @@ class AddPlaceBloc extends Bloc<AddPlaceEvents, AddPlaceState> {
     } on Object {
       rethrow;
     } finally {
-      debugPrint('2 event = ${event.toString()}');
-      debugPrint('2 emitter = ${emit.toString()}');
+      debugPrint('2 event = $event');
+      debugPrint('2 emitter = $emit');
     }
   }
 
@@ -118,8 +118,8 @@ class AddPlaceBloc extends Bloc<AddPlaceEvents, AddPlaceState> {
     _onErrorAddEvents event,
     Emitter<AddPlaceState> emit,
   ) async {
-    debugPrint('1 event = ${event.toString()}');
-    debugPrint('1 emit = ${emit.toString()}');
+    debugPrint('1 event = $event');
+    debugPrint('1 emit = $emit');
     try {
       emit(AddPlaceState.showPage(place: state.place));
     } on NetworkException {
@@ -127,8 +127,8 @@ class AddPlaceBloc extends Bloc<AddPlaceEvents, AddPlaceState> {
     } on Object {
       rethrow;
     } finally {
-      debugPrint('2 event = ${event.toString()}');
-      debugPrint('2 emitter = ${emit.toString()}');
+      debugPrint('2 event = $event');
+      debugPrint('2 emitter = $emit');
     }
   }
 }

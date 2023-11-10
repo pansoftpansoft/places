@@ -40,8 +40,8 @@ class SearchPlacesBloc extends Bloc<SearchPlacesEvents, SearchPlacesState> {
     _onLoadSearchPlacesEvents event,
     Emitter<SearchPlacesState> emit,
   ) async {
-    debugPrint('1 event = ${event.toString()}');
-    debugPrint('1 emit = ${emit.toString()}');
+    debugPrint('1 event = $event');
+    debugPrint('1 emit = $emit');
     try {
       //Показываем экран загрузки
       emit(
@@ -49,7 +49,7 @@ class SearchPlacesBloc extends Bloc<SearchPlacesEvents, SearchPlacesState> {
       );
       //Проверить историю поиск
       final listHistory = await _searchScreenInteractor.getListHistory();
-      debugPrint('listHistory = ${listHistory.toString()}');
+      debugPrint('listHistory = $listHistory');
       //Показываем историю поиска
       if (listHistory.isNotEmpty &&
           event.listSearch.isEmpty &&
@@ -63,7 +63,7 @@ class SearchPlacesBloc extends Bloc<SearchPlacesEvents, SearchPlacesState> {
         return;
       }
 
-      //Показываем пустой экран ни истори ни найденого ни введенных слова
+      //Показываем пустой экран ни истории ни найденного ни введенных слова
       if (event.listHistory.isEmpty &&
           event.listSearch.isEmpty &&
           event.stringSearch.isEmpty) {
@@ -81,18 +81,18 @@ class SearchPlacesBloc extends Bloc<SearchPlacesEvents, SearchPlacesState> {
     } on Object {
       rethrow;
     } finally {
-      debugPrint('2 event = ${event.toString()}');
-      debugPrint('2 emitter = ${emit.toString()}');
+      debugPrint('2 event = $event');
+      debugPrint('2 emitter = $emit');
     }
   }
 
-  //Введено слово, начикаем поиск
+  //Введено слово, начинаем поиск
   Future<void> _onNewSearch(
     _onNewSearchPlacesEvents event,
     Emitter<SearchPlacesState> emit,
   ) async {
-    debugPrint('event = ${event.toString()}');
-    debugPrint('emitter = ${emit.toString()}');
+    debugPrint('event = $event');
+    debugPrint('emitter = $emit');
     try {
       emit(
         const SearchPlacesState.load(),
@@ -131,8 +131,8 @@ class SearchPlacesBloc extends Bloc<SearchPlacesEvents, SearchPlacesState> {
     _onShowSelectPlaceEvents event,
     Emitter<SearchPlacesState> emit,
   ) async {
-    debugPrint('event = ${event.toString()}');
-    debugPrint('emitter = ${emit.toString()}');
+    debugPrint('event = $event');
+    debugPrint('emitter = $emit');
     try {
       //Показываем экран загрузки
       emit(
@@ -162,8 +162,8 @@ class SearchPlacesBloc extends Bloc<SearchPlacesEvents, SearchPlacesState> {
     _onClearHistoryEvents event,
     Emitter<SearchPlacesState> emit,
   ) async {
-    debugPrint('event = ${event.toString()}');
-    debugPrint('emitter = ${emit.toString()}');
+    debugPrint('event = $event');
+    debugPrint('emitter = $emit');
     try {
       //Показываем экран загрузки
 
@@ -188,7 +188,7 @@ class SearchPlacesBloc extends Bloc<SearchPlacesEvents, SearchPlacesState> {
       //Проверяем список слов в истории поиска
       final listHistoryNew = await _searchScreenInteractor.getListHistory();
 
-      debugPrint('listHistoryNew = ${listHistoryNew.toString()}');
+      debugPrint('listHistoryNew = $listHistoryNew');
 
       //Слов нет, чистим все.
       if (listHistoryNew.isEmpty) {

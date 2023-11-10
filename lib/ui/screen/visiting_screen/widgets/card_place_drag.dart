@@ -111,8 +111,7 @@ class _CardPlaceDragState extends State<CardPlaceDrag> {
 
     context.read<ListWantVisitBloc>().add(
           ListWantVisitUpdateDateEvent(
-            mocksWantVisit[index],
-            dateTimeCupertino,
+            mocksWantVisit[index].copyWith(wantVisitDate: dateTimeCupertino),
           ),
         );
   }

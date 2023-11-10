@@ -65,10 +65,10 @@ class PlaceRepositoryMoor implements PlaceRepository<Place> {
       final placesLocalData = await appDb.getListFavorite();
 
       for (final placesLocalDataElement in placesLocalData) {
-        debugPrint('placesLocalDataElement = ${placesLocalDataElement.toString()}');
+        debugPrint(
+          'placesLocalDataElement = $placesLocalDataElement',
+        );
       }
-
-
 
       final listPlaceAll = ((await apiClient.get(pathUrlListPlaces)).data
               as List)
@@ -105,7 +105,7 @@ class PlaceRepositoryMoor implements PlaceRepository<Place> {
   ) async {
     try {
       return apiClient.delete(
-        '$pathUrlDeletePlace/${place.id.toString()}',
+        '$pathUrlDeletePlace/${place.id}',
       );
     } on DioError catch (e) {
       throw NetworkException(e);
@@ -114,13 +114,13 @@ class PlaceRepositoryMoor implements PlaceRepository<Place> {
 
   @override
   Future<Place> getPlaceDetail(int id) {
-    // TODO: implement getPlaceDetail
+    //TODO: implement getPlaceDetail
     throw UnimplementedError();
   }
 
   ///Устанавливаем или удаляем место из фаворитов
   @override
-  Future<void> setIsFavorites(Place place) async {
+  Future<void> insertUpdateFavorites(Place place) async {
     await appDb.insertUpdateFavorite(
       place,
     );
@@ -128,20 +128,29 @@ class PlaceRepositoryMoor implements PlaceRepository<Place> {
     debugPrint(
       'newPlace id = ${place.id} isFavorites = ${place.isFavorites}',
     );
+  }
 
-    //mocksFiltered = (await placeRepository.updateMocksFiltered())!;
-    //await getListWantVisitAndVisitedBloc();
+  ///Устанавливаем или удаляем место из фаворитов
+  @override
+  Future<void> deleteFromFavorites(Place place) async {
+    await appDb.deleteFromFavorites(
+      place,
+    );
+
+    debugPrint('Удалено место из Favorites ${place.name}');
   }
 
   @override
-  Future<List<Place>> setPlacesVisited(int id, int date) {
-    // TODO: implement setPlacesVisited
-    throw UnimplementedError();
+  Future<void> setPlacesVisited(Place place) async {
+    await appDb.insertUpdateFavorite(
+      place,
+    );
+    debugPrint('Место отмечено как посещённое ${place.name}');
   }
 
   @override
   Future<void> setWantVisit(int id, int date) {
-    // TODO: implement setWantVisit
+    //TODO: implement setWantVisit
     throw UnimplementedError();
   }
 
@@ -166,8 +175,6 @@ class PlaceRepositoryMoor implements PlaceRepository<Place> {
   @override
   Future<List<Place>> getPlacesWantVisit() async {
     final listWantVisit = await appDb.getListFavorite();
-
-    listWantVisit.removeWhere((element) => element.visitedDate == null);
 
     return listWantVisit;
   }
@@ -228,7 +235,7 @@ class PlaceRepositoryMoor implements PlaceRepository<Place> {
     }
   }
 
-  /// получить объедененный список DTO и LOCAL
+  /// получить объединённый список DTO и LOCAL
   Future<void> createMocks(
     List<PlaceDto> placesDto,
   ) async {

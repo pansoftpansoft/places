@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
-import 'package:places/type_place.dart';
+import 'package:places/data/model/place.dart';
 import 'package:places/ui/res/labels.dart';
 import 'package:places/ui/screen/visiting_screen/bloc/list_visited_bloc/list_visited_bloc.dart';
 import 'package:places/ui/screen/visiting_screen/bloc/list_want_visit_bloc/list_want_visit_bloc.dart';
@@ -18,27 +18,37 @@ class ListVisitedFilled extends StatelessWidget {
   Widget build(BuildContext context) =>
       BlocBuilder<ListVisitedBloc, ListVisitedState>(
         builder: (context, state) {
+          final listPlace = state.props.first as List<Place>;
+
           return ListView.builder(
-            itemCount: mocksVisited.length,
+            itemCount: listPlace.length,
             itemBuilder: (context, index) => CardPlace(
-              mocksVisited[index],
+              listPlace[index],
               iconDelete: true,
-              goal: mocksVisited[index].visitedDate == null
+              goal: listPlace[index].visitedDate == null
                   ? ''
                   : '$goalBeen ${DateFormat('dd-MM-yyyy').format(
-                      mocksVisited[index].visitedDate!,
+                      listPlace[index].visitedDate!,
                     )}',
               actionOnDelete: () {
-                _actionOnDelete(context, index);
+                _actionOnDelete(
+                  context,
+                  index,
+                  listPlace,
+                );
               },
             ),
           );
         },
       );
 
-  void _actionOnDelete(BuildContext context, int index) {
+  void _actionOnDelete(
+    BuildContext context,
+    int index,
+    List<Place> listPlace,
+  ) {
     context
         .read<ListWantVisitBloc>()
-        .add(ListWantVisitRemovePlaceEvent(mocksVisited[index]));
+        .add(ListWantVisitRemovePlaceEvent(listPlace[index]));
   }
 }

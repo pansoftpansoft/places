@@ -19,7 +19,7 @@ abstract class PlaceRepository<T> {
   });
 
   /// Устанавливает и снимает признак фаворита
-  Future<void> setIsFavorites(
+  Future<void> insertUpdateFavorites(
     Place place,
   );
 
@@ -37,12 +37,13 @@ abstract class PlaceRepository<T> {
     List<T> listAllPlaces,
   );
 
-  /// Получть список мест которые хочу посетить
-  Future<List<T>> setPlacesVisited(
-    int id,
-    int date,
-  );
+  /// Отметить место как посещённое
+  Future<void> setPlacesVisited(Place place);
 
   /// удалить место
   Future<void> deletePlace(T place);
+
+  /// удалить место
+  Future<void> deleteFromFavorites(T place);
+
 }

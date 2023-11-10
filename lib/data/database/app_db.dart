@@ -60,7 +60,7 @@ class AppDb extends _$AppDb {
     );
   }
 
-  Future<void> deleteFavorite(Place place) async {
+  Future<void> deleteFromFavorites(Place place) async {
     await (delete(favorites)
           ..where(
             (tbl) {
@@ -80,6 +80,7 @@ class AppDb extends _$AppDb {
   }
 }
 
+///Подключение к базе данных
 LazyDatabase _openConnection() {
   return LazyDatabase(() async {
     final dbFolder = await getApplicationDocumentsDirectory();

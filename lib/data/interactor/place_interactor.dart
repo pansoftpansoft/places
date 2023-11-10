@@ -29,7 +29,7 @@ class PlaceInteractor {
   Future<void> setFavorites(
     Place place,
   ) async {
-    await placeRepository.setIsFavorites(place);
+    await placeRepository.insertUpdateFavorites(place);
   }
 
   ///-----------------------------------------------
